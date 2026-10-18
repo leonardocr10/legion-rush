@@ -112,11 +112,13 @@ namespace LegionRush
         private void SetupFrozen()
         {
             sunColor = new Color(1f, 0.97f, 0.94f); sunIntensity = 1.25f; sunPitch = 50f; sunYaw = -30f; shadowStrength = 0.65f;
-            shadowTint = new Color(0.55f, 0.68f, 1f); shadowTintAmount = 0.6f;
+            shadowTint = new Color(0.55f, 0.68f, 1f); shadowTintAmount = 0.5f;
             ambientSky = new Color(0.66f, 0.78f, 0.98f); ambientEquator = new Color(0.62f, 0.68f, 0.8f); ambientGround = new Color(0.52f, 0.58f, 0.7f);
-            fogColor = new Color(0.8f, 0.88f, 0.97f); fogStart = 45f; fogEnd = 115f;
-            postExposure = 0.15f; contrast = 14f; saturation = 18f; temperature = -10f; tint = 0f; colorFilter = Color.white;
-            splitShadows = new Color(0.45f, 0.5f, 0.62f); splitHighlights = new Color(0.52f, 0.52f, 0.5f); splitBalance = -10f;
+            // Neblina azul-clara mais longa: deixa ver o cânion e o castelo do fim (guia de iluminação: "luz fria e brilhante").
+            fogColor = new Color(0.64f, 0.79f, 0.98f); fogStart = 55f; fogEnd = 150f;
+            // Neve branca na luz e azul só na sombra (referência): balanço quase neutro, split toning suave.
+            postExposure = 0f; contrast = 20f; saturation = 14f; temperature = -2f; tint = 0f; colorFilter = Color.white;
+            splitShadows = new Color(0.47f, 0.5f, 0.57f); splitHighlights = new Color(0.55f, 0.53f, 0.5f); splitBalance = -10f;
             bloomIntensity = 0.55f; bloomThreshold = 1f; bloomScatter = 0.6f; bloomTint = new Color(0.85f, 0.93f, 1f);
             vignetteIntensity = 0.18f; vignetteColor = new Color(0.1f, 0.15f, 0.3f);
             characterRimBoost = 0.4f; emissionBoost = 0.2f;

@@ -39,15 +39,16 @@ namespace LegionRush
         private float lavaScroll;
         private float time;
 
+        // externalTorches: o cenário já tem braseiros próprios (kit de ambiente), então não cria as tochas simples.
         public void Build(WorldLightingProfile worldProfile, float trackLength, float halfWidth, Transform followTarget,
-            VisualQualityManager qualityManager)
+            VisualQualityManager qualityManager, bool externalTorches = false)
         {
             profile = worldProfile;
             quality = qualityManager;
             follow = followTarget;
             cam = Camera.main;
 
-            if (profile.torchSpacing > 0.5f) BuildTorches(trackLength, halfWidth);
+            if (profile.torchSpacing > 0.5f && !externalTorches) BuildTorches(trackLength, halfWidth);
             if (profile.lavaChannels) BuildLava(trackLength, halfWidth);
             if (profile.godRays) BuildGodRays(trackLength, halfWidth);
             if (profile.particles != AmbientParticleType.None && profile.particleRate > 0) BuildParticles(halfWidth);

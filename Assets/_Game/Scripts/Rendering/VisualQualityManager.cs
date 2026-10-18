@@ -24,6 +24,11 @@ namespace LegionRush
         public float GodRayDensity;
         public bool TorchPools;
         public int DefaultFps;
+        // Cenário 3D (kit de ambiente): densidade de decoração (0..1), sombras do cenário
+        // (0 nenhuma, 1 só peças grandes, 2 todas) e partículas de fogo (0..1).
+        public float EnvironmentDensity;
+        public int EnvironmentShadows;
+        public float FireParticles;
     }
 
     public class VisualQualityManager : MonoBehaviour
@@ -33,12 +38,13 @@ namespace LegionRush
 
         private static readonly QualityTierSettings[] Tiers =
         {
-            // BAIXO: desempenho primeiro. Sombras duras e curtas, só color grading, ambiência mínima.
-            new QualityTierSettings { RenderScale = 0.8f, Msaa = 1, ShadowDistance = 22f, ShadowCascades = 1, SoftShadows = false, Hdr = false, PostProcessing = true, BloomScale = 0f, Vignette = false, AmbientOcclusion = false, AmbienceScale = 0.35f, GodRayDensity = 0f, TorchPools = false, DefaultFps = 30 },
-            // MÉDIO: sombras suaves, MSAA 2x, bloom moderado.
-            new QualityTierSettings { RenderScale = 0.9f, Msaa = 2, ShadowDistance = 32f, ShadowCascades = 1, SoftShadows = true, Hdr = false, PostProcessing = true, BloomScale = 0.6f, Vignette = true, AmbientOcclusion = false, AmbienceScale = 0.7f, GodRayDensity = 0.5f, TorchPools = true, DefaultFps = 60 },
-            // ALTO: HDR, MSAA 4x, 2 cascatas, SSAO em aparelhos compatíveis, ambiência completa.
-            new QualityTierSettings { RenderScale = 1f, Msaa = 4, ShadowDistance = 45f, ShadowCascades = 2, SoftShadows = true, Hdr = true, PostProcessing = true, BloomScale = 1f, Vignette = true, AmbientOcclusion = true, AmbienceScale = 1f, GodRayDensity = 1f, TorchPools = true, DefaultFps = 60 }
+            // BAIXO: desempenho primeiro (meta 60 FPS em aparelho modesto). Sombras duras e curtas só dos personagens,
+            // só color grading, cenário com ~55% da decoração, fogo sem partículas.
+            new QualityTierSettings { RenderScale = 0.8f, Msaa = 1, ShadowDistance = 22f, ShadowCascades = 1, SoftShadows = false, Hdr = false, PostProcessing = true, BloomScale = 0f, Vignette = false, AmbientOcclusion = false, AmbienceScale = 0.35f, GodRayDensity = 0f, TorchPools = false, DefaultFps = 60, EnvironmentDensity = 0.55f, EnvironmentShadows = 0, FireParticles = 0f },
+            // MÉDIO: sombras suaves (cenário incluído), MSAA 2x, bloom moderado, fogo com poucas partículas.
+            new QualityTierSettings { RenderScale = 0.9f, Msaa = 2, ShadowDistance = 32f, ShadowCascades = 1, SoftShadows = true, Hdr = false, PostProcessing = true, BloomScale = 0.6f, Vignette = true, AmbientOcclusion = false, AmbienceScale = 0.7f, GodRayDensity = 0.5f, TorchPools = true, DefaultFps = 60, EnvironmentDensity = 0.8f, EnvironmentShadows = 1, FireParticles = 0.6f },
+            // ALTO: HDR, MSAA 4x, 2 cascatas, SSAO em aparelhos compatíveis, ambiência e cenário completos.
+            new QualityTierSettings { RenderScale = 1f, Msaa = 4, ShadowDistance = 45f, ShadowCascades = 2, SoftShadows = true, Hdr = true, PostProcessing = true, BloomScale = 1f, Vignette = true, AmbientOcclusion = true, AmbienceScale = 1f, GodRayDensity = 1f, TorchPools = true, DefaultFps = 60, EnvironmentDensity = 1f, EnvironmentShadows = 2, FireParticles = 1f }
         };
 
         [SerializeField] private bool adaptiveDowngrade = true;

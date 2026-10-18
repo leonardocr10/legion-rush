@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using LegionRush.Environments;
 
 namespace LegionRush
 {
@@ -34,6 +35,7 @@ namespace LegionRush
         public event System.Action<BossController> BossDefeated;
 
         private readonly List<GateRowController> gates = new List<GateRowController>();
+        private FrozenKingdomTrack frozenTrack;
         private LevelConfig config;
         private WorldLightingProfile world;
         private ArmyManager army;
@@ -355,6 +357,7 @@ namespace LegionRush
                     commander.AdvanceEnabled = false;
                     cameraController.SetZoom(0.7f);
                     army.PlayVictory();
+                    if (frozenTrack != null) frozenTrack.OpenCastleGate();
                     RecordResult(true);
                     break;
                 case State.Defeat:
@@ -378,46 +381,60 @@ namespace LegionRush
             float hw = config.trackHalfWidth;
             float length = config.trackLength + 60f;
             float centerZ = config.trackLength * 0.5f;
-            Material road = MaterialLibrary.Get(world.roadColor, 0f, 0f, false);
-            Material ground = MaterialLibrary.Get(world.groundColor, 0f, 0f, false);
             Material border = MaterialLibrary.Get(world.borderColor, 0f, 0.1f);
             Material finish = MaterialLibrary.Get(new Color(1f, 0.8f, 0.25f), 1.5f, 0f, false);
 
-            PrimitiveFactory.Part(PrimitiveType.Cube, track, new Vector3(0f, -0.5f, centerZ), new Vector3(hw * 2f, 1f, length), road, default, false);
-            PrimitiveFactory.Part(PrimitiveType.Cube, track, new Vector3(0f, -0.6f, centerZ), new Vector3(80f, 1f, length), ground, default, false);
-            for (int side = -1; side <= 1; side += 2)
+            // Mundo com kit de ambiente 3D (Assets/LegionRush/Environments): cenário estilizado completo.
+            // Os demais mundos continuam com o cenário de primitivas abaixo.
+            bool environmentKit = FrozenKingdomTrack.Supports(world.world);
+            if (environmentKit)
             {
-                PrimitiveFactory.Part(PrimitiveType.Cube, track, new Vector3(side * (hw + 0.25f), 0.25f, centerZ),
-                    new Vector3(0.5f, 0.5f, length), border);
+                frozenTrack = track.gameObject.AddComponent<FrozenKingdomTrack>();
+                frozenTrack.Build(config.trackLength, hw, config.levelNumber, world, quality, Camera.main);
             }
-
-            var rng = new System.Random(config.levelNumber * 7919 + (int)world.world * 131);
-            int propIndex = 0;
-            float lateralStart = world.lavaChannels ? hw + 5.6f : hw + 2f;
-            for (float z = -20f; z < config.trackLength + 30f; z += propSpacing)
+            else
             {
+                Material road = MaterialLibrary.Get(world.roadColor, 0f, 0f, false);
+                Material ground = MaterialLibrary.Get(world.groundColor, 0f, 0f, false);
+                PrimitiveFactory.Part(PrimitiveType.Cube, track, new Vector3(0f, -0.5f, centerZ), new Vector3(hw * 2f, 1f, length), road, default, false);
+                PrimitiveFactory.Part(PrimitiveType.Cube, track, new Vector3(0f, -0.6f, centerZ), new Vector3(80f, 1f, length), ground, default, false);
                 for (int side = -1; side <= 1; side += 2)
                 {
-                    float x = side * (lateralStart + (float)rng.NextDouble() * 10f);
-                    float height = 1.6f + (float)rng.NextDouble() * 1.4f;
-                    Vector3 position = new Vector3(x, 0f, z + (float)rng.NextDouble() * 4f);
-                    BuildProp(track, position, height, rng);
-                    if (propIndex % 3 == 0) BuildAccent(track, new Vector3(side * (lateralStart - 0.8f), 0f, z + 2f), rng);
-                    propIndex++;
+                    PrimitiveFactory.Part(PrimitiveType.Cube, track, new Vector3(side * (hw + 0.25f), 0.25f, centerZ),
+                        new Vector3(0.5f, 0.5f, length), border);
+                }
+
+                var rng = new System.Random(config.levelNumber * 7919 + (int)world.world * 131);
+                int propIndex = 0;
+                float lateralStart = world.lavaChannels ? hw + 5.6f : hw + 2f;
+                for (float z = -20f; z < config.trackLength + 30f; z += propSpacing)
+                {
+                    for (int side = -1; side <= 1; side += 2)
+                    {
+                        float x = side * (lateralStart + (float)rng.NextDouble() * 10f);
+                        float height = 1.6f + (float)rng.NextDouble() * 1.4f;
+                        Vector3 position = new Vector3(x, 0f, z + (float)rng.NextDouble() * 4f);
+                        BuildProp(track, position, height, rng);
+                        if (propIndex % 3 == 0) BuildAccent(track, new Vector3(side * (lateralStart - 0.8f), 0f, z + 2f), rng);
+                        propIndex++;
+                    }
                 }
             }
 
             float finishZ = config.trackLength;
             PrimitiveFactory.Part(PrimitiveType.Cube, track, new Vector3(0f, 0.02f, finishZ), new Vector3(hw * 2f, 0.05f, 1.2f), finish, default, false);
-            for (int side = -1; side <= 1; side += 2)
-                PrimitiveFactory.Part(PrimitiveType.Cube, track, new Vector3(side * (hw + 0.8f), 2.75f, finishZ), new Vector3(1f, 5.5f, 1f), border);
-            PrimitiveFactory.Part(PrimitiveType.Cube, track, new Vector3(0f, 5.6f, finishZ), new Vector3(hw * 2f + 2.6f, 0.7f, 0.5f), border);
+            if (!environmentKit)
+            {
+                for (int side = -1; side <= 1; side += 2)
+                    PrimitiveFactory.Part(PrimitiveType.Cube, track, new Vector3(side * (hw + 0.8f), 2.75f, finishZ), new Vector3(1f, 5.5f, 1f), border);
+                PrimitiveFactory.Part(PrimitiveType.Cube, track, new Vector3(0f, 5.6f, finishZ), new Vector3(hw * 2f + 2.6f, 0.7f, 0.5f), border);
+            }
             TMP_Text banner = PrimitiveFactory.Label(track, new Vector3(0f, 5.6f, finishZ - 0.3f), "VITÓRIA", 120, 0.07f, new Color(1f, 0.85f, 0.35f),
                 LegionTextStyle.Epic);
             banner.transform.localRotation = Quaternion.Euler(20f, 0f, 0f);
 
             WorldAmbience ambience = track.gameObject.AddComponent<WorldAmbience>();
-            ambience.Build(world, config.trackLength, hw, commander.transform, quality);
+            ambience.Build(world, config.trackLength, hw, commander.transform, quality, environmentKit);
         }
 
         private void BuildProp(Transform parent, Vector3 position, float height, System.Random rng)

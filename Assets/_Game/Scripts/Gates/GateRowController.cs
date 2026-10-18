@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using LegionRush.Environments;
 
 namespace LegionRush
 {
@@ -85,23 +86,53 @@ namespace LegionRush
             gate.SetParent(transform, false);
             gate.localPosition = new Vector3(centerX, 0f, 0f);
 
-            float half = width * 0.5f - 0.15f;
-            PrimitiveFactory.Part(PrimitiveType.Cube, gate, new Vector3(-half, 1.6f, 0f), new Vector3(0.25f, 3.2f, 0.25f), frame);
-            PrimitiveFactory.Part(PrimitiveType.Cube, gate, new Vector3(half, 1.6f, 0f), new Vector3(0.25f, 3.2f, 0.25f), frame);
-            PrimitiveFactory.Part(PrimitiveType.Cube, gate, new Vector3(0f, 0.03f, 0f), new Vector3(width - 0.4f, 0.06f, 1.4f), glow, default, false);
-            PrimitiveFactory.Part(PrimitiveType.Cube, gate, new Vector3(0f, 1.55f, 0f), new Vector3(width - 0.45f, 3.0f, 0.04f), curtain, default, false);
+            // Kit de ambiente disponível: portal ornamentado (pilares, arco, cortina de energia). Senão, primitivas.
+            bool ornate = EnvGatePortal.Available;
+            if (ornate)
+            {
+                EnvGatePortal.Build(gate, width, color, Mathf.RoundToInt(row.z * 13f + centerX * 7f));
+            }
+            else
+            {
+                float half = width * 0.5f - 0.15f;
+                PrimitiveFactory.Part(PrimitiveType.Cube, gate, new Vector3(-half, 1.6f, 0f), new Vector3(0.25f, 3.2f, 0.25f), frame);
+                PrimitiveFactory.Part(PrimitiveType.Cube, gate, new Vector3(half, 1.6f, 0f), new Vector3(0.25f, 3.2f, 0.25f), frame);
+                PrimitiveFactory.Part(PrimitiveType.Cube, gate, new Vector3(0f, 0.03f, 0f), new Vector3(width - 0.4f, 0.06f, 1.4f), glow, default, false);
+                PrimitiveFactory.Part(PrimitiveType.Cube, gate, new Vector3(0f, 1.55f, 0f), new Vector3(width - 0.45f, 3.0f, 0.04f), curtain, default, false);
+            }
 
             Transform sign = new GameObject("Sign").transform;
             sign.SetParent(gate, false);
-            sign.localPosition = new Vector3(0f, 3.75f, 0f);
+            sign.localPosition = new Vector3(0f, ornate ? 5.3f : 3.75f, ornate ? 0.1f : 0f);
             sign.localRotation = Quaternion.Euler(30f, 0f, 0f);
-            PrimitiveFactory.Part(PrimitiveType.Cube, sign, Vector3.zero, new Vector3(width - 0.15f, 1.7f, 0.18f), glow);
+            if (ornate)
+            {
+                // Placa na cor da categoria com moldura dourada (texto continua vindo dos dados do portal).
+                Material plaque = MaterialLibrary.Get(color * 0.55f, 0.5f, 0f);
+                Material gold = MaterialLibrary.Get(new Color(1f, 0.76f, 0.26f), 0.15f, 0.2f);
+                PrimitiveFactory.Part(PrimitiveType.Cube, sign, new Vector3(0f, 0f, 0.03f), new Vector3(width - 0.05f, 1.8f, 0.14f), gold);
+                PrimitiveFactory.Part(PrimitiveType.Cube, sign, Vector3.zero, new Vector3(width - 0.3f, 1.58f, 0.18f), plaque);
+            }
+            else PrimitiveFactory.Part(PrimitiveType.Cube, sign, Vector3.zero, new Vector3(width - 0.15f, 1.7f, 0.18f), glow);
             float titleSize = Mathf.Clamp(0.32f / Mathf.Max(3, option.title.Length) * width, 0.035f, 0.075f);
             float subtitleSize = Mathf.Clamp(0.5f / Mathf.Max(6, option.subtitle.Length) * width, 0.02f, 0.035f);
             title = PrimitiveFactory.Label(sign, new Vector3(0f, 0.28f, -0.12f), option.title, 128, titleSize, Color.white);
-            PrimitiveFactory.Label(sign, new Vector3(0f, -0.48f, -0.12f), option.subtitle, 96, subtitleSize, new Color(1f, 1f, 1f, 0.95f),
+            TMP_Text subtitle = PrimitiveFactory.Label(sign, new Vector3(0f, -0.48f, -0.12f), option.subtitle, 96, subtitleSize, new Color(1f, 1f, 1f, 0.95f),
                 LegionTextStyle.Menu);
+            // Títulos longos ("CAMINHO LONGO") encolhem para caber na placa em vez de invadir o portal vizinho.
+            FitWidth(title, width - 0.5f, 0.95f);
+            FitWidth(subtitle, width - 0.5f, 0.5f);
             return gate;
+        }
+
+        private static void FitWidth(TMP_Text text, float width, float height)
+        {
+            if (text == null) return;
+            float size = text.fontSize;
+            text.rectTransform.sizeDelta = new Vector2(Mathf.Max(0.5f, width), height);
+            text.enableAutoSizing = true;
+            text.fontSizeMax = size;
+            text.fontSizeMin = size * 0.35f;
         }
     }
 }
