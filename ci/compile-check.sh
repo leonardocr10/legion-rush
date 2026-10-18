@@ -50,8 +50,8 @@ if [ -z "$UGUI_ASMDEF" ]; then
 fi
 [ -n "$UGUI_ASMDEF" ] || { echo "::error::UnityEngine.UI.asmdef não encontrado"; exit 2; }
 UGUI_DIR=$(dirname "$UGUI_ASMDEF")
-echo "UGUI: $UGUI_DIR"
 mapfile -t UGUI_SRC < <(find "$UGUI_DIR" -name '*.cs' -not -path '*/Editor/*' -not -path '*/Tests/*' | sort)
+echo "::notice::UGUI asmdef: $UGUI_ASMDEF | ${#UGUI_SRC[@]} arquivos | conteúdo: $(head -c 300 "$UGUI_ASMDEF" | tr '\n' ' ')"
 csc "${BASE_REFS[@]}" "${ENGINE_REFS[@]}" -unsafe -nowarn:0618,0649,0414,0169 \
   -define:"UNITY_6000_0_OR_NEWER;PACKAGE_PHYSICS;PACKAGE_PHYSICS2D;PACKAGE_ANIMATION;PACKAGE_TILEMAP;PACKAGE_UITOOLKIT" \
   -out:"$OUT/UnityEngine.UI.dll" "${UGUI_SRC[@]}"
