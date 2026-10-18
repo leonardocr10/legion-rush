@@ -9,6 +9,7 @@ using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 
+#pragma warning disable 0618 // FindObjectsSortMode: obsoleto apenas em versões mais novas do Unity 6
 namespace LegionRush.EditorTools
 {
     // Configura o projeto do zero (URP, cena, Android) e gera o APK.

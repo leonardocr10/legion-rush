@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
+#pragma warning disable 0618 // FindObjectsSortMode: obsoleto apenas em versões mais novas do Unity 6
 namespace LegionRush.EditorTools
 {
     public static class LightingTools

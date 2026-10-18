@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
+#pragma warning disable 0618 // FindObjectsSortMode: obsoleto apenas em versões mais novas do Unity 6
 namespace LegionRush
 {
     // Canais independentes (Música, SFX, UI), limite de vozes, agregação de pedidos por quadro

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
+#pragma warning disable 0618 // FindObjectsSortMode: obsoleto apenas em versões mais novas do Unity 6
 namespace LegionRush
 {
     // Ponto de entrada. Monta a fase atual (que também serve de cenário 3D atrás dos menus) e conduz o fluxo:
