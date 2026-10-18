@@ -4,27 +4,17 @@ Crowd runner 3D de fantasia para Android/iOS, feito em **Unity 6 LTS (6000.0.83f
 
 ## O que já funciona
 
-- Comandante controlado por arrasto, com avanço automático e câmera retrato adaptativa
-- Exército de arqueiros e guerreiros com formação dinâmica e object pooling
-- Portais +, x, − e −50%, com regras de arredondamento, limites e autoteste
-- Combate automático: críticos, flechas com rastro dourado, animação de morte e celebração de vitória
-- Shader `LegionRush/ToonLit` com contorno, rim light, flash de dano e sombras tingidas por mundo
-- Iluminação por mundo: Reino Congelado, Deserto Perdido, Floresta Encantada e Reino Vulcânico
-  - sol, luz ambiente, neblina e color grading próprios
-  - tochas simuladas, lava emissiva, feixes de sol e partículas (neve, poeira, vaga-lumes, brasas)
-- Qualidade BAIXO/MÉDIO/ALTO com detecção automática do aparelho, opção de 30/60 FPS e redução automática de qualidade se o FPS cair
-- Áudio com canais de música, efeitos e interface:
-  - limite de vozes e agregação, para centenas de soldados atacando juntos
-  - mute, volume por canal e configurações persistentes
-- Menu de pausa no jogo para ajustar áudio, gráficos e FPS, e trocar de mundo
-- Pipeline de animação pronto para receber os modelos finais com `CharacterVisualLibrary` e `CharacterAnimatorDriver`
+O detalhamento por fase está em [`docs/PROGRESSO.md`](docs/PROGRESSO.md). Resumo:
 
-## Pendente
+- 6 classes de tropa com formação por papel, 4 composições e 3 posturas.
+- 7 habilidades com recarga e mira automática.
+- 5 chefões com máquina de estados, aviso visual, fases, vulnerabilidade e invocações.
+- Portais de escolha estratégica (2 ou 3 opções) com 14 tipos de efeito, rotas e limites de balanceamento.
+- Save robusto (versionado, atômico, com backup e exportação), economia offline, estrelas e recordes.
+- Iluminação por mundo (4 mundos), qualidade Baixo/Médio/Alto, shaders ToonLit e Glow.
+- Áudio com canais, limite de vozes e persistência.
 
-- Modelos 3D finais, rigs e animações: os personagens atuais são placeholders feitos de primitivas.
-- Chefões, mago, lanceiro, curandeiro, heróis e habilidades.
-- Portais de escolha estratégica, telas de menu, loja, save completo e as 30 fases.
-- Profiling em aparelho real.
+**Ainda provisório:** os personagens são primitivas (Fase B depende de arte 3D) e a interface é um HUD IMGUI temporário (as telas UGUI ficam para a Fase E).
 
 ## Gerar o APK pelo GitHub (sem PC no dia a dia)
 
