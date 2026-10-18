@@ -42,7 +42,7 @@ namespace LegionRush
                 GateOp.HalveDown => safeCurrent / 2,
                 _ => safeCurrent
             };
-            return (int)Math.Clamp(result, 0L, Math.Max(0L, max));
+            return (int)Math.Min(Math.Max(result, 0L), Math.Max(0L, (long)max));
         }
     }
 

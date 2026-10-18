@@ -159,10 +159,10 @@ namespace LegionRush
             Transform musicRoot = CreateChild("Music");
             for (int i = 0; i < musicSources.Length; i++)
             {
-                AudioSource source = CreateSource(musicRoot, library.musicGroup, true);
-                source.loop = true;
-                source.priority = 0;
-                musicSources[i] = source;
+                AudioSource musicSource = CreateSource(musicRoot, library.musicGroup, true);
+                musicSource.loop = true;
+                musicSource.priority = 0;
+                musicSources[i] = musicSource;
             }
 
             initialized = true;
