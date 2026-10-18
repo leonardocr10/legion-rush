@@ -8,7 +8,7 @@ namespace LegionRush
     {
         Commander, Archer, Warrior, Mage, Lancer, Healer, MountedKnight,
         EnemySoldier, EnemyArcher, Berserker, HeavyWarrior, Pikeman, DarkMage,
-        BossDarkTitan, BossLavaGolem, BossIceKing, BossFireDragon
+        BossDarkTitan, BossMadPharaoh, BossAncientDragon, BossLordVulcan, BossMechColossus
     }
 
     [Serializable]

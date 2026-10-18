@@ -14,6 +14,8 @@ namespace LegionRush
         public bool IsPaused { get; private set; }
         public int Gold { get; private set; }
         public int Kills { get; private set; }
+        public int Gems { get; private set; }
+        public BossController Boss => boss;
         public LevelConfig Config => config;
         public WorldLightingProfile World => world;
         public float Progress => commander == null ? 0f : Mathf.Clamp01(commander.transform.position.z / config.trackLength);
@@ -21,6 +23,8 @@ namespace LegionRush
         public event System.Action<bool> PauseChanged;
         public event System.Action<GateDef, int, int> GateApplied;
         public event System.Action<Vector3, int> EnemyKilled;
+        public event System.Action<BossController> BossAwakened;
+        public event System.Action<BossController> BossDefeated;
 
         private readonly List<GateRowController> gates = new List<GateRowController>();
         private LevelConfig config;
@@ -31,10 +35,13 @@ namespace LegionRush
         private VisualQualityManager quality;
         private Transform enemyRoot;
         private CorpseQueue enemyCorpses;
+        private BossController boss;
         private float stateTimer;
+        private float slowMotionTimer;
 
         public void Initialize(LevelConfig levelConfig, WorldLightingProfile worldProfile, ArmyManager armyManager,
-            CommanderController commanderController, ArmyCameraController cameraRig, VisualQualityManager qualityManager)
+            CommanderController commanderController, ArmyCameraController cameraRig, VisualQualityManager qualityManager,
+            BossDefinition bossDefinition)
         {
             config = levelConfig;
             world = worldProfile;
@@ -48,16 +55,23 @@ namespace LegionRush
             BuildTrack();
             BuildGates();
             SpawnWaves();
+            if (bossDefinition != null) SpawnBoss(bossDefinition);
 
             army.CountChanged += HandleArmyCountChanged;
             commander.SetCountLabel(army.Count);
             SetState(State.Ready);
-            GameLog.Info($"Level {config.levelNumber} ({world.displayName}) ready: {gates.Count} gate rows, {CombatRegistry.Enemies.Count} enemies, {config.trackLength}m track.");
+            GameLog.Info($"Level {config.levelNumber} ({world.displayName}) ready: {gates.Count} gate rows, {CombatRegistry.Enemies.Count} enemies, chefão {(boss != null ? boss.Definition.displayName : "nenhum")}, {config.trackLength}m track.");
+        }
+
+        public void StartRun()
+        {
+            if (Current != State.Ready || stateTimer < startInputDelay) return;
+            SetState(State.Running);
         }
 
         public void HandleEnemyDeath(Enemy enemy)
         {
-            CombatRegistry.Enemies.Remove(enemy);
+            CombatRegistry.Unregister(enemy);
             enemyCorpses.Add(enemy);
             Gold += config.goldPerEnemy;
             Kills++;
@@ -81,10 +95,42 @@ namespace LegionRush
             if (pauseStatus && Current == State.Running) SetPaused(true);
         }
 
+        public void HandleBossDefeated(BossController defeated)
+        {
+            Gold += defeated.Definition.goldReward;
+            Gems += defeated.Definition.gemReward;
+            Kills++;
+            slowMotionTimer = 1.4f;
+            if (!IsPaused) Time.timeScale = 0.35f;
+            cameraController.SetZoom(1f);
+            GameLog.Info($"Chefão derrotado: {defeated.Definition.displayName} (+{defeated.Definition.goldReward} ouro, +{defeated.Definition.gemReward} gemas).");
+            BossDefeated?.Invoke(defeated);
+        }
+
+        // Invocações do chefão: surgem em círculo e já entram em combate.
+        public void SpawnSummons(Vector3 center, int count, Color color, float healthMultiplier)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                float angle = (i / (float)Mathf.Max(1, count)) * Mathf.PI * 2f + Random.value * 0.5f;
+                float radius = 1.2f + Random.value * 1.8f;
+                Vector3 p = center + new Vector3(Mathf.Cos(angle) * radius, 0f, Mathf.Sin(angle) * radius);
+                p.x = Mathf.Clamp(p.x, -config.trackHalfWidth + 0.4f, config.trackHalfWidth - 0.4f);
+                p.y = 0f;
+                Enemy enemy = SpawnEnemy(p, healthMultiplier, color);
+                enemy.ForceAggro();
+                Vfx.Burst(p + Vector3.up * 0.6f, new Color(color.r, color.g, color.b, 0.7f), 0.9f, 0.4f);
+            }
+        }
+
         private void OnDestroy()
         {
             if (army != null) army.CountChanged -= HandleArmyCountChanged;
-            if (!IsPaused) return;
+            if (boss != null)
+            {
+                boss.Awakened -= HandleBossAwakened;
+            }
+            if (!IsPaused && slowMotionTimer <= 0f) return;
             Time.timeScale = 1f;
             GameAudio.SetGameplayPaused(false);
         }
@@ -94,14 +140,15 @@ namespace LegionRush
             if (config == null) return;
             float dt = Time.deltaTime;
             enemyCorpses.Tick(dt);
+            if (slowMotionTimer > 0f)
+            {
+                slowMotionTimer -= Time.unscaledDeltaTime;
+                if (slowMotionTimer <= 0f && !IsPaused) Time.timeScale = 1f;
+            }
             if (IsPaused) return;
             stateTimer += dt;
 
-            if (Current == State.Ready)
-            {
-                if (stateTimer >= startInputDelay && PointerInput.IsPressed(out _)) SetState(State.Running);
-            }
-            else if (Current == State.Running)
+            if (Current == State.Running)
             {
                 TickRunning(dt);
             }
@@ -119,6 +166,11 @@ namespace LegionRush
                 enemy.Tick(deltaTime, commanderPosition);
                 if (enemy.IsAggro && enemy.IsAlive) engaged = true;
             }
+            if (boss != null && boss.IsAlive)
+            {
+                boss.Tick(deltaTime, commanderPosition);
+                if (boss.IsEngaged) engaged = true;
+            }
             commander.SetEngaged(engaged);
 
             for (int i = 0; i < gates.Count; i++)
@@ -131,7 +183,8 @@ namespace LegionRush
                 SetState(State.Defeat);
                 return;
             }
-            if (commanderPosition.z >= config.trackLength && !engaged) SetState(State.Victory);
+            bool bossDown = boss == null || !boss.IsAlive;
+            if (commanderPosition.z >= config.trackLength && !engaged && bossDown) SetState(State.Victory);
         }
 
         private void ApplyGate(GateDef gate)
@@ -161,6 +214,8 @@ namespace LegionRush
                     commander.AdvanceEnabled = true;
                     break;
                 case State.Victory:
+                    slowMotionTimer = 0f;
+                    Time.timeScale = 1f;
                     Gold += config.victoryGold;
                     commander.ControlEnabled = false;
                     commander.AdvanceEnabled = false;
@@ -335,18 +390,32 @@ namespace LegionRush
                     int rowIndex = i / columns;
                     float x = (column - (columns - 1) * 0.5f) * wave.spacing;
                     float z = wave.z + rowIndex * wave.spacing;
-                    SpawnEnemy(new Vector3(x, 0f, z), wave.healthMultiplier);
+                    SpawnEnemy(new Vector3(x, 0f, z), wave.healthMultiplier, config.enemy.color);
                 }
             }
         }
 
-        private void SpawnEnemy(Vector3 position, float healthMultiplier)
+        private Enemy SpawnEnemy(Vector3 position, float healthMultiplier, Color color)
         {
-            GameObject go = CharacterFactory.CreateEnemy(enemyRoot, config.enemy.color);
+            GameObject go = CharacterFactory.CreateEnemy(enemyRoot, color);
             go.transform.SetPositionAndRotation(position, Quaternion.Euler(0f, 180f, 0f));
             Enemy enemy = go.AddComponent<Enemy>();
             enemy.Initialize(config.enemy, healthMultiplier, this, army);
-            CombatRegistry.Enemies.Add(enemy);
+            CombatRegistry.Register(enemy);
+            return enemy;
         }
+
+        private void SpawnBoss(BossDefinition definition)
+        {
+            float z = Mathf.Max(20f, config.trackLength - config.boss.distanceFromEnd);
+            GameObject go = CharacterFactory.CreateBoss(definition, transform);
+            go.transform.SetPositionAndRotation(new Vector3(0f, 0f, z), Quaternion.Euler(0f, 180f, 0f));
+            boss = go.AddComponent<BossController>();
+            boss.Initialize(definition, config.boss.healthMultiplier, this, army, cameraController, config.trackHalfWidth);
+            boss.Awakened += HandleBossAwakened;
+            CombatRegistry.RegisterHostile(boss);
+        }
+
+        private void HandleBossAwakened(BossController awakened) => BossAwakened?.Invoke(awakened);
     }
 }

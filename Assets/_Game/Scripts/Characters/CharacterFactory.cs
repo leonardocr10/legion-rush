@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace LegionRush
 {
+    // Cria personagens: usa o prefab final da CharacterVisualLibrary quando existir; caso contrário, placeholder de primitivas.
     public static class CharacterFactory
     {
         public static CharacterVisualLibrary Library { get; set; }
@@ -13,11 +14,21 @@ namespace LegionRush
         private static readonly Color SteelColor = new Color(0.78f, 0.81f, 0.86f);
         private static readonly Color GoldColor = new Color(1f, 0.76f, 0.25f);
         private static readonly Color CapeColor = new Color(0.75f, 0.12f, 0.15f);
+        private static readonly Color WoodColor = new Color(0.5f, 0.34f, 0.2f);
+
+        public static CharacterId IdFor(UnitClass unitClass) => unitClass switch
+        {
+            UnitClass.Archer => CharacterId.Archer,
+            UnitClass.Lancer => CharacterId.Lancer,
+            UnitClass.Mage => CharacterId.Mage,
+            UnitClass.Healer => CharacterId.Healer,
+            UnitClass.Knight => CharacterId.MountedKnight,
+            _ => CharacterId.Warrior
+        };
 
         public static GameObject CreateSoldier(UnitClass unitClass, Transform parent, Color tunicColor)
         {
-            CharacterId id = unitClass == UnitClass.Archer ? CharacterId.Archer : CharacterId.Warrior;
-            return TryCreateFromLibrary(id, parent, out GameObject root)
+            return TryCreateFromLibrary(IdFor(unitClass), parent, out GameObject root)
                 ? root
                 : CreatePlaceholderSoldier(unitClass, parent, tunicColor);
         }
@@ -34,6 +45,13 @@ namespace LegionRush
             return TryCreateFromLibrary(CharacterId.Commander, parent, out GameObject root)
                 ? root
                 : CreatePlaceholderCommander(parent);
+        }
+
+        public static GameObject CreateBoss(BossDefinition definition, Transform parent)
+        {
+            return TryCreateFromLibrary(definition.visual, parent, out GameObject root)
+                ? root
+                : CreatePlaceholderBoss(definition, parent);
         }
 
         private static bool TryCreateFromLibrary(CharacterId id, Transform parent, out GameObject root)
@@ -57,27 +75,87 @@ namespace LegionRush
             return true;
         }
 
+        // ---------- Placeholders das tropas ----------
+
         private static GameObject CreatePlaceholderSoldier(UnitClass unitClass, Transform parent, Color tunicColor)
         {
             Transform v = CreateRoot(unitClass + "Soldier", parent, out GameObject root);
             Material tunic = MaterialLibrary.Get(tunicColor);
             Material leather = MaterialLibrary.Get(LeatherColor);
             Material steel = MaterialLibrary.Get(SteelColor, 0f, 0.85f);
-            BuildHumanoid(v, tunic, MaterialLibrary.Get(SkinColor), leather, 1f);
+            Material wood = MaterialLibrary.Get(WoodColor);
+            Material skin = MaterialLibrary.Get(SkinColor);
 
-            if (unitClass == UnitClass.Archer)
+            if (unitClass == UnitClass.Knight)
             {
-                PrimitiveFactory.Part(PrimitiveType.Sphere, v, new Vector3(0f, 1.16f, -0.03f), new Vector3(0.36f, 0.3f, 0.36f), tunic);
-                PrimitiveFactory.Part(PrimitiveType.Cube, v, new Vector3(0.32f, 0.72f, 0.12f), new Vector3(0.05f, 0.78f, 0.07f), leather);
-                PrimitiveFactory.Part(PrimitiveType.Cube, v, new Vector3(0f, 0.82f, -0.22f), new Vector3(0.15f, 0.42f, 0.12f), leather, new Vector3(-12f, 0f, 0f));
+                BuildHorse(v, MaterialLibrary.Get(new Color(0.45f, 0.3f, 0.18f)), tunic);
+                Transform rider = new GameObject("Rider").transform;
+                rider.SetParent(v, false);
+                rider.localPosition = new Vector3(0f, 0.62f, -0.05f);
+                BuildHumanoid(rider, tunic, skin, leather, 0.9f);
+                PrimitiveFactory.Part(PrimitiveType.Sphere, rider, new Vector3(0f, 1.05f, 0f), new Vector3(0.32f, 0.26f, 0.32f), steel);
+                PrimitiveFactory.Part(PrimitiveType.Cube, rider, new Vector3(0.3f, 0.75f, 0.45f), new Vector3(0.06f, 0.06f, 1.3f), wood, new Vector3(-8f, 0f, 0f));
+                PrimitiveFactory.Part(PrimitiveType.Cube, rider, new Vector3(0.3f, 0.82f, 1.1f), new Vector3(0.07f, 0.07f, 0.25f), steel, new Vector3(-8f, 0f, 0f));
+                return root;
             }
-            else
+
+            BuildHumanoid(v, tunic, skin, leather, 1f);
+            switch (unitClass)
             {
-                PrimitiveFactory.Part(PrimitiveType.Sphere, v, new Vector3(0f, 1.17f, 0f), new Vector3(0.35f, 0.25f, 0.35f), steel);
-                PrimitiveFactory.Part(PrimitiveType.Cube, v, new Vector3(-0.33f, 0.68f, 0.12f), new Vector3(0.07f, 0.52f, 0.4f), steel);
-                PrimitiveFactory.Part(PrimitiveType.Cube, v, new Vector3(0.33f, 0.8f, 0.3f), new Vector3(0.06f, 0.06f, 0.7f), steel);
+                case UnitClass.Archer:
+                    PrimitiveFactory.Part(PrimitiveType.Sphere, v, new Vector3(0f, 1.16f, -0.03f), new Vector3(0.36f, 0.3f, 0.36f), tunic);
+                    PrimitiveFactory.Part(PrimitiveType.Cube, v, new Vector3(0.32f, 0.72f, 0.12f), new Vector3(0.05f, 0.78f, 0.07f), leather);
+                    PrimitiveFactory.Part(PrimitiveType.Cube, v, new Vector3(0f, 0.82f, -0.22f), new Vector3(0.15f, 0.42f, 0.12f), leather, new Vector3(-12f, 0f, 0f));
+                    break;
+                case UnitClass.Lancer:
+                    PrimitiveFactory.Part(PrimitiveType.Sphere, v, new Vector3(0f, 1.17f, 0f), new Vector3(0.35f, 0.27f, 0.35f), steel);
+                    PrimitiveFactory.Part(PrimitiveType.Cube, v, new Vector3(0f, 1.36f, 0f), new Vector3(0.04f, 0.14f, 0.2f), tunic);
+                    PrimitiveFactory.Part(PrimitiveType.Cube, v, new Vector3(0.3f, 0.95f, 0.15f), new Vector3(0.05f, 1.8f, 0.05f), wood, new Vector3(25f, 0f, 0f));
+                    PrimitiveFactory.Part(PrimitiveType.Cube, v, new Vector3(0.3f, 1.8f, 0.55f), new Vector3(0.07f, 0.25f, 0.07f), steel, new Vector3(25f, 0f, 0f));
+                    PrimitiveFactory.Part(PrimitiveType.Cylinder, v, new Vector3(-0.32f, 0.65f, 0.1f), new Vector3(0.38f, 0.03f, 0.38f), steel, new Vector3(0f, 0f, 90f));
+                    break;
+                case UnitClass.Mage:
+                {
+                    Material glow = MaterialLibrary.Get(new Color(0.65f, 0.4f, 1f), 3f, 0f, false);
+                    PrimitiveFactory.Part(PrimitiveType.Capsule, v, new Vector3(0f, 1.3f, -0.02f), new Vector3(0.34f, 0.32f, 0.34f), tunic);
+                    PrimitiveFactory.Part(PrimitiveType.Cube, v, new Vector3(0f, 1.0f, 0.13f), new Vector3(0.18f, 0.2f, 0.05f), MaterialLibrary.Get(Color.white));
+                    PrimitiveFactory.Part(PrimitiveType.Cube, v, new Vector3(0.32f, 0.75f, 0.1f), new Vector3(0.05f, 1.2f, 0.05f), wood);
+                    PrimitiveFactory.Part(PrimitiveType.Sphere, v, new Vector3(0.32f, 1.4f, 0.1f), Vector3.one * 0.16f, glow, default, false);
+                    break;
+                }
+                case UnitClass.Healer:
+                {
+                    Material holy = MaterialLibrary.Get(new Color(1f, 0.85f, 0.35f), 2.5f, 0f, false);
+                    PrimitiveFactory.Part(PrimitiveType.Sphere, v, new Vector3(0f, 1.16f, -0.04f), new Vector3(0.34f, 0.3f, 0.34f), tunic);
+                    PrimitiveFactory.Part(PrimitiveType.Cylinder, v, new Vector3(0f, 0.32f, 0f), new Vector3(0.42f, 0.2f, 0.42f), tunic);
+                    PrimitiveFactory.Part(PrimitiveType.Cube, v, new Vector3(0.32f, 0.75f, 0.1f), new Vector3(0.05f, 1.15f, 0.05f), MaterialLibrary.Get(GoldColor, 0f, 0.7f));
+                    PrimitiveFactory.Part(PrimitiveType.Cube, v, new Vector3(0.32f, 1.38f, 0.1f), new Vector3(0.05f, 0.22f, 0.05f), holy, default, false);
+                    PrimitiveFactory.Part(PrimitiveType.Cube, v, new Vector3(0.32f, 1.38f, 0.1f), new Vector3(0.18f, 0.05f, 0.05f), holy, default, false);
+                    break;
+                }
+                default:
+                    PrimitiveFactory.Part(PrimitiveType.Sphere, v, new Vector3(0f, 1.17f, 0f), new Vector3(0.35f, 0.25f, 0.35f), steel);
+                    PrimitiveFactory.Part(PrimitiveType.Cube, v, new Vector3(-0.33f, 0.68f, 0.12f), new Vector3(0.07f, 0.52f, 0.4f), steel);
+                    PrimitiveFactory.Part(PrimitiveType.Cube, v, new Vector3(0.33f, 0.8f, 0.3f), new Vector3(0.06f, 0.06f, 0.7f), steel);
+                    break;
             }
             return root;
+        }
+
+        private static void BuildHorse(Transform v, Material coat, Material barding)
+        {
+            Material dark = MaterialLibrary.Get(new Color(0.18f, 0.12f, 0.08f));
+            PrimitiveFactory.Part(PrimitiveType.Capsule, v, new Vector3(0f, 0.62f, 0f), new Vector3(0.42f, 0.55f, 0.42f), coat, new Vector3(90f, 0f, 0f));
+            PrimitiveFactory.Part(PrimitiveType.Cube, v, new Vector3(0f, 0.68f, 0f), new Vector3(0.48f, 0.22f, 0.6f), barding);
+            PrimitiveFactory.Part(PrimitiveType.Capsule, v, new Vector3(0f, 0.95f, 0.55f), new Vector3(0.2f, 0.3f, 0.2f), coat, new Vector3(35f, 0f, 0f));
+            PrimitiveFactory.Part(PrimitiveType.Cube, v, new Vector3(0f, 1.12f, 0.78f), new Vector3(0.16f, 0.16f, 0.32f), coat);
+            PrimitiveFactory.Part(PrimitiveType.Cube, v, new Vector3(0f, 1.1f, 0.5f), new Vector3(0.05f, 0.3f, 0.3f), dark, new Vector3(35f, 0f, 0f));
+            for (int i = 0; i < 4; i++)
+            {
+                float x = i % 2 == 0 ? -0.14f : 0.14f;
+                float z = i < 2 ? 0.32f : -0.32f;
+                PrimitiveFactory.Part(PrimitiveType.Cube, v, new Vector3(x, 0.2f, z), new Vector3(0.1f, 0.42f, 0.1f), coat);
+            }
         }
 
         private static GameObject CreatePlaceholderEnemy(Transform parent, Color armorColor)
@@ -85,7 +163,7 @@ namespace LegionRush
             Transform v = CreateRoot("Enemy", parent, out GameObject root);
             Material armor = MaterialLibrary.Get(armorColor, 0f, 0.4f);
             Material dark = MaterialLibrary.Get(new Color(0.15f, 0.12f, 0.14f), 0f, 0.6f);
-            Material eyes = MaterialLibrary.Get(new Color(1f, 0.35f, 0.1f), 3f);
+            Material eyes = MaterialLibrary.Get(new Color(1f, 0.35f, 0.1f), 3f, 0f, false);
             Material steel = MaterialLibrary.Get(SteelColor, 0f, 0.85f);
             BuildHumanoid(v, armor, dark, dark, 1.1f);
 
@@ -113,6 +191,87 @@ namespace LegionRush
             PrimitiveFactory.Part(PrimitiveType.Cube, v, new Vector3(0f, 0.85f, -0.26f), new Vector3(0.55f, 1f, 0.05f), cape, new Vector3(8f, 0f, 0f));
             PrimitiveFactory.Part(PrimitiveType.Cube, v, new Vector3(0.42f, 1.05f, 0.35f), new Vector3(0.08f, 0.08f, 1f), blade);
             return root;
+        }
+
+        // ---------- Placeholders dos chefões (silhuetas distintas por chefão) ----------
+
+        private static GameObject CreatePlaceholderBoss(BossDefinition d, Transform parent)
+        {
+            Transform v = CreateRoot("Boss_" + d.id, parent, out GameObject root);
+            Transform body = new GameObject("Body").transform;
+            body.SetParent(v, false);
+            body.localScale = Vector3.one * (d.scale / 1.6f);
+
+            Material primary = MaterialLibrary.Get(d.primaryColor, 0f, 0.5f);
+            Material secondary = MaterialLibrary.Get(d.secondaryColor, 0f, 0.7f);
+            Material glow = MaterialLibrary.Get(d.glowColor, 3f, 0f, false);
+
+            if (d.id == BossId.AncientDragon)
+            {
+                BuildDragon(body, primary, secondary, glow);
+                return root;
+            }
+
+            BuildHumanoid(body, primary, secondary, secondary, 1.15f);
+            PrimitiveFactory.Part(PrimitiveType.Cube, body, new Vector3(-0.08f, 1.28f, 0.17f), new Vector3(0.08f, 0.04f, 0.03f), glow, default, false);
+            PrimitiveFactory.Part(PrimitiveType.Cube, body, new Vector3(0.08f, 1.28f, 0.17f), new Vector3(0.08f, 0.04f, 0.03f), glow, default, false);
+
+            switch (d.id)
+            {
+                case BossId.DarkTitan:
+                    for (int side = -1; side <= 1; side += 2)
+                    {
+                        PrimitiveFactory.Part(PrimitiveType.Sphere, body, new Vector3(side * 0.42f, 1.0f, 0f), Vector3.one * 0.32f, secondary);
+                        PrimitiveFactory.Part(PrimitiveType.Cube, body, new Vector3(side * 0.5f, 1.2f, 0f), new Vector3(0.07f, 0.28f, 0.07f), glow, new Vector3(0f, 0f, side * -30f), false);
+                    }
+                    PrimitiveFactory.Part(PrimitiveType.Cube, body, new Vector3(0.5f, 0.7f, 0.35f), new Vector3(0.06f, 0.06f, 0.8f), secondary);
+                    PrimitiveFactory.Part(PrimitiveType.Sphere, body, new Vector3(0.5f, 0.7f, 0.8f), Vector3.one * 0.32f, primary);
+                    PrimitiveFactory.Part(PrimitiveType.Cube, body, new Vector3(0.5f, 0.86f, 0.8f), new Vector3(0.05f, 0.16f, 0.05f), glow, default, false);
+                    break;
+                case BossId.MadPharaoh:
+                    PrimitiveFactory.Part(PrimitiveType.Cube, body, new Vector3(0f, 1.3f, -0.05f), new Vector3(0.48f, 0.42f, 0.36f), primary);
+                    PrimitiveFactory.Part(PrimitiveType.Cube, body, new Vector3(-0.22f, 1.05f, -0.02f), new Vector3(0.1f, 0.4f, 0.2f), secondary);
+                    PrimitiveFactory.Part(PrimitiveType.Cube, body, new Vector3(0.22f, 1.05f, -0.02f), new Vector3(0.1f, 0.4f, 0.2f), secondary);
+                    PrimitiveFactory.Part(PrimitiveType.Cube, body, new Vector3(0.38f, 0.8f, 0.15f), new Vector3(0.05f, 1.5f, 0.05f), primary);
+                    PrimitiveFactory.Part(PrimitiveType.Sphere, body, new Vector3(0.38f, 1.58f, 0.15f), Vector3.one * 0.2f, glow, default, false);
+                    break;
+                case BossId.LordVulcan:
+                    for (int side = -1; side <= 1; side += 2)
+                    {
+                        PrimitiveFactory.Part(PrimitiveType.Cube, body, new Vector3(side * 0.18f, 1.48f, 0f), new Vector3(0.07f, 0.32f, 0.07f), secondary, new Vector3(0f, 0f, side * -35f));
+                        PrimitiveFactory.Part(PrimitiveType.Sphere, body, new Vector3(side * 0.42f, 1.0f, 0f), Vector3.one * 0.34f, primary);
+                    }
+                    PrimitiveFactory.Part(PrimitiveType.Cube, body, new Vector3(0f, 0.72f, 0.19f), new Vector3(0.3f, 0.05f, 0.02f), glow, default, false);
+                    PrimitiveFactory.Part(PrimitiveType.Cube, body, new Vector3(0.05f, 0.6f, 0.19f), new Vector3(0.04f, 0.25f, 0.02f), glow, default, false);
+                    PrimitiveFactory.Part(PrimitiveType.Cube, body, new Vector3(0.5f, 0.75f, 0.3f), new Vector3(0.36f, 0.36f, 0.36f), primary, new Vector3(20f, 30f, 0f));
+                    break;
+                default:
+                    PrimitiveFactory.Part(PrimitiveType.Cube, body, new Vector3(0f, 0.72f, 0f), new Vector3(0.62f, 0.5f, 0.42f), primary);
+                    PrimitiveFactory.Part(PrimitiveType.Cylinder, body, new Vector3(0f, 0.75f, 0.22f), new Vector3(0.22f, 0.02f, 0.22f), glow, new Vector3(90f, 0f, 0f), false);
+                    PrimitiveFactory.Part(PrimitiveType.Cube, body, new Vector3(0f, 1.2f, 0f), new Vector3(0.32f, 0.26f, 0.3f), secondary);
+                    for (int side = -1; side <= 1; side += 2)
+                        PrimitiveFactory.Part(PrimitiveType.Cube, body, new Vector3(side * 0.45f, 0.62f, 0.05f), new Vector3(0.28f, 0.32f, 0.32f), secondary);
+                    break;
+            }
+            return root;
+        }
+
+        private static void BuildDragon(Transform v, Material scales, Material belly, Material fire)
+        {
+            PrimitiveFactory.Part(PrimitiveType.Capsule, v, new Vector3(0f, 0.75f, 0f), new Vector3(0.6f, 0.75f, 0.6f), scales, new Vector3(75f, 0f, 0f));
+            PrimitiveFactory.Part(PrimitiveType.Capsule, v, new Vector3(0f, 0.72f, 0.12f), new Vector3(0.45f, 0.6f, 0.4f), belly, new Vector3(75f, 0f, 0f));
+            PrimitiveFactory.Part(PrimitiveType.Capsule, v, new Vector3(0f, 1.25f, 0.55f), new Vector3(0.24f, 0.4f, 0.24f), scales, new Vector3(30f, 0f, 0f));
+            PrimitiveFactory.Part(PrimitiveType.Cube, v, new Vector3(0f, 1.5f, 0.85f), new Vector3(0.3f, 0.24f, 0.5f), scales);
+            PrimitiveFactory.Part(PrimitiveType.Cube, v, new Vector3(-0.08f, 1.58f, 1.08f), new Vector3(0.06f, 0.04f, 0.04f), fire, default, false);
+            PrimitiveFactory.Part(PrimitiveType.Cube, v, new Vector3(0.08f, 1.58f, 1.08f), new Vector3(0.06f, 0.04f, 0.04f), fire, default, false);
+            PrimitiveFactory.Part(PrimitiveType.Capsule, v, new Vector3(0f, 0.5f, -0.85f), new Vector3(0.18f, 0.6f, 0.18f), scales, new Vector3(-70f, 0f, 0f));
+            for (int side = -1; side <= 1; side += 2)
+            {
+                PrimitiveFactory.Part(PrimitiveType.Cube, v, new Vector3(side * 0.8f, 1.35f, -0.1f), new Vector3(1.2f, 0.04f, 0.8f), belly, new Vector3(0f, 0f, side * -25f));
+                PrimitiveFactory.Part(PrimitiveType.Cube, v, new Vector3(side * 0.25f, 0.25f, 0.3f), new Vector3(0.16f, 0.5f, 0.16f), scales);
+                PrimitiveFactory.Part(PrimitiveType.Cube, v, new Vector3(side * 0.25f, 0.25f, -0.35f), new Vector3(0.18f, 0.5f, 0.18f), scales);
+                PrimitiveFactory.Part(PrimitiveType.Cube, v, new Vector3(side * 0.1f, 1.72f, 0.7f), new Vector3(0.05f, 0.25f, 0.05f), belly, new Vector3(-30f, 0f, side * 15f));
+            }
         }
 
         private static Transform CreateRoot(string name, Transform parent, out GameObject root)

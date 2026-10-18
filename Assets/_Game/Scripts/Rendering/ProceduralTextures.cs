@@ -8,6 +8,8 @@ namespace LegionRush
         private static Texture2D softCircle;
         private static Texture2D lightBeam;
         private static Texture2D lava;
+        private static Texture2D ring;
+        private static Texture2D softSquare;
 
         public static Texture2D SoftCircle
         {
@@ -34,6 +36,64 @@ namespace LegionRush
                 if (lava == null) lava = CreateLava(128);
                 return lava;
             }
+        }
+
+        public static Texture2D Ring
+        {
+            get
+            {
+                if (ring == null) ring = CreateRing(128);
+                return ring;
+            }
+        }
+
+        public static Texture2D SoftSquare
+        {
+            get
+            {
+                if (softSquare == null) softSquare = CreateSoftSquare(64);
+                return softSquare;
+            }
+        }
+
+        // Anel nítido com interior translúcido: indicadores de ataque e ondas de choque.
+        private static Texture2D CreateRing(int size)
+        {
+            var texture = NewTexture("LR_Ring", size, size, true, TextureWrapMode.Clamp);
+            var pixels = new Color32[size * size];
+            float half = (size - 1) * 0.5f;
+            for (int y = 0; y < size; y++)
+            {
+                for (int x = 0; x < size; x++)
+                {
+                    float dx = (x - half) / half;
+                    float dy = (y - half) / half;
+                    float d = Mathf.Sqrt(dx * dx + dy * dy);
+                    float edge = 1f - Mathf.SmoothStep(0f, 0.06f, Mathf.Abs(d - 0.93f));
+                    float fill = d < 0.93f ? 0.18f : 0f;
+                    float a = Mathf.Clamp01(Mathf.Max(edge, fill)) * (d > 1f ? 0f : 1f);
+                    pixels[y * size + x] = new Color32(255, 255, 255, (byte)(a * 255f));
+                }
+            }
+            return Finish(texture, pixels, true);
+        }
+
+        private static Texture2D CreateSoftSquare(int size)
+        {
+            var texture = NewTexture("LR_SoftSquare", size, size, false, TextureWrapMode.Clamp);
+            var pixels = new Color32[size * size];
+            for (int y = 0; y < size; y++)
+            {
+                float v = y / (float)(size - 1);
+                float fy = Mathf.SmoothStep(0f, 1f, Mathf.Min(v, 1f - v) / 0.12f);
+                for (int x = 0; x < size; x++)
+                {
+                    float u = x / (float)(size - 1);
+                    float fx = Mathf.SmoothStep(0f, 1f, Mathf.Min(u, 1f - u) / 0.2f);
+                    pixels[y * size + x] = new Color32(255, 255, 255, (byte)(Mathf.Clamp01(fx * fy) * 255f));
+                }
+            }
+            return Finish(texture, pixels, false);
         }
 
         private static Texture2D CreateSoftCircle(int size)

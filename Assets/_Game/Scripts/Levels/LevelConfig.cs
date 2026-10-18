@@ -72,7 +72,19 @@ namespace LegionRush
         [Min(0.1f)] public float attackInterval = 0.9f;
         [Min(0.5f)] public float moveSpeed = 3.2f;
         [Min(1f)] public float aggroRange = 16f;
+        [Min(0f)] public float armor = 10f;
         public Color color = new Color(0.55f, 0.1f, 0.12f);
+    }
+
+    [Serializable]
+    public class BossEncounter
+    {
+        public bool enabled = true;
+        [Tooltip("Usa o chefão padrão do mundo (Congelado: Titã, Deserto: Faraó, Floresta: Dragão, Vulcânico: Lord Vulcano).")]
+        public bool useWorldDefault = true;
+        public BossId boss = BossId.DarkTitan;
+        [Min(8f), Tooltip("Distância do chefão até a linha de chegada.")] public float distanceFromEnd = 10f;
+        [Min(0.1f)] public float healthMultiplier = 1f;
     }
 
     [CreateAssetMenu(fileName = "Level_", menuName = "Legion Rush/Level Config")]
@@ -86,6 +98,7 @@ namespace LegionRush
         [Min(0)] public int goldPerEnemy = 2;
         [Min(0)] public int victoryGold = 50;
         public EnemyStats enemy = new EnemyStats();
+        public BossEncounter boss = new BossEncounter();
         public List<GateRow> gateRows = new List<GateRow>();
         public List<EnemyWave> waves = new List<EnemyWave>();
 
@@ -96,6 +109,7 @@ namespace LegionRush
             gateRows ??= new List<GateRow>();
             waves ??= new List<EnemyWave>();
             enemy ??= new EnemyStats();
+            boss ??= new BossEncounter();
 
             int removedRows = gateRows.RemoveAll(r => r == null);
             int removedWaves = waves.RemoveAll(w => w == null || w.count <= 0);
@@ -117,6 +131,7 @@ namespace LegionRush
         {
             var config = CreateInstance<LevelConfig>();
             config.name = "Level_01_Default";
+            config.boss = new BossEncounter { enabled = true, useWorldDefault = true, distanceFromEnd = 10f, healthMultiplier = 0.6f };
             config.gateRows = new List<GateRow>
             {
                 new GateRow { z = 28f, left = new GateDef(GateOp.Add, 10), right = new GateDef(GateOp.Multiply, 2) },

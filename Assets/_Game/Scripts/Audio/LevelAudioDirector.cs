@@ -16,6 +16,8 @@ namespace LegionRush
             level.StateChanged += HandleStateChanged;
             level.GateApplied += HandleGateApplied;
             level.EnemyKilled += HandleEnemyKilled;
+            level.BossAwakened += HandleBossAwakened;
+            level.BossDefeated += HandleBossDefeated;
             HandleStateChanged(level.Current);
         }
 
@@ -25,6 +27,16 @@ namespace LegionRush
             level.StateChanged -= HandleStateChanged;
             level.GateApplied -= HandleGateApplied;
             level.EnemyKilled -= HandleEnemyKilled;
+            level.BossAwakened -= HandleBossAwakened;
+            level.BossDefeated -= HandleBossDefeated;
+        }
+
+        private void HandleBossAwakened(BossController boss) => GameAudio.PlayMusic(MusicTrack.Boss);
+
+        private void HandleBossDefeated(BossController boss)
+        {
+            GameAudio.PlayMusic(MusicTrack.Battle);
+            GameAudio.Play(SoundId.GemPickup);
         }
 
         private void Update()

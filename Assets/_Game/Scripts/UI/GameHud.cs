@@ -2,8 +2,8 @@ using UnityEngine;
 
 namespace LegionRush
 {
-    // HUD IMGUI temporário (Etapa 9 troca por UI final). Inclui pausa com áudio, gráficos, FPS e troca de mundo
-    // para testar tudo direto no celular.
+    // HUD IMGUI temporário (a Fase E troca por UGUI). Preparação (composição e habilidades), habilidades com recarga,
+    // postura, barra do chefão, pausa com ajustes e troca de mundo/chefão para testar no celular.
     public class GameHud : MonoBehaviour
     {
         private enum PanelAction { None, Primary, Secondary }
@@ -13,38 +13,50 @@ namespace LegionRush
         private static readonly string[] TierLabels = { "BAIXO", "MÉDIO", "ALTO" };
         private static readonly FrameRateMode[] FpsOptions = { FrameRateMode.Auto, FrameRateMode.Fps30, FrameRateMode.Fps60 };
         private static readonly string[] FpsLabels = { "AUTO", "30", "60" };
+        private static readonly string[] StanceLabels = { "EQUILIBRADA", "OFENSIVA", "DEFENSIVA" };
+        private static readonly string[] ClassShort = { "ARQ", "GUE", "LAN", "MAG", "CUR", "CAV" };
         private static readonly Color SelectedTint = new Color(1f, 0.78f, 0.25f);
         private static readonly Color MutedTint = new Color(1f, 0.4f, 0.35f);
+        private static readonly Color PanelColor = new Color(0.04f, 0.06f, 0.12f, 0.9f);
 
         private LevelManager level;
         private ArmyManager army;
         private GameBootstrap bootstrap;
         private VisualQualityManager quality;
+        private SkillSystem skills;
         private GUIStyle leftStyle;
         private GUIStyle rightStyle;
         private GUIStyle centerStyle;
+        private GUIStyle smallStyle;
         private GUIStyle hugeStyle;
         private GUIStyle buttonStyle;
         private GUIStyle smallButtonStyle;
+        private GUIStyle skillStyle;
         private GUIStyle sliderStyle;
         private GUIStyle thumbStyle;
         private Texture2D pixel;
         private float builtScale = -1f;
         private int shownGold = int.MinValue;
         private int shownSoldiers = int.MinValue;
+        private float classTextTimer;
         private string goldText = string.Empty;
         private string soldierText = string.Empty;
+        private string classText = string.Empty;
         private string levelText = string.Empty;
         private string worldButtonText = string.Empty;
         private string resultText = string.Empty;
+        private string toastText = string.Empty;
+        private float toastTimer;
         private bool resultSettingsOpen;
 
-        public void Initialize(LevelManager levelManager, ArmyManager armyManager, GameBootstrap owner, VisualQualityManager qualityManager)
+        public void Initialize(LevelManager levelManager, ArmyManager armyManager, GameBootstrap owner,
+            VisualQualityManager qualityManager, SkillSystem skillSystem)
         {
             level = levelManager;
             army = armyManager;
             bootstrap = owner;
             quality = qualityManager;
+            skills = skillSystem;
             string worldName = bootstrap.CurrentWorldName.ToUpperInvariant();
             levelText = $"FASE {level.Config.levelNumber}  ·  {worldName}";
             worldButtonText = $"MUNDO: {worldName}   >";
@@ -52,11 +64,22 @@ namespace LegionRush
             pixel.SetPixel(0, 0, Color.white);
             pixel.Apply();
             level.StateChanged += HandleStateChanged;
+            level.BossAwakened += HandleBossAwakened;
+            level.BossDefeated += HandleBossDefeated;
+            skills.SkillFailed += HandleSkillFailed;
+            if (level.Boss != null) level.Boss.PhaseChanged += HandleBossPhase;
         }
 
         private void OnDestroy()
         {
-            if (level != null) level.StateChanged -= HandleStateChanged;
+            if (level != null)
+            {
+                level.StateChanged -= HandleStateChanged;
+                level.BossAwakened -= HandleBossAwakened;
+                level.BossDefeated -= HandleBossDefeated;
+                if (level.Boss != null) level.Boss.PhaseChanged -= HandleBossPhase;
+            }
+            if (skills != null) skills.SkillFailed -= HandleSkillFailed;
             if (pixel != null) Destroy(pixel);
         }
 
@@ -64,7 +87,18 @@ namespace LegionRush
         {
             resultSettingsOpen = false;
             if (state == LevelManager.State.Victory || state == LevelManager.State.Defeat)
-                resultText = $"Soldados: {army.Count}   ·   Inimigos derrotados: {level.Kills}   ·   Ouro: {level.Gold}";
+                resultText = $"Soldados: {army.Count}   ·   Inimigos: {level.Kills}\nOuro: {level.Gold}   ·   Gemas: {level.Gems}";
+        }
+
+        private void HandleBossAwakened(BossController boss) => Toast($"{boss.Definition.displayName.ToUpperInvariant()} DESPERTOU!");
+        private void HandleBossDefeated(BossController boss) => Toast($"{boss.Definition.displayName.ToUpperInvariant()} DERROTADO!");
+        private void HandleBossPhase(BossController boss, int phase) => Toast($"FASE {phase} DO CHEFÃO!");
+        private void HandleSkillFailed(SkillDefinition skill) => Toast("Sem alvo no alcance");
+
+        private void Toast(string text)
+        {
+            toastText = text;
+            toastTimer = 2.2f;
         }
 
         private void OnGUI()
@@ -82,23 +116,13 @@ namespace LegionRush
             switch (level.Current)
             {
                 case LevelManager.State.Ready:
-                {
-                    float y = safe.y + safe.height * 0.62f;
-                    Shadowed(new Rect(safe.x, y, safe.width, 110f * scale), "ARRASTE PARA MOVER", hugeStyle, scale);
-                    Shadowed(new Rect(safe.x, y + 110f * scale, safe.width, 70f * scale), "Toque para começar", centerStyle, scale);
+                    DrawPreparation(safe, scale, pad);
                     break;
-                }
                 case LevelManager.State.Running:
                 {
                     if (!level.IsPaused)
                     {
-                        float size = 120f * scale;
-                        Rect pauseRect = new Rect(bar.xMax - size, bar.yMax + pad, size, size);
-                        if (GUI.Button(pauseRect, "II", buttonStyle))
-                        {
-                            GameAudio.Play(SoundId.UiClick);
-                            level.SetPaused(true);
-                        }
+                        DrawRunning(safe, bar, scale, pad);
                         break;
                     }
                     PanelAction action = DrawSettingsPanel("PAUSA", "CONTINUAR", "REINICIAR", safe, scale, pad);
@@ -143,7 +167,146 @@ namespace LegionRush
                     break;
                 }
             }
+
+            if (toastTimer > 0f)
+            {
+                if (Event.current.type == EventType.Repaint) toastTimer -= Time.unscaledDeltaTime;
+                Shadowed(new Rect(safe.x, safe.y + safe.height * 0.3f, safe.width, 90f * scale), toastText, hugeStyle, scale);
+            }
         }
+
+        // ---------- Preparação ----------
+
+        private void DrawPreparation(Rect safe, float scale, float pad)
+        {
+            float width = Mathf.Min(safe.width - pad * 2f, 1000f * scale);
+            float rowHeight = 110f * scale;
+            float height = 120f * scale + rowHeight * 5f + 150f * scale;
+            Rect panel = new Rect(safe.x + (safe.width - width) * 0.5f, safe.yMax - height - pad * 2f, width, height);
+            Fill(panel, PanelColor);
+            Shadowed(new Rect(panel.x, panel.y + 12f * scale, panel.width, 90f * scale), "PREPARAR TROPAS", hugeStyle, scale);
+
+            float x = panel.x + pad;
+            float inner = panel.width - pad * 2f;
+            float y = panel.y + 120f * scale;
+
+            GUI.Label(new Rect(x, y, inner, rowHeight * 0.45f), "COMPOSIÇÃO", leftStyle);
+            int count = bootstrap.CompositionCount;
+            float cell = inner / Mathf.Max(1, count);
+            Color previous = GUI.backgroundColor;
+            for (int i = 0; i < count; i++)
+            {
+                GUI.backgroundColor = i == bootstrap.CompositionIndex ? SelectedTint : previous;
+                Rect r = new Rect(x + cell * i + 4f, y + rowHeight * 0.45f, cell - 8f, rowHeight * 0.6f);
+                if (GUI.Button(r, bootstrap.CompositionName(i).ToUpperInvariant(), smallButtonStyle) && i != bootstrap.CompositionIndex)
+                {
+                    bootstrap.SetComposition(i);
+                    GameAudio.Play(SoundId.UiClick);
+                    classTextTimer = 0f;
+                }
+            }
+            GUI.backgroundColor = previous;
+            y += rowHeight * 1.15f;
+            GUI.Label(new Rect(x, y, inner, rowHeight * 0.5f), classText, smallStyle);
+            y += rowHeight * 0.6f;
+
+            GUI.Label(new Rect(x, y, inner, rowHeight * 0.45f), "HABILIDADES (toque para trocar)", leftStyle);
+            cell = inner / SkillSystem.SlotCount;
+            for (int i = 0; i < SkillSystem.SlotCount; i++)
+            {
+                SkillDefinition skill = skills.Definition(bootstrap.LoadoutSlot(i));
+                GUI.backgroundColor = skill.color;
+                Rect r = new Rect(x + cell * i + 4f, y + rowHeight * 0.45f, cell - 8f, rowHeight * 0.75f);
+                if (GUI.Button(r, skill.shortLabel, smallButtonStyle))
+                {
+                    bootstrap.CycleSkillSlot(i);
+                    GameAudio.Play(SoundId.UiClick);
+                    Toast(skills.Definition(bootstrap.LoadoutSlot(i)).displayName);
+                }
+            }
+            GUI.backgroundColor = previous;
+            y += rowHeight * 1.35f;
+
+            GUI.backgroundColor = SelectedTint;
+            Rect play = new Rect(panel.x + panel.width * 0.2f, y, panel.width * 0.6f, 130f * scale);
+            if (GUI.Button(play, "JOGAR", buttonStyle)) level.StartRun();
+            GUI.backgroundColor = previous;
+
+            Shadowed(new Rect(safe.x, panel.y - 90f * scale, safe.width, 70f * scale), "Arraste para mover o exército", centerStyle, scale);
+        }
+
+        // ---------- Partida ----------
+
+        private void DrawRunning(Rect safe, Rect bar, float scale, float pad)
+        {
+            float size = 110f * scale;
+            Rect pauseRect = new Rect(bar.xMax - size, bar.yMax + pad * 0.5f, size, size);
+            if (GUI.Button(pauseRect, "II", buttonStyle))
+            {
+                GameAudio.Play(SoundId.UiClick);
+                level.SetPaused(true);
+                return;
+            }
+
+            Rect stanceRect = new Rect(bar.x, bar.yMax + pad * 0.5f, bar.width * 0.55f, size * 0.7f);
+            if (GUI.Button(stanceRect, "POSTURA: " + StanceLabels[(int)army.Stance], smallButtonStyle))
+            {
+                army.SetStance((FormationStance)(((int)army.Stance + 1) % 3));
+                GameAudio.Play(SoundId.UiClick);
+            }
+            GUI.Label(new Rect(bar.x, stanceRect.yMax + 4f, bar.width, 50f * scale), classText, smallStyle);
+
+            DrawBossBar(bar, scale, pad, stanceRect.yMax + 60f * scale);
+            DrawSkills(safe, scale, pad);
+        }
+
+        private void DrawBossBar(Rect bar, float scale, float pad, float top)
+        {
+            BossController boss = level.Boss;
+            if (boss == null || !boss.IsEngaged) return;
+            Rect panel = new Rect(bar.x, top, bar.width, 120f * scale);
+            Fill(panel, new Color(0.12f, 0.02f, 0.04f, 0.75f));
+            string title = $"{boss.Definition.displayName.ToUpperInvariant()}  ·  FASE {boss.Phase}";
+            Shadowed(new Rect(panel.x + pad, panel.y + 4f, panel.width - pad * 2f, 50f * scale), title, leftStyle, scale);
+            string status = boss.IsVulnerable ? "VULNERÁVEL!" : boss.IsAirborne ? "EM VOO" : boss.CurrentAttack;
+            if (!string.IsNullOrEmpty(status)) Shadowed(new Rect(panel.x + pad, panel.y + 4f, panel.width - pad * 2f, 50f * scale), status, rightStyle, scale);
+
+            Rect hpBg = new Rect(panel.x + pad, panel.y + 62f * scale, panel.width - pad * 2f, 38f * scale);
+            Fill(hpBg, new Color(0f, 0f, 0f, 0.5f));
+            Color hp = boss.IsVulnerable ? new Color(1f, 0.85f, 0.25f) : new Color(0.9f, 0.15f, 0.2f);
+            Fill(new Rect(hpBg.x, hpBg.y, hpBg.width * boss.HealthRatio, hpBg.height), hp);
+            float p2 = boss.Definition.phase2At;
+            float p3 = boss.Definition.phase3At;
+            Fill(new Rect(hpBg.x + hpBg.width * p2 - 2f, hpBg.y, 4f, hpBg.height), Color.white);
+            Fill(new Rect(hpBg.x + hpBg.width * p3 - 2f, hpBg.y, 4f, hpBg.height), Color.white);
+        }
+
+        private void DrawSkills(Rect safe, float scale, float pad)
+        {
+            float size = Mathf.Min(190f * scale, (safe.width - pad * 2f) / SkillSystem.SlotCount - 12f);
+            float total = size * SkillSystem.SlotCount + 16f * (SkillSystem.SlotCount - 1);
+            float x = safe.x + (safe.width - total) * 0.5f;
+            float y = safe.yMax - size - pad * 1.5f;
+            Color previous = GUI.backgroundColor;
+            for (int i = 0; i < SkillSystem.SlotCount; i++)
+            {
+                SkillDefinition skill = skills.Slot(i);
+                if (skill == null) continue;
+                Rect r = new Rect(x + i * (size + 16f), y, size, size);
+                bool ready = skills.IsReady(i);
+                GUI.backgroundColor = ready ? skill.color : new Color(0.35f, 0.35f, 0.4f);
+                string label = ready ? skill.shortLabel : $"{skill.shortLabel}\n{Mathf.CeilToInt(skills.CooldownRemaining(i))}s";
+                if (GUI.Button(r, label, skillStyle) && ready) skills.TryUse(i);
+                if (!ready)
+                {
+                    float ratio = skills.CooldownRatio(i);
+                    Fill(new Rect(r.x, r.y, r.width, r.height * ratio), new Color(0f, 0f, 0f, 0.45f));
+                }
+            }
+            GUI.backgroundColor = previous;
+        }
+
+        // ---------- Resultado e ajustes ----------
 
         private Rect DrawTopBar(Rect safe, float scale, float pad)
         {
@@ -165,7 +328,7 @@ namespace LegionRush
         private PanelAction DrawResult(string title, Color titleColor, string buttonLabel, Rect safe, float scale, float pad)
         {
             float width = Mathf.Min(safe.width - pad * 2f, 960f * scale);
-            float height = 700f * scale;
+            float height = 720f * scale;
             Rect panel = new Rect(safe.x + (safe.width - width) * 0.5f, safe.y + (safe.height - height) * 0.5f, width, height);
             Fill(panel, new Color(0.04f, 0.06f, 0.12f, 0.88f));
 
@@ -174,7 +337,7 @@ namespace LegionRush
             Shadowed(new Rect(panel.x, panel.y + 40f * scale, panel.width, 140f * scale), title, hugeStyle, scale);
             hugeStyle.normal.textColor = previous;
 
-            GUI.Label(new Rect(panel.x + pad, panel.y + 200f * scale, panel.width - pad * 2f, 140f * scale), resultText, centerStyle);
+            GUI.Label(new Rect(panel.x + pad, panel.y + 200f * scale, panel.width - pad * 2f, 160f * scale), resultText, centerStyle);
             Rect primary = new Rect(panel.x + panel.width * 0.15f, panel.yMax - 310f * scale, panel.width * 0.7f, 120f * scale);
             Rect secondary = new Rect(panel.x + panel.width * 0.25f, panel.yMax - 160f * scale, panel.width * 0.5f, 100f * scale);
             if (GUI.Button(primary, buttonLabel, buttonStyle)) return PanelAction.Primary;
@@ -184,19 +347,19 @@ namespace LegionRush
 
         private PanelAction DrawSettingsPanel(string title, string primaryLabel, string secondaryLabel, Rect safe, float scale, float pad)
         {
-            float rowHeight = 112f * scale;
-            float optionHeight = 104f * scale;
-            float buttonHeight = 110f * scale;
+            float rowHeight = 104f * scale;
+            float optionHeight = 96f * scale;
+            float buttonHeight = 104f * scale;
             int buttons = secondaryLabel != null ? 2 : 1;
-            float height = 130f * scale + rowHeight * Buses.Length + optionHeight * 3f + (buttonHeight + 18f * scale) * buttons + pad * 2f;
+            float height = 120f * scale + rowHeight * Buses.Length + optionHeight * 4f + (buttonHeight + 16f * scale) * buttons + pad * 2f;
             float width = Mathf.Min(safe.width - pad * 2f, 1000f * scale);
             Rect panel = new Rect(safe.x + (safe.width - width) * 0.5f, safe.y + Mathf.Max(pad, (safe.height - height) * 0.5f), width, height);
             Fill(panel, new Color(0.04f, 0.06f, 0.12f, 0.92f));
-            Shadowed(new Rect(panel.x, panel.y + 18f * scale, panel.width, 100f * scale), title, hugeStyle, scale);
+            Shadowed(new Rect(panel.x, panel.y + 14f * scale, panel.width, 96f * scale), title, hugeStyle, scale);
 
             float inner = panel.width - pad * 2f;
             float x = panel.x + pad;
-            float y = panel.y + 130f * scale;
+            float y = panel.y + 120f * scale;
             AudioManager audio = AudioManager.Instance;
 
             for (int i = 0; i < Buses.Length; i++)
@@ -251,13 +414,21 @@ namespace LegionRush
                 bootstrap.CycleWorld();
                 return PanelAction.None;
             }
+            y += optionHeight;
+
+            if (GUI.Button(new Rect(x, y + optionHeight * 0.1f, inner, optionHeight * 0.8f), "CHEFÃO: " + bootstrap.BossOverrideName + "   >", smallButtonStyle))
+            {
+                GameAudio.Play(SoundId.UiConfirm);
+                bootstrap.CycleBossOverride();
+                return PanelAction.None;
+            }
             y += optionHeight + pad;
 
             Rect primaryRect = new Rect(panel.x + panel.width * 0.15f, y, panel.width * 0.7f, buttonHeight);
             if (GUI.Button(primaryRect, primaryLabel, buttonStyle)) return PanelAction.Primary;
             if (secondaryLabel != null)
             {
-                Rect secondaryRect = new Rect(primaryRect.x, primaryRect.yMax + 18f * scale, primaryRect.width, buttonHeight);
+                Rect secondaryRect = new Rect(primaryRect.x, primaryRect.yMax + 16f * scale, primaryRect.width, buttonHeight);
                 if (GUI.Button(secondaryRect, secondaryLabel, buttonStyle)) return PanelAction.Secondary;
             }
             return PanelAction.None;
@@ -287,10 +458,21 @@ namespace LegionRush
                 shownGold = level.Gold;
                 goldText = $"OURO  {shownGold}";
             }
-            if (army.Count != shownSoldiers)
+            classTextTimer -= Time.unscaledDeltaTime;
+            if (army.Count != shownSoldiers || classTextTimer <= 0f)
             {
                 shownSoldiers = army.Count;
                 soldierText = $"SOLDADOS  {shownSoldiers}";
+                var builder = new System.Text.StringBuilder(64);
+                for (int i = 0; i < ArmyConfig.ClassCount; i++)
+                {
+                    int n = army.CountOf((UnitClass)i);
+                    if (n == 0) continue;
+                    if (builder.Length > 0) builder.Append("  ·  ");
+                    builder.Append(ClassShort[i]).Append(' ').Append(n);
+                }
+                classText = builder.ToString();
+                classTextTimer = 0.5f;
             }
         }
 
@@ -299,17 +481,19 @@ namespace LegionRush
             builtScale = scale;
             leftStyle = new GUIStyle(GUI.skin.label)
             {
-                fontSize = Mathf.RoundToInt(36f * scale),
+                fontSize = Mathf.RoundToInt(34f * scale),
                 fontStyle = FontStyle.Bold,
                 alignment = TextAnchor.MiddleLeft,
                 clipping = TextClipping.Overflow
             };
             leftStyle.normal.textColor = Color.white;
             rightStyle = new GUIStyle(leftStyle) { alignment = TextAnchor.MiddleRight };
-            centerStyle = new GUIStyle(leftStyle) { alignment = TextAnchor.MiddleCenter, wordWrap = true, fontSize = Mathf.RoundToInt(40f * scale) };
-            hugeStyle = new GUIStyle(centerStyle) { fontSize = Mathf.RoundToInt(80f * scale), wordWrap = false };
+            smallStyle = new GUIStyle(leftStyle) { fontSize = Mathf.RoundToInt(28f * scale) };
+            centerStyle = new GUIStyle(leftStyle) { alignment = TextAnchor.MiddleCenter, wordWrap = true, fontSize = Mathf.RoundToInt(38f * scale) };
+            hugeStyle = new GUIStyle(centerStyle) { fontSize = Mathf.RoundToInt(72f * scale), wordWrap = false };
             buttonStyle = new GUIStyle(GUI.skin.button) { fontSize = Mathf.RoundToInt(44f * scale), fontStyle = FontStyle.Bold };
-            smallButtonStyle = new GUIStyle(GUI.skin.button) { fontSize = Mathf.RoundToInt(32f * scale), fontStyle = FontStyle.Bold };
+            smallButtonStyle = new GUIStyle(GUI.skin.button) { fontSize = Mathf.RoundToInt(28f * scale), fontStyle = FontStyle.Bold, wordWrap = true };
+            skillStyle = new GUIStyle(GUI.skin.button) { fontSize = Mathf.RoundToInt(26f * scale), fontStyle = FontStyle.Bold, wordWrap = true };
             sliderStyle = new GUIStyle(GUI.skin.horizontalSlider) { fixedHeight = 0f };
             thumbStyle = new GUIStyle(GUI.skin.horizontalSliderThumb) { fixedWidth = 50f * scale, fixedHeight = 50f * scale };
         }

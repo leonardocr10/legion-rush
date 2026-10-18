@@ -25,7 +25,7 @@ namespace LegionRush
             stats = enemyStats;
             level = owner;
             army = targetArmy;
-            SetupCombatant(stats.maxHealth * Mathf.Max(0.1f, healthMultiplier));
+            SetupCombatant(stats.maxHealth * Mathf.Max(0.1f, healthMultiplier), stats.armor, 0.32f);
             cooldown = Random.Range(0f, stats.attackInterval);
             retargetTimer = Random.Range(0f, RetargetInterval);
             bobPhase = Random.Range(0f, 10f);
@@ -35,8 +35,13 @@ namespace LegionRush
             impactTarget = null;
         }
 
+        public void ForceAggro() => IsAggro = true;
+
         public void Tick(float deltaTime, Vector3 commanderPosition)
         {
+            TickStatus(deltaTime);
+            if (!IsAlive) return;
+
             if (impactPending)
             {
                 impactTimer -= deltaTime;
@@ -62,7 +67,7 @@ namespace LegionRush
                 target = army.FindNearestSoldier(position, float.MaxValue);
                 retargetTimer = RetargetInterval;
             }
-            if (target == null || !target.IsAlive)
+            if (target == null || !target.IsAlive || IsStunned)
             {
                 TickVisual(deltaTime, 0f, 0f);
                 return;
@@ -70,15 +75,15 @@ namespace LegionRush
 
             Vector3 toTarget = target.transform.position - position;
             toTarget.y = 0f;
-            float distance = toTarget.magnitude;
+            float distance = toTarget.magnitude - target.BodyRadius;
             float moveRatio = 0f;
             if (distance > stats.attackRange)
             {
-                float stepLength = Mathf.Min(stats.moveSpeed * deltaTime, distance - stats.attackRange * 0.9f);
-                transform.position = position + toTarget / distance * stepLength;
-                moveRatio = 1f;
+                float stepLength = Mathf.Min(stats.moveSpeed * MoveMultiplier * deltaTime, distance - stats.attackRange * 0.9f);
+                transform.position = position + toTarget.normalized * stepLength;
+                moveRatio = MoveMultiplier;
             }
-            if (distance > 0.001f)
+            if (toTarget.sqrMagnitude > 1e-6f)
             {
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(toTarget),
                     1f - Mathf.Exp(-10f * deltaTime));
@@ -108,10 +113,10 @@ namespace LegionRush
 
             Vector3 delta = victim.transform.position - transform.position;
             delta.y = 0f;
-            float reach = stats.attackRange + MeleeReachTolerance;
+            float reach = stats.attackRange + MeleeReachTolerance + victim.BodyRadius;
             if (delta.sqrMagnitude > reach * reach) return;
             Vector3 hitPosition = victim.transform.position;
-            victim.TakeDamage(stats.damage);
+            victim.TakeDamage(new DamageInfo(stats.damage));
             GameAudio.PlayAt(SoundId.SwordHit, hitPosition);
         }
 
