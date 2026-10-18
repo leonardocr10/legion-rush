@@ -18,8 +18,18 @@ MANAGED="$DATA/Managed/UnityEngine"
 echo "Unity: $(cat "$UNITY_ROOT/Editor/Data/../../version" 2>/dev/null || basename "$UNITY_ROOT")"
 echo "csc: $CSC | perfil: $API"
 
-BASE_REFS=(-r:"$API/mscorlib.dll" -r:"$API/System.dll" -r:"$API/System.Core.dll" -r:"$API/System.Xml.dll")
-for f in "$API"/Facades/*.dll; do BASE_REFS+=(-r:"$f"); done
+# Perfil padrão do Unity 6: .NET Standard 2.1 (+ shims netfx para DLLs do motor). Fallback: perfil .NET Framework 4.7.1.
+NETSTD="$DATA/NetStandard/ref/2.1.0/netstandard.dll"
+SHIMS="$DATA/NetStandard/compat/2.1.0/shims/netfx"
+if [ -f "$NETSTD" ] && [ -d "$SHIMS" ]; then
+  BASE_REFS=(-r:"$NETSTD")
+  for f in "$SHIMS"/*.dll; do BASE_REFS+=(-r:"$f"); done
+  echo "::notice::Perfil de API: .NET Standard 2.1"
+else
+  BASE_REFS=(-r:"$API/mscorlib.dll" -r:"$API/System.dll" -r:"$API/System.Core.dll" -r:"$API/System.Xml.dll")
+  for f in "$API"/Facades/*.dll; do BASE_REFS+=(-r:"$f"); done
+  echo "::notice::Perfil de API: .NET Framework 4.7.1 ($NETSTD ausente)"
+fi
 ENGINE_REFS=(); EDITOR_REFS=()
 for f in "$MANAGED"/UnityEngine*.dll; do ENGINE_REFS+=(-r:"$f"); done
 for f in "$MANAGED"/UnityEditor*.dll; do EDITOR_REFS+=(-r:"$f"); done
