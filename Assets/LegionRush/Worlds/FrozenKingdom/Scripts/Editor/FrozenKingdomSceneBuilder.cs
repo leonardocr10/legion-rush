@@ -45,7 +45,7 @@ namespace LegionRush.Environments.EditorTools
         [MenuItem("Legion Rush/Reino Congelado/2. Montar cena FrozenKingdom_01")]
         public static void BuildAll()
         {
-            if (EnvPrefabBaker.LoadPrefab("Gate_Blue") == null || EnvPrefabBaker.LoadPrefab("PineTree_Snow") == null) EnvPrefabBaker.Bake();
+            if (EnvPrefabBaker.LoadPrefab("FK_Gate_Blue") == null || EnvPrefabBaker.LoadPrefab("PineTree_Snow") == null) EnvPrefabBaker.Bake();
             BuildScene();
         }
 
@@ -71,6 +71,7 @@ namespace LegionRush.Environments.EditorTools
         {
             EnvPrefabBaker.EnsureFolder(Root + "/Scenes");
             EnvPrefabBaker.EnsureFolder(SceneModelDir);
+            ArchiveCurrentScene();
             Scene scene = OpenOrCreateScene();
             foreach (GameObject go in scene.GetRootGameObjects())
                 if (go.name == WorldRootName || go.name == CamerasRootName) UnityEngine.Object.DestroyImmediate(go);
@@ -145,6 +146,17 @@ namespace LegionRush.Environments.EditorTools
             EditorSceneManager.SaveScene(scene, ScenePath);
             WriteCoordinateTable(placements, preview, config, castleZ);
             Debug.Log($"[LegionRush] Cena {ScenePath}: {placements.Count} peças ({missing} sem prefab), {preview.Count} marcadores de jogo.");
+        }
+
+        // Guarda a versão anterior da cena (Scenes/Versions/FrozenKingdom_01_vN.unity) antes de remontar.
+        private static void ArchiveCurrentScene()
+        {
+            if (!File.Exists(ScenePath)) return;
+            string dir = Root + "/Scenes/Versions";
+            EnvPrefabBaker.EnsureFolder(dir);
+            int n = 1;
+            while (File.Exists($"{dir}/FrozenKingdom_01_v{n}.unity")) n++;
+            AssetDatabase.CopyAsset(ScenePath, $"{dir}/FrozenKingdom_01_v{n}.unity");
         }
 
         private static Scene OpenOrCreateScene()
@@ -226,7 +238,7 @@ namespace LegionRush.Environments.EditorTools
                 for (int i = 0; i < count; i++)
                 {
                     GateOption option = row.options[i];
-                    string prefab = "Gate_" + ColorName(option.category);
+                    string prefab = "FK_Gate_" + ColorName(option.category);
                     var pos = new Vector3(-hw + lane * (i + 0.5f), 0f, row.z);
                     var scale = new Vector3(lane / 5f, 1f, 1f);
                     Instance(parent, prefab, pos, 0f, scale);

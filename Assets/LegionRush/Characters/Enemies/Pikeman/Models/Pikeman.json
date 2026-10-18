@@ -1,0 +1,83 @@
+{
+  "name": "Pikeman",
+  "clips": [
+    {
+      "name": "Idle",
+      "loop": true,
+      "length": 2.4,
+      "impact": 0.0
+    },
+    {
+      "name": "Walk",
+      "loop": true,
+      "length": 1.0,
+      "impact": 0.0
+    },
+    {
+      "name": "Run",
+      "loop": true,
+      "length": 0.6333333333333333,
+      "impact": 0.0
+    },
+    {
+      "name": "SpearAttack",
+      "loop": false,
+      "length": 0.7,
+      "impact": 0.32
+    },
+    {
+      "name": "Thrust",
+      "loop": false,
+      "length": 0.7333333333333333,
+      "impact": 0.32
+    },
+    {
+      "name": "Hit",
+      "loop": false,
+      "length": 0.4,
+      "impact": 0.0
+    },
+    {
+      "name": "Death",
+      "loop": false,
+      "length": 1.1,
+      "impact": 0.0
+    },
+    {
+      "name": "Victory",
+      "loop": true,
+      "length": 1.6,
+      "impact": 0.0
+    }
+  ],
+  "slots": [
+    {
+      "slot": "Attack",
+      "clip": "Thrust"
+    },
+    {
+      "slot": "AttackAlt",
+      "clip": "SpearAttack"
+    }
+  ],
+  "sockets": [
+    "HeadSocket",
+    "LeftHandSocket",
+    "RightHandSocket",
+    "BackSocket"
+  ],
+  "stats": {
+    "LOD0_tris": 12372,
+    "LOD1_tris": 4700,
+    "LOD2_tris": 1692,
+    "bones": 26,
+    "shape_keys": "Basis,Happy,Angry,Attack,Surprised,Pain,Victory,Defeat"
+  },
+  "weapons": [
+    {
+      "id": "Weapon_Pike",
+      "socket": "RightHandSocket",
+      "node": "Pike"
+    }
+  ]
+}

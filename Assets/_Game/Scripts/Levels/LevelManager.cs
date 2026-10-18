@@ -44,6 +44,8 @@ namespace LegionRush
         private ArmyCameraController cameraController;
         private VisualQualityManager quality;
         private Transform enemyRoot;
+        private readonly List<EnemyKind> waveKinds = new List<EnemyKind>(64);
+        private readonly EnemyStats[] kindStats = new EnemyStats[EnemyKinds.Count];
         private CorpseQueue enemyCorpses;
         private BossController boss;
         private float stateTimer;
@@ -54,6 +56,7 @@ namespace LegionRush
             BossDefinition bossDefinition)
         {
             config = levelConfig;
+            System.Array.Clear(kindStats, 0, kindStats.Length);
             world = worldProfile;
             army = armyManager;
             commander = commanderController;
@@ -542,8 +545,11 @@ namespace LegionRush
             enemyRoot = new GameObject("Enemies").transform;
             enemyRoot.SetParent(transform, false);
 
+            int waveIndex = 0;
             foreach (EnemyWave wave in config.waves)
             {
+                EnemyKinds.FillWave(waveKinds, wave.count, config.levelNumber, config.levelNumber * 7919 + waveIndex++ * 131,
+                    wave.kinds);
                 int maxColumns = Mathf.Max(1, Mathf.FloorToInt((config.trackHalfWidth * 2f - 1f) / wave.spacing) + 1);
                 int columns = Mathf.Clamp(Mathf.CeilToInt(Mathf.Sqrt(wave.count * 1.6f)), 1, maxColumns);
                 for (int i = 0; i < wave.count; i++)
@@ -552,19 +558,28 @@ namespace LegionRush
                     int rowIndex = i / columns;
                     float x = (column - (columns - 1) * 0.5f) * wave.spacing;
                     float z = wave.z + rowIndex * wave.spacing;
-                    SpawnEnemy(new Vector3(x, 0f, z), wave.healthMultiplier, config.enemy.color);
+                    SpawnEnemy(new Vector3(x, 0f, z), wave.healthMultiplier, config.enemy.color, waveKinds[i]);
                 }
             }
         }
 
-        private Enemy SpawnEnemy(Vector3 position, float healthMultiplier, Color color)
+        private Enemy SpawnEnemy(Vector3 position, float healthMultiplier, Color color,
+            EnemyKind kind = EnemyKind.Soldier)
         {
-            GameObject go = CharacterFactory.CreateEnemy(enemyRoot, color);
+            GameObject go = CharacterFactory.CreateEnemy(enemyRoot, color, kind);
             go.transform.SetPositionAndRotation(position, Quaternion.Euler(0f, 180f, 0f));
             Enemy enemy = go.AddComponent<Enemy>();
-            enemy.Initialize(config.enemy, healthMultiplier, this, army);
+            enemy.Initialize(KindStats(kind), healthMultiplier, this, army, kind);
             CombatRegistry.Register(enemy);
             return enemy;
+        }
+
+        // Atributos do tipo derivados do EnemyStats da fase (um por tipo, criado sob demanda).
+        private EnemyStats KindStats(EnemyKind kind)
+        {
+            if (kind == EnemyKind.Soldier) return config.enemy;
+            int index = (int)kind;
+            return kindStats[index] ??= EnemyKinds.Apply(config.enemy, kind);
         }
 
         private void SpawnBoss(BossDefinition definition)

@@ -25,6 +25,20 @@ namespace LegionRush.Environments
                 o.BeveledBox(new Vector3(0f, 1.14f, 0f), new Vector3(0.22f, 0.1f, 0.22f), 0.04f, EnvPalette.Snow, rng, 0.02f);
                 o.Matrix = saved;
             }
+            // Travessas em X entre os postes (referência 14_cerca).
+            float gap = length / (posts - 1);
+            float diag = Mathf.Atan2(0.62f, gap) * Mathf.Rad2Deg;
+            for (int i = 0; i < posts - 1; i++)
+            {
+                float cx = -length * 0.5f + gap * (i + 0.5f);
+                for (int k = -1; k <= 1; k += 2)
+                {
+                    Matrix4x4 saved = o.Matrix;
+                    o.Matrix = saved * Matrix4x4.TRS(new Vector3(cx, 0.63f, 0.14f), Quaternion.Euler(0f, 0f, k * diag), Vector3.one);
+                    o.BeveledBox(Vector3.zero, new Vector3(Mathf.Sqrt(gap * gap + 0.38f), 0.1f, 0.06f), 0.02f, EnvPalette.Wood * 0.92f);
+                    o.Matrix = saved;
+                }
+            }
             foreach (float y in new[] { 0.42f, 0.84f })
             {
                 Matrix4x4 saved = o.Matrix;
@@ -44,23 +58,31 @@ namespace LegionRush.Environments
             o.BeveledBox(new Vector3(0f, 0.75f, 0f), new Vector3(1.4f, 0.12f, 2.2f), 0.03f, EnvPalette.Wood);
             for (int side = -1; side <= 1; side += 2)
             {
-                o.BeveledBox(new Vector3(side * 0.67f, 1.0f, 0f), new Vector3(0.08f, 0.45f, 2.2f), 0.03f, EnvPalette.Wood);
-                // Rodas (cilindros deitados): matriz girando o eixo Y para X.
-                Matrix4x4 saved = o.Matrix;
-                o.Matrix = saved * Matrix4x4.TRS(new Vector3(side * 0.8f, 0.48f, 0.35f), Quaternion.Euler(0f, 0f, 90f), Vector3.one);
-                o.Frustum(new Vector3(0f, -0.06f, 0f), 0.48f, 0.48f, 0.12f, 10, EnvPalette.WoodDark, true, true);
-                o.Frustum(new Vector3(0f, -0.09f, 0f), 0.12f, 0.12f, 0.18f, 6, EnvPalette.Iron, true, true);
-                o.Matrix = saved;
+                // Laterais em tábuas com reforço escuro (referência 17_carroca).
+                o.BeveledBox(new Vector3(side * 0.67f, 0.96f, 0f), new Vector3(0.08f, 0.2f, 2.2f), 0.03f, EnvPalette.Wood);
+                o.BeveledBox(new Vector3(side * 0.67f, 1.17f, 0f), new Vector3(0.08f, 0.2f, 2.2f), 0.03f, EnvPalette.Wood * 1.08f);
+                for (int k = -1; k <= 1; k++)
+                    o.BeveledBox(new Vector3(side * 0.7f, 1.06f, k * 0.95f), new Vector3(0.06f, 0.48f, 0.1f), 0.02f, EnvPalette.WoodDark);
+                // Quatro rodas (cilindros deitados): matriz girando o eixo Y para X.
+                for (int w = -1; w <= 1; w += 2)
+                {
+                    Matrix4x4 saved = o.Matrix;
+                    o.Matrix = saved * Matrix4x4.TRS(new Vector3(side * 0.8f, 0.42f, w * 0.68f), Quaternion.Euler(0f, 0f, 90f), Vector3.one);
+                    o.Frustum(new Vector3(0f, -0.06f, 0f), 0.42f, 0.42f, 0.12f, 12, EnvPalette.WoodDark, true, true);
+                    o.Frustum(new Vector3(0f, -0.08f, 0f), 0.3f, 0.3f, 0.16f, 12, EnvPalette.Wood, true, true);
+                    o.Frustum(new Vector3(0f, -0.1f, 0f), 0.1f, 0.1f, 0.2f, 6, EnvPalette.Iron, true, true);
+                    o.Matrix = saved;
+                }
             }
+            for (int k = 0; k < 5; k++)
+                o.Box(new Vector3(0f, 0.82f, -0.88f + k * 0.44f), new Vector3(1.28f, 0.02f, 0.04f), EnvPalette.WoodDark);
             o.BeveledBox(new Vector3(0f, 1.0f, 1.08f), new Vector3(1.4f, 0.45f, 0.08f), 0.03f, EnvPalette.Wood);
             o.BeveledBox(new Vector3(0f, 1.0f, -1.08f), new Vector3(1.4f, 0.45f, 0.08f), 0.03f, EnvPalette.Wood);
             // Varais.
             for (int side = -1; side <= 1; side += 2)
                 o.BeveledBox(new Vector3(side * 0.4f, 0.62f, -1.75f), new Vector3(0.08f, 0.08f, 1.5f), 0.02f, EnvPalette.WoodDark);
-            // Carga: lona azul abaulada + neve.
-            o.BeveledBox(new Vector3(0f, 1.25f, 0.05f), new Vector3(1.25f, 0.55f, 1.9f), 0.22f, EnvPalette.RoyalBlue * 0.85f, rng, 0.05f);
-            o.BeveledBox(new Vector3(0.05f, 1.55f, 0.1f), new Vector3(1f, 0.14f, 1.5f), 0.06f, EnvPalette.Snow, rng, 0.05f);
-            EnvProps.Barrel(chunk, position + Quaternion.Euler(0f, yaw, 0f) * new Vector3(0.9f, 0f, -0.6f), 0.85f, rng);
+            // Um pouco de neve no fundo da caçamba vazia.
+            o.BeveledBox(new Vector3(0.1f, 0.86f, 0.3f), new Vector3(0.9f, 0.08f, 1.1f), 0.03f, EnvPalette.Snow, rng, 0.05f);
         }
 
         // Tenda de lona azul e branca com mastro, estacas e neve no telhado.
@@ -78,7 +100,20 @@ namespace LegionRush.Environments
                 Vector3 a = new Vector3(side * W * 0.5f, 0f, -D * 0.5f), b = new Vector3(0f, H, -D * 0.5f);
                 Vector3 c = new Vector3(0f, H, D * 0.5f), d = new Vector3(side * W * 0.5f, 0f, D * 0.5f);
                 Vector3 inside = new Vector3(-side * 3f, -1f, 0f);
-                o.ConvexFace(new[] { a, b, c, d }, inside, canvas);
+                // Faixas alternadas azul/branco ao longo da tenda (referência 18_tenda).
+                const int Stripes = 6;
+                for (int k = 0; k < Stripes; k++)
+                {
+                    float t0 = k / (float)Stripes, t1 = (k + 1) / (float)Stripes;
+                    Vector3 q0 = Vector3.Lerp(a, d, t0), q1 = Vector3.Lerp(b, c, t0), q2 = Vector3.Lerp(b, c, t1), q3 = Vector3.Lerp(a, d, t1);
+                    Vector3 lift = new Vector3(side * 0.005f, 0.005f, 0f);
+                    o.ConvexFace(new[] { q0 + lift, q1 + lift, q2 + lift, q3 + lift }, inside, k % 2 == 0 ? EnvPalette.RoyalBlue : canvas);
+                }
+                // Esteio de madeira na beirada da frente (inclinado junto com o telhado).
+                Matrix4x4 savedT = o.Matrix;
+                o.Matrix = savedT * Matrix4x4.TRS(Vector3.Lerp(a, b, 0.5f) + new Vector3(0f, 0f, -0.05f), Quaternion.FromToRotation(Vector3.up, (b - a).normalized), Vector3.one);
+                o.BeveledBox(Vector3.zero, new Vector3(0.09f, Vector3.Distance(a, b), 0.09f), 0.02f, EnvPalette.WoodDark);
+                o.Matrix = savedT;
                 o.ConvexFace(new[] { a, d, c, b }, inside + new Vector3(side * 10f, 6f, 0f), canvas * 0.7f);
                 // Faixa azul na barra e neve no alto.
                 Vector3 a2 = Vector3.Lerp(a, b, 0.0f) + Vector3.up * 0.02f, b2 = Vector3.Lerp(a, b, 0.22f), c2 = Vector3.Lerp(d, c, 0.22f), d2 = Vector3.Lerp(d, c, 0f) + Vector3.up * 0.02f;
@@ -134,10 +169,17 @@ namespace LegionRush.Environments
             EnvMeshBuilder o = chunk.Opaque;
             EnvMeshBuilder g = chunk.Glow;
             o.NoSnow();
-            o.BeveledBox(new Vector3(0f, 0.15f, 0f), new Vector3(0.45f, 0.3f, 0.45f), 0.06f, EnvPalette.StoneDark);
-            o.Frustum(new Vector3(0f, 0.3f, 0f), 0.07f, 0.05f, height - 0.3f, 6, EnvPalette.Iron, false, false);
-            o.BeveledBox(new Vector3(0.35f, height - 0.05f, 0f), new Vector3(0.75f, 0.06f, 0.06f), 0.02f, EnvPalette.Iron);
-            Vector3 lamp = new Vector3(0.65f, height - 0.45f, 0f);
+            // Poste e braço de madeira com mão-francesa; lanterna pendurada por corrente (referência 20_lamparina).
+            o.BeveledBox(new Vector3(0f, 0.12f, 0f), new Vector3(0.5f, 0.24f, 0.5f), 0.05f, EnvPalette.StoneDark);
+            o.BeveledBox(new Vector3(0f, height * 0.5f + 0.1f, 0f), new Vector3(0.16f, height - 0.1f, 0.16f), 0.03f, EnvPalette.WoodDark);
+            o.BeveledBox(new Vector3(0.38f, height - 0.05f, 0f), new Vector3(0.9f, 0.12f, 0.12f), 0.03f, EnvPalette.WoodDark);
+            Matrix4x4 brace = o.Matrix;
+            o.Matrix = brace * Matrix4x4.TRS(new Vector3(0.2f, height - 0.27f, 0f), Quaternion.Euler(0f, 0f, 45f), Vector3.one);
+            o.BeveledBox(Vector3.zero, new Vector3(0.5f, 0.07f, 0.07f), 0.02f, EnvPalette.Wood);
+            o.Matrix = brace;
+            o.BeveledBox(new Vector3(0f, height + 0.05f, 0f), new Vector3(0.22f, 0.08f, 0.22f), 0.02f, EnvPalette.Snow, rng, 0.02f);
+            o.Box(new Vector3(0.65f, height - 0.2f, 0f), new Vector3(0.03f, 0.2f, 0.03f), EnvPalette.Iron);
+            Vector3 lamp = new Vector3(0.65f, height - 0.75f, 0f);
             o.Frustum(lamp + Vector3.up * 0.36f, 0.24f, 0.04f, 0.2f, 6, EnvPalette.Iron, true, false);
             o.Frustum(lamp + Vector3.up * 0.5f, 0.2f, 0.02f, 0.1f, 6, EnvPalette.Snow, true, false);
             g.Frustum(lamp, 0.15f, 0.17f, 0.36f, 6, EnvPalette.WindowGlow * 0.9f, true, true);
@@ -185,8 +227,10 @@ namespace LegionRush.Environments
             o.BeveledBox(new Vector3(0f, 3.2f, 0.05f), new Vector3(0.08f, 0.32f, 0.38f), 0.03f, stone);
             // Escudo (com neve) à esquerda e espada com ponta no chão à frente.
             o.BeveledBox(new Vector3(-0.55f, 1.95f, -0.3f), new Vector3(0.12f, 0.85f, 0.6f), 0.06f, stone * 0.97f);
-            o.BeveledBox(new Vector3(0f, 1.5f, -0.38f), new Vector3(0.1f, 1.3f, 0.04f), 0.02f, stone * 1.05f);
-            o.BeveledBox(new Vector3(0f, 2.18f, -0.38f), new Vector3(0.42f, 0.08f, 0.08f), 0.02f, stone);
+            // Lança apoiada no pedestal, na mão direita (referência 08_estatua).
+            o.Frustum(new Vector3(0.52f, 0.96f, -0.12f), 0.05f, 0.045f, 3.2f, 6, stone * 1.04f, false, false);
+            o.Frustum(new Vector3(0.52f, 4.16f, -0.12f), 0.1f, 0f, 0.45f, 4, stone * 1.08f, true, false);
+            o.BeveledBox(new Vector3(0.48f, 2.15f, -0.12f), new Vector3(0.2f, 0.2f, 0.2f), 0.05f, stone);
             // Neve nos ombros, cabeça e pedestal.
             o.BeveledBox(new Vector3(0f, 2.92f, 0f), new Vector3(0.48f, 0.08f, 0.44f), 0.03f, EnvPalette.Snow, rng, 0.02f);
             for (int side = -1; side <= 1; side += 2)

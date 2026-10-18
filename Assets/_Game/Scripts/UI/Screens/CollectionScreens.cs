@@ -229,14 +229,19 @@ namespace LegionRush
     // 10. Loja offline (moedas e gemas obtidas no jogo; sem dinheiro real)
     public class ShopScreen : MenuScreen
     {
+        public const string SectionChests = "BAÚS";
+        public const string SectionSkins = "VISUAIS DO EXÉRCITO";
+
         private RectTransform list;
         protected override string Title => "LOJA";
         protected override void BuildBody(RectTransform body) => list = UI.ScrollList(body);
 
+        public void Focus(string section) => ScrollTo(list, section);
+
         protected override void RefreshBody()
         {
             UI.Clear(list);
-            Section(list, "BAÚS");
+            Section(list, SectionChests);
             foreach (ChestDef chest in MetaCatalog.Chests)
             {
                 string id = chest.Id;
@@ -281,7 +286,7 @@ namespace LegionRush
                     () => ConfirmPurchase(captured.Name, captured.Gold, 0, () => MetaService.BuyPotion(id)), UIStyle.Purple);
             }
 
-            Section(list, "VISUAIS DO EXÉRCITO");
+            Section(list, SectionSkins);
             SaveData save = SaveManager.Current;
             foreach (SkinDef skin in MetaCatalog.Skins)
             {

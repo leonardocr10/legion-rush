@@ -54,6 +54,7 @@ namespace LegionRush
         private Vector3 visualBasePosition;
         private Quaternion visualBaseRotation;
         private Renderer[] renderers;
+        private CharacterSockets sockets;
         private bool visualCaptured;
         private bool flashApplied;
         private float punch;
@@ -85,6 +86,7 @@ namespace LegionRush
                 visualBaseRotation = visual.localRotation;
                 renderers = visual.GetComponentsInChildren<Renderer>(true);
                 AnimDriver = visual.GetComponentInChildren<CharacterAnimatorDriver>(true);
+                sockets = visual.GetComponentInChildren<CharacterSockets>(true);
                 visualCaptured = true;
             }
             if (visualCaptured)
@@ -211,6 +213,10 @@ namespace LegionRush
 
         protected virtual float ResistanceTo(DamageType type) => 0f;
         protected virtual void OnDamaged(float amount, DamageInfo info) { }
+
+        // Ponto de saída de flechas e magias: encaixe ProjectileSpawn do modelo final, quando existir.
+        protected Vector3 ProjectileOrigin(Vector3 fallback)
+            => sockets != null && sockets.TryGetProjectileOrigin(out Vector3 p) ? p : fallback;
 
         protected void Punch(float strength) => punch = Mathf.Max(punch, Mathf.Clamp01(strength));
 

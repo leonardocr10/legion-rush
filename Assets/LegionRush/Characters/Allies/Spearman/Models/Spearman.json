@@ -1,0 +1,108 @@
+{
+  "name": "Spearman",
+  "clips": [
+    {
+      "name": "Idle",
+      "loop": true,
+      "length": 2.4,
+      "impact": 0.0
+    },
+    {
+      "name": "Walk",
+      "loop": true,
+      "length": 1.0,
+      "impact": 0.0
+    },
+    {
+      "name": "Run",
+      "loop": true,
+      "length": 0.6333333333333333,
+      "impact": 0.0
+    },
+    {
+      "name": "SpearThrust",
+      "loop": false,
+      "length": 0.7333333333333333,
+      "impact": 0.32
+    },
+    {
+      "name": "Attack",
+      "loop": false,
+      "length": 0.7,
+      "impact": 0.32
+    },
+    {
+      "name": "Defend",
+      "loop": false,
+      "length": 0.8666666666666667,
+      "impact": 0.0
+    },
+    {
+      "name": "Charge",
+      "loop": true,
+      "length": 0.5666666666666667,
+      "impact": 0.0
+    },
+    {
+      "name": "Hit",
+      "loop": false,
+      "length": 0.4,
+      "impact": 0.0
+    },
+    {
+      "name": "Death",
+      "loop": false,
+      "length": 1.1,
+      "impact": 0.0
+    },
+    {
+      "name": "Victory",
+      "loop": true,
+      "length": 1.6,
+      "impact": 0.0
+    }
+  ],
+  "slots": [
+    {
+      "slot": "Attack",
+      "clip": "SpearThrust"
+    },
+    {
+      "slot": "AttackAlt",
+      "clip": "Attack"
+    },
+    {
+      "slot": "Skill",
+      "clip": "Charge"
+    },
+    {
+      "slot": "Block",
+      "clip": "Defend"
+    }
+  ],
+  "sockets": [
+    "HeadSocket",
+    "LeftHandSocket",
+    "RightHandSocket",
+    "BackSocket"
+  ],
+  "stats": {
+    "LOD0_tris": 14374,
+    "LOD1_tris": 5462,
+    "LOD2_tris": 1966,
+    "bones": 29,
+    "shape_keys": "Basis,Happy,Angry,Attack,Surprised,Pain,Victory,Defeat"
+  },
+  "weapons": [
+    {
+      "id": "Weapon_RoyalSpear",
+      "socket": "RightHandSocket",
+      "node": "RoyalSpear"
+    },
+    {
+      "id": "Weapon_RoyalStarShield",
+      "socket": "LeftHandSocket",
+      "node": "RoyalStarShield"
+    }
+  ]
+}

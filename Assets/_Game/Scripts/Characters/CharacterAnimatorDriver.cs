@@ -14,6 +14,8 @@ namespace LegionRush
         private static readonly int VictoryId = Animator.StringToHash("Victory");
         private static readonly int SkillId = Animator.StringToHash("Skill");
         private static readonly int SpawnId = Animator.StringToHash("Spawn");
+        private static readonly int BlockId = Animator.StringToHash("Block");
+        private static readonly int AttackVariantId = Animator.StringToHash("AttackVariant");
 
         [SerializeField, Tooltip("Segundos entre o início do ataque e o frame de impacto.")]
         private float impactDelay = 0.18f;
@@ -22,13 +24,15 @@ namespace LegionRush
         [SerializeField, Range(0f, 0.3f)] private float playbackVariation = 0.08f;
         [SerializeField] private float speedDampTime = 0.1f;
         [SerializeField] private bool playSpawnOnReset;
+        [SerializeField, Range(0f, 1f), Tooltip("Chance de usar o ataque alternativo (estado AttackAlt), quando existir.")]
+        private float alternateAttackChance = 0.3f;
 
         public float ImpactDelay => Mathf.Max(0f, impactDelay);
         public float CorpseDuration => Mathf.Max(0.1f, corpseDuration);
 
         private Animator animator;
         private bool cached;
-        private bool hasSpeed, hasAttackSpeed, hasAttack, hasHit, hasDie, hasVictory, hasSkill, hasSpawn;
+        private bool hasSpeed, hasAttackSpeed, hasAttack, hasHit, hasDie, hasVictory, hasSkill, hasSpawn, hasBlock, hasAttackVariant;
 
         private void Awake() => Cache();
 
@@ -58,6 +62,7 @@ namespace LegionRush
         {
             if (!IsReady) return;
             if (hasAttackSpeed) animator.SetFloat(AttackSpeedId, Mathf.Clamp(attackSpeed, 0.25f, 4f));
+            if (hasAttackVariant) animator.SetInteger(AttackVariantId, Random.value < alternateAttackChance ? 1 : 0);
             if (hasAttack) animator.SetTrigger(AttackId);
         }
 
@@ -78,6 +83,13 @@ namespace LegionRush
             if (!IsReady) return;
             ClearCombatTriggers();
             if (hasVictory) animator.SetTrigger(VictoryId);
+        }
+
+        public bool CanBlock => hasBlock && IsReady;
+
+        public void PlayBlock()
+        {
+            if (hasBlock && IsReady) animator.SetTrigger(BlockId);
         }
 
         public void PlaySkill()
@@ -117,6 +129,8 @@ namespace LegionRush
                 else if (hash == VictoryId) hasVictory = true;
                 else if (hash == SkillId) hasSkill = true;
                 else if (hash == SpawnId) hasSpawn = true;
+                else if (hash == BlockId) hasBlock = true;
+                else if (hash == AttackVariantId) hasAttackVariant = true;
             }
             if (!hasAttack || !hasDie)
                 GameLog.Warn($"{name}: parâmetros Attack/Die ausentes. Use 'Legion Rush/Animation/Create Base Animator Controller'.");

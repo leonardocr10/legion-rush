@@ -40,7 +40,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1968069502183735198}
-  m_Mesh: {fileID: 7841473138623183479, guid: 19a94fae2cd29f04cbc6e7a7fcc8a623, type: 2}
+  m_Mesh: {fileID: 6080696723490531892, guid: 19a94fae2cd29f04cbc6e7a7fcc8a623, type: 2}
 --- !u!23 &3670494922018205052
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -131,8 +131,8 @@ LODGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5216365584302080915}
   serializedVersion: 3
-  m_LocalReferencePoint: {x: 0, y: 1.6800001, z: -0.014999956}
-  m_Size: 3.3600001
+  m_LocalReferencePoint: {x: 0, y: 2.3049998, z: -0.014999956}
+  m_Size: 4.6099997
   m_FadeMode: 0
   m_AnimateCrossFading: 0
   m_LastLODIsBillboard: 0

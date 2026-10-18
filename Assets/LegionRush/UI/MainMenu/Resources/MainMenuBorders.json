@@ -1,0 +1,12 @@
+{
+  "Bar_Currency": [12, 0, 12, 0],
+  "Bar_FillBlue": [16, 0, 16, 0],
+  "Bar_FillTeal": [13, 0, 13, 0],
+  "Bar_Track": [16, 0, 16, 0],
+  "Bar_TrackWorld": [13, 0, 13, 0],
+  "Button_NavFrame": [28, 28, 28, 28],
+  "Button_NavFrameSelected": [30, 30, 30, 30],
+  "Button_SideFrame": [26, 26, 26, 26],
+  "Panel_TimerPill": [20, 0, 20, 0],
+  "Panel_WorldProgress": [190, 30, 30, 30]
+}

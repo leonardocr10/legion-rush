@@ -61,6 +61,8 @@ namespace LegionRush
         [Min(1)] public int count = 10;
         [Min(0.1f)] public float healthMultiplier = 1f;
         [Min(0.6f)] public float spacing = 0.9f;
+        [Tooltip("Tipos da onda (repetidos em ciclo). Vazio = composição automática pelos tipos liberados na fase.")]
+        public List<EnemyKind> kinds = new List<EnemyKind>();
     }
 
     [Serializable]

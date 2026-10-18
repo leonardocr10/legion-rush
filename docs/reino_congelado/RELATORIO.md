@@ -65,3 +65,42 @@ Para substituir as malhas procedurais mantendo prefabs, nomes e pivôs:
 | Unidades azuis e vermelhas (soldado, arqueiro, lanceiro, capitão) | pés na origem, frente +Z, ~1 m de altura | 3–8 mil, humanoide | animações idle, correr, atacar, dano, morrer, vitória; vagas em `CharacterVisualLibrary` |
 
 Textura: atlas de 1024 px por grupo (castelo, natureza, props) com compressão ASTC no Android. As cores estão em `EnvPalette`.
+
+## Rodada 4 — pacote de 46 PNGs
+
+Pacote: `LEGION_RUSH_Reino_Congelado_46_PNGs.zip`, 46 recortes RGBA de 70 a 450 px. Todos têm alfa, mas sobrou fundo quadriculado: pontos claros soltos em volta dos objetos e, no `21_portal_azul`, cantos ainda opacos. O `tools/art/clean_frozen_refs.py` limpa os recortes e grava em `Worlds/FrozenKingdom/References/`.
+
+Os PNGs são **só referência visual**. Nenhum é usado como textura ou sprite no cenário: cada um orienta um modelo 3D procedural (malha + materiais + prefab) ou uma câmera de comparação.
+
+- **Inventário completo** (arquivo, elemento, categoria, modelo, material, prefab, alfa, estado): `INVENTARIO_46_PNGS.md`.
+- **Comparação lado a lado PNG × render do Unity**: `Builds/EnvPreview/comparacao_46_pngs.png`.
+
+### O que mudou nos modelos para bater com os PNGs
+
+| PNG | Ajuste |
+|---|---|
+| 04 muralha | torres quadradas mais altas nas pontas, com ameias e neve (`Wall(..., endTowers: true)`) |
+| 05 portão | mastro com flâmula azul no alto |
+| 07 pilar com bandeira | base de pedra em dois degraus com neve, haste e barra douradas com remates e ponta de lança |
+| 08 estátua | lança na mão direita (no lugar da espada à frente) |
+| 14 cerca | travessas em X entre os postes |
+| 17 carroça | caçamba aberta de tábuas, 4 rodas com aro, sem lona nem barril |
+| 18 tenda | telhado em faixas azuis e brancas, esteio de madeira |
+| 20 lamparina | poste e braço de madeira com mão-francesa, lanterna pendurada |
+| 21–24 portais | moldura tingida pela cor da categoria, placa no topo com emblema (escudo, espadas cruzadas, moeda, anéis), hastes douradas com tocha acesa, interior saturado em mistura alfa |
+| 33–41 pistas | laje de pedra de 1,1 m sob o calçamento (laterais em blocos, neve nos cantos), novo `Track_PlatformBlock` (40) |
+
+Os nomes pedidos (`FK_Castle_Main`, `FK_Castle_TowerLarge`, `FK_Castle_TowerSmall`, `FK_Castle_Wall`, `FK_Castle_Gate`, `FK_Castle_Arch`, `FK_Castle_Pillar`, `FK_Castle_Stairs`, `FK_Gate_Blue/Green/Yellow/Purple`) foram aplicados renomeando os prefabs anteriores com `AssetDatabase.MoveAsset`. Assim o GUID se mantém e não há modelos duplicados. A cena anterior foi preservada em `Scenes/Versions/FrozenKingdom_01_v1.unity` antes da remontagem.
+
+### Concluído × pendente (rodada 4)
+
+- **Concluído**:
+  - 33 elementos de cenário (castelo e peças, estruturas, natureza, props, portais e 9 módulos de pista) como modelo 3D + prefab, com colisores na pista e trigger nos portais.
+  - Cena remontada (761 peças).
+  - 5 vistas de comparação.
+- **Personagens (25–32)**: feitos pela sessão paralela de personagens, em FBX rigados do Blender: `Ally_Warrior`, `Ally_RoyalArcher`, `Ally_Spearman`, `Ally_RoyalCommander`, `Enemy_Soldier`, `Enemy_Archer`, `Enemy_Pikeman`… Eles entram no jogo pelo `CharacterVisualLibrary` (Resources). **Pendente**: não há modelo de capitão vermelho (32).
+- **Materiais**: o cenário usa 8 materiais compartilhados com cor por vértice (pedra, alvenaria, calçamento, brilho, tecido, gelo, distante, cortina do portal). Pedra, neve, madeira, metal, ouro, tecido azul e vermelho e cristal são cores da paleta (`EnvPalette`) dentro desses materiais, e não materiais separados. Isso foi escolhido para reduzir draw calls no Android.
+- **Continua pendente**:
+  - Texturas pintadas à mão e escultura de artista (as malhas seguem facetadas).
+  - Curva suave (o módulo atual faz 90°).
+  - Medição de FPS em aparelho Android.

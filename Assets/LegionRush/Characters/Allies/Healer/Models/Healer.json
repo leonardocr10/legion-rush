@@ -1,0 +1,111 @@
+{
+  "name": "Healer",
+  "clips": [
+    {
+      "name": "Idle",
+      "loop": true,
+      "length": 2.4,
+      "impact": 0.0
+    },
+    {
+      "name": "Walk",
+      "loop": true,
+      "length": 1.0,
+      "impact": 0.0
+    },
+    {
+      "name": "Run",
+      "loop": true,
+      "length": 0.6333333333333333,
+      "impact": 0.0
+    },
+    {
+      "name": "Heal",
+      "loop": false,
+      "length": 0.8,
+      "impact": 0.2
+    },
+    {
+      "name": "AreaHeal",
+      "loop": false,
+      "length": 1.2,
+      "impact": 0.6
+    },
+    {
+      "name": "Cast",
+      "loop": false,
+      "length": 1.0,
+      "impact": 0.45
+    },
+    {
+      "name": "Shield",
+      "loop": false,
+      "length": 0.9333333333333333,
+      "impact": 0.0
+    },
+    {
+      "name": "Revive",
+      "loop": false,
+      "length": 1.3333333333333333,
+      "impact": 0.0
+    },
+    {
+      "name": "Hit",
+      "loop": false,
+      "length": 0.4,
+      "impact": 0.0
+    },
+    {
+      "name": "Death",
+      "loop": false,
+      "length": 1.1,
+      "impact": 0.0
+    },
+    {
+      "name": "Victory",
+      "loop": true,
+      "length": 1.6,
+      "impact": 0.0
+    }
+  ],
+  "slots": [
+    {
+      "slot": "Attack",
+      "clip": "Heal"
+    },
+    {
+      "slot": "AttackAlt",
+      "clip": "Cast"
+    },
+    {
+      "slot": "Skill",
+      "clip": "AreaHeal"
+    },
+    {
+      "slot": "Block",
+      "clip": "Shield"
+    }
+  ],
+  "sockets": [
+    "HeadSocket",
+    "LeftHandSocket",
+    "ProjectileSpawn",
+    "RightHandSocket",
+    "VFXSocket",
+    "BackSocket"
+  ],
+  "stats": {
+    "LOD0_tris": 12161,
+    "LOD1_tris": 4621,
+    "LOD2_tris": 1662,
+    "bones": 31,
+    "shape_keys": "Basis,Happy,Angry,Attack,Surprised,Pain,Victory,Defeat"
+  },
+  "weapons": [
+    {
+      "id": "Weapon_SunStaff",
+      "socket": "RightHandSocket",
+      "node": "SunStaff"
+    }
+  ]
+}

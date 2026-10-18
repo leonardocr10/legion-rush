@@ -6,8 +6,12 @@ namespace LegionRush
     {
         private const float RetargetInterval = 0.3f;
         private const float MeleeReachTolerance = 0.6f;
+        private const float BlockReduction = 0.7f;
+        private static readonly Color RageColor = new Color(1f, 0.25f, 0.1f, 0.8f);
+        private static readonly Color BlockColor = new Color(1f, 0.9f, 0.6f, 0.9f);
 
         private EnemyStats stats;
+        private EnemyKinds.Profile profile;
         private LevelManager level;
         private ArmyManager army;
         private Soldier target;
@@ -17,15 +21,26 @@ namespace LegionRush
         private bool impactPending;
         private float impactTimer;
         private Soldier impactTarget;
+        private bool enraged;
+        private bool blockedThisHit;
 
         public bool IsAggro { get; private set; }
+        public EnemyKind Kind { get; private set; }
 
         public void Initialize(EnemyStats enemyStats, float healthMultiplier, LevelManager owner, ArmyManager targetArmy)
+            => Initialize(enemyStats, healthMultiplier, owner, targetArmy, EnemyKind.Soldier);
+
+        // enemyStats já vem com os multiplicadores do tipo (EnemyKinds.Apply).
+        public void Initialize(EnemyStats enemyStats, float healthMultiplier, LevelManager owner, ArmyManager targetArmy,
+            EnemyKind kind)
         {
             stats = enemyStats;
+            Kind = kind;
+            profile = EnemyKinds.Get(kind);
             level = owner;
             army = targetArmy;
-            SetupCombatant(stats.maxHealth * Mathf.Max(0.1f, healthMultiplier), stats.armor, 0.32f);
+            SetupCombatant(stats.maxHealth * Mathf.Max(0.1f, healthMultiplier), stats.armor,
+                kind == EnemyKind.HeavyWarrior ? 0.4f : 0.32f);
             cooldown = Random.Range(0f, stats.attackInterval);
             retargetTimer = Random.Range(0f, RetargetInterval);
             bobPhase = Random.Range(0f, 10f);
@@ -33,9 +48,44 @@ namespace LegionRush
             target = null;
             impactPending = false;
             impactTarget = null;
+            enraged = false;
         }
 
         public void ForceAggro() => IsAggro = true;
+
+        // Guerreiro Pesado: chance de aparar o golpe com o escudo (avaliado uma vez por golpe recebido).
+        protected override float DamageTakenMultiplier
+        {
+            get
+            {
+                blockedThisHit = profile.BlockChance > 0f && Random.value < profile.BlockChance;
+                return blockedThisHit ? 1f - BlockReduction : 1f;
+            }
+        }
+
+        protected override void OnDamaged(float amount, DamageInfo info)
+        {
+            if (blockedThisHit)
+            {
+                blockedThisHit = false;
+                if (AnimDriver != null) AnimDriver.PlayBlock();
+                Vfx.Burst(transform.position + Vector3.up * 0.8f + transform.forward * 0.35f, BlockColor, 0.35f, 0.18f);
+            }
+            if (profile.Rage && !enraged && IsAlive && HealthRatio < 0.5f) EnterRage();
+        }
+
+        // Berserker: abaixo de metade da vida entra em fúria (ataques 40% mais rápidos, 25% mais veloz).
+        private void EnterRage()
+        {
+            enraged = true;
+            cooldown = Mathf.Min(cooldown, 0.2f);
+            if (AnimDriver != null) AnimDriver.PlaySkill();
+            Vfx.Burst(transform.position + Vector3.up * 0.7f, RageColor, 1.1f, 0.45f);
+            GameAudio.PlayAt(SoundId.BossRoar, transform.position);
+        }
+
+        private float AttackInterval => stats.attackInterval * (enraged ? 0.6f : 1f);
+        private float SpeedFactor => enraged ? 1.25f : 1f;
 
         public void Tick(float deltaTime, Vector3 commanderPosition)
         {
@@ -79,7 +129,8 @@ namespace LegionRush
             float moveRatio = 0f;
             if (distance > stats.attackRange)
             {
-                float stepLength = Mathf.Min(stats.moveSpeed * MoveMultiplier * deltaTime, distance - stats.attackRange * 0.9f);
+                float stepLength = Mathf.Min(stats.moveSpeed * MoveMultiplier * SpeedFactor * deltaTime,
+                    distance - stats.attackRange * 0.9f);
                 transform.position = position + toTarget.normalized * stepLength;
                 moveRatio = MoveMultiplier;
             }
@@ -95,10 +146,10 @@ namespace LegionRush
             cooldown -= deltaTime;
             if (!impactPending && cooldown <= 0f && distance <= stats.attackRange + 0.15f)
             {
-                PlayAttackAnimation(1f);
-                cooldown = stats.attackInterval;
+                PlayAttackAnimation(enraged ? 1.4f : 1f);
+                cooldown = AttackInterval;
                 impactTarget = target;
-                impactTimer = ImpactDelay;
+                impactTimer = ImpactDelay / (enraged ? 1.4f : 1f);
                 impactPending = true;
                 if (impactTimer <= 0f) ResolveImpact();
             }
@@ -110,6 +161,23 @@ namespace LegionRush
             Soldier victim = impactTarget;
             impactTarget = null;
             if (victim == null || !victim.IsAlive) return;
+
+            if (profile.Ranged)
+            {
+                Vector3 origin = ProjectileOrigin(transform.position + Vector3.up + transform.forward * 0.3f);
+                var hit = new DamageInfo(stats.damage, profile.AreaRadius > 0f ? DamageType.Fire : DamageType.Physical);
+                if (profile.AreaRadius > 0f)
+                {
+                    army.FireEnemyOrb(origin, victim.transform.position, hit, profile.AreaRadius);
+                    GameAudio.PlayAt(SoundId.MagicCast, transform.position);
+                }
+                else
+                {
+                    army.FireEnemyArrow(origin, victim, hit);
+                    GameAudio.PlayAt(SoundId.ArrowShot, transform.position);
+                }
+                return;
+            }
 
             Vector3 delta = victim.transform.position - transform.position;
             delta.y = 0f;

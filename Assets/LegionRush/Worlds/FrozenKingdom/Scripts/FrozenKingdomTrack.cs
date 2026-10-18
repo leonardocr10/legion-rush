@@ -98,7 +98,7 @@ namespace LegionRush.Environments
             var finale = new EnvChunk();
             BuildFinishArch(finale, rng);
             EnvCastle.Castle(finale, new Vector3(0f, 0f, CastleZ), CastlePlateau, rng);
-            Record("Castle_Main", new Vector3(0f, 0f, CastleZ), 0f, 1f, "Castle", SecCastle + ": fortaleza centralizada no fim do percurso");
+            Record("FK_Castle_Main", new Vector3(0f, 0f, CastleZ), 0f, 1f, "Castle", SecCastle + ": fortaleza centralizada no fim do percurso");
             BuildCastleSurroundings(finale, density, rng);
             vertices += finale.VertexCount;
             Collect(finale, "Castle", shadows);
@@ -467,7 +467,7 @@ namespace LegionRush.Environments
                 fire.Add(flame, 0f);
                 EnvProps.BannerPole(chunk, new Vector3(side * 6.8f, 0f, CastleZ - 9.5f), 4f, side * -12f, rng);
                 EnvRocks.IceCrystals(chunk, new Vector3(side * 8.4f, 0f, CastleZ - 7.5f), 1.6f, rng);
-                Record("Castle_Torch", new Vector3(side * 4.7f, 0f, CastleZ - 7.2f), 0f, 1f, "Castle", SecCastle + ": braseiros ao pé da escadaria");
+                Record("FK_Castle_Torch", new Vector3(side * 4.7f, 0f, CastleZ - 7.2f), 0f, 1f, "Castle", SecCastle + ": braseiros ao pé da escadaria");
                 Record("BannerPole", new Vector3(side * 6.8f, 0f, CastleZ - 9.5f), side * -12f, 4f / 3.6f, "Castle", SecCastle + ": estandartes da entrada");
                 Record("Ice_Crystal", new Vector3(side * 8.4f, 0f, CastleZ - 7.5f), 0f, 1.6f / 1.4f, "Castle", SecCastle + ": cristais de gelo");
             }

@@ -1,0 +1,106 @@
+{
+  "name": "EnemyArcher",
+  "clips": [
+    {
+      "name": "Idle",
+      "loop": true,
+      "length": 2.4,
+      "impact": 0.0
+    },
+    {
+      "name": "Walk",
+      "loop": true,
+      "length": 1.0,
+      "impact": 0.0
+    },
+    {
+      "name": "Run",
+      "loop": true,
+      "length": 0.6333333333333333,
+      "impact": 0.0
+    },
+    {
+      "name": "DrawBow",
+      "loop": false,
+      "length": 0.6,
+      "impact": 0.0
+    },
+    {
+      "name": "Aim",
+      "loop": true,
+      "length": 1.2,
+      "impact": 0.0
+    },
+    {
+      "name": "Shoot",
+      "loop": false,
+      "length": 0.8666666666666667,
+      "impact": 0.48
+    },
+    {
+      "name": "Reload",
+      "loop": false,
+      "length": 0.8,
+      "impact": 0.0
+    },
+    {
+      "name": "Dodge",
+      "loop": false,
+      "length": 0.7,
+      "impact": 0.0
+    },
+    {
+      "name": "Hit",
+      "loop": false,
+      "length": 0.4,
+      "impact": 0.0
+    },
+    {
+      "name": "Death",
+      "loop": false,
+      "length": 1.1,
+      "impact": 0.0
+    },
+    {
+      "name": "Victory",
+      "loop": true,
+      "length": 1.6,
+      "impact": 0.0
+    }
+  ],
+  "slots": [
+    {
+      "slot": "Attack",
+      "clip": "Shoot"
+    },
+    {
+      "slot": "Skill",
+      "clip": "Reload"
+    },
+    {
+      "slot": "Block",
+      "clip": "Dodge"
+    }
+  ],
+  "sockets": [
+    "HeadSocket",
+    "LeftHandSocket",
+    "ProjectileSpawn",
+    "RightHandSocket",
+    "BackSocket"
+  ],
+  "stats": {
+    "LOD0_tris": 11369,
+    "LOD1_tris": 4319,
+    "LOD2_tris": 1555,
+    "bones": 30,
+    "shape_keys": "Basis,Happy,Angry,Attack,Surprised,Pain,Victory,Defeat"
+  },
+  "weapons": [
+    {
+      "id": "Weapon_EnemyBow",
+      "socket": "LeftHandSocket",
+      "node": "EnemyBow"
+    }
+  ]
+}

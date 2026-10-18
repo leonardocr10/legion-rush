@@ -24,6 +24,9 @@ namespace LegionRush
         private System.Action<Projectile> release;
         private TrailRenderer trail;
 
+        // Dano em área alternativo (projéteis inimigos atingem o exército, não os hostis).
+        public System.Func<Vector3, float, DamageInfo, int> AreaDamage { get; set; }
+
         public void ConfigureTrail(Material material, Color headColor, Color tailColor, float width)
         {
             if (material == null || trail != null) return;
@@ -116,7 +119,8 @@ namespace LegionRush
         {
             if (areaRadius > 0f)
             {
-                CombatRegistry.DamageInRadius(aimPoint, areaRadius, damage);
+                if (AreaDamage != null) AreaDamage(aimPoint, areaRadius, damage);
+                else CombatRegistry.DamageInRadius(aimPoint, areaRadius, damage);
                 Vfx.Burst(aimPoint, impactColor, areaRadius, 0.4f);
             }
             else if (homing && target != null && target.IsAlive)

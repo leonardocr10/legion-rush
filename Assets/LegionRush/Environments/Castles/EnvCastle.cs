@@ -8,8 +8,9 @@ namespace LegionRush.Environments
     {
         // Muralha reta de "length" metros ao longo do eixo X local, com ameias e neve no topo.
         public static void Wall(EnvChunk chunk, Matrix4x4 frame, float length, float height, float thickness, System.Random rng,
-            bool merlons = true)
+            bool merlons = true, bool endTowers = false)
         {
+            if (endTowers) WallEndTowers(chunk, frame, length, height, thickness, rng);
             chunk.Matrix = frame;
             EnvMeshBuilder m = chunk.Masonry;
             EnvMeshBuilder o = chunk.Opaque;
@@ -31,6 +32,29 @@ namespace LegionRush.Environments
                 }
             }
             o.BeveledBox(new Vector3(0f, top + 0.06f, 0f), new Vector3(length + 0.1f, 0.16f, thickness + 0.2f), 0.07f, EnvPalette.Snow, rng, 0.02f);
+        }
+
+        // Torres quadradas mais altas nas pontas da muralha, com ameias e neve (referência 04_muralha).
+        private static void WallEndTowers(EnvChunk chunk, Matrix4x4 frame, float length, float height, float thickness, System.Random rng)
+        {
+            chunk.Matrix = frame;
+            EnvMeshBuilder m = chunk.Masonry;
+            EnvMeshBuilder o = chunk.Opaque;
+            float w = thickness + 0.6f;
+            float h = height + 2.3f;
+            for (int side = -1; side <= 1; side += 2)
+            {
+                float x = side * (length * 0.5f + w * 0.3f);
+                m.BeveledBox(new Vector3(x, h * 0.5f, 0f), new Vector3(w, h, w), 0.12f, EnvPalette.Stone);
+                m.BeveledBox(new Vector3(x, h + 0.12f, 0f), new Vector3(w + 0.2f, 0.25f, w + 0.2f), 0.06f, EnvPalette.StoneLight);
+                for (int i = -1; i <= 1; i += 2)
+                    for (int j = -1; j <= 1; j += 2)
+                    {
+                        m.BeveledBox(new Vector3(x + i * (w * 0.5f - 0.2f), h + 0.6f, j * (w * 0.5f - 0.2f)), new Vector3(0.45f, 0.7f, 0.45f), 0.06f, EnvPalette.Stone);
+                        o.BeveledBox(new Vector3(x + i * (w * 0.5f - 0.2f), h + 1f, j * (w * 0.5f - 0.2f)), new Vector3(0.5f, 0.14f, 0.5f), 0.04f, EnvPalette.Snow, rng, 0.02f);
+                    }
+                o.BeveledBox(new Vector3(x, h + 0.28f, 0f), new Vector3(w, 0.12f, w), 0.04f, EnvPalette.Snow, rng, 0.03f);
+            }
         }
 
         // Torre redonda: corpo em alvenaria, anel de ameias, telhado cônico azul com ponta dourada e flâmula.
@@ -140,6 +164,11 @@ namespace LegionRush.Environments
             // Ameias e neve.
             Matrix4x4 top = Matrix4x4.TRS(basePosition + Vector3.up * height, Quaternion.identity, Vector3.one);
             Wall(chunk, top, width + 0.4f, 0.01f, depth + 0.2f, rng);
+            // Mastro com flâmula azul no alto do portão (referência 05_portao).
+            chunk.Matrix = Matrix4x4.TRS(basePosition + Vector3.up * (height + 1.1f), Quaternion.identity, Vector3.one);
+            chunk.Opaque.Frustum(Vector3.zero, 0.07f, 0.05f, 2.4f, 6, EnvPalette.Iron, true, true);
+            chunk.Opaque.BeveledBox(new Vector3(0f, 2.45f, 0f), Vector3.one * 0.18f, 0.06f, EnvPalette.Gold);
+            Pennant(chunk.Banner, new Vector3(0f, 2.35f, 0f), 1.5f, 0.75f);
             // Moldura dourada com brasão.
             chunk.Matrix = Matrix4x4.TRS(basePosition, Quaternion.identity, Vector3.one);
             o.BeveledBox(new Vector3(0f, archTop + 0.9f, -depth * 0.5f - 0.05f), new Vector3(1.4f, 1.6f, 0.2f), 0.15f, EnvPalette.Gold);

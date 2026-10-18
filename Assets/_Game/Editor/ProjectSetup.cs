@@ -53,7 +53,7 @@ namespace LegionRush.EditorTools
 
                 var options = new BuildPlayerOptions
                 {
-                    scenes = new[] { ScenePath },
+                    scenes = BuildScenePaths(),
                     locationPathName = output,
                     target = BuildTarget.Android,
                     targetGroup = BuildTargetGroup.Android,
@@ -96,7 +96,7 @@ namespace LegionRush.EditorTools
 
                 var options = new BuildPlayerOptions
                 {
-                    scenes = new[] { ScenePath },
+                    scenes = BuildScenePaths(),
                     locationPathName = output,
                     target = BuildTarget.WebGL,
                     targetGroup = BuildTargetGroup.WebGL,
@@ -191,7 +191,16 @@ namespace LegionRush.EditorTools
 
             EditorSceneManager.MarkSceneDirty(scene);
             EditorSceneManager.SaveScene(scene, ScenePath);
-            EditorBuildSettings.scenes = new[] { new EditorBuildSettingsScene(ScenePath, true) };
+            var scenes = new System.Collections.Generic.List<EditorBuildSettingsScene>();
+            foreach (string path in BuildScenePaths()) scenes.Add(new EditorBuildSettingsScene(path, true));
+            EditorBuildSettings.scenes = scenes.ToArray();
+        }
+
+        // Cenas da build: a tela de abertura (se gerada) primeiro, depois a Main.
+        public static string[] BuildScenePaths()
+        {
+            const string splash = "Assets/LegionRush/UI/SplashScreen/Scenes/SplashScreen.unity";
+            return File.Exists(splash) ? new[] { splash, ScenePath } : new[] { ScenePath };
         }
 
         private static void ConfigurePlayer()

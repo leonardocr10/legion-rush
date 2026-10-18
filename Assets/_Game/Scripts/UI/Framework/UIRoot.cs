@@ -43,6 +43,7 @@ namespace LegionRush
         public GameBootstrap Game { get; private set; }
         public bool IsBlocking => stack.Count > 0 && stack[stack.Count - 1].BlocksGame || modalOpen;
         public UIScreen Top => stack.Count > 0 ? stack[stack.Count - 1] : null;
+        public bool ModalOpen => modalOpen;
 
         private readonly List<UIScreen> stack = new List<UIScreen>();
         private readonly Dictionary<Type, UIScreen> cache = new Dictionary<Type, UIScreen>();

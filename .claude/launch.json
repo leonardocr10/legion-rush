@@ -1,0 +1,56 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "webgl",
+      "runtimeExecutable": "powershell",
+      "runtimeArgs": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "tools/serve-webgl.ps1",
+        "-Root",
+        "Builds/WebGL/LegionRush3D",
+        "-Port",
+        "8091",
+        "-NoBrowser"
+      ],
+      "port": 8091
+    },
+    {
+      "name": "webgl-fk01",
+      "runtimeExecutable": "powershell",
+      "runtimeArgs": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "tools/serve-webgl.ps1",
+        "-Root",
+        "Builds/WebGL/FrozenKingdom01",
+        "-Port",
+        "8093",
+        "-NoBrowser"
+      ],
+      "port": 8093
+    },
+    {
+      "name": "webgl-menu",
+      "runtimeExecutable": "powershell",
+      "runtimeArgs": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "tools/serve-webgl.ps1",
+        "-Root",
+        "Builds/WebGL/MainMenu",
+        "-Port",
+        "8095",
+        "-NoBrowser"
+      ],
+      "port": 8095
+    }
+  ]
+}

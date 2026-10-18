@@ -13,6 +13,7 @@ namespace LegionRush.Environments
         public static void Straight(EnvChunk chunk, float halfWidth, float length, System.Random rng, bool borders = true)
         {
             EnvTerrain.Road(chunk, halfWidth, 0f, length);
+            Slab(chunk, halfWidth + 0.3f, 0f, length, 1.1f, rng);
             if (!borders) return;
             Border(chunk, -1, halfWidth, length, rng);
             Border(chunk, 1, halfWidth, length, rng);
@@ -22,6 +23,31 @@ namespace LegionRush.Environments
         public static void Border(EnvChunk chunk, int side, float halfWidth, float length, System.Random rng)
         {
             EnvProps.Parapet(chunk, side * (halfWidth + 0.3f), 0f, length, rng);
+        }
+
+        // Laje de pedra sob o calçamento: laterais em blocos (como nos PNGs dos módulos) e neve nos cantos.
+        // O topo fica 2 cm abaixo do calçamento para não brigar com ele.
+        public static void Slab(EnvChunk chunk, float halfWidth, float z0, float z1, float thickness, System.Random rng)
+        {
+            chunk.Matrix = Matrix4x4.identity;
+            chunk.Masonry.BeveledBox(new Vector3(0f, -thickness * 0.5f - 0.02f, (z0 + z1) * 0.5f), new Vector3(halfWidth * 2f, thickness, z1 - z0), 0.06f, EnvPalette.Stone);
+            chunk.Opaque.NoSnow();
+            for (int sx = -1; sx <= 1; sx += 2)
+                for (int sz = 0; sz <= 1; sz++)
+                    chunk.Opaque.BeveledBox(new Vector3(sx * (halfWidth - 0.35f), 0.03f, sz == 0 ? z0 + 0.5f : z1 - 0.5f), new Vector3(0.8f, 0.1f, 0.9f), 0.04f, EnvPalette.Snow, rng, 0.05f);
+        }
+
+        // Bloco de plataforma: cubo de alvenaria de 6 × 6 m e 1,5 m de altura (referência 40_plataforma_bloco).
+        public static void PlatformBlock(EnvChunk chunk, System.Random rng)
+        {
+            chunk.Matrix = Matrix4x4.identity;
+            chunk.Masonry.BeveledBox(new Vector3(0f, 0.75f, 3f), new Vector3(6f, 1.5f, 6f), 0.12f, EnvPalette.Stone);
+            chunk.Road.WorldUvScale = 1f / 3.2f;
+            chunk.Road.HeightGrid(-2.9f, 2.9f, 0.1f, 5.9f, 3, 3, (x, z) => 1.51f, (x, z, n) => Color.white);
+            chunk.Opaque.NoSnow();
+            for (int sx = -1; sx <= 1; sx += 2)
+                for (int sz = 0; sz <= 1; sz++)
+                    chunk.Opaque.BeveledBox(new Vector3(sx * 2.5f, 1.56f, 0.6f + sz * 4.8f), new Vector3(1.1f, 0.14f, 1f), 0.05f, EnvPalette.Snow, rng, 0.06f);
         }
 
         // Início: faixa azul e dourada de largada e dois estandartes.

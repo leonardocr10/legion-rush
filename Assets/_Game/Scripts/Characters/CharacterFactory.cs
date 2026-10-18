@@ -33,8 +33,12 @@ namespace LegionRush
                 : CreatePlaceholderSoldier(unitClass, parent, tunicColor);
         }
 
-        public static GameObject CreateEnemy(Transform parent, Color armorColor)
+        public static GameObject CreateEnemy(Transform parent, Color armorColor) => CreateEnemy(parent, armorColor, EnemyKind.Soldier);
+
+        public static GameObject CreateEnemy(Transform parent, Color armorColor, EnemyKind kind)
         {
+            // tipo sem modelo próprio cai no soldado inimigo antes do placeholder
+            if (kind != EnemyKind.Soldier && TryCreateFromLibrary(EnemyKinds.Visual(kind), parent, out GameObject typed)) return typed;
             return TryCreateFromLibrary(CharacterId.EnemySoldier, parent, out GameObject root)
                 ? root
                 : CreatePlaceholderEnemy(parent, armorColor);
@@ -49,6 +53,13 @@ namespace LegionRush
 
         public static GameObject CreateBoss(BossDefinition definition, Transform parent)
         {
+            // Golem Sombrio: modelo procedural com animações próprias, até existir um prefab final na biblioteca.
+            if (definition.visual == CharacterId.BossDarkGolem && (Library == null || !Library.TryGet(definition.visual, out _)))
+            {
+                Transform visual = CreateRoot("Boss_" + definition.id, parent, out GameObject golem);
+                LegionRush.Bosses.DarkGolem.DarkGolemPresentation.Create(visual, definition);
+                return golem;
+            }
             return TryCreateFromLibrary(definition.visual, parent, out GameObject root)
                 ? root
                 : CreatePlaceholderBoss(definition, parent);

@@ -90,7 +90,7 @@ namespace LegionRush
             bool ornate = EnvGatePortal.Available;
             if (ornate)
             {
-                EnvGatePortal.Build(gate, width, color, Mathf.RoundToInt(row.z * 13f + centerX * 7f));
+                EnvGatePortal.Build(gate, width, color, Mathf.RoundToInt(row.z * 13f + centerX * 7f), 1f, option.category);
             }
             else
             {
@@ -103,7 +103,7 @@ namespace LegionRush
 
             Transform sign = new GameObject("Sign").transform;
             sign.SetParent(gate, false);
-            sign.localPosition = new Vector3(0f, ornate ? 5.3f : 3.75f, ornate ? 0.1f : 0f);
+            sign.localPosition = new Vector3(0f, ornate ? 5.75f : 3.75f, ornate ? 0.1f : 0f);
             sign.localRotation = Quaternion.Euler(30f, 0f, 0f);
             if (ornate)
             {

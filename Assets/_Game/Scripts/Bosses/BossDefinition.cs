@@ -11,6 +11,9 @@ namespace LegionRush
     // Storm: área global com lentidão e dano contínuo | Summon: invoca inimigos | Flight: voa (imune a corpo a corpo) e bombardeia
     public enum BossAttackType { Slam, Spin, Shockwave, Rain, Line, Storm, Summon, Flight }
 
+    // Animação que a apresentação do chefão toca no ataque (o modelo decide como representar cada uma).
+    public enum BossMove { Attack1, Attack2, GroundSlam, Roar }
+
     [Serializable]
     public class BossAttack
     {
@@ -29,6 +32,15 @@ namespace LegionRush
         [Min(0f)] public float burnDps;
         [Min(0f)] public float burnSeconds;
         [Min(0f), Tooltip("Janela de vulnerabilidade após o ataque (dano extra recebido).")] public float vulnerableAfter;
+
+        [Header("Execução")]
+        [Tooltip("Habilidade especial: estado SpecialAttack e aviso reforçado.")] public bool special;
+        public BossMove move = BossMove.Attack1;
+        [Min(0f), Tooltip("Janela ativa após o impacto em que o golpe ainda causa dano (Spin).")] public float activeTime;
+        [Min(0f), Tooltip("Tempo de recuperação depois da janela ativa, antes de andar ou ficar vulnerável.")] public float recovery;
+        [Range(0f, 1f), Tooltip("Tremor de câmera no impacto.")] public float cameraShake = 0.4f;
+        [Min(0f), Tooltip("Line: velocidade da onda que avança (m/s). 0 = instantâneo.")] public float travelSpeed;
+        [Min(0f), Tooltip("Rain: segundos de queda visível do projétil antes do impacto.")] public float fallTime = 0.6f;
         public SoundId sound = SoundId.BossStomp;
         public Color color = new Color(1f, 0.2f, 0.15f, 0.85f);
     }
@@ -37,7 +49,7 @@ namespace LegionRush
     public class BossDefinition : ScriptableObject
     {
         public BossId id;
-        public string displayName = "Titã Sombrio";
+        public string displayName = "Golem Sombrio";
         public CharacterId visual = CharacterId.BossDarkTitan;
 
         [Header("Atributos")]
@@ -49,6 +61,8 @@ namespace LegionRush
         [Min(4f)] public float aggroRange = 20f;
         [Min(1f), Tooltip("Distância que tenta manter do exército.")] public float preferredRange = 5f;
         [Min(0.2f), Tooltip("Pausa entre ataques na fase 1.")] public float attackSpacing = 1.6f;
+        [Range(0f, 1f), Tooltip("Peso do último ataque usado (evita repetição).")] public float repeatPenalty = 0.35f;
+        [Min(0.5f), Tooltip("Limite de aceleração do aviso nas fases rápidas.")] public float telegraphSpeedCap = 1.3f;
         [Range(-1f, 1f)] public float magicResist;
         [Range(-1f, 1f)] public float fireResist;
         [Range(-1f, 1f)] public float iceResist;
@@ -59,12 +73,20 @@ namespace LegionRush
         public float[] phaseSpeed = { 1f, 1.25f, 1.5f };
         [Min(1f)] public float vulnerableMultiplier = 1.75f;
         [Min(0)] public int phaseSummonCount = 6;
+        [Tooltip("Intensidade do brilho (olhos/cristais) por fase.")] public float[] phaseGlow = { 1f, 1.5f, 2.3f };
+
+        [Header("Ritmo")]
+        [Min(0.2f)] public float introSeconds = 2.2f;
+        [Min(0.2f)] public float phaseShiftSeconds = 1.6f;
+        [Min(0.5f)] public float deathSeconds = 3.5f;
+        [Min(1f)] public float flightHeight = 5f;
 
         [Header("Visual")]
         public Color primaryColor = new Color(0.16f, 0.15f, 0.2f);
         public Color secondaryColor = new Color(0.35f, 0.38f, 0.48f);
         public Color glowColor = new Color(0.3f, 0.75f, 1f);
         public Color summonColor = new Color(0.25f, 0.28f, 0.4f);
+        [Min(0), Tooltip("Variação de cor do modelo (Golem: 0 vermelho, 1 roxo, 2 azul, 3 laranja).")] public int visualVariant;
         [Min(0.1f)] public float summonHealth = 1.2f;
 
         [Header("Recompensas")]
@@ -77,6 +99,12 @@ namespace LegionRush
         {
             if (phaseSpeed == null || phaseSpeed.Length == 0) return 1f;
             return Mathf.Max(0.2f, phaseSpeed[Mathf.Clamp(phase - 1, 0, phaseSpeed.Length - 1)]);
+        }
+
+        public float PhaseGlow(int phase)
+        {
+            if (phaseGlow == null || phaseGlow.Length == 0) return 1f;
+            return Mathf.Max(0f, phaseGlow[Mathf.Clamp(phase - 1, 0, phaseGlow.Length - 1)]);
         }
 
         public float Resistance(DamageType type) => type switch
@@ -101,7 +129,7 @@ namespace LegionRush
             BossId.AncientDragon => "Dragão Ancião",
             BossId.LordVulcan => "Lord Vulcano",
             BossId.MechColossus => "Colosso Mecânico",
-            _ => "Titã Sombrio"
+            _ => "Golem Sombrio"
         };
 
         public static BossDefinition CreatePreset(BossId id)
@@ -137,21 +165,26 @@ namespace LegionRush
         private static readonly Color Fire = new Color(1f, 0.45f, 0.08f, 0.9f);
         private static readonly Color Energy = new Color(0.35f, 0.9f, 1f, 0.9f);
 
-        // Titã Sombrio (Reino Congelado): força bruta, ondas de choque e invocação. Ensina a desviar.
+        // Golem Sombrio (Reino Congelado): maça cravada, ondas de choque e rochas. Ensina a ler avisos e a punir a vulnerabilidade.
         private void SetupTitan()
         {
-            visual = CharacterId.BossDarkTitan;
-            maxHealth = 14000f; armor = 45f; bodyRadius = 1.6f; scale = 4.2f; moveSpeed = 2.4f; preferredRange = 4.5f; attackSpacing = 1.7f;
+            visual = CharacterId.BossDarkGolem;
+            maxHealth = 14000f; armor = 45f; bodyRadius = 1.7f; scale = 4.4f; moveSpeed = 2.3f; preferredRange = 4.5f; attackSpacing = 1.6f;
             iceResist = 0.4f; fireResist = -0.2f;
-            primaryColor = new Color(0.15f, 0.14f, 0.2f); secondaryColor = new Color(0.36f, 0.4f, 0.52f); glowColor = new Color(0.3f, 0.75f, 1f);
-            summonColor = new Color(0.22f, 0.25f, 0.38f); phaseSummonCount = 8; goldReward = 300; gemReward = 10;
+            primaryColor = new Color(0.17f, 0.17f, 0.2f); secondaryColor = new Color(0.78f, 0.08f, 0.1f); glowColor = new Color(1f, 0.12f, 0.08f);
+            summonColor = new Color(0.55f, 0.1f, 0.12f); phaseSummonCount = 6; goldReward = 300; gemReward = 10;
+            introSeconds = 2.8f; phaseShiftSeconds = 1.8f; deathSeconds = 4.6f;
+            phaseSpeed = new[] { 1f, 1.2f, 1.45f };
+            phaseGlow = new[] { 1f, 1.6f, 2.6f };
+            Color stone = new Color(1f, 0.32f, 0.18f, 0.85f);
             attacks = new List<BossAttack>
             {
-                A("Golpe de Maça", BossAttackType.Slam, 1, 3f, 1.1f, 70f, 2.8f, SoundId.BossStomp, Red, 1.6f),
-                new BossAttack { name = "Impacto no Chão", type = BossAttackType.Shockwave, minPhase = 1, weight = 2f, telegraph = 1.2f, damage = 35f, length = 13f, radius = 1f, sound = SoundId.BossStomp, color = Red, vulnerableAfter = 2f },
-                A("Ataque Circular", BossAttackType.Spin, 2, 2f, 0.9f, 45f, 4.6f, SoundId.SwordSwing, Red),
-                new BossAttack { name = "Invocar Soldados", type = BossAttackType.Summon, minPhase = 2, weight = 1f, telegraph = 1f, count = 8, sound = SoundId.BossRoar, color = Ice },
-                new BossAttack { name = "Fúria Glacial", type = BossAttackType.Rain, minPhase = 3, weight = 2f, telegraph = 1.4f, damage = 55f, radius = 2.4f, count = 6, damageType = DamageType.Ice, slowFactor = 0.5f, duration = 2f, sound = SoundId.IceBurst, color = Ice }
+                new BossAttack { name = "Golpe de Maça", type = BossAttackType.Slam, move = BossMove.Attack1, minPhase = 1, weight = 3f, telegraph = 1.1f, damage = 70f, radius = 2.8f, activeTime = 0.1f, recovery = 0.5f, cameraShake = 0.45f, sound = SoundId.BossStomp, color = Red, vulnerableAfter = 1.2f },
+                new BossAttack { name = "Giro com Maça", type = BossAttackType.Spin, move = BossMove.Attack2, minPhase = 1, weight = 2f, telegraph = 1f, damage = 45f, radius = 4.8f, activeTime = 0.55f, recovery = 0.45f, cameraShake = 0.3f, sound = SoundId.SwordSwing, color = Red },
+                new BossAttack { name = "Pancada no Solo", type = BossAttackType.Shockwave, move = BossMove.GroundSlam, minPhase = 1, weight = 2f, telegraph = 1.25f, damage = 35f, length = 13f, radius = 1f, activeTime = 0.2f, recovery = 0.6f, cameraShake = 0.6f, sound = SoundId.BossStomp, color = Red, vulnerableAfter = 2f },
+                new BossAttack { name = "Onda de Rochas", type = BossAttackType.Line, move = BossMove.GroundSlam, special = true, minPhase = 2, weight = 2.5f, telegraph = 1.2f, damage = 55f, radius = 1.4f, length = 18f, travelSpeed = 15f, activeTime = 0.2f, recovery = 0.5f, cameraShake = 0.35f, sound = SoundId.BossStomp, color = stone, vulnerableAfter = 1.4f },
+                new BossAttack { name = "Chuva de Rochedos", type = BossAttackType.Rain, move = BossMove.Roar, special = true, minPhase = 2, weight = 2f, telegraph = 1.5f, damage = 55f, radius = 2.3f, count = 6, fallTime = 0.7f, activeTime = 0.1f, recovery = 0.6f, cameraShake = 0.4f, sound = SoundId.FireExplosion, color = stone },
+                new BossAttack { name = "Chuva de Rochedos", type = BossAttackType.Rain, move = BossMove.Roar, special = true, minPhase = 3, weight = 2f, telegraph = 1.35f, damage = 60f, radius = 2.3f, count = 9, fallTime = 0.7f, activeTime = 0.1f, recovery = 0.5f, cameraShake = 0.45f, sound = SoundId.FireExplosion, color = stone }
             };
         }
 

@@ -1,0 +1,83 @@
+{
+  "name": "Berserker",
+  "clips": [
+    {
+      "name": "Idle",
+      "loop": true,
+      "length": 2.4,
+      "impact": 0.0
+    },
+    {
+      "name": "Walk",
+      "loop": true,
+      "length": 1.0,
+      "impact": 0.0
+    },
+    {
+      "name": "Run",
+      "loop": true,
+      "length": 0.6333333333333333,
+      "impact": 0.0
+    },
+    {
+      "name": "HeavyAttack",
+      "loop": false,
+      "length": 0.9333333333333333,
+      "impact": 0.4
+    },
+    {
+      "name": "Rage",
+      "loop": false,
+      "length": 1.2,
+      "impact": 0.0
+    },
+    {
+      "name": "Hit",
+      "loop": false,
+      "length": 0.4,
+      "impact": 0.0
+    },
+    {
+      "name": "Death",
+      "loop": false,
+      "length": 1.1,
+      "impact": 0.0
+    },
+    {
+      "name": "Victory",
+      "loop": true,
+      "length": 1.6,
+      "impact": 0.0
+    }
+  ],
+  "slots": [
+    {
+      "slot": "Attack",
+      "clip": "HeavyAttack"
+    },
+    {
+      "slot": "Skill",
+      "clip": "Rage"
+    }
+  ],
+  "sockets": [
+    "HeadSocket",
+    "LeftHandSocket",
+    "RightHandSocket",
+    "BackSocket"
+  ],
+  "stats": {
+    "LOD0_tris": 8838,
+    "LOD1_tris": 3357,
+    "LOD2_tris": 1208,
+    "bones": 26,
+    "shape_keys": "Basis,Happy,Angry,Attack,Surprised,Pain,Victory,Defeat"
+  },
+  "weapons": [
+    {
+      "id": "Weapon_BerserkerAxe",
+      "socket": "RightHandSocket",
+      "node": "BerserkerAxe"
+    }
+  ]
+}

@@ -67,349 +67,354 @@ TorchStand_002;Structures;7;0;12;0;1;1;1;TorchStand;Vista frontal / traseira: br
 Crate_Wood_002;Props;8.3;0;10.79;68.72;1;1;1;Crate_Wood;Obstáculos e elementos do cenário: caixa
 BannerPole_001;Structures;-6.8;0;24;18;1;1;1;BannerPole;Vista frontal / traseira: estandarte azul na borda
 BannerPole_002;Structures;6.8;0;24;-18;1;1;1;BannerPole;Vista frontal / traseira: estandarte azul na borda
-PineTree_Snow_037;Nature;-17.88;0.76;26.46;354.77;0.79;0.79;0.79;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_038;Nature;-13.57;0.43;7.35;281.47;1.16;1.16;1.16;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_039;Nature;14.3;0.51;9.94;359.83;0.76;0.76;0.76;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_040;Nature;-9.27;0.66;19.16;340.03;0.59;0.59;0.59;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_041;Nature;-8.54;0.44;3.47;233.64;0.61;0.61;0.61;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_042;Nature;-8.11;0.42;9.16;278.32;0.88;0.88;0.88;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_043;Nature;12.65;0.55;11.36;264.36;1.07;1.07;1.07;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_044;Nature;-17.21;0.71;11.42;73.6;0.82;0.82;0.82;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_045;Nature;14.19;0.61;5.13;22.14;0.85;0.85;0.85;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_046;Nature;7.37;0.19;16;147.22;0.57;0.57;0.57;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_047;Nature;-11.39;0.49;0.15;121.03;0.92;0.92;0.92;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_048;Nature;11.64;0.55;20.4;45.32;0.69;0.69;0.69;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_Heavy_013;Nature;-18.31;0.56;23.52;304.52;0.81;0.81;0.81;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
-PineTree_Snow_Heavy_014;Nature;16.4;0.55;21.38;142.37;0.66;0.66;0.66;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
-PineTree_Snow_Heavy_015;Nature;-15.76;0.53;22.94;351.58;0.69;0.69;0.69;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
-PineTree_Snow_Heavy_016;Nature;-11.28;0.52;14.51;321.31;0.9;0.9;0.9;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
-Rock_Snow_Cluster_005;Nature;13.03;0.46;20.54;317.9;0.68;0.68;0.68;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
-Rock_Snow_Cluster_006;Nature;-12.92;0.35;29;227.37;0.98;0.98;0.98;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
-Rock_Snow_Cluster_007;Nature;-19.98;0.51;26.33;175.7;0.76;0.76;0.76;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
-Rock_Snow_Cluster_008;Nature;9.22;0.53;6.58;53.37;0.95;0.95;0.95;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
-Rock_Snow_Large_001;Nature;14.51;0.31;5.28;69.59;1.32;1.32;1.32;Rock_Snow_Large;Obstáculos e elementos do cenário: rocha grande
-Ice_Crystal_003;Nature;-12.65;0.68;22.88;169.35;0.7;0.7;0.7;Ice_Crystal;Vista geral do cenário: cristais de gelo
-Ice_Crystal_004;Nature;-9.75;0.63;26.54;192.5;0.98;0.98;0.98;Ice_Crystal;Vista geral do cenário: cristais de gelo
-Ice_Block_001;Nature;-8.95;0.5;15.88;321.64;0.96;0.96;0.96;Ice_Block;Vista geral do cenário: blocos de gelo
-Plant_Snow_002;Nature;-9.72;0.62;23.99;5.95;0.91;0.91;0.91;Plant_Snow;Vista geral do cenário: plantinhas
-Snow_Pile_004;Nature;8.79;0.49;17.05;266.7;0.97;1;1.08;Snow_Pile;Obstáculos e elementos do cenário: acúmulo de neve
-Cliff_Rock_002;Terrain;-23.6;-0.3;12.91;-90;1.08;0.76;1;Cliff_Rock;Vista geral do cenário: afloramento rochoso nas colinas
-PineTree_Snow_049;Nature;-46.52;3.63;22.9;341.3;1.01;1.01;1.01;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_050;Nature;-24.73;2.84;24.03;118.23;1.42;1.42;1.42;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_051;Nature;-23.61;2.27;22.09;271.3;1.42;1.42;1.42;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_017;Nature;-46.78;3.53;26.71;78.9;0.83;0.83;0.83;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_052;Nature;-39.87;3.91;20.24;28.81;1.17;1.17;1.17;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_018;Nature;-24.46;2.71;20.85;266.21;0.84;0.84;0.84;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_053;Nature;-30.68;4;27.04;321.18;0.94;0.94;0.94;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_054;Nature;-46.89;3.84;15.23;72.51;1.15;1.15;1.15;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_019;Nature;-44.86;3.81;17.11;304.13;1.42;1.42;1.42;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_055;Nature;-26.94;3.63;28.26;307.47;1.15;1.15;1.15;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_056;Nature;-43.55;3.78;13.54;161.76;1.11;1.11;1.11;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_057;Nature;-38.61;3.71;11.44;18.99;0.93;0.93;0.93;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_058;Nature;-22.17;1.37;28.56;91.24;1;1;1;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_059;Nature;-38.97;3.77;14.64;213.95;1.51;1.51;1.51;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_060;Nature;-40.74;3.68;10.89;359.38;1.11;1.11;1.11;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_061;Nature;-43.33;3.7;11.49;349.6;1.5;1.5;1.5;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_062;Nature;36.9;3.02;4.55;65.7;1.42;1.42;1.42;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_063;Nature;27.4;2.8;10.75;49.77;1.07;1.07;1.07;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_064;Nature;34.83;2.94;3.05;59.88;1.26;1.26;1.26;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_020;Nature;41.76;2.97;9.07;314.21;1.3;1.3;1.3;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_021;Nature;25.05;2.05;18.28;354.05;1.07;1.07;1.07;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_065;Nature;32.04;3.46;21.62;187.94;1.4;1.4;1.4;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_066;Nature;21.56;0.72;2.06;220.27;1.17;1.17;1.17;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_022;Nature;27.83;2.8;9.39;251.56;1.16;1.16;1.16;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_067;Nature;30.73;3.47;29.68;32.1;1.37;1.37;1.37;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_068;Nature;34.83;3.46;16.83;99.65;1;1;1;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_069;Nature;34.92;2.93;2.69;320.19;1.15;1.15;1.15;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_023;Nature;35.88;3;4.05;316.96;1.35;1.35;1.35;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_070;Nature;25.85;2;6.75;158.71;1.46;1.46;1.46;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_071;Nature;36.7;3.46;16.67;117.76;1.09;1.09;1.09;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_072;Nature;21.69;0.78;5.94;221.14;1.6;1.6;1.6;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_024;Nature;34.17;3.47;17.61;312.86;0.99;0.99;0.99;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-Ice_Crystal_005;Nature;19.5;0.68;17.5;0;1.14;1.14;1.14;Ice_Crystal;Vista geral do cenário: cristais de gelo
-Ice_Crystal_006;Nature;21;0.62;12.2;40;0.86;0.86;0.86;Ice_Crystal;Vista geral do cenário: cristais de gelo
+PineTree_Snow_037;Nature;-13.21;0.43;8.81;240.26;0.64;0.64;0.64;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_038;Nature;16.75;0.62;2.26;274.33;0.9;0.9;0.9;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_039;Nature;7.85;0.33;16.08;280.4;0.82;0.82;0.82;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_040;Nature;15.96;0.5;12.16;185.38;1.09;1.09;1.09;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_041;Nature;10.38;0.59;16.24;1.16;0.99;0.99;0.99;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_042;Nature;-7.82;0.32;27.78;109.64;0.84;0.84;0.84;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_043;Nature;-7.84;0.33;20.82;145.41;0.55;0.55;0.55;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_044;Nature;13.08;0.63;14.63;185.99;1;1;1;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_045;Nature;-17.51;0.74;13.51;85.56;1.07;1.07;1.07;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_046;Nature;7.94;0.35;8.68;250.68;0.95;0.95;0.95;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_047;Nature;12.49;0.6;23.1;237.95;0.84;0.84;0.84;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_048;Nature;10.21;0.52;19.6;69.24;0.9;0.9;0.9;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_049;Nature;-14.47;0.5;6.33;96.97;0.92;0.92;0.92;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_Heavy_013;Nature;-13.97;0.5;10.35;140.8;0.71;0.71;0.71;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
+PineTree_Snow_Heavy_014;Nature;19.56;0.44;22.18;59.89;0.87;0.87;0.87;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
+PineTree_Snow_Heavy_015;Nature;14.06;0.59;21.87;9.12;0.86;0.86;0.86;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
+PineTree_Snow_Heavy_016;Nature;-17.33;0.61;19.1;186.39;0.77;0.77;0.77;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
+Rock_Snow_Cluster_005;Nature;19.11;0.47;1.21;67.72;0.75;0.75;0.75;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
+Rock_Snow_Cluster_006;Nature;12.91;0.46;22.17;168.58;0.87;0.87;0.87;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
+Rock_Snow_Cluster_007;Nature;-17.05;0.32;21.24;269.89;0.71;0.71;0.71;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
+Rock_Snow_Cluster_008;Nature;-10.03;0.47;27.31;264.96;1;1;1;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
+Rock_Snow_Large_001;Nature;16.69;0.3;0.42;112.06;1.15;1.15;1.15;Rock_Snow_Large;Obstáculos e elementos do cenário: rocha grande
+Ice_Crystal_003;Nature;-9;0.63;16.24;24.51;0.8;0.8;0.8;Ice_Crystal;Vista geral do cenário: cristais de gelo
+Ice_Block_001;Nature;13.28;0.31;8.87;64.28;1;1;1;Ice_Block;Vista geral do cenário: blocos de gelo
+Bush_Snow_003;Nature;9.06;0.42;21.48;149.3;0.9;0.9;0.9;Bush_Snow;Vista geral do cenário: arbustos nevados
+Tree_Frozen_002;Nature;-8.91;0.63;9.15;62.44;0.86;0.86;0.86;Tree_Frozen;Vista geral do cenário: árvore parcialmente congelada
+Plant_Snow_002;Nature;-9.1;0.66;8.55;338.93;1.1;1.1;1.1;Plant_Snow;Vista geral do cenário: plantinhas
+Snow_Pile_004;Nature;-7.22;0;3.57;125.72;0.91;1;1.02;Snow_Pile;Obstáculos e elementos do cenário: acúmulo de neve
+Snow_Pile_005;Nature;9.97;0.52;10.21;178.1;0.75;1;0.84;Snow_Pile;Obstáculos e elementos do cenário: acúmulo de neve
+Snow_Pile_006;Nature;9.67;0.55;5.08;290.6;0.61;1;0.68;Snow_Pile;Obstáculos e elementos do cenário: acúmulo de neve
+Cliff_Rock_002;Terrain;-23.6;-0.3;22.28;-90;0.8;0.76;1;Cliff_Rock;Vista geral do cenário: afloramento rochoso nas colinas
+PineTree_Snow_050;Nature;-43.07;3.33;4.94;46.17;1.55;1.55;1.55;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_017;Nature;-37.46;4.05;21.17;336.12;1.45;1.45;1.45;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_051;Nature;-26.69;3.55;28.68;324.43;1.55;1.55;1.55;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_052;Nature;-22.61;1.55;17.63;287.8;1.19;1.19;1.19;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_018;Nature;-45.3;3.81;14.58;247.09;1.37;1.37;1.37;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_053;Nature;-27.51;3.65;14.56;111.51;1.05;1.05;1.05;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_019;Nature;-36.35;3.72;12.43;162.44;0.84;0.84;0.84;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_020;Nature;-28.79;3.89;29.89;48.66;0.87;0.87;0.87;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_054;Nature;-34.02;4.02;21.09;342.77;1.02;1.02;1.02;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_055;Nature;-24.75;2.87;23.37;355.28;0.94;0.94;0.94;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_021;Nature;-40.81;3.41;1.83;255.01;1.15;1.15;1.15;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_022;Nature;-37.24;3.98;19.83;46.9;0.94;0.94;0.94;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_056;Nature;-22.35;1.59;24.55;181.55;0.98;0.98;0.98;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_057;Nature;-46.21;3.08;1.27;328.31;1.55;1.55;1.55;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_023;Nature;-30.13;3.48;8.27;191.03;0.86;0.86;0.86;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_058;Nature;-41.79;3.8;28.22;321.9;1.44;1.44;1.44;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_059;Nature;36.61;3.36;12.91;319.82;0.97;0.97;0.97;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_060;Nature;27.69;3.21;26.94;97.51;1;1;1;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_061;Nature;37.19;3.12;7.27;48.79;1.51;1.51;1.51;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_062;Nature;27.89;2.43;5.17;107.58;1.15;1.15;1.15;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_063;Nature;45.58;3.33;1.27;244.53;0.92;0.92;0.92;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_064;Nature;29.54;3.24;11.38;123.74;1.28;1.28;1.28;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_024;Nature;32.19;3.47;19.98;106.6;1.31;1.31;1.31;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_065;Nature;32.55;3.33;12.47;226.43;1.13;1.13;1.13;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_066;Nature;45.98;2.86;8.79;249.66;1.6;1.6;1.6;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_067;Nature;23.56;1.52;25.9;234.38;0.97;0.97;0.97;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_068;Nature;31.92;3.44;23.2;343.7;1.01;1.01;1.01;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_025;Nature;22.02;1;27.04;290.54;1.1;1.1;1.1;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_069;Nature;44.93;3.36;27.07;189.16;1.58;1.58;1.58;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_070;Nature;45.76;3.17;22.78;162.17;1.57;1.57;1.57;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_071;Nature;30.98;2.74;4.64;299.62;1;1;1;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_072;Nature;46.87;3.16;4.47;35.32;0.96;0.96;0.96;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+Ice_Crystal_004;Nature;19.5;0.68;17.5;0;1.14;1.14;1.14;Ice_Crystal;Vista geral do cenário: cristais de gelo
+Ice_Crystal_005;Nature;21;0.62;12.2;40;0.86;0.86;0.86;Ice_Crystal;Vista geral do cenário: cristais de gelo
 TorchStand_003;Structures;-7;0;36;0;1;1;1;TorchStand;Vista frontal / traseira: braseiro em pedestal na borda
-Barrel_Wood_001;Props;-8.2;0;37.09;0;1;1;1;Barrel_Wood;Obstáculos e elementos do cenário: barril
+Crate_Wood_003;Props;-8.3;0;34.71;53.94;1;1;1;Crate_Wood;Obstáculos e elementos do cenário: caixa
 TorchStand_004;Structures;7;0;36;0;1;1;1;TorchStand;Vista frontal / traseira: braseiro em pedestal na borda
-Barrel_Wood_002;Props;8.2;0;36.97;0;1;1;1;Barrel_Wood;Obstáculos e elementos do cenário: barril
+Crate_Wood_004;Props;8.3;0;34.81;60.76;1;1;1;Crate_Wood;Obstáculos e elementos do cenário: caixa
 BannerPole_003;Structures;-6.8;0;48;18;1;1;1;BannerPole;Vista frontal / traseira: estandarte azul na borda
 BannerPole_004;Structures;6.8;0;48;-18;1;1;1;BannerPole;Vista frontal / traseira: estandarte azul na borda
 WatchTower_001;Structures;12.2;0.23;36;-90;1;1;1;WatchTower;Vista geral do cenário: torre lateral com estandarte
-PineTree_Snow_073;Nature;-15.82;0.6;33.09;110.95;0.93;0.93;0.93;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_074;Nature;-12.69;0.6;52.29;294.56;1.14;1.14;1.14;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_075;Nature;-12.61;0.59;38.41;125.91;0.97;0.97;0.97;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_076;Nature;-13.42;0.64;44.21;349.48;0.9;0.9;0.9;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_077;Nature;17.93;0.56;37.08;305.58;0.9;0.9;0.9;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_078;Nature;10.57;0.52;52.48;164.11;1.04;1.04;1.04;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_079;Nature;-14.33;0.59;46.37;186.65;1.12;1.12;1.12;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_080;Nature;-10.25;0.54;53.23;259.94;0.58;0.58;0.58;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_081;Nature;15.16;0.47;45.8;112.05;0.81;0.81;0.81;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_Heavy_025;Nature;-15.85;0.68;38.71;68.75;0.58;0.58;0.58;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
-PineTree_Snow_Heavy_026;Nature;17.34;0.45;35.23;233.2;0.82;0.82;0.82;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
-PineTree_Snow_Heavy_027;Nature;9.51;0.48;50.08;258.88;0.85;0.85;0.85;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
-PineTree_Snow_Heavy_028;Nature;-17.93;0.52;44.28;325.64;0.71;0.71;0.71;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
-Rock_Snow_Cluster_009;Nature;-15.96;0.51;34.83;11.08;0.73;0.73;0.73;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
-Rock_Snow_Cluster_010;Nature;12.39;0.31;50.22;159.57;1.04;1.04;1.04;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
-Rock_Snow_Cluster_011;Nature;-13.05;0.3;30.36;335.49;0.68;0.68;0.68;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
-Rock_Snow_Cluster_012;Nature;-9.71;0.49;36.24;239.37;0.93;0.93;0.93;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
-Rock_Snow_Large_002;Nature;-17.09;0.33;36.63;328.07;1.1;1.1;1.1;Rock_Snow_Large;Obstáculos e elementos do cenário: rocha grande
-Ice_Crystal_007;Nature;15.6;0.67;52.7;20.01;1.11;1.11;1.11;Ice_Crystal;Vista geral do cenário: cristais de gelo
-Ice_Block_002;Nature;12.76;0.5;43.07;242.68;0.85;0.85;0.85;Ice_Block;Vista geral do cenário: blocos de gelo
-Bush_Snow_003;Nature;9.05;0.52;52.55;349.21;0.8;0.8;0.8;Bush_Snow;Vista geral do cenário: arbustos nevados
-Bush_Snow_004;Nature;7.87;0.3;42.6;208.79;0.77;0.77;0.77;Bush_Snow;Vista geral do cenário: arbustos nevados
-Tree_Frozen_002;Nature;14.96;0.53;41.72;306.1;0.95;0.95;0.95;Tree_Frozen;Vista geral do cenário: árvore parcialmente congelada
-Plant_Snow_003;Nature;10.75;0.48;50.24;269.49;1.03;1.03;1.03;Plant_Snow;Vista geral do cenário: plantinhas
-Snow_Pile_005;Nature;-7.91;0.2;44.18;58.61;1.02;1;1.14;Snow_Pile;Obstáculos e elementos do cenário: acúmulo de neve
-PineTree_Snow_082;Nature;-34.92;4.32;33.75;211.85;0.92;0.92;0.92;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_029;Nature;-32.28;3.6;50.58;228.31;1.29;1.29;1.29;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_030;Nature;-41.88;3.76;49.78;202.39;1.06;1.06;1.06;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_083;Nature;-36.27;3.34;59.83;51.35;1.44;1.44;1.44;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_084;Nature;-39.01;4.2;30.16;43.64;1.1;1.1;1.1;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_085;Nature;-34.06;4.12;41.12;293.71;1.49;1.49;1.49;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_031;Nature;-31.93;3.94;40.47;117.23;1.08;1.08;1.08;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_032;Nature;-26.54;3.19;34.98;230.76;1.06;1.06;1.06;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_086;Nature;-32;3.69;48.84;328.18;1.48;1.48;1.48;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_033;Nature;-24.69;1.87;49.66;300.13;0.9;0.9;0.9;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_087;Nature;-40.41;3.95;34.86;273.58;1.26;1.26;1.26;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_088;Nature;-27.96;3.59;36.36;282.8;1.52;1.52;1.52;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_034;Nature;-21.58;0.95;34.82;112.88;1.11;1.11;1.11;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_089;Nature;-31.54;3.47;52.38;285.09;1.15;1.15;1.15;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_090;Nature;-31.57;3.89;41.18;152.36;1.21;1.21;1.21;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_091;Nature;-22.39;0.86;40;177.07;1.08;1.08;1.08;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-Cliff_Rock_003;Terrain;23.6;-0.3;46.94;90;0.93;0.68;1;Cliff_Rock;Vista geral do cenário: afloramento rochoso nas colinas
-PineTree_Snow_092;Nature;32.84;3.17;43.28;226.51;1.4;1.4;1.4;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_035;Nature;25.32;2.12;50.73;156.7;1.22;1.22;1.22;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_093;Nature;23.68;1.62;30.3;83.46;1.18;1.18;1.18;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_094;Nature;45.16;3.97;43.57;1.2;1.23;1.23;1.23;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_095;Nature;22.78;1.22;45.57;72.86;1.37;1.37;1.37;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_096;Nature;27.86;3.23;36.42;345.24;0.91;0.91;0.91;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_097;Nature;38.79;3.33;40.96;102.84;1.22;1.22;1.22;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_098;Nature;46.51;3.64;48.55;79.09;1.13;1.13;1.13;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_099;Nature;42.2;3.46;48.96;193.53;1.11;1.11;1.11;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_036;Nature;31.39;3.35;37.31;168.77;1.02;1.02;1.02;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_037;Nature;31.28;3.11;48.89;243.48;1.17;1.17;1.17;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_038;Nature;24.07;1.61;46.13;272.63;0.96;0.96;0.96;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_039;Nature;31.32;3.42;35.08;90.83;1.26;1.26;1.26;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_100;Nature;33.22;3.26;39.42;321.37;1.5;1.5;1.5;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_101;Nature;46.62;3.77;35.81;118.23;1.27;1.27;1.27;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_102;Nature;45.24;3.38;51.52;324.38;1.43;1.43;1.43;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_073;Nature;-10.43;0.65;41.26;152.21;0.79;0.79;0.79;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_074;Nature;-18.94;0.43;53.45;30.75;1.37;1.37;1.37;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_075;Nature;8.04;0.33;54.1;84.91;0.97;0.97;0.97;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_076;Nature;18.28;0.65;51.72;269.72;0.88;0.88;0.88;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_077;Nature;14.03;0.6;40.32;324.2;1.2;1.2;1.2;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_078;Nature;-16.38;0.65;35.71;285.13;0.92;0.92;0.92;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_079;Nature;-10.45;0.53;52.73;189.54;0.92;0.92;0.92;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_080;Nature;-18.13;0.55;57.45;277.05;0.93;0.93;0.93;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_081;Nature;-18.78;0.6;46.48;292.01;1.26;1.26;1.26;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_082;Nature;-19.65;0.57;55.83;323.65;1.06;1.06;1.06;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_083;Nature;-13.71;0.46;30.91;324.89;0.68;0.68;0.68;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_Heavy_026;Nature;14.95;0.59;50.98;158.87;0.85;0.85;0.85;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
+PineTree_Snow_Heavy_027;Nature;14.52;0.58;58.77;207.52;0.75;0.75;0.75;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
+PineTree_Snow_Heavy_028;Nature;17.93;0.55;32.59;243.33;0.56;0.56;0.56;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
+PineTree_Snow_Heavy_029;Nature;16.67;0.43;46.73;99.74;0.88;0.88;0.88;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
+Rock_Snow_Cluster_009;Nature;-16.68;0.31;59.59;259.05;0.92;0.92;0.92;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
+Rock_Snow_Cluster_010;Nature;16.45;0.54;52.55;349.21;0.72;0.72;0.72;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
+Rock_Snow_Cluster_011;Nature;8.61;0.4;43.63;287.15;1.13;1.13;1.13;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
+Rock_Snow_Large_002;Nature;-16.39;0.36;48.89;133.33;1.32;1.32;1.32;Rock_Snow_Large;Obstáculos e elementos do cenário: rocha grande
+Ice_Crystal_006;Nature;15.37;0.49;33.27;298.4;0.87;0.87;0.87;Ice_Crystal;Vista geral do cenário: cristais de gelo
+Ice_Block_002;Nature;10.76;0.4;51.39;202.11;1.1;1.1;1.1;Ice_Block;Vista geral do cenário: blocos de gelo
+Tree_Frozen_003;Nature;8.02;0.29;55.58;261.84;0.81;0.81;0.81;Tree_Frozen;Vista geral do cenário: árvore parcialmente congelada
+Plant_Snow_003;Nature;-7.19;0.14;41.46;216.62;0.93;0.93;0.93;Plant_Snow;Vista geral do cenário: plantinhas
+Plant_Snow_004;Nature;-9.49;0.51;52.41;326.34;0.82;0.82;0.82;Plant_Snow;Vista geral do cenário: plantinhas
+Snow_Pile_007;Nature;9.04;0.36;54.27;110.81;0.87;1;0.97;Snow_Pile;Obstáculos e elementos do cenário: acúmulo de neve
+PineTree_Snow_Heavy_030;Nature;-25.4;2.87;32.11;197.88;1.31;1.31;1.31;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_084;Nature;-23.28;1.2;43.9;6.87;1.09;1.09;1.09;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_085;Nature;-25.7;2.92;33.59;350.46;1.27;1.27;1.27;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_031;Nature;-46.07;3.24;43.43;305.99;1.4;1.4;1.4;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_086;Nature;-33.99;3.41;54.86;45.89;0.97;0.97;0.97;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_087;Nature;-30.71;3.94;35.65;328.73;1.06;1.06;1.06;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_088;Nature;-31.94;3.33;58.38;110.26;1.22;1.22;1.22;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_089;Nature;-26.75;2.89;59.29;15.62;0.92;0.92;0.92;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_090;Nature;-29.45;3.37;53.66;227.08;1.44;1.44;1.44;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_091;Nature;-34.41;3.48;53.52;237.38;1.47;1.47;1.47;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_032;Nature;-38.19;3.57;53.42;161.81;0.93;0.93;0.93;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_033;Nature;-28.77;3.44;49.02;24.35;0.94;0.94;0.94;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_092;Nature;-41;3.84;35.75;73.47;1.22;1.22;1.22;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_093;Nature;-35;3.93;47.69;186.38;1.43;1.43;1.43;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_094;Nature;-33.74;3.68;50.41;63.37;1.02;1.02;1.02;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_095;Nature;-28.71;3.48;47.05;180.25;1.56;1.56;1.56;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+Cliff_Rock_003;Terrain;23.6;-0.3;52.03;90;1.15;0.68;1;Cliff_Rock;Vista geral do cenário: afloramento rochoso nas colinas
+PineTree_Snow_096;Nature;33.38;3.39;34.93;263.39;1.47;1.47;1.47;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_097;Nature;41.2;3.44;47.73;166.03;1.07;1.07;1.07;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_034;Nature;21.06;0.67;43.49;69.21;0.89;0.89;0.89;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_098;Nature;21.15;0.67;45.7;7.86;1.52;1.52;1.52;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_035;Nature;24.36;1.69;48.12;342.18;1.23;1.23;1.23;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_099;Nature;36.72;3.18;41.38;8.78;1.03;1.03;1.03;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_036;Nature;41.74;3.53;33;230.64;1.3;1.3;1.3;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_100;Nature;45.69;3;58.63;139.81;1.19;1.19;1.19;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_101;Nature;25.34;2.25;38.23;105.86;1.38;1.38;1.38;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_102;Nature;34.25;3.44;31.48;218.66;1.29;1.29;1.29;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_103;Nature;31.16;3.46;32.81;33.38;1.28;1.28;1.28;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_104;Nature;21.28;0.7;31.68;93.48;1.06;1.06;1.06;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_105;Nature;37.42;3.41;33.42;146.28;1.42;1.42;1.42;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_106;Nature;23.38;1.39;47.23;10.6;0.98;0.98;0.98;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_037;Nature;29.17;3.49;31.48;70.93;1.06;1.06;1.06;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_107;Nature;23.25;1.41;34.45;199.75;1.42;1.42;1.42;PineTree_Snow;Vista geral do cenário: floresta nas colinas
 TorchStand_005;Structures;-7;0;60;0;1;1;1;TorchStand;Vista frontal / traseira: braseiro em pedestal na borda
-Crate_Wood_003;Props;-8.3;0;59.15;88.44;1;1;1;Crate_Wood;Obstáculos e elementos do cenário: caixa
+Crate_Wood_005;Props;-8.3;0;59.04;20.51;1;1;1;Crate_Wood;Obstáculos e elementos do cenário: caixa
 TorchStand_006;Structures;7;0;60;0;1;1;1;TorchStand;Vista frontal / traseira: braseiro em pedestal na borda
-Barrel_Wood_003;Props;8.2;0;61.24;0;1;1;1;Barrel_Wood;Obstáculos e elementos do cenário: barril
+Crate_Wood_006;Props;8.3;0;58.71;89.61;1;1;1;Crate_Wood;Obstáculos e elementos do cenário: caixa
 BannerPole_005;Structures;-6.8;0;72;18;1;1;1;BannerPole;Vista frontal / traseira: estandarte azul na borda
 BannerPole_006;Structures;6.8;0;72;-18;1;1;1;BannerPole;Vista frontal / traseira: estandarte azul na borda
 TorchStand_007;Structures;-7;0;84;0;1;1;1;TorchStand;Vista frontal / traseira: braseiro em pedestal na borda
-Barrel_Wood_004;Props;-8.2;0;85.15;0;1;1;1;Barrel_Wood;Obstáculos e elementos do cenário: barril
+Crate_Wood_007;Props;-8.3;0;82.69;14.16;1;1;1;Crate_Wood;Obstáculos e elementos do cenário: caixa
 TorchStand_008;Structures;7;0;84;0;1;1;1;TorchStand;Vista frontal / traseira: braseiro em pedestal na borda
-Barrel_Wood_005;Props;8.2;0;84.85;0;1;1;1;Barrel_Wood;Obstáculos e elementos do cenário: barril
+Barrel_Wood_001;Props;8.2;0;84.8;0;1;1;1;Barrel_Wood;Obstáculos e elementos do cenário: barril
 Tent_Blue_001;Props;-11.9;0.53;67.6;70;1;1;1;Tent_Blue;Obstáculos e elementos do cenário: tenda (acampamento)
 Campfire_001;Props;-9.7;0.45;64.4;0;1;1;1;Campfire;Obstáculos e elementos do cenário: fogueira (acampamento)
 Cart_Wood_001;Props;-11.7;0.6;62;160;1;1;1;Cart_Wood;Obstáculos e elementos do cenário: carroça (acampamento)
 Fence_Wood_001;Props;-13.9;0.69;64.25;90;0.88;1;1;Fence_Wood;Obstáculos e elementos do cenário: cerca (acampamento)
 Fence_Wood_002;Props;-13.9;0.57;67.75;90;0.88;1;1;Fence_Wood;Obstáculos e elementos do cenário: cerca (acampamento)
-Crate_Wood_004;Props;-11.1;0.46;70.2;20;1;1;1;Crate_Wood;Obstáculos e elementos do cenário: caixa (acampamento)
-Crate_Wood_005;Props;-11.8;0.47;70.6;55;0.8;0.8;0.8;Crate_Wood;Obstáculos e elementos do cenário: caixa (acampamento)
+Crate_Wood_008;Props;-11.1;0.46;70.2;20;1;1;1;Crate_Wood;Obstáculos e elementos do cenário: caixa (acampamento)
+Crate_Wood_009;Props;-11.8;0.47;70.6;55;0.8;0.8;0.8;Crate_Wood;Obstáculos e elementos do cenário: caixa (acampamento)
 Lantern_001;Structures;-8.9;0.47;68.6;0;1;1;1;Lantern;Elementos decorativos: lamparina (acampamento)
-PineTree_Snow_103;Nature;-14.85;0.51;60.33;326.22;1.08;1.08;1.08;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_104;Nature;9.87;0.48;84.06;304.28;0.85;0.85;0.85;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_105;Nature;-19.53;0.68;63.55;292.47;0.76;0.76;0.76;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_106;Nature;-14.53;0.49;78.55;174.9;0.82;0.82;0.82;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_107;Nature;-10.79;0.46;78.07;235.85;0.8;0.8;0.8;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_108;Nature;-13.09;0.54;75.88;303.47;1.19;1.19;1.19;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_109;Nature;15.34;0.39;76;224.2;1.04;1.04;1.04;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_110;Nature;15.97;0.53;85.41;61.29;1.17;1.17;1.17;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_111;Nature;17.87;0.37;77.57;120.47;0.82;0.82;0.82;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_112;Nature;-11.58;0.43;85.81;109.83;1.14;1.14;1.14;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_113;Nature;-16.46;0.44;60.31;183.5;0.77;0.77;0.77;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_114;Nature;-10.25;0.44;71.9;81.61;1.08;1.08;1.08;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_Heavy_040;Nature;17.94;0.66;60.67;332.24;0.79;0.79;0.79;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
-PineTree_Snow_Heavy_041;Nature;10.36;0.59;63.04;321.68;0.88;0.88;0.88;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
-PineTree_Snow_Heavy_042;Nature;14.85;0.53;83.97;38.01;0.79;0.79;0.79;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
-PineTree_Snow_Heavy_043;Nature;12.25;0.49;60.79;316.96;0.79;0.79;0.79;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
-Rock_Snow_Cluster_013;Nature;15.14;0.38;83.45;340.42;0.69;0.69;0.69;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
-Rock_Snow_Cluster_014;Nature;7.13;-0.01;75.11;334.75;0.79;0.79;0.79;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
-Rock_Snow_Cluster_015;Nature;13.7;0.24;63.69;266.87;0.7;0.7;0.7;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
-Rock_Snow_Cluster_016;Nature;-19.17;0.33;69.83;320.91;1.15;1.15;1.15;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
-Rock_Snow_Large_003;Nature;12.74;0.2;67.58;242.68;1.07;1.07;1.07;Rock_Snow_Large;Obstáculos e elementos do cenário: rocha grande
-Ice_Crystal_008;Nature;-9.67;0.42;74.03;57.91;0.97;0.97;0.97;Ice_Crystal;Vista geral do cenário: cristais de gelo
-Ice_Crystal_009;Nature;-7.6;0.19;64.81;165.4;1.08;1.08;1.08;Ice_Crystal;Vista geral do cenário: cristais de gelo
-Ice_Block_003;Nature;11.19;0.44;68.36;147.78;0.82;0.82;0.82;Ice_Block;Vista geral do cenário: blocos de gelo
-Bush_Snow_005;Nature;-9.66;0.49;86.27;18.17;1.04;1.04;1.04;Bush_Snow;Vista geral do cenário: arbustos nevados
-Tree_Frozen_003;Nature;18.54;0.45;65.62;177.94;0.98;0.98;0.98;Tree_Frozen;Vista geral do cenário: árvore parcialmente congelada
-Plant_Snow_004;Nature;-10.05;0.43;74.58;4.98;1.17;1.17;1.17;Plant_Snow;Vista geral do cenário: plantinhas
-Snow_Pile_006;Nature;6.79;-0.05;75.83;135.14;0.86;1;0.96;Snow_Pile;Obstáculos e elementos do cenário: acúmulo de neve
-Snow_Pile_007;Nature;7.47;0.08;65.14;4.66;0.79;1;0.89;Snow_Pile;Obstáculos e elementos do cenário: acúmulo de neve
-Snow_Pile_008;Nature;8.67;0.42;63.8;140.56;0.73;1;0.82;Snow_Pile;Obstáculos e elementos do cenário: acúmulo de neve
-Cliff_Rock_004;Terrain;-23.6;-0.3;68.74;-90;1.19;0.77;1;Cliff_Rock;Vista geral do cenário: afloramento rochoso nas colinas
-PineTree_Snow_115;Nature;-37.7;3.32;78.49;155.1;0.95;0.95;0.95;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_044;Nature;-42.03;3.2;79.35;254.68;1.29;1.29;1.29;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_116;Nature;-44.29;2.81;88.15;340.43;1.57;1.57;1.57;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_117;Nature;-30.19;3.76;73.5;330.59;1.25;1.25;1.25;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_118;Nature;-25.53;2.51;60.26;305.66;1.14;1.14;1.14;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_045;Nature;-26.74;3.29;75.42;158.57;1.16;1.16;1.16;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_046;Nature;-42.71;3.53;68.13;77.25;1.25;1.25;1.25;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_047;Nature;-38.6;3.41;66.69;18.7;0.88;0.88;0.88;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_119;Nature;-46.1;3.85;64.43;67.74;1.6;1.6;1.6;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_048;Nature;-44.37;3.31;75.52;40.36;1.04;1.04;1.04;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_049;Nature;-38.95;3.13;86.98;3.67;1.04;1.04;1.04;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_120;Nature;-46.67;3.27;76.96;351.69;1.34;1.34;1.34;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_050;Nature;-36.97;3.36;65.3;20.41;1.3;1.3;1.3;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_051;Nature;-43.78;3.14;79.63;254.24;1.18;1.18;1.18;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_052;Nature;-26.9;3.04;61.1;338.74;1.32;1.32;1.32;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_121;Nature;-31.71;3.65;68.79;140.57;0.97;0.97;0.97;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_122;Nature;31.54;2.84;66.43;24.92;1.19;1.19;1.19;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_123;Nature;45.1;3.07;77.01;186.42;1.3;1.3;1.3;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_124;Nature;37.59;2.7;65.92;29.9;1.06;1.06;1.06;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_125;Nature;41.11;2.86;62.86;307.54;1.58;1.58;1.58;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_053;Nature;21.78;1;88.7;92.02;1.28;1.28;1.28;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_054;Nature;40.58;2.69;67.66;356.44;1.29;1.29;1.29;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_055;Nature;22.14;0.95;69.87;248.17;1.21;1.21;1.21;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_126;Nature;40.03;3.08;86;107.36;1.13;1.13;1.13;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_056;Nature;26.61;2.7;76.46;35.79;1;1;1;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_127;Nature;30.27;2.9;63.42;163.07;1.2;1.2;1.2;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_128;Nature;22.01;0.78;62.35;289.42;1.3;1.3;1.3;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_129;Nature;38.5;2.85;89.2;344.91;1.16;1.16;1.16;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_057;Nature;44.72;3.7;84.61;167.98;1.4;1.4;1.4;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_130;Nature;21.01;0.58;64.99;183.74;1.29;1.29;1.29;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_131;Nature;38.57;2.64;68;253.45;1.46;1.46;1.46;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_132;Nature;41.92;3.38;84.96;228.4;1.33;1.33;1.33;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-Ice_Crystal_010;Nature;-19.5;0.43;77.5;0;1.14;1.14;1.14;Ice_Crystal;Vista geral do cenário: cristais de gelo
-Ice_Crystal_011;Nature;-21;0.66;72.2;40;0.86;0.86;0.86;Ice_Crystal;Vista geral do cenário: cristais de gelo
+PineTree_Snow_108;Nature;-19.61;0.43;82.33;182.25;1.3;1.3;1.3;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_109;Nature;13.39;0.4;72.56;228.43;1.15;1.15;1.15;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_110;Nature;-10.08;0.45;88.32;45.6;0.77;0.77;0.77;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_111;Nature;10.26;0.48;84.8;3.39;0.96;0.96;0.96;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_112;Nature;11.1;0.48;79.03;232.03;0.95;0.95;0.95;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_113;Nature;12.95;0.39;63.67;307.45;1.15;1.15;1.15;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_114;Nature;12.49;0.51;67.58;10.19;1.12;1.12;1.12;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_115;Nature;16.84;0.39;76.02;282.76;1.16;1.16;1.16;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_116;Nature;-17.98;0.56;62.7;322.11;1.11;1.11;1.11;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_117;Nature;10.96;0.55;62.92;278.76;1.12;1.12;1.12;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_118;Nature;-18.89;0.4;78.38;141.93;0.72;0.72;0.72;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_119;Nature;-16.82;0.45;60.87;86.84;1.12;1.12;1.12;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_Heavy_038;Nature;-12.23;0.43;88.37;187.44;0.83;0.83;0.83;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
+PineTree_Snow_Heavy_039;Nature;13.68;0.45;62.38;38.22;0.61;0.61;0.61;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
+PineTree_Snow_Heavy_040;Nature;-19.08;0.74;65.25;323.79;0.67;0.67;0.67;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
+Rock_Snow_Cluster_012;Nature;-17.04;0.53;73.78;49.13;0.85;0.85;0.85;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
+Rock_Snow_Cluster_013;Nature;17.79;0.24;71.95;16.56;0.73;0.73;0.73;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
+Rock_Snow_Cluster_014;Nature;-8.73;0.25;75.31;265.49;0.78;0.78;0.78;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
+Rock_Snow_Cluster_015;Nature;-9.41;0.35;80.9;257.19;1.18;1.18;1.18;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
+Rock_Snow_Large_003;Nature;12.91;0.06;64.67;12.78;1.25;1.25;1.25;Rock_Snow_Large;Obstáculos e elementos do cenário: rocha grande
+Bush_Snow_004;Nature;8.71;0.42;86.67;315.9;0.79;0.79;0.79;Bush_Snow;Vista geral do cenário: arbustos nevados
+Bush_Snow_005;Nature;9.77;0.51;72.23;139.12;1.03;1.03;1.03;Bush_Snow;Vista geral do cenário: arbustos nevados
+Tree_Frozen_004;Nature;17.68;0.34;67.84;270.56;1.07;1.07;1.07;Tree_Frozen;Vista geral do cenário: árvore parcialmente congelada
+Plant_Snow_005;Nature;-9.07;0.45;78.46;304.21;0.78;0.78;0.78;Plant_Snow;Vista geral do cenário: plantinhas
+Snow_Pile_008;Nature;9.3;0.48;64.58;6.65;0.72;1;0.8;Snow_Pile;Obstáculos e elementos do cenário: acúmulo de neve
+Cliff_Rock_004;Terrain;-23.6;-0.3;66.91;-90;1.08;0.77;1;Cliff_Rock;Vista geral do cenário: afloramento rochoso nas colinas
+PineTree_Snow_Heavy_041;Nature;-30.36;3.36;89.64;250.26;0.89;0.89;0.89;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_120;Nature;-39.42;3.44;67.04;254.74;1.51;1.51;1.51;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_042;Nature;-26.55;3.28;67.06;97.61;0.96;0.96;0.96;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_121;Nature;-32.01;3.56;82.47;248.95;1.07;1.07;1.07;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_122;Nature;-40.75;3.28;77.63;112.74;1.54;1.54;1.54;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_043;Nature;-33.12;3.49;80.45;19.96;1.23;1.23;1.23;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_044;Nature;-34.14;3.42;66.26;88.6;1.4;1.4;1.4;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_123;Nature;-40.24;3.21;81.94;20.97;1.05;1.05;1.05;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_124;Nature;-26.28;3.18;67.85;281.63;1.49;1.49;1.49;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_125;Nature;-37.01;3.35;62.82;323.73;1.34;1.34;1.34;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_045;Nature;-27.25;3.47;65.85;340.7;1.21;1.21;1.21;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_126;Nature;-32.58;3.43;63.67;202.95;1.51;1.51;1.51;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_127;Nature;-44.16;3.95;62.83;22.12;0.95;0.95;0.95;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_046;Nature;-36.98;3.37;68.09;300.75;0.97;0.97;0.97;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_128;Nature;-29.5;3.72;83.01;73.81;1;1;1;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_129;Nature;-46.35;3.38;73.99;209.89;1.24;1.24;1.24;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_130;Nature;32.52;2.94;60.37;110.24;1.07;1.07;1.07;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_131;Nature;21.64;0.71;71.96;275.63;1.53;1.53;1.53;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_132;Nature;37.27;2.57;71.58;33.05;1.17;1.17;1.17;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_133;Nature;24.89;2.02;75.91;232.78;1.28;1.28;1.28;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_134;Nature;45.42;2.94;75.56;198.64;1.53;1.53;1.53;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_135;Nature;33.39;2.71;74.72;249.11;1.14;1.14;1.14;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_047;Nature;44.11;3.5;81.93;131.72;1.29;1.29;1.29;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_136;Nature;22.98;1.37;81.57;13.66;1.55;1.55;1.55;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_137;Nature;30.93;2.94;89.43;236.52;1.38;1.38;1.38;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_138;Nature;28.72;2.97;67.27;151.81;0.95;0.95;0.95;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_139;Nature;36.68;2.61;76.8;218.03;1.56;1.56;1.56;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_140;Nature;22.63;1.01;75.31;201.35;1.18;1.18;1.18;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_141;Nature;28.47;3.02;79.07;199.7;0.99;0.99;0.99;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_142;Nature;27.11;2.83;75.87;22.94;1.19;1.19;1.19;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_143;Nature;23.67;1.63;79.14;210.82;1.02;1.02;1.02;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_144;Nature;34.34;2.93;61.04;283.57;1.58;1.58;1.58;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+Ice_Crystal_007;Nature;-19.5;0.43;77.5;0;1.14;1.14;1.14;Ice_Crystal;Vista geral do cenário: cristais de gelo
+Ice_Crystal_008;Nature;-21;0.66;72.2;40;0.86;0.86;0.86;Ice_Crystal;Vista geral do cenário: cristais de gelo
 TorchStand_009;Structures;-7;0;108;0;1;1;1;TorchStand;Vista frontal / traseira: braseiro em pedestal na borda
-Crate_Wood_006;Props;-8.3;0;107.1;61.4;1;1;1;Crate_Wood;Obstáculos e elementos do cenário: caixa
+Crate_Wood_010;Props;-8.3;0;106.66;53.86;1;1;1;Crate_Wood;Obstáculos e elementos do cenário: caixa
 TorchStand_010;Structures;7;0;108;0;1;1;1;TorchStand;Vista frontal / traseira: braseiro em pedestal na borda
-Crate_Wood_007;Props;8.3;0;106.79;9.17;1;1;1;Crate_Wood;Obstáculos e elementos do cenário: caixa
+Barrel_Wood_002;Props;8.2;0;109.23;0;1;1;1;Barrel_Wood;Obstáculos e elementos do cenário: barril
 WatchTower_002;Structures;-12.2;0.21;100;90;1;1;1;WatchTower;Vista geral do cenário: torre lateral com estandarte
-PineTree_Snow_133;Nature;13;0.6;99.78;267.28;0.66;0.66;0.66;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_134;Nature;12.19;0.67;107.84;298.81;0.64;0.64;0.64;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_135;Nature;-11.16;0.62;96.02;11.56;1.02;1.02;1.02;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_136;Nature;-14.18;0.51;91.78;228.17;0.66;0.66;0.66;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_137;Nature;11.6;0.56;103;140.72;1.15;1.15;1.15;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_138;Nature;17.03;0.48;101.61;340;1.29;1.29;1.29;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_139;Nature;-19.13;0.72;100;283.84;0.98;0.98;0.98;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_140;Nature;-13.42;0.69;96.07;106.19;0.73;0.73;0.73;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_141;Nature;-9.38;0.46;111.84;246.04;0.81;0.81;0.81;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_142;Nature;-11.79;0.75;104.56;193.26;0.84;0.84;0.84;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_143;Nature;13.43;0.57;96.88;241;0.68;0.68;0.68;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_144;Nature;-12.68;0.74;112.59;145.28;1.01;1.01;1.01;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_Heavy_058;Nature;-11.61;0.67;109.32;89.03;0.55;0.55;0.55;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
-PineTree_Snow_Heavy_059;Nature;14.28;0.64;113.56;48.36;0.76;0.76;0.76;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
-Rock_Snow_Cluster_017;Nature;10.68;0.43;118.09;40.86;0.81;0.81;0.81;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
-Rock_Snow_Cluster_018;Nature;8.57;0.4;103.79;178.16;0.77;0.77;0.77;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
-Rock_Snow_Cluster_019;Nature;10.69;0.38;98.41;300.59;1.18;1.18;1.18;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
-Ice_Crystal_012;Nature;7.64;0.26;115.3;329.04;0.95;0.95;0.95;Ice_Crystal;Vista geral do cenário: cristais de gelo
-Ice_Crystal_013;Nature;-15.26;0.62;99.66;39.23;1.2;1.2;1.2;Ice_Crystal;Vista geral do cenário: cristais de gelo
-Ice_Block_004;Nature;14.53;0.57;107.3;298.7;1.13;1.13;1.13;Ice_Block;Vista geral do cenário: blocos de gelo
-Bush_Snow_006;Nature;-8.03;0.3;115.47;96.74;0.8;0.8;0.8;Bush_Snow;Vista geral do cenário: arbustos nevados
-Plant_Snow_005;Nature;6.99;0.06;104.66;114.39;0.94;0.94;0.94;Plant_Snow;Vista geral do cenário: plantinhas
-Plant_Snow_006;Nature;6.73;0.04;90.39;0.59;0.98;0.98;0.98;Plant_Snow;Vista geral do cenário: plantinhas
-PineTree_Snow_145;Nature;-28.35;3.09;92.26;245.18;1.34;1.34;1.34;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_060;Nature;-44.76;2.41;110.92;344.53;1.05;1.05;1.05;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_061;Nature;-21.35;0.59;107.75;31.38;1.24;1.24;1.24;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_062;Nature;-39.27;2.46;106.39;315.03;1.15;1.15;1.15;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_146;Nature;-45.12;2.93;95.79;255.35;1.17;1.17;1.17;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_147;Nature;-38.3;2.43;106.09;217.77;1.21;1.21;1.21;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_063;Nature;-43.23;2.83;90.01;92.33;0.94;0.94;0.94;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_148;Nature;-37.12;2.56;97.08;6.28;1.15;1.15;1.15;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_149;Nature;-42.57;2.31;113.17;50.86;1.24;1.24;1.24;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_150;Nature;-40.86;2.59;105.32;105.87;1.2;1.2;1.2;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_151;Nature;-23.44;1.03;102.76;205.84;1.58;1.58;1.58;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_152;Nature;-42.17;2.39;117.62;345.91;1.03;1.03;1.03;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_153;Nature;-34.31;2.95;91.66;302.19;1.37;1.37;1.37;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_064;Nature;-33.27;2.57;103.02;221.06;1.12;1.12;1.12;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_154;Nature;-21.89;0.7;92.12;0.11;1.53;1.53;1.53;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_155;Nature;-26.34;2.22;103.44;281.08;0.93;0.93;0.93;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-Cliff_Rock_005;Terrain;23.6;-0.3;108.75;90;0.82;0.66;1;Cliff_Rock;Vista geral do cenário: afloramento rochoso nas colinas
-PineTree_Snow_156;Nature;26.91;2.77;118.48;157.75;1.27;1.27;1.27;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_065;Nature;44.8;3.11;100.39;147.53;0.93;0.93;0.93;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_157;Nature;33.62;2.8;90.41;135.02;1.6;1.6;1.6;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_066;Nature;24.28;1.92;100.52;35.87;0.84;0.84;0.84;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_158;Nature;43.26;3.43;110.19;251.52;1.57;1.57;1.57;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_159;Nature;30.86;2.95;91.02;230.24;1.58;1.58;1.58;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_067;Nature;43.96;3.22;95.68;159.02;1.28;1.28;1.28;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_068;Nature;29.25;3.01;118.02;110.21;0.86;0.86;0.86;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_160;Nature;24.88;2.15;101.81;337.64;1.27;1.27;1.27;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_161;Nature;24.63;2.09;91.06;286.56;1.4;1.4;1.4;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_162;Nature;45.63;3.13;100.99;249.22;1.6;1.6;1.6;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_163;Nature;21.76;0.98;105.22;100.4;1.49;1.49;1.49;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_069;Nature;24.58;1.94;115.78;319.13;0.89;0.89;0.89;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_164;Nature;35;2.89;109.05;286.61;1.5;1.5;1.5;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_070;Nature;26.68;2.7;118.46;45.89;1.26;1.26;1.26;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_165;Nature;28.6;3.12;110.05;317.69;1.09;1.09;1.09;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_145;Nature;-13.29;0.69;115.37;3.62;1.19;1.19;1.19;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_146;Nature;-13.81;0.59;93.14;49.53;0.95;0.95;0.95;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_147;Nature;-18.92;0.45;91.57;331.54;1.16;1.16;1.16;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_148;Nature;17.04;0.55;113.9;72.89;1.19;1.19;1.19;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_149;Nature;-18.23;0.65;115.13;141.22;0.97;0.97;0.97;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_150;Nature;-16.47;0.75;112.16;269.05;1.25;1.25;1.25;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_151;Nature;19.09;0.38;102.91;189.94;0.93;0.93;0.93;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_152;Nature;19.45;0.64;109.16;77.76;1.29;1.29;1.29;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_153;Nature;16.87;0.67;107.11;267.3;1.28;1.28;1.28;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_154;Nature;-10.84;0.52;113.12;83.27;1.04;1.04;1.04;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_155;Nature;-18.49;0.66;103.92;225.92;0.93;0.93;0.93;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_156;Nature;10.64;0.58;91.06;262.05;1.11;1.11;1.11;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_157;Nature;-8.7;0.4;91.86;112.62;1.03;1.03;1.03;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_158;Nature;-14.82;0.6;102.79;51.72;1.2;1.2;1.2;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_Heavy_048;Nature;12.72;0.7;108.89;245.42;0.56;0.56;0.56;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
+PineTree_Snow_Heavy_049;Nature;-19.92;0.74;109.57;91;0.62;0.62;0.62;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
+PineTree_Snow_Heavy_050;Nature;10.95;0.62;103.13;70.1;0.85;0.85;0.85;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
+PineTree_Snow_Heavy_051;Nature;13.9;0.54;95.83;134.3;0.74;0.74;0.74;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
+Rock_Snow_Cluster_016;Nature;11.3;0.49;107.01;296.91;0.64;0.64;0.64;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
+Rock_Snow_Cluster_017;Nature;-18.56;0.55;118.79;151.4;1.04;1.04;1.04;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
+Rock_Snow_Cluster_018;Nature;18.96;0.35;119.16;24.18;0.85;0.85;0.85;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
+Rock_Snow_Cluster_019;Nature;13.55;0.51;118.16;330.73;1.13;1.13;1.13;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
+Rock_Snow_Large_004;Nature;15.85;0.21;93.4;170.46;1.08;1.08;1.08;Rock_Snow_Large;Obstáculos e elementos do cenário: rocha grande
+Ice_Crystal_009;Nature;8.37;0.48;104.22;245.22;1.06;1.06;1.06;Ice_Crystal;Vista geral do cenário: cristais de gelo
+Ice_Crystal_010;Nature;-9.55;0.71;104.02;333.9;1.14;1.14;1.14;Ice_Crystal;Vista geral do cenário: cristais de gelo
+Ice_Block_003;Nature;18.95;0.46;113.88;195.24;1;1;1;Ice_Block;Vista geral do cenário: blocos de gelo
+Bush_Snow_006;Nature;-6.97;0.09;101.1;55.41;0.71;0.71;0.71;Bush_Snow;Vista geral do cenário: arbustos nevados
+Plant_Snow_006;Nature;-9.23;0.51;110.95;171.88;0.86;0.86;0.86;Plant_Snow;Vista geral do cenário: plantinhas
+Snow_Pile_009;Nature;9.67;0.58;96;149.45;0.78;1;0.87;Snow_Pile;Obstáculos e elementos do cenário: acúmulo de neve
+Snow_Pile_010;Nature;6.69;-0.07;117.39;212.9;0.96;1;1.07;Snow_Pile;Obstáculos e elementos do cenário: acúmulo de neve
+PineTree_Snow_Heavy_052;Nature;-43.61;2.9;95.75;328.44;1.43;1.43;1.43;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_053;Nature;-25.12;1.81;104.29;209.64;1.13;1.13;1.13;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_054;Nature;-35.26;2.38;107.54;1.13;1.06;1.06;1.06;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_159;Nature;-41.65;2.32;115.8;348.38;1.45;1.45;1.45;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_055;Nature;-33.31;3.02;91.47;173.29;1.27;1.27;1.27;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_160;Nature;-36.74;2.27;114.62;254.96;1.02;1.02;1.02;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_161;Nature;-23.06;0.86;101.03;181.73;1.48;1.48;1.48;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_162;Nature;-23.3;1;98.34;6.7;1.39;1.39;1.39;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_163;Nature;-24.3;1.49;91.54;193.29;1.37;1.37;1.37;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_164;Nature;-23.86;1.21;102.66;227.25;1.48;1.48;1.48;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_165;Nature;-23.53;1.25;115.5;124;1.21;1.21;1.21;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_056;Nature;-30.29;2.75;101.41;228.2;1.24;1.24;1.24;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_166;Nature;-39.06;2.31;117.38;190.51;1.54;1.54;1.54;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_167;Nature;-23.91;1.33;94.57;91.22;1.27;1.27;1.27;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_168;Nature;-46.53;2.93;96.65;228.39;1.3;1.3;1.3;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_169;Nature;-27.21;2.6;112.95;269.95;0.91;0.91;0.91;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+Cliff_Rock_005;Terrain;23.6;-0.3;100.31;90;1.02;0.66;1;Cliff_Rock;Vista geral do cenário: afloramento rochoso nas colinas
+PineTree_Snow_170;Nature;43.07;3.32;107.91;283.43;1.06;1.06;1.06;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_057;Nature;32.32;2.95;118.48;28.01;0.92;0.92;0.92;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_058;Nature;38.95;2.97;117.49;30.8;1.05;1.05;1.05;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_171;Nature;27.17;2.91;102.15;23.36;0.92;0.92;0.92;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_172;Nature;26.88;2.86;98.04;175.57;1.32;1.32;1.32;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_173;Nature;38.6;2.93;107.52;168.74;1.37;1.37;1.37;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_174;Nature;25.89;2.52;104.13;153.88;1.4;1.4;1.4;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_175;Nature;46.9;3.4;116.2;269.79;1.2;1.2;1.2;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_059;Nature;46.73;3.2;96.85;330.95;1.35;1.35;1.35;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_176;Nature;22.11;1.06;97.95;28.04;0.97;0.97;0.97;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_060;Nature;32.69;2.85;103.02;314.92;1.24;1.24;1.24;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_177;Nature;37.84;2.75;95.04;183.57;0.98;0.98;0.98;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_178;Nature;26.09;2.61;101.73;242.52;1.01;1.01;1.01;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_179;Nature;43.01;3.36;116.17;190.26;0.95;0.95;0.95;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_061;Nature;43;3.3;107.5;278.07;1.32;1.32;1.32;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_062;Nature;32.65;2.82;98.22;45.53;1.3;1.3;1.3;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
 TorchStand_011;Structures;-7;0;132;0;1;1;1;TorchStand;Vista frontal / traseira: braseiro em pedestal na borda
-Crate_Wood_008;Props;-8.3;0;131.13;70.89;1;1;1;Crate_Wood;Obstáculos e elementos do cenário: caixa
+Barrel_Wood_003;Props;-8.2;0;133.24;0;1;1;1;Barrel_Wood;Obstáculos e elementos do cenário: barril
 TorchStand_012;Structures;7;0;132;0;1;1;1;TorchStand;Vista frontal / traseira: braseiro em pedestal na borda
-Crate_Wood_009;Props;8.3;0;130.99;66.48;1;1;1;Crate_Wood;Obstáculos e elementos do cenário: caixa
+Crate_Wood_011;Props;8.3;0;130.79;41.16;1;1;1;Crate_Wood;Obstáculos e elementos do cenário: caixa
 BannerPole_007;Structures;-6.8;0;144;18;1;1;1;BannerPole;Vista frontal / traseira: estandarte azul na borda
 BannerPole_008;Structures;6.8;0;144;-18;1;1;1;BannerPole;Vista frontal / traseira: estandarte azul na borda
-PineTree_Snow_166;Nature;-14.07;0.68;127.5;207.03;1.1;1.1;1.1;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_167;Nature;-15.67;0.65;123.29;41;1.29;1.29;1.29;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_168;Nature;14.92;0.45;128.77;289.04;0.9;0.9;0.9;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_169;Nature;-9.36;0.57;140.09;41.13;0.77;0.77;0.77;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_170;Nature;19;0.41;124;235.92;1.16;1.16;1.16;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_171;Nature;10.33;0.7;120.98;339.82;0.91;0.91;0.91;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_172;Nature;13.24;0.48;124.46;266.59;0.82;0.82;0.82;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_173;Nature;19.85;0.67;139.32;23.64;1.03;1.03;1.03;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_174;Nature;-16.23;0.5;126.29;216.95;1.09;1.09;1.09;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_175;Nature;-16.89;0.7;146.74;96.49;1.12;1.12;1.12;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_176;Nature;-12.82;0.59;131.47;305.69;0.99;0.99;0.99;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_Heavy_071;Nature;-17.62;0.52;125.73;196.09;0.79;0.79;0.79;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
-PineTree_Snow_Heavy_072;Nature;17.9;0.32;147.8;34.84;0.58;0.58;0.58;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
-PineTree_Snow_Heavy_073;Nature;9.79;0.5;140.91;107.94;0.78;0.78;0.78;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
-Rock_Snow_Cluster_020;Nature;19.96;0.34;127.86;248.45;0.86;0.86;0.86;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
-Rock_Snow_Cluster_021;Nature;-12.65;0.58;127.83;16.19;0.6;0.6;0.6;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
-Rock_Snow_Cluster_022;Nature;15.98;0.3;145.38;293.17;0.63;0.63;0.63;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
-Rock_Snow_Large_004;Nature;19.66;0.26;139.55;70.9;1.36;1.36;1.36;Rock_Snow_Large;Obstáculos e elementos do cenário: rocha grande
-Ice_Crystal_014;Nature;-16.51;0.73;141.44;53.99;0.99;0.99;0.99;Ice_Crystal;Vista geral do cenário: cristais de gelo
-Ice_Crystal_015;Nature;-14.43;0.63;123.98;93.7;0.9;0.9;0.9;Ice_Crystal;Vista geral do cenário: cristais de gelo
-Ice_Block_005;Nature;10.19;0.33;135.21;260.38;1.03;1.03;1.03;Ice_Block;Vista geral do cenário: blocos de gelo
-Bush_Snow_007;Nature;-7.62;0.24;126.72;11.41;0.71;0.71;0.71;Bush_Snow;Vista geral do cenário: arbustos nevados
-Bush_Snow_008;Nature;7.8;0.3;137.04;169.25;0.87;0.87;0.87;Bush_Snow;Vista geral do cenário: arbustos nevados
-Tree_Frozen_004;Nature;-17.89;0.67;143.97;271.95;0.81;0.81;0.81;Tree_Frozen;Vista geral do cenário: árvore parcialmente congelada
-Plant_Snow_007;Nature;-10.79;0.65;142.31;187.6;1.1;1.1;1.1;Plant_Snow;Vista geral do cenário: plantinhas
-Plant_Snow_008;Nature;-8.25;0.41;139.41;311.01;0.75;0.75;0.75;Plant_Snow;Vista geral do cenário: plantinhas
-Snow_Pile_009;Nature;-9.46;0.63;124.61;279.34;0.72;1;0.8;Snow_Pile;Obstáculos e elementos do cenário: acúmulo de neve
-Snow_Pile_010;Nature;8.51;0.35;137.16;234.3;0.93;1;1.04;Snow_Pile;Obstáculos e elementos do cenário: acúmulo de neve
-Cliff_Rock_006;Terrain;-23.6;-0.3;142.02;-90;0.81;0.65;1;Cliff_Rock;Vista geral do cenário: afloramento rochoso nas colinas
-PineTree_Snow_Heavy_074;Nature;-32.61;2.54;122.36;50.8;0.9;0.9;0.9;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_177;Nature;-39.97;2.51;123.21;118.12;1.5;1.5;1.5;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_075;Nature;-31.58;3.06;136.77;343.3;1.13;1.13;1.13;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_178;Nature;-29.53;2.85;131.49;64.31;1.41;1.41;1.41;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_076;Nature;-41;3.47;144.23;233.83;1.44;1.44;1.44;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_179;Nature;-38.81;2.84;134.81;80.09;1.19;1.19;1.19;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_077;Nature;-25.35;2.07;132.43;147.58;1.22;1.22;1.22;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_180;Nature;-32.13;2.58;123.8;81.26;1.3;1.3;1.3;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_181;Nature;-21.81;0.72;144.11;42.43;1.21;1.21;1.21;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_078;Nature;-32.76;3.4;147.97;317.67;1.08;1.08;1.08;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_182;Nature;-29.13;3.27;140.07;49.1;1.46;1.46;1.46;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_183;Nature;-36.06;2.32;127.21;176.73;1.34;1.34;1.34;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_079;Nature;-34.13;3.12;137.83;317.35;0.97;0.97;0.97;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_184;Nature;-33.41;3.44;146.31;273.18;1.51;1.51;1.51;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_185;Nature;-27.01;2.56;129.04;128.07;1.26;1.26;1.26;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_186;Nature;-28.03;3.03;136.98;274.58;1.43;1.43;1.43;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_187;Nature;31.68;3.01;127.32;125.37;1.05;1.05;1.05;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_188;Nature;25.41;1.86;137.98;357.11;0.91;0.91;0.91;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_189;Nature;40.64;2.7;130.49;224.11;1.46;1.46;1.46;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_190;Nature;39.89;2.68;133.25;350.62;1.17;1.17;1.17;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_080;Nature;37.94;3.01;124.9;180.81;1.14;1.14;1.14;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_081;Nature;21.4;0.7;137.2;151.46;1.32;1.32;1.32;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_082;Nature;38.27;2.26;140.91;103.86;1.03;1.03;1.03;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_083;Nature;32.5;3.03;127.88;155.19;1.16;1.16;1.16;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_191;Nature;44.38;2.42;134.62;206.15;1.58;1.58;1.58;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_192;Nature;38.25;2.31;146.94;23.31;1.37;1.37;1.37;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_084;Nature;21.17;0.69;140.03;299.22;1.2;1.2;1.2;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_193;Nature;40.36;2.37;140.3;271.38;1.19;1.19;1.19;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_085;Nature;31.14;2.66;135.34;193.64;0.85;0.85;0.85;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_194;Nature;43.46;2.61;147.86;114.73;0.96;0.96;0.96;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_195;Nature;34.12;2.95;131.42;251.13;1.23;1.23;1.23;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_086;Nature;25.25;1.85;135.92;91.54;1.04;1.04;1.04;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-Ice_Crystal_016;Nature;19.5;0.54;137.5;0;1.14;1.14;1.14;Ice_Crystal;Vista geral do cenário: cristais de gelo
-Ice_Crystal_017;Nature;21;0.73;132.2;40;0.86;0.86;0.86;Ice_Crystal;Vista geral do cenário: cristais de gelo
+PineTree_Snow_180;Nature;-19.64;0.79;148.27;237.09;0.97;0.97;0.97;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_181;Nature;-14.35;0.62;145.54;10.77;0.83;0.83;0.83;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_182;Nature;-18.41;0.62;144.29;130.88;1.22;1.22;1.22;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_183;Nature;-14.37;0.59;148.93;211.66;0.69;0.69;0.69;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_184;Nature;-15.81;0.51;131.32;272.66;0.76;0.76;0.76;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_185;Nature;15.51;0.43;129.15;349.43;0.96;0.96;0.96;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_186;Nature;12.4;0.65;121.42;105.24;1.13;1.13;1.13;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_187;Nature;9.04;0.42;125.57;294.38;0.87;0.87;0.87;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_188;Nature;13.89;0.44;129.54;158.22;0.99;0.99;0.99;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_189;Nature;-19.87;0.83;121.65;269.61;1.21;1.21;1.21;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_Heavy_063;Nature;-15.2;0.5;129.55;319.14;0.9;0.9;0.9;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
+PineTree_Snow_Heavy_064;Nature;10.9;0.45;133.62;226.43;0.75;0.75;0.75;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
+PineTree_Snow_Heavy_065;Nature;-9.39;0.54;149.96;186.15;0.73;0.73;0.73;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
+PineTree_Snow_Heavy_066;Nature;19.14;0.49;136.36;205.56;0.57;0.57;0.57;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
+Rock_Snow_Cluster_020;Nature;-17.71;0.47;140.18;35.57;1.03;1.03;1.03;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
+Rock_Snow_Cluster_021;Nature;-8.16;0.27;124.41;251.51;0.83;0.83;0.83;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
+Rock_Snow_Cluster_022;Nature;10.42;0.41;139.19;289.59;0.92;0.92;0.92;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
+Rock_Snow_Large_005;Nature;-18.41;0.41;148.95;332.8;1.04;1.04;1.04;Rock_Snow_Large;Obstáculos e elementos do cenário: rocha grande
+Ice_Crystal_011;Nature;-13.59;0.73;125.1;246.44;1.11;1.11;1.11;Ice_Crystal;Vista geral do cenário: cristais de gelo
+Ice_Crystal_012;Nature;13.3;0.64;121.99;116.95;0.81;0.81;0.81;Ice_Crystal;Vista geral do cenário: cristais de gelo
+Ice_Block_004;Nature;15.41;0.48;126.96;333.5;1.03;1.03;1.03;Ice_Block;Vista geral do cenário: blocos de gelo
+Bush_Snow_007;Nature;-8.57;0.51;128.15;212.29;0.94;0.94;0.94;Bush_Snow;Vista geral do cenário: arbustos nevados
+Tree_Frozen_005;Nature;-14.06;0.61;132.87;294.91;0.88;0.88;0.88;Tree_Frozen;Vista geral do cenário: árvore parcialmente congelada
+Plant_Snow_007;Nature;-7.1;0.1;126.22;135.7;1.1;1.1;1.1;Plant_Snow;Vista geral do cenário: plantinhas
+Plant_Snow_008;Nature;-10.41;0.46;130.23;135.88;1.17;1.17;1.17;Plant_Snow;Vista geral do cenário: plantinhas
+Snow_Pile_011;Nature;7.82;0.21;136.66;262.64;0.67;1;0.75;Snow_Pile;Obstáculos e elementos do cenário: acúmulo de neve
+Snow_Pile_012;Nature;8.15;0.26;140.38;112.42;0.84;1;0.93;Snow_Pile;Obstáculos e elementos do cenário: acúmulo de neve
+Cliff_Rock_006;Terrain;-23.6;-0.3;131.84;-90;1.18;0.65;1;Cliff_Rock;Vista geral do cenário: afloramento rochoso nas colinas
+PineTree_Snow_Heavy_067;Nature;-45.17;2.67;120.49;212.5;1.3;1.3;1.3;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_068;Nature;-40.16;2.49;122.08;331.29;1.44;1.44;1.44;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_190;Nature;-32.66;2.54;129.9;4.5;1.27;1.27;1.27;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_191;Nature;-41.36;3.47;144.83;66.03;1.01;1.01;1.01;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_192;Nature;-28.98;3.18;138.17;301.43;1.02;1.02;1.02;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_193;Nature;-25.6;2.34;146.92;97.49;1.34;1.34;1.34;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_194;Nature;-28.8;2.84;126.12;33.84;1.21;1.21;1.21;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_195;Nature;-32.64;2.54;122.42;54.16;1.02;1.02;1.02;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_196;Nature;-42.53;3.51;148.79;276.73;1.09;1.09;1.09;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_197;Nature;-33.12;3.45;145.47;46.24;1.29;1.29;1.29;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_069;Nature;-40.7;2.53;122.07;270.02;0.92;0.92;0.92;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_198;Nature;-29.56;2.82;130.77;183.61;1.39;1.39;1.39;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_199;Nature;-31.01;2.98;135.54;194.05;1;1;1;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_070;Nature;-37.91;2.33;121.61;20.77;1.39;1.39;1.39;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_200;Nature;-29.29;3.38;144.18;198.32;1.44;1.44;1.44;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_071;Nature;-42.17;3.49;147.69;7.96;0.96;0.96;0.96;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_201;Nature;35.28;2.61;135.76;42.4;1.5;1.5;1.5;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_072;Nature;22.67;1.04;142.67;309.79;1.07;1.07;1.07;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_202;Nature;43.73;2.48;137.37;153.6;1.12;1.12;1.12;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_073;Nature;42.89;2.48;138.43;292.81;1.32;1.32;1.32;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_203;Nature;23.99;1.53;126.44;293.19;1.12;1.12;1.12;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_204;Nature;25.09;1.8;144.76;171.2;0.97;0.97;0.97;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_205;Nature;44.94;2.46;136.58;47.45;1.4;1.4;1.4;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_074;Nature;22.99;1.14;133.49;81.46;0.92;0.92;0.92;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_206;Nature;27.72;2.66;133.84;282.45;0.9;0.9;0.9;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_207;Nature;33.45;3.05;126.5;67.92;0.92;0.92;0.92;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_075;Nature;45.09;2.42;134.8;173.76;0.94;0.94;0.94;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_208;Nature;31.41;2.95;130.3;73.51;1.2;1.2;1.2;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_209;Nature;27.24;2.72;130.45;237.35;1.41;1.41;1.41;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_210;Nature;33.18;2.99;122.36;141.26;0.91;0.91;0.91;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_076;Nature;30.52;2.32;143.6;223.26;0.99;0.99;0.99;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_077;Nature;22.08;0.97;130.46;226.13;1.33;1.33;1.33;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+Ice_Crystal_013;Nature;19.5;0.54;137.5;0;1.14;1.14;1.14;Ice_Crystal;Vista geral do cenário: cristais de gelo
+Ice_Crystal_014;Nature;21;0.73;132.2;40;0.86;0.86;0.86;Ice_Crystal;Vista geral do cenário: cristais de gelo
 TorchStand_013;Structures;-7;0;156;0;1;1;1;TorchStand;Vista frontal / traseira: braseiro em pedestal na borda
-Crate_Wood_010;Props;-8.3;0;154.7;32.75;1;1;1;Crate_Wood;Obstáculos e elementos do cenário: caixa
+Barrel_Wood_004;Props;-8.2;0;157.25;0;1;1;1;Barrel_Wood;Obstáculos e elementos do cenário: barril
 TorchStand_014;Structures;7;0;156;0;1;1;1;TorchStand;Vista frontal / traseira: braseiro em pedestal na borda
-Barrel_Wood_006;Props;8.2;0;157;0;1;1;1;Barrel_Wood;Obstáculos e elementos do cenário: barril
+Crate_Wood_012;Props;8.3;0;154.73;25.47;1;1;1;Crate_Wood;Obstáculos e elementos do cenário: caixa
 BannerPole_009;Structures;-6.8;0;168;18;1;1;1;BannerPole;Vista frontal / traseira: estandarte azul na borda
 BannerPole_010;Structures;6.8;0;168;-18;1;1;1;BannerPole;Vista frontal / traseira: estandarte azul na borda
 WatchTower_003;Structures;12.2;0.39;164;-90;1;1;1;WatchTower;Vista geral do cenário: torre lateral com estandarte
@@ -418,311 +423,314 @@ Campfire_002;Props;9.7;0.39;148.4;0;1;1;1;Campfire;Obstáculos e elementos do ce
 Cart_Wood_002;Props;11.7;0.52;146;200;1;1;1;Cart_Wood;Obstáculos e elementos do cenário: carroça (acampamento)
 Fence_Wood_003;Props;13.9;0.52;148.25;90;0.88;1;1;Fence_Wood;Obstáculos e elementos do cenário: cerca (acampamento)
 Fence_Wood_004;Props;13.9;0.5;151.75;90;0.88;1;1;Fence_Wood;Obstáculos e elementos do cenário: cerca (acampamento)
-Crate_Wood_011;Props;11.1;0.54;154.2;20;1;1;1;Crate_Wood;Obstáculos e elementos do cenário: caixa (acampamento)
-Crate_Wood_012;Props;11.8;0.58;154.6;55;0.8;0.8;0.8;Crate_Wood;Obstáculos e elementos do cenário: caixa (acampamento)
+Crate_Wood_013;Props;11.1;0.54;154.2;20;1;1;1;Crate_Wood;Obstáculos e elementos do cenário: caixa (acampamento)
+Crate_Wood_014;Props;11.8;0.58;154.6;55;0.8;0.8;0.8;Crate_Wood;Obstáculos e elementos do cenário: caixa (acampamento)
 Lantern_002;Structures;8.9;0.48;152.6;0;1;1;1;Lantern;Elementos decorativos: lamparina (acampamento)
-PineTree_Snow_196;Nature;-19.11;0.43;151.8;141.2;1.26;1.26;1.26;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_197;Nature;-17.68;0.44;153.36;10.9;1.05;1.05;1.05;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_198;Nature;-17.9;0.41;156.12;216.66;1.22;1.22;1.22;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_199;Nature;18.4;0.57;177.29;145.69;0.94;0.94;0.94;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_200;Nature;17.72;0.59;175.76;343.05;1.14;1.14;1.14;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_201;Nature;12.51;0.59;173.5;221.24;1.18;1.18;1.18;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_202;Nature;-13.26;0.63;164.8;63.37;1.16;1.16;1.16;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_203;Nature;11.7;0.53;160.9;197.61;1.13;1.13;1.13;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_204;Nature;-12.62;0.63;155.44;164.09;0.98;0.98;0.98;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_205;Nature;16.54;0.58;161.91;118.02;0.76;0.76;0.76;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_206;Nature;10.9;0.6;159.4;228.88;0.85;0.85;0.85;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_207;Nature;-10.79;0.55;172.3;275.77;0.74;0.74;0.74;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_Heavy_087;Nature;-12.88;0.62;170.53;305.52;0.64;0.64;0.64;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
-PineTree_Snow_Heavy_088;Nature;-18.26;0.55;176.03;150.13;0.9;0.9;0.9;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
-PineTree_Snow_Heavy_089;Nature;17.37;0.37;156.77;82.55;0.68;0.68;0.68;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
-Rock_Snow_Cluster_023;Nature;17.34;0.25;157.85;160.81;0.85;0.85;0.85;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
-Rock_Snow_Cluster_024;Nature;9.24;0.51;175.8;71.74;1.1;1.1;1.1;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
-Rock_Snow_Cluster_025;Nature;-11.08;0.5;164.32;141.09;0.89;0.89;0.89;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
-Rock_Snow_Large_005;Nature;15.05;0.35;166.86;280.37;1.41;1.41;1.41;Rock_Snow_Large;Obstáculos e elementos do cenário: rocha grande
-Ice_Crystal_018;Nature;-13.62;0.62;169.97;124.54;0.96;0.96;0.96;Ice_Crystal;Vista geral do cenário: cristais de gelo
-Bush_Snow_009;Nature;8.03;0.36;158.79;1.32;1.15;1.15;1.15;Bush_Snow;Vista geral do cenário: arbustos nevados
-Bush_Snow_010;Nature;-9.34;0.68;162.5;71.4;1.11;1.11;1.11;Bush_Snow;Vista geral do cenário: arbustos nevados
-Snow_Pile_011;Nature;-8.3;0.31;176.23;214.85;0.91;1;1.01;Snow_Pile;Obstáculos e elementos do cenário: acúmulo de neve
-PineTree_Snow_208;Nature;-29.86;3.02;177.3;0.49;1.13;1.13;1.13;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_209;Nature;-29.24;3.45;157.93;209.14;1.02;1.02;1.02;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_210;Nature;-22.73;1.08;155.81;27.66;1.12;1.12;1.12;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_211;Nature;-43.81;3.42;179.06;60.26;1.19;1.19;1.19;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_212;Nature;-44.77;3.66;153.13;193.35;1.05;1.05;1.05;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_213;Nature;-32.79;3;172.03;305.34;1.09;1.09;1.09;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_214;Nature;-41.62;3.49;154.53;78.36;0.99;0.99;0.99;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_215;Nature;-21.95;0.77;150.12;289.93;1.22;1.22;1.22;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_090;Nature;-21.24;0.59;174.38;132.68;1.25;1.25;1.25;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_216;Nature;-23.96;1.42;164.13;135.98;1.43;1.43;1.43;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_217;Nature;-23.54;1.2;165.13;345.7;1.49;1.49;1.49;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_218;Nature;-26.72;2.85;151.09;246.49;1.54;1.54;1.54;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_219;Nature;-27.73;2.84;170.26;146.93;1.5;1.5;1.5;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_220;Nature;-25.68;2.34;157.42;246.19;0.91;0.91;0.91;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_221;Nature;-22.6;0.82;164.34;244.9;1.1;1.1;1.1;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_091;Nature;-38.14;2.94;171.09;105.4;0.82;0.82;0.82;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-Cliff_Rock_007;Terrain;23.6;-0.3;156.49;90;0.9;0.63;1;Cliff_Rock;Vista geral do cenário: afloramento rochoso nas colinas
-PineTree_Snow_Heavy_092;Nature;41.53;2.84;160.45;111.38;1.32;1.32;1.32;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_222;Nature;40.32;2.74;155.29;358.04;1.57;1.57;1.57;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_223;Nature;43.83;3.11;173.82;345.7;1.26;1.26;1.26;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_093;Nature;39.6;2.96;165.4;308.99;0.89;0.89;0.89;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_224;Nature;36.02;2.73;160.73;219.34;1.58;1.58;1.58;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_225;Nature;23.78;1.51;160.23;307.19;1.18;1.18;1.18;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_226;Nature;41.86;3.06;175.08;316.15;1.34;1.34;1.34;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_227;Nature;22.51;0.95;163.07;125.62;0.99;0.99;0.99;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_228;Nature;40.31;2.59;151.12;80.23;1.27;1.27;1.27;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_229;Nature;22.8;1.12;153.62;87.71;0.96;0.96;0.96;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_094;Nature;35.6;2.67;156.17;152.19;1.4;1.4;1.4;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_230;Nature;43.73;2.89;160.09;33.94;1.12;1.12;1.12;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_231;Nature;21.42;0.68;165.27;317.29;1.21;1.21;1.21;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_232;Nature;28.94;2.75;160.77;224.82;0.93;0.93;0.93;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_095;Nature;41.29;2.63;150.77;314.51;1.04;1.04;1.04;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_096;Nature;40.94;2.89;162.73;151;1.25;1.25;1.25;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_211;Nature;-16.26;0.47;167.78;89.04;1.03;1.03;1.03;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_212;Nature;-11.4;0.6;158.42;95.67;1.02;1.02;1.02;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_213;Nature;-14.48;0.57;162.44;176.85;0.83;0.83;0.83;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_214;Nature;-7.47;0.16;158.94;336.99;0.8;0.8;0.8;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_215;Nature;18.42;0.45;159.1;67.65;0.91;0.91;0.91;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_216;Nature;-12.47;0.45;172.88;342.37;0.75;0.75;0.75;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_217;Nature;-11.66;0.62;156.18;14.53;0.68;0.68;0.68;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_218;Nature;8.3;0.46;172.11;314.47;0.85;0.85;0.85;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_219;Nature;19.05;0.7;166.99;257.97;0.94;0.94;0.94;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_220;Nature;-15.26;0.61;160.2;107.02;0.87;0.87;0.87;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_221;Nature;19.61;0.58;161.22;246.09;1.32;1.32;1.32;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_Heavy_078;Nature;-12.2;0.57;163;283.24;0.89;0.89;0.89;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
+PineTree_Snow_Heavy_079;Nature;-17.88;0.55;170.01;56.59;0.6;0.6;0.6;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
+PineTree_Snow_Heavy_080;Nature;-14.4;0.56;168.13;209.14;0.62;0.62;0.62;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
+PineTree_Snow_Heavy_081;Nature;-18.42;0.55;176.26;167.73;0.86;0.86;0.86;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
+Rock_Snow_Cluster_023;Nature;14.74;0.42;168.51;232.1;0.66;0.66;0.66;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
+Rock_Snow_Cluster_024;Nature;9.04;0.5;162.84;43.72;0.9;0.9;0.9;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
+Rock_Snow_Cluster_025;Nature;-9.24;0.53;161.92;281.9;0.81;0.81;0.81;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
+Rock_Snow_Cluster_026;Nature;-13.47;0.41;151.73;38.24;0.89;0.89;0.89;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
+Ice_Crystal_015;Nature;-11.22;0.55;150.16;190.13;1.14;1.14;1.14;Ice_Crystal;Vista geral do cenário: cristais de gelo
+Ice_Crystal_016;Nature;14.86;0.58;168.76;73.5;0.69;0.69;0.69;Ice_Crystal;Vista geral do cenário: cristais de gelo
+Snow_Pile_013;Nature;-6.72;-0.08;177.4;189.73;0.7;1;0.78;Snow_Pile;Obstáculos e elementos do cenário: acúmulo de neve
+PineTree_Snow_222;Nature;-29.91;3.13;173.5;177.27;1.42;1.42;1.42;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_082;Nature;-31.29;3.35;151.17;300.79;0.82;0.82;0.82;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_223;Nature;-21.84;0.6;164.15;278.94;1.19;1.19;1.19;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_224;Nature;-31.05;3.35;156.72;294.74;0.91;0.91;0.91;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_225;Nature;-21.08;0.61;153.4;167.27;1.1;1.1;1.1;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_226;Nature;-29.52;3.42;161.47;136.3;1.12;1.12;1.12;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_227;Nature;-39.62;3.34;158.41;242.89;0.91;0.91;0.91;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_083;Nature;-41.43;3.46;162.69;223.68;0.98;0.98;0.98;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_228;Nature;-44.35;3.39;172.26;19.82;1.39;1.39;1.39;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_084;Nature;-39.67;3.24;164.48;51.92;0.85;0.85;0.85;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_085;Nature;-26.21;2.16;173.38;45.28;1.12;1.12;1.12;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_229;Nature;-41.96;3.26;170.49;309.57;1;1;1;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_230;Nature;-44.74;3.58;150.08;303.94;1.27;1.27;1.27;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_231;Nature;-26.18;2.6;155.53;20.82;1.53;1.53;1.53;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_232;Nature;-21.31;0.68;155.55;239.03;1.12;1.12;1.12;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_233;Nature;-37.69;2.93;174.34;156.83;1.19;1.19;1.19;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+Cliff_Rock_007;Terrain;23.6;-0.3;160.3;90;0.78;0.63;1;Cliff_Rock;Vista geral do cenário: afloramento rochoso nas colinas
+PineTree_Snow_Heavy_086;Nature;30.67;2.76;161.33;171.73;1.2;1.2;1.2;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_087;Nature;37.03;2.56;152.72;251.87;1.24;1.24;1.24;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_088;Nature;30.29;2.53;150.15;92.52;1;1;1;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_234;Nature;25.2;1.84;178.23;200.77;1.25;1.25;1.25;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_235;Nature;42.62;3.11;173.1;310;0.95;0.95;0.95;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_236;Nature;40.86;2.96;176.88;158.52;1.06;1.06;1.06;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_237;Nature;44.09;2.87;155.87;84.26;1.16;1.16;1.16;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_238;Nature;40.09;2.79;160.33;174.48;1.4;1.4;1.4;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_089;Nature;45.49;3.12;176.38;300.06;0.86;0.86;0.86;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_239;Nature;42.31;3.03;166.21;227.48;1.45;1.45;1.45;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_240;Nature;26.37;2.47;155.35;43.19;1.12;1.12;1.12;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_241;Nature;42.21;2.97;164.33;133.72;1.53;1.53;1.53;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_090;Nature;27.9;2.73;156.75;16.16;0.9;0.9;0.9;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_091;Nature;43.31;2.71;150.64;164.82;1.12;1.12;1.12;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_242;Nature;31.82;2.82;163.75;146.94;1.27;1.27;1.27;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_243;Nature;32.01;2.56;151.72;327.74;0.96;0.96;0.96;PineTree_Snow;Vista geral do cenário: floresta nas colinas
 TorchStand_015;Structures;-7;0;180;0;1;1;1;TorchStand;Vista frontal / traseira: braseiro em pedestal na borda
-Barrel_Wood_007;Props;-8.2;0;180.8;0;1;1;1;Barrel_Wood;Obstáculos e elementos do cenário: barril
+Crate_Wood_015;Props;-8.3;0;178.74;52.28;1;1;1;Crate_Wood;Obstáculos e elementos do cenário: caixa
 TorchStand_016;Structures;7;0;180;0;1;1;1;TorchStand;Vista frontal / traseira: braseiro em pedestal na borda
-Barrel_Wood_008;Props;8.2;0;181.03;0;1;1;1;Barrel_Wood;Obstáculos e elementos do cenário: barril
+Crate_Wood_016;Props;8.3;0;179.08;23.57;1;1;1;Crate_Wood;Obstáculos e elementos do cenário: caixa
 BannerPole_011;Structures;-6.8;0;192;18;1;1;1;BannerPole;Vista frontal / traseira: estandarte azul na borda
 BannerPole_012;Structures;6.8;0;192;-18;1;1;1;BannerPole;Vista frontal / traseira: estandarte azul na borda
 TorchStand_017;Structures;-7;0;204;0;1;1;1;TorchStand;Vista frontal / traseira: braseiro em pedestal na borda
-Crate_Wood_013;Props;-8.3;0;202.93;35.87;1;1;1;Crate_Wood;Obstáculos e elementos do cenário: caixa
+Barrel_Wood_005;Props;-8.2;0;205.02;0;1;1;1;Barrel_Wood;Obstáculos e elementos do cenário: barril
 TorchStand_018;Structures;7;0;204;0;1;1;1;TorchStand;Vista frontal / traseira: braseiro em pedestal na borda
-Crate_Wood_014;Props;8.3;0;202.88;47.87;1;1;1;Crate_Wood;Obstáculos e elementos do cenário: caixa
-PineTree_Snow_233;Nature;15.63;0.43;183.6;140.46;0.84;0.84;0.84;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_234;Nature;10.39;0.5;208.55;159.84;0.61;0.61;0.61;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_235;Nature;-12.92;0.63;181.69;13.57;0.92;0.92;0.92;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_236;Nature;16.64;0.51;200.08;58.49;1.07;1.07;1.07;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_237;Nature;-12.56;0.63;193.1;12.28;0.92;0.92;0.92;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_238;Nature;-11.93;0.59;206.73;256.13;1.04;1.04;1.04;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_239;Nature;17.45;0.67;196.16;207.28;1.24;1.24;1.24;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_240;Nature;18.59;0.61;182.2;350.88;1.24;1.24;1.24;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_241;Nature;16.51;0.56;187.73;116.52;0.75;0.75;0.75;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_242;Nature;19.49;0.5;208.72;28.43;0.96;0.96;0.96;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_243;Nature;-13.49;0.62;187.05;21.14;1.17;1.17;1.17;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_244;Nature;-16.72;0.52;198.73;55.66;1;1;1;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_245;Nature;-12.21;0.62;183.76;140.8;1.02;1.02;1.02;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_Heavy_097;Nature;-13.04;0.59;206.31;19.28;0.86;0.86;0.86;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
-PineTree_Snow_Heavy_098;Nature;-13.34;0.57;194.08;116.63;0.79;0.79;0.79;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
-PineTree_Snow_Heavy_099;Nature;9.8;0.63;187.1;160.54;0.76;0.76;0.76;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
-PineTree_Snow_Heavy_100;Nature;16.19;0.55;203.59;74.69;0.63;0.63;0.63;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
-Rock_Snow_Cluster_026;Nature;19.95;0.53;206.08;47.91;0.9;0.9;0.9;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
-Rock_Snow_Cluster_027;Nature;-18.31;0.37;191.35;262.35;1.14;1.14;1.14;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
-Rock_Snow_Cluster_028;Nature;-19.07;0.33;205.95;323.54;1.1;1.1;1.1;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
-Rock_Snow_Large_006;Nature;-19.89;0.24;189.76;73.36;1.21;1.21;1.21;Rock_Snow_Large;Obstáculos e elementos do cenário: rocha grande
-Ice_Crystal_019;Nature;-13.25;0.58;206.59;161.12;1.19;1.19;1.19;Ice_Crystal;Vista geral do cenário: cristais de gelo
-Ice_Crystal_020;Nature;-12.95;0.55;194.63;259.36;0.86;0.86;0.86;Ice_Crystal;Vista geral do cenário: cristais de gelo
-Ice_Block_006;Nature;17.9;0.57;207.36;278.19;0.65;0.65;0.65;Ice_Block;Vista geral do cenário: blocos de gelo
-Bush_Snow_011;Nature;-7.56;0.21;200.21;57.52;1.12;1.12;1.12;Bush_Snow;Vista geral do cenário: arbustos nevados
-Tree_Frozen_005;Nature;-9.48;0.54;187.4;234.25;0.97;0.97;0.97;Tree_Frozen;Vista geral do cenário: árvore parcialmente congelada
-Plant_Snow_009;Nature;6.94;0.05;199.63;193.66;1.1;1.1;1.1;Plant_Snow;Vista geral do cenário: plantinhas
-Plant_Snow_010;Nature;-9.99;0.62;195.85;42.05;0.78;0.78;0.78;Plant_Snow;Vista geral do cenário: plantinhas
-Snow_Pile_012;Nature;9.76;0.41;194.25;57.23;0.69;1;0.77;Snow_Pile;Obstáculos e elementos do cenário: acúmulo de neve
-Cliff_Rock_008;Terrain;-23.6;-0.3;198.3;-90;0.96;0.58;1;Cliff_Rock;Vista geral do cenário: afloramento rochoso nas colinas
-PineTree_Snow_246;Nature;-39.03;3.24;184.1;81.15;1.08;1.08;1.08;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_247;Nature;-42.49;2.67;203.75;16.59;1.6;1.6;1.6;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_248;Nature;-40.33;3.21;187.37;314.35;1.46;1.46;1.46;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_249;Nature;-22.93;0.77;186.94;359.29;1.38;1.38;1.38;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_250;Nature;-46.39;2.74;195.64;48.91;0.92;0.92;0.92;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_251;Nature;-21.58;0.57;202.91;72.17;1.41;1.41;1.41;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_252;Nature;-26.23;1.73;197.06;37.39;1.4;1.4;1.4;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_253;Nature;-25.12;1.51;205.18;246.16;1.52;1.52;1.52;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_101;Nature;-25.68;1.66;189.6;280.75;0.91;0.91;0.91;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_254;Nature;-24.84;1.43;205.56;316.73;1.31;1.31;1.31;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+Crate_Wood_017;Props;8.3;0;202.7;31.25;1;1;1;Crate_Wood;Obstáculos e elementos do cenário: caixa
+PineTree_Snow_244;Nature;12.18;0.57;192.45;209.58;0.62;0.62;0.62;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_245;Nature;17.48;0.59;200.31;174.09;1.01;1.01;1.01;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_246;Nature;7.97;0.25;200.88;308.06;0.75;0.75;0.75;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_247;Nature;8.8;0.45;197.44;275.7;0.86;0.86;0.86;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_248;Nature;-10.32;0.52;198.81;13;1.12;1.12;1.12;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_249;Nature;-12.5;0.63;188.28;265.22;1.09;1.09;1.09;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_250;Nature;19.77;0.7;195.38;112.82;0.78;0.78;0.78;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_251;Nature;-12.05;0.61;193.12;43.76;0.66;0.66;0.66;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_252;Nature;-10.06;0.63;208.1;185.69;0.76;0.76;0.76;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_253;Nature;-11;0.61;209.86;73.04;0.96;0.96;0.96;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_254;Nature;19;0.61;183.72;261.91;1.05;1.05;1.05;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_Heavy_092;Nature;-9.77;0.54;205.75;311.78;0.7;0.7;0.7;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
+PineTree_Snow_Heavy_093;Nature;9.54;0.57;185.09;82.86;0.79;0.79;0.79;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
+PineTree_Snow_Heavy_094;Nature;-8.98;0.53;182.62;29.81;0.9;0.9;0.9;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
+PineTree_Snow_Heavy_095;Nature;-13.35;0.63;183.52;201.8;0.58;0.58;0.58;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
+Rock_Snow_Cluster_027;Nature;11.9;0.28;204.09;147.78;0.82;0.82;0.82;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
+Rock_Snow_Cluster_028;Nature;-13.69;0.31;199.31;61.61;0.77;0.77;0.77;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
+Rock_Snow_Cluster_029;Nature;-18.17;0.46;180.49;230.85;0.84;0.84;0.84;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
+Rock_Snow_Cluster_030;Nature;9.04;0.38;194.81;147.17;1.03;1.03;1.03;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
+Rock_Snow_Large_006;Nature;12.82;0.35;186.16;123.23;1.23;1.23;1.23;Rock_Snow_Large;Obstáculos e elementos do cenário: rocha grande
+Ice_Crystal_017;Nature;13.96;0.66;209.05;226.23;0.97;0.97;0.97;Ice_Crystal;Vista geral do cenário: cristais de gelo
+Ice_Crystal_018;Nature;-13.08;0.62;182.53;25.79;0.77;0.77;0.77;Ice_Crystal;Vista geral do cenário: cristais de gelo
+Ice_Block_005;Nature;-13.82;0.38;197.25;87.64;1.14;1.14;1.14;Ice_Block;Vista geral do cenário: blocos de gelo
+Bush_Snow_008;Nature;9.38;0.54;188.8;143.74;1.11;1.11;1.11;Bush_Snow;Vista geral do cenário: arbustos nevados
+Bush_Snow_009;Nature;8.18;0.37;188.12;138.35;0.91;0.91;0.91;Bush_Snow;Vista geral do cenário: arbustos nevados
+Tree_Frozen_006;Nature;15.86;0.52;185.3;4.33;0.9;0.9;0.9;Tree_Frozen;Vista geral do cenário: árvore parcialmente congelada
+Plant_Snow_009;Nature;-8.37;0.44;196.59;294.46;1.24;1.24;1.24;Plant_Snow;Vista geral do cenário: plantinhas
+Plant_Snow_010;Nature;-7.88;0.29;199.65;152.48;0.91;0.91;0.91;Plant_Snow;Vista geral do cenário: plantinhas
+Snow_Pile_014;Nature;-8.69;0.35;188.51;96.54;0.88;1;0.98;Snow_Pile;Obstáculos e elementos do cenário: acúmulo de neve
+Snow_Pile_015;Nature;8;0.2;207.07;213.52;0.62;1;0.69;Snow_Pile;Obstáculos e elementos do cenário: acúmulo de neve
+Snow_Pile_016;Nature;8.73;0.25;200.2;107.62;0.74;1;0.82;Snow_Pile;Obstáculos e elementos do cenário: acúmulo de neve
+Cliff_Rock_008;Terrain;-23.6;-0.3;188.71;-90;1.32;0.58;1;Cliff_Rock;Vista geral do cenário: afloramento rochoso nas colinas
 PineTree_Snow_255;Nature;-36.22;3.17;185.34;36.21;1.02;1.02;1.02;PineTree_Snow;Vista geral do cenário: floresta nas colinas
 PineTree_Snow_256;Nature;-30.99;2.52;205.68;345.27;0.98;0.98;0.98;PineTree_Snow;Vista geral do cenário: floresta nas colinas
 PineTree_Snow_257;Nature;-39.34;2.64;202.18;230.26;1.2;1.2;1.2;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_102;Nature;-45.13;2.93;193.25;134.27;1.35;1.35;1.35;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_096;Nature;-45.13;2.93;193.25;134.27;1.35;1.35;1.35;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
 PineTree_Snow_258;Nature;-23.07;0.75;184.61;122.26;1.07;1.07;1.07;PineTree_Snow;Vista geral do cenário: floresta nas colinas
 PineTree_Snow_259;Nature;-26.75;2.11;181.69;182.32;1.31;1.31;1.31;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_103;Nature;21.42;0.73;192.18;352.21;1.41;1.41;1.41;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_260;Nature;31.33;2.63;195.03;165.77;1.59;1.59;1.59;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_261;Nature;33.02;2.43;184.74;346.9;1.54;1.54;1.54;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_104;Nature;45.06;2.83;195.32;320.98;0.96;0.96;0.96;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_262;Nature;41.28;2.77;202.38;347.18;1.59;1.59;1.59;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_263;Nature;32.99;2.42;185.28;53.67;1.12;1.12;1.12;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_264;Nature;35.89;2.42;192.01;286.4;1.39;1.39;1.39;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_265;Nature;33.12;2.42;187.97;321.22;1.23;1.23;1.23;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_105;Nature;32.8;2.96;207.06;29.6;0.96;0.96;0.96;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_266;Nature;24.2;1.92;208.11;145.57;1.44;1.44;1.44;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_097;Nature;-21.42;0.68;192.18;352.21;1.41;1.41;1.41;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_260;Nature;-31.33;2.53;195.03;165.77;1.59;1.59;1.59;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_261;Nature;-33.02;3.02;184.74;346.9;1.54;1.54;1.54;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_098;Nature;-45.06;2.77;195.32;320.98;0.96;0.96;0.96;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_262;Nature;-41.28;2.63;202.38;347.18;1.59;1.59;1.59;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_263;Nature;-32.99;3.01;185.28;53.67;1.12;1.12;1.12;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_264;Nature;-35.89;2.9;192.01;286.4;1.39;1.39;1.39;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_265;Nature;-33.12;2.94;187.97;321.22;1.23;1.23;1.23;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_099;Nature;-32.8;2.57;207.06;29.6;0.96;0.96;0.96;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_266;Nature;-24.2;1.35;208.11;145.57;1.44;1.44;1.44;PineTree_Snow;Vista geral do cenário: floresta nas colinas
 PineTree_Snow_267;Nature;21.44;0.69;190.19;57.18;1.49;1.49;1.49;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_106;Nature;37.5;2.76;199.46;157.04;1.42;1.42;1.42;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_100;Nature;37.5;2.76;199.46;157.04;1.42;1.42;1.42;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
 PineTree_Snow_268;Nature;31.27;2.63;189.48;161.81;1.08;1.08;1.08;PineTree_Snow;Vista geral do cenário: floresta nas colinas
 PineTree_Snow_269;Nature;45.33;2.86;194.59;191.41;1.22;1.22;1.22;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_107;Nature;40.13;2.6;182.58;159.41;1.38;1.38;1.38;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_108;Nature;24.82;2.1;206.98;17.76;1.08;1.08;1.08;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-Ice_Crystal_021;Nature;-19.5;0.47;197.5;0;1.14;1.14;1.14;Ice_Crystal;Vista geral do cenário: cristais de gelo
-Ice_Crystal_022;Nature;-21;0.63;192.2;40;0.86;0.86;0.86;Ice_Crystal;Vista geral do cenário: cristais de gelo
+PineTree_Snow_Heavy_101;Nature;40.13;2.6;182.58;159.41;1.38;1.38;1.38;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_102;Nature;24.82;2.1;206.98;17.76;1.08;1.08;1.08;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_270;Nature;29.11;2.6;197.12;263.62;1.19;1.19;1.19;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_271;Nature;32.15;2.65;197.21;86.42;1.43;1.43;1.43;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_103;Nature;44.17;2.81;195.55;340.07;1.16;1.16;1.16;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_272;Nature;22.8;1.45;206.69;227.74;1.11;1.11;1.11;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_273;Nature;41.63;2.75;185.51;345.15;1.16;1.16;1.16;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_274;Nature;40.08;2.54;184.33;333.34;1.06;1.06;1.06;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_104;Nature;24.88;1.97;187.62;199.5;1.43;1.43;1.43;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_105;Nature;41.93;2.77;193.45;138.8;1.06;1.06;1.06;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_275;Nature;39.9;2.6;192.23;164.84;1.28;1.28;1.28;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_276;Nature;36.07;2.57;194.61;348.86;1.22;1.22;1.22;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+Ice_Crystal_019;Nature;-19.5;0.47;197.5;0;1.14;1.14;1.14;Ice_Crystal;Vista geral do cenário: cristais de gelo
+Ice_Crystal_020;Nature;-21;0.63;192.2;40;0.86;0.86;0.86;Ice_Crystal;Vista geral do cenário: cristais de gelo
 TorchStand_019;Structures;-7;0;228;0;1;1;1;TorchStand;Vista frontal / traseira: braseiro em pedestal na borda
-Crate_Wood_015;Props;-8.3;0;226.74;79.05;1;1;1;Crate_Wood;Obstáculos e elementos do cenário: caixa
+Crate_Wood_018;Props;-8.3;0;227.08;75.81;1;1;1;Crate_Wood;Obstáculos e elementos do cenário: caixa
 TorchStand_020;Structures;7;0;228;0;1;1;1;TorchStand;Vista frontal / traseira: braseiro em pedestal na borda
-Barrel_Wood_009;Props;8.2;0;229.19;0;1;1;1;Barrel_Wood;Obstáculos e elementos do cenário: barril
+Crate_Wood_019;Props;8.3;0;226.73;85.49;1;1;1;Crate_Wood;Obstáculos e elementos do cenário: caixa
 KnightStatue_001;Structures;-8;0.35;210;90;0.95;0.95;0.95;KnightStatue;Castelo e estruturas: estátua de cavaleiro
 KnightStatue_002;Structures;8;0.28;210;-90;0.95;0.95;0.95;KnightStatue;Castelo e estruturas: estátua de cavaleiro
-PineTree_Snow_270;Nature;14.85;0.64;211.76;277.93;1.21;1.21;1.21;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_271;Nature;9.57;0.51;217.86;165.05;0.95;0.95;0.95;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_272;Nature;-16.73;0.6;221.67;257.75;1.19;1.19;1.19;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_273;Nature;-7.98;0.38;233.57;128.72;0.84;0.84;0.84;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_274;Nature;-16.62;0.49;210.82;209.28;1.23;1.23;1.23;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_275;Nature;-10.92;0.52;235.66;334.36;1.13;1.13;1.13;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_276;Nature;-16.86;0.51;214.28;345.58;0.82;0.82;0.82;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_277;Nature;14.69;0.46;226.88;74;0.95;0.95;0.95;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_278;Nature;11.42;0.49;237.8;253.08;0.8;0.8;0.8;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_279;Nature;-14.63;0.53;224.46;184.84;0.97;0.97;0.97;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_280;Nature;14.7;0.47;230.49;198.15;1.19;1.19;1.19;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_281;Nature;16.39;0.67;215.45;286.18;0.9;0.9;0.9;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_Heavy_109;Nature;-18.32;0.42;238.52;172.39;0.78;0.78;0.78;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
-PineTree_Snow_Heavy_110;Nature;10.44;0.5;220;317.98;0.76;0.76;0.76;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
-PineTree_Snow_Heavy_111;Nature;19.57;0.55;219.37;17.92;0.87;0.87;0.87;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
-PineTree_Snow_Heavy_112;Nature;-16.85;0.55;220.15;287.05;0.82;0.82;0.82;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
-Rock_Snow_Cluster_029;Nature;-15.22;0.45;226.04;339.03;1.04;1.04;1.04;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
-Rock_Snow_Cluster_030;Nature;15.86;0.37;231.56;313.66;1.15;1.15;1.15;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
-Rock_Snow_Cluster_031;Nature;17.44;0.48;217.37;332.64;1.2;1.2;1.2;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
-Rock_Snow_Cluster_032;Nature;-10.37;0.5;211.2;217.95;0.61;0.61;0.61;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
-Rock_Snow_Large_007;Nature;-16.37;0.31;222.53;110.6;1.15;1.15;1.15;Rock_Snow_Large;Obstáculos e elementos do cenário: rocha grande
-Ice_Crystal_023;Nature;-7.95;0.3;231.48;276.5;1.21;1.21;1.21;Ice_Crystal;Vista geral do cenário: cristais de gelo
-Ice_Block_007;Nature;-8.02;0.23;221.95;56.77;1.03;1.03;1.03;Ice_Block;Vista geral do cenário: blocos de gelo
-Bush_Snow_012;Nature;8.12;0.37;233.41;36.96;1.09;1.09;1.09;Bush_Snow;Vista geral do cenário: arbustos nevados
-Tree_Frozen_006;Nature;-9.92;0.57;227.82;123.01;0.77;0.77;0.77;Tree_Frozen;Vista geral do cenário: árvore parcialmente congelada
-Plant_Snow_011;Nature;-10.47;0.54;220.2;234.04;0.95;0.95;0.95;Plant_Snow;Vista geral do cenário: plantinhas
-Snow_Pile_013;Nature;6.54;-0.09;234.77;46.03;0.84;1;0.93;Snow_Pile;Obstáculos e elementos do cenário: acúmulo de neve
-PineTree_Snow_282;Nature;-24.36;1.85;225.32;67.03;1.18;1.18;1.18;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_283;Nature;-29.77;2.66;218.12;289.95;1.48;1.48;1.48;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_284;Nature;-24.46;1.16;237.4;116.94;1.03;1.03;1.03;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_113;Nature;-24.78;1.89;227.92;300.53;0.98;0.98;0.98;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_285;Nature;-46.32;3.12;214.88;163.26;1.14;1.14;1.14;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_114;Nature;-35.09;2.5;238.78;46.14;0.89;0.89;0.89;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_115;Nature;-33.08;2.6;222.1;328.74;0.99;0.99;0.99;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_286;Nature;-28.63;2.66;210.11;33.53;1.28;1.28;1.28;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_287;Nature;-32.67;2.63;230;277.38;1.23;1.23;1.23;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_288;Nature;-34.54;2.56;210.93;276.77;1.24;1.24;1.24;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_289;Nature;-39.36;2.61;229.76;69.58;1.16;1.16;1.16;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_290;Nature;-35.42;2.58;233.27;108.02;1.16;1.16;1.16;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_291;Nature;-45.5;2.57;230.58;317.5;1.06;1.06;1.06;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_292;Nature;-39.35;2.54;237.4;327.08;1.41;1.41;1.41;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_116;Nature;-26.72;2.59;219.54;120.01;1.34;1.34;1.34;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_117;Nature;-38.15;2.52;238.83;241.58;0.94;0.94;0.94;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-Cliff_Rock_009;Terrain;23.6;-0.3;226.78;90;1.29;0.72;1;Cliff_Rock;Vista geral do cenário: afloramento rochoso nas colinas
-PineTree_Snow_293;Nature;30.79;3.3;214.59;150.31;0.95;0.95;0.95;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_118;Nature;27.91;3.41;226.02;344.62;1.24;1.24;1.24;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_294;Nature;35.74;3.21;224;157.16;1.01;1.01;1.01;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_295;Nature;22.6;0.96;237.19;152.44;1.2;1.2;1.2;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_296;Nature;23.47;1.18;238.7;214.61;0.94;0.94;0.94;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_297;Nature;44.05;3.9;229.98;343.08;1.07;1.07;1.07;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_119;Nature;25.3;1.85;239.25;163.58;1.19;1.19;1.19;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_298;Nature;31.08;3.37;227.33;266.63;1.54;1.54;1.54;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_299;Nature;22.83;1.45;210.26;167.65;0.92;0.92;0.92;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_300;Nature;32.33;3.22;211.6;168.68;1.52;1.52;1.52;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_301;Nature;30.93;3.67;235.21;321.71;1.43;1.43;1.43;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_302;Nature;28.95;3.55;230.35;44.82;1;1;1;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_303;Nature;45.69;3.5;221.7;158.77;1.11;1.11;1.11;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_304;Nature;30.95;3.37;216.45;237.94;1.36;1.36;1.36;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_120;Nature;40.01;3.39;227.92;252.99;1.38;1.38;1.38;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_305;Nature;23.73;1.81;221.51;277.18;0.91;0.91;0.91;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_306;Nature;16.6;0.35;259.84;83.48;1.04;1.04;1.04;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_307;Nature;13.14;0.44;243.6;31.98;1.03;1.03;1.03;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_308;Nature;-15.55;0.63;252.21;181.62;0.9;0.9;0.9;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_309;Nature;8.42;0.48;242.53;204.61;0.73;0.73;0.73;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_310;Nature;-14.39;0.52;244.94;155.97;1.04;1.04;1.04;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_311;Nature;-17.74;0.43;253.14;122.28;0.88;0.88;0.88;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_312;Nature;-9.92;0.45;255.77;108.6;0.67;0.67;0.67;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_313;Nature;14.6;0.55;249.87;275.86;0.71;0.71;0.71;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
-PineTree_Snow_Heavy_121;Nature;14.22;0.48;256.17;81.57;0.7;0.7;0.7;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
-PineTree_Snow_Heavy_122;Nature;-13.15;0.44;248.11;256.21;0.69;0.69;0.69;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
-Rock_Snow_Cluster_033;Nature;9.94;0.24;256.65;66.18;1.15;1.15;1.15;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
-Rock_Snow_Cluster_034;Nature;-13.85;0.41;243.41;348.18;1.01;1.01;1.01;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
-Rock_Snow_Cluster_035;Nature;-7.36;0.04;249.02;209.62;0.92;0.92;0.92;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
-Rock_Snow_Large_008;Nature;-12.33;0.16;259.21;181.88;1.38;1.38;1.38;Rock_Snow_Large;Obstáculos e elementos do cenário: rocha grande
-Ice_Crystal_024;Nature;13.45;0.53;249.77;149.81;0.93;0.93;0.93;Ice_Crystal;Vista geral do cenário: cristais de gelo
-Bush_Snow_013;Nature;-8.25;0.41;245.88;133.21;0.98;0.98;0.98;Bush_Snow;Vista geral do cenário: arbustos nevados
-Plant_Snow_012;Nature;10.27;0.56;244.89;132.17;0.8;0.8;0.8;Plant_Snow;Vista geral do cenário: plantinhas
-Snow_Pile_014;Nature;7.69;0.18;249.47;226.21;0.9;1;1.01;Snow_Pile;Obstáculos e elementos do cenário: acúmulo de neve
-Cliff_Rock_010;Terrain;-23.6;-0.3;248.36;-90;1.1;0.58;1;Cliff_Rock;Vista geral do cenário: afloramento rochoso nas colinas
-PineTree_Snow_Heavy_123;Nature;-22.53;0.47;251.3;164.86;1.44;1.44;1.44;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_314;Nature;-41.77;2.57;243.38;289.8;1.07;1.07;1.07;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_315;Nature;-34.27;2.62;255.08;325.19;1.39;1.39;1.39;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_316;Nature;-33.2;2.57;251.7;276.82;1.29;1.29;1.29;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_124;Nature;-31.06;2.34;242.95;45.83;1.16;1.16;1.16;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_317;Nature;-32.19;2.58;252.63;40.96;1.05;1.05;1.05;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_318;Nature;-26.55;1.96;258.79;265.78;1.47;1.47;1.47;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_125;Nature;-30.5;2.52;251.08;281.09;0.83;0.83;0.83;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_126;Nature;-36.4;2.53;248;153.55;1.31;1.31;1.31;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_127;Nature;-46.4;2.45;258.57;331.9;1.25;1.25;1.25;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_319;Nature;-44.84;2.5;252.16;155.09;1.33;1.33;1.33;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_128;Nature;23.89;1.55;257.74;152.73;1.44;1.44;1.44;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_320;Nature;24.91;1.87;254.12;46.3;0.99;0.99;0.99;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_321;Nature;44.92;3.35;257.21;186.72;1.49;1.49;1.49;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_322;Nature;32.78;2.8;256.88;79.93;1.4;1.4;1.4;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_323;Nature;29.78;3.17;259.2;9.42;1.26;1.26;1.26;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_129;Nature;45.05;3.65;250.45;302.51;1.24;1.24;1.24;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_130;Nature;43.93;3.28;257.5;92.27;1.39;1.39;1.39;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_324;Nature;28.9;3.4;253.58;305.95;0.91;0.91;0.91;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_Heavy_131;Nature;30.58;3.41;251.15;69.54;1.04;1.04;1.04;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_325;Nature;26.29;2.67;256.73;7.79;1.3;1.3;1.3;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-PineTree_Snow_326;Nature;29.51;3.48;249.71;22.37;1.56;1.56;1.56;PineTree_Snow;Vista geral do cenário: floresta nas colinas
-Castle_Main_001;Castle;0;0;252;0;1;1;1;Castle_Main;Castelo final (entrada): fortaleza centralizada no fim do percurso
-PineTree_Snow_327;Nature;-33.42;3.2;258.26;88.4;1.07;1.07;1.07;PineTree_Snow;Castelo final (entrada): pinheiros ao redor do castelo
-PineTree_Snow_328;Nature;-29.1;3.2;258.98;249.49;1.57;1.57;1.57;PineTree_Snow;Castelo final (entrada): pinheiros ao redor do castelo
-PineTree_Snow_329;Nature;38.79;3.2;252.14;214.65;1.13;1.13;1.13;PineTree_Snow;Castelo final (entrada): pinheiros ao redor do castelo
-PineTree_Snow_330;Nature;-30.65;3.2;253.12;228.85;1.07;1.07;1.07;PineTree_Snow;Castelo final (entrada): pinheiros ao redor do castelo
-PineTree_Snow_331;Nature;-34.31;3.2;269.43;197.78;1;1;1;PineTree_Snow;Castelo final (entrada): pinheiros ao redor do castelo
-PineTree_Snow_332;Nature;-24.09;3.2;280.68;242.31;0.93;0.93;0.93;PineTree_Snow;Castelo final (entrada): pinheiros ao redor do castelo
-PineTree_Snow_333;Nature;36.24;3.2;280.04;95.35;1.44;1.44;1.44;PineTree_Snow;Castelo final (entrada): pinheiros ao redor do castelo
-PineTree_Snow_334;Nature;-26.99;3.2;254.98;226.48;0.93;0.93;0.93;PineTree_Snow;Castelo final (entrada): pinheiros ao redor do castelo
-PineTree_Snow_335;Nature;-28.59;3.2;253.95;255.14;1.46;1.46;1.46;PineTree_Snow;Castelo final (entrada): pinheiros ao redor do castelo
-PineTree_Snow_336;Nature;36.25;3.2;271.48;122.64;1.03;1.03;1.03;PineTree_Snow;Castelo final (entrada): pinheiros ao redor do castelo
-PineTree_Snow_337;Nature;-24.43;3.2;270.48;177.01;1.07;1.07;1.07;PineTree_Snow;Castelo final (entrada): pinheiros ao redor do castelo
-PineTree_Snow_338;Nature;-36.61;3.2;263.53;211.86;1.14;1.14;1.14;PineTree_Snow;Castelo final (entrada): pinheiros ao redor do castelo
-PineTree_Snow_339;Nature;39.48;3.2;276.28;184.64;1.31;1.31;1.31;PineTree_Snow;Castelo final (entrada): pinheiros ao redor do castelo
-PineTree_Snow_340;Nature;-33.98;3.2;250.72;332.27;1.53;1.53;1.53;PineTree_Snow;Castelo final (entrada): pinheiros ao redor do castelo
-PineTree_Snow_341;Nature;-28.12;3.2;255.64;307.5;1.04;1.04;1.04;PineTree_Snow;Castelo final (entrada): pinheiros ao redor do castelo
-PineTree_Snow_342;Nature;-27.65;3.2;250.45;276.21;1.14;1.14;1.14;PineTree_Snow;Castelo final (entrada): pinheiros ao redor do castelo
-PineTree_Snow_343;Nature;-24.88;3.2;268.76;270.23;0.92;0.92;0.92;PineTree_Snow;Castelo final (entrada): pinheiros ao redor do castelo
-PineTree_Snow_344;Nature;31.9;3.2;274.32;8.22;1.01;1.01;1.01;PineTree_Snow;Castelo final (entrada): pinheiros ao redor do castelo
-PineTree_Snow_345;Nature;-36.42;3.2;267.4;31.94;1.46;1.46;1.46;PineTree_Snow;Castelo final (entrada): pinheiros ao redor do castelo
-PineTree_Snow_346;Nature;-24.81;3.2;256.3;340.44;1.19;1.19;1.19;PineTree_Snow;Castelo final (entrada): pinheiros ao redor do castelo
-PineTree_Snow_347;Nature;29.99;3.2;266.4;153.35;1.37;1.37;1.37;PineTree_Snow;Castelo final (entrada): pinheiros ao redor do castelo
-PineTree_Snow_348;Nature;38.67;3.2;272.98;186.89;1.5;1.5;1.5;PineTree_Snow;Castelo final (entrada): pinheiros ao redor do castelo
-PineTree_Snow_349;Nature;-25.66;3.2;262.56;183.17;1.57;1.57;1.57;PineTree_Snow;Castelo final (entrada): pinheiros ao redor do castelo
-PineTree_Snow_350;Nature;24.23;3.2;266.93;86.58;1.19;1.19;1.19;PineTree_Snow;Castelo final (entrada): pinheiros ao redor do castelo
-PineTree_Snow_351;Nature;-28.96;3.2;254.44;143.18;1.03;1.03;1.03;PineTree_Snow;Castelo final (entrada): pinheiros ao redor do castelo
-PineTree_Snow_352;Nature;26.71;3.2;252.69;303.52;1.28;1.28;1.28;PineTree_Snow;Castelo final (entrada): pinheiros ao redor do castelo
-Castle_Torch_001;Castle;-4.7;0;244.8;0;1;1;1;Castle_Torch;Castelo final (entrada): braseiros ao pé da escadaria
+PineTree_Snow_277;Nature;15.94;0.64;236.25;25.97;1.02;1.02;1.02;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_278;Nature;9.53;0.47;220.66;125.37;0.99;0.99;0.99;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_279;Nature;19.37;0.72;229.72;140.09;1.05;1.05;1.05;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_280;Nature;-11.52;0.51;233.26;98.8;0.92;0.92;0.92;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_281;Nature;10.93;0.5;231.47;15.55;0.67;0.67;0.67;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_282;Nature;18.76;0.47;222.69;294.62;0.75;0.75;0.75;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_283;Nature;-18.85;0.59;221.08;67.41;1.11;1.11;1.11;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_284;Nature;8.58;0.44;223.4;357.66;0.98;0.98;0.98;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_285;Nature;-11.12;0.6;210.02;206.28;1.13;1.13;1.13;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_286;Nature;-10.36;0.64;224.62;319.94;1.05;1.05;1.05;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_Heavy_106;Nature;14.53;0.62;216.66;193.35;0.62;0.62;0.62;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
+PineTree_Snow_Heavy_107;Nature;15.15;0.48;228.41;303.57;0.67;0.67;0.67;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
+PineTree_Snow_Heavy_108;Nature;-12.19;0.5;210.72;354.72;0.9;0.9;0.9;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
+PineTree_Snow_Heavy_109;Nature;13.81;0.46;231.53;151.89;0.87;0.87;0.87;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
+Rock_Snow_Cluster_031;Nature;-17.11;0.4;225.57;307.73;0.69;0.69;0.69;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
+Rock_Snow_Cluster_032;Nature;-9.75;0.36;233.55;59.93;0.85;0.85;0.85;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
+Rock_Snow_Cluster_033;Nature;-16.93;0.35;214.63;193.61;0.81;0.81;0.81;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
+Rock_Snow_Cluster_034;Nature;18.69;0.56;230.13;196.19;0.73;0.73;0.73;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
+Rock_Snow_Large_007;Nature;10.69;0.22;222.89;59.58;1.26;1.26;1.26;Rock_Snow_Large;Obstáculos e elementos do cenário: rocha grande
+Ice_Crystal_021;Nature;12.76;0.61;216.95;70.34;1.08;1.08;1.08;Ice_Crystal;Vista geral do cenário: cristais de gelo
+Ice_Crystal_022;Nature;15.89;0.49;228.07;113.59;0.85;0.85;0.85;Ice_Crystal;Vista geral do cenário: cristais de gelo
+Ice_Block_006;Nature;14.62;0.39;231.58;74.05;0.82;0.82;0.82;Ice_Block;Vista geral do cenário: blocos de gelo
+Bush_Snow_010;Nature;-9.39;0.47;232.88;55.39;1.19;1.19;1.19;Bush_Snow;Vista geral do cenário: arbustos nevados
+Bush_Snow_011;Nature;-9.54;0.67;224.5;26.4;0.85;0.85;0.85;Bush_Snow;Vista geral do cenário: arbustos nevados
+Tree_Frozen_007;Nature;-17.39;0.35;229.1;66.73;1.08;1.08;1.08;Tree_Frozen;Vista geral do cenário: árvore parcialmente congelada
+Plant_Snow_011;Nature;-7.42;0.23;234.82;235.38;0.81;0.81;0.81;Plant_Snow;Vista geral do cenário: plantinhas
+Snow_Pile_017;Nature;-9.3;0.43;233.89;302.15;0.92;1;1.03;Snow_Pile;Obstáculos e elementos do cenário: acúmulo de neve
+PineTree_Snow_287;Nature;-22.46;1.21;215.15;163.56;1.33;1.33;1.33;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_288;Nature;-21.83;0.62;233.27;173.68;0.92;0.92;0.92;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_110;Nature;-41.53;2.62;227.12;166.12;1.16;1.16;1.16;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_111;Nature;-33.82;2.58;221.79;58.38;1.4;1.4;1.4;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_289;Nature;-46.02;2.58;230.12;119.61;1.12;1.12;1.12;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_290;Nature;-31.07;2.63;220.51;310.82;1.11;1.11;1.11;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_291;Nature;-26.24;2.4;214.02;150.14;1.43;1.43;1.43;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_292;Nature;-31.46;2.66;225.86;99.35;1.32;1.32;1.32;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_112;Nature;-37.65;2.57;233.88;87.19;1.28;1.28;1.28;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_293;Nature;-44.71;2.58;234.49;39.76;1.5;1.5;1.5;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_113;Nature;-30.48;2.67;228.19;86.39;1.13;1.13;1.13;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_294;Nature;-46.14;2.9;220.37;47.74;1.6;1.6;1.6;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_295;Nature;-25.64;1.59;236.19;109.31;1.11;1.11;1.11;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_296;Nature;-30.82;2.47;236.14;197.51;1.01;1.01;1.01;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_297;Nature;-25.49;2.09;212.39;347.56;1.11;1.11;1.11;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_298;Nature;-46.57;2.67;225.14;93.05;0.92;0.92;0.92;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+Cliff_Rock_009;Terrain;23.6;-0.3;231.51;90;0.97;0.72;1;Cliff_Rock;Vista geral do cenário: afloramento rochoso nas colinas
+PineTree_Snow_299;Nature;46.69;4.01;236.35;243.99;1.38;1.38;1.38;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_300;Nature;39.5;3.32;227.11;78.57;1.25;1.25;1.25;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_114;Nature;41.88;3.17;215.09;263.52;0.84;0.84;0.84;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_301;Nature;40.92;3.09;211.45;353.59;1.52;1.52;1.52;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_302;Nature;26.45;2.99;225.58;154.14;0.91;0.91;0.91;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_115;Nature;45.56;2.82;210.32;3.13;1.01;1.01;1.01;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_116;Nature;28.33;3.42;222.57;144.4;0.87;0.87;0.87;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_303;Nature;34.46;3.42;213.45;88.78;1.11;1.11;1.11;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_304;Nature;35.67;3.29;231.5;55.61;1.26;1.26;1.26;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_305;Nature;37.87;3.49;215.6;234.62;1.12;1.12;1.12;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_306;Nature;31.88;3.37;221.84;263.88;1.34;1.34;1.34;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_307;Nature;40.37;3.32;215.61;109.39;1.34;1.34;1.34;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_117;Nature;22.94;1.39;224.87;339.84;0.99;0.99;0.99;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_118;Nature;34.37;3.5;217.12;169.78;0.99;0.99;0.99;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_119;Nature;43.74;3.29;219.1;51.5;1.33;1.33;1.33;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_308;Nature;21.2;0.62;239.36;17.08;1.59;1.59;1.59;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_309;Nature;9.55;0.53;240.03;174.12;0.9;0.9;0.9;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_310;Nature;-10.14;0.47;257.73;100.8;0.65;0.65;0.65;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_311;Nature;13.73;0.51;246.44;68.59;0.86;0.86;0.86;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_312;Nature;-16.19;0.39;242.29;119.15;1.28;1.28;1.28;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_313;Nature;-12.84;0.46;258.67;201.39;1.08;1.08;1.08;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_314;Nature;-10.38;0.43;241.25;356.53;0.72;0.72;0.72;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_315;Nature;-11.91;0.52;245.43;5.74;0.86;0.86;0.86;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_316;Nature;19.88;0.49;251.65;240.6;1.16;1.16;1.16;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_317;Nature;18.47;0.5;244.77;324.81;1.2;1.2;1.2;PineTree_Snow;Vista geral do cenário: pinheiros nevados nas laterais
+PineTree_Snow_Heavy_120;Nature;15.02;0.5;256.18;165.46;0.77;0.77;0.77;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
+PineTree_Snow_Heavy_121;Nature;17.68;0.46;251.87;202.77;0.85;0.85;0.85;PineTree_Snow_Heavy;Vista geral do cenário: pinheiros com neve intensa
+Rock_Snow_Cluster_035;Nature;18.24;0.38;255.24;81.22;0.76;0.76;0.76;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
+Rock_Snow_Cluster_036;Nature;-7.58;0.13;259.48;76.93;0.83;0.83;0.83;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
+Rock_Snow_Cluster_037;Nature;-10.28;0.41;254.5;323.92;0.64;0.64;0.64;Rock_Snow_Cluster;Obstáculos e elementos do cenário: rochas nevadas
+Rock_Snow_Large_008;Nature;15.1;0.19;257.58;46.7;1.4;1.4;1.4;Rock_Snow_Large;Obstáculos e elementos do cenário: rocha grande
+Ice_Crystal_023;Nature;16.71;0.48;242.13;230.81;1.16;1.16;1.16;Ice_Crystal;Vista geral do cenário: cristais de gelo
+Bush_Snow_012;Nature;-9.71;0.53;258.82;33.83;0.73;0.73;0.73;Bush_Snow;Vista geral do cenário: arbustos nevados
+Plant_Snow_012;Nature;9.05;0.54;258.97;32.33;1.1;1.1;1.1;Plant_Snow;Vista geral do cenário: plantinhas
+Plant_Snow_013;Nature;-7.18;0.14;248.77;286.75;1.13;1.13;1.13;Plant_Snow;Vista geral do cenário: plantinhas
+Snow_Pile_018;Nature;-8.65;0.34;244.2;95.04;0.62;1;0.69;Snow_Pile;Obstáculos e elementos do cenário: acúmulo de neve
+Cliff_Rock_010;Terrain;-23.6;-0.3;252.73;-90;1.03;0.58;1;Cliff_Rock;Vista geral do cenário: afloramento rochoso nas colinas
+PineTree_Snow_318;Nature;-45.55;2.62;241.17;131.31;1.51;1.51;1.51;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_122;Nature;-29.02;2.17;241.44;275.4;1.39;1.39;1.39;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_319;Nature;-31.62;2.45;247.97;356.16;1.19;1.19;1.19;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_123;Nature;-32.33;2.64;258.5;43.67;1.42;1.42;1.42;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_320;Nature;-46.71;2.45;253.96;219.76;1.31;1.31;1.31;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_124;Nature;-34.51;2.48;245.02;118.52;1.35;1.35;1.35;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_125;Nature;-37.29;2.51;245.44;269.84;1.43;1.43;1.43;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_321;Nature;-35.96;2.62;259.65;160.14;1.28;1.28;1.28;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_126;Nature;-38.47;2.51;241.43;232.47;0.91;0.91;0.91;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_322;Nature;-32.37;2.58;252.66;208.94;1.46;1.46;1.46;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_323;Nature;-45.68;2.45;257.29;225.64;1.35;1.35;1.35;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_324;Nature;28.22;3.18;246.92;329.21;1.12;1.12;1.12;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_325;Nature;35.23;2.93;252.27;138.4;1.48;1.48;1.48;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_326;Nature;32.04;3.55;248.06;297.95;1.2;1.2;1.2;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_127;Nature;37.04;2.85;252.73;103.05;1.07;1.07;1.07;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_128;Nature;30.22;3.21;257.34;28.96;1.26;1.26;1.26;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_129;Nature;33.21;3.07;252.41;50.06;1.34;1.34;1.34;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_130;Nature;44.62;3.26;259.89;343.1;1.04;1.04;1.04;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_131;Nature;27.23;2.93;252.03;300.51;0.92;0.92;0.92;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_327;Nature;36.34;3.74;246.46;240.89;1.47;1.47;1.47;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_328;Nature;44.31;3.58;251.45;266.75;1.51;1.51;1.51;PineTree_Snow;Vista geral do cenário: floresta nas colinas
+PineTree_Snow_Heavy_132;Nature;25.75;2.41;256.75;7.43;1.01;1.01;1.01;PineTree_Snow_Heavy;Vista geral do cenário: floresta nas colinas
+FK_Castle_Main_001;Castle;0;0;252;0;1;1;1;FK_Castle_Main;Castelo final (entrada): fortaleza centralizada no fim do percurso
+PineTree_Snow_329;Nature;33.86;3.2;280.3;344.13;1.01;1.01;1.01;PineTree_Snow;Castelo final (entrada): pinheiros ao redor do castelo
+PineTree_Snow_330;Nature;39.47;3.2;264.76;3.44;1.07;1.07;1.07;PineTree_Snow;Castelo final (entrada): pinheiros ao redor do castelo
+PineTree_Snow_331;Nature;37.46;3.2;281.16;313.06;1.51;1.51;1.51;PineTree_Snow;Castelo final (entrada): pinheiros ao redor do castelo
+PineTree_Snow_332;Nature;30.92;3.2;275.17;174.64;1.19;1.19;1.19;PineTree_Snow;Castelo final (entrada): pinheiros ao redor do castelo
+PineTree_Snow_333;Nature;-31;3.2;260.06;353.86;1.32;1.32;1.32;PineTree_Snow;Castelo final (entrada): pinheiros ao redor do castelo
+PineTree_Snow_334;Nature;32.06;3.2;256.01;53.13;1.2;1.2;1.2;PineTree_Snow;Castelo final (entrada): pinheiros ao redor do castelo
+PineTree_Snow_335;Nature;38.22;3.2;257.62;334.78;1;1;1;PineTree_Snow;Castelo final (entrada): pinheiros ao redor do castelo
+PineTree_Snow_336;Nature;-38.09;3.2;261.9;201.9;1.59;1.59;1.59;PineTree_Snow;Castelo final (entrada): pinheiros ao redor do castelo
+PineTree_Snow_337;Nature;-37.81;3.2;253.4;251.96;1.07;1.07;1.07;PineTree_Snow;Castelo final (entrada): pinheiros ao redor do castelo
+PineTree_Snow_338;Nature;28.55;3.2;256.17;29.45;1.52;1.52;1.52;PineTree_Snow;Castelo final (entrada): pinheiros ao redor do castelo
+PineTree_Snow_339;Nature;24.44;3.2;269.22;180.52;1.11;1.11;1.11;PineTree_Snow;Castelo final (entrada): pinheiros ao redor do castelo
+PineTree_Snow_340;Nature;-33.16;3.2;254.84;212.19;1.2;1.2;1.2;PineTree_Snow;Castelo final (entrada): pinheiros ao redor do castelo
+PineTree_Snow_341;Nature;34.55;3.2;253.85;88.5;0.99;0.99;0.99;PineTree_Snow;Castelo final (entrada): pinheiros ao redor do castelo
+PineTree_Snow_342;Nature;-35.98;3.2;259.14;336.5;1.49;1.49;1.49;PineTree_Snow;Castelo final (entrada): pinheiros ao redor do castelo
+PineTree_Snow_343;Nature;-26.75;3.2;279.87;162.37;0.91;0.91;0.91;PineTree_Snow;Castelo final (entrada): pinheiros ao redor do castelo
+PineTree_Snow_344;Nature;-30.25;3.2;254.55;307.41;1.11;1.11;1.11;PineTree_Snow;Castelo final (entrada): pinheiros ao redor do castelo
+PineTree_Snow_345;Nature;29.78;3.2;252.96;195.5;1.54;1.54;1.54;PineTree_Snow;Castelo final (entrada): pinheiros ao redor do castelo
+PineTree_Snow_346;Nature;-24.43;3.2;259.77;83.2;1.51;1.51;1.51;PineTree_Snow;Castelo final (entrada): pinheiros ao redor do castelo
+PineTree_Snow_347;Nature;-24.17;3.2;263.02;16.48;1.33;1.33;1.33;PineTree_Snow;Castelo final (entrada): pinheiros ao redor do castelo
+PineTree_Snow_348;Nature;-25.51;3.2;250.13;319.27;0.9;0.9;0.9;PineTree_Snow;Castelo final (entrada): pinheiros ao redor do castelo
+PineTree_Snow_349;Nature;-26.11;3.2;270.69;229.87;1.59;1.59;1.59;PineTree_Snow;Castelo final (entrada): pinheiros ao redor do castelo
+PineTree_Snow_350;Nature;-38.4;3.2;257.24;174.2;1.46;1.46;1.46;PineTree_Snow;Castelo final (entrada): pinheiros ao redor do castelo
+PineTree_Snow_351;Nature;38.65;3.2;257.93;182.69;1.1;1.1;1.1;PineTree_Snow;Castelo final (entrada): pinheiros ao redor do castelo
+PineTree_Snow_352;Nature;30.3;3.2;274.61;48.44;1.6;1.6;1.6;PineTree_Snow;Castelo final (entrada): pinheiros ao redor do castelo
+PineTree_Snow_353;Nature;32.34;3.2;273.25;338.77;1.34;1.34;1.34;PineTree_Snow;Castelo final (entrada): pinheiros ao redor do castelo
+PineTree_Snow_354;Nature;25.61;3.2;251.39;309.33;1.24;1.24;1.24;PineTree_Snow;Castelo final (entrada): pinheiros ao redor do castelo
+FK_Castle_Torch_001;Castle;-4.7;0;244.8;0;1;1;1;FK_Castle_Torch;Castelo final (entrada): braseiros ao pé da escadaria
 BannerPole_013;Castle;-6.8;0;242.5;12;1.11;1.11;1.11;BannerPole;Castelo final (entrada): estandartes da entrada
-Ice_Crystal_025;Castle;-8.4;0;244.5;0;1.14;1.14;1.14;Ice_Crystal;Castelo final (entrada): cristais de gelo
-Castle_Torch_002;Castle;4.7;0;244.8;0;1;1;1;Castle_Torch;Castelo final (entrada): braseiros ao pé da escadaria
+Ice_Crystal_024;Castle;-8.4;0;244.5;0;1.14;1.14;1.14;Ice_Crystal;Castelo final (entrada): cristais de gelo
+FK_Castle_Torch_002;Castle;4.7;0;244.8;0;1;1;1;FK_Castle_Torch;Castelo final (entrada): braseiros ao pé da escadaria
 BannerPole_014;Castle;6.8;0;242.5;-12;1.11;1.11;1.11;BannerPole;Castelo final (entrada): estandartes da entrada
-Ice_Crystal_026;Castle;8.4;0;244.5;0;1.14;1.14;1.14;Ice_Crystal;Castelo final (entrada): cristais de gelo
-MountainPeak_001;Mountains;-75.3;-2;272.16;0;1.14;1.11;1.14;MountainPeak;Vista geral do cenário: montanhas nevadas no horizonte
-MountainPeak_002;Mountains;-71.28;-2;266.51;120;0.86;0.61;0.86;MountainPeak;Vista geral do cenário: contraforte das montanhas
-MountainPeak_003;Mountains;-79.75;-2;285.19;0;1.01;1.14;1.01;MountainPeak;Vista geral do cenário: montanhas nevadas no horizonte
-MountainPeak_004;Mountains;-80.12;-2;278.77;120;0.87;0.62;0.87;MountainPeak;Vista geral do cenário: contraforte das montanhas
-MountainPeak_005;Mountains;-67.53;-2;297.02;0;0.97;1.02;0.97;MountainPeak;Vista geral do cenário: montanhas nevadas no horizonte
-MountainPeak_006;Mountains;-84.14;-2;287.04;120;0.79;0.56;0.79;MountainPeak;Vista geral do cenário: contraforte das montanhas
-MountainPeak_007;Mountains;-54.98;-2;310.25;0;1.11;1.25;1.11;MountainPeak;Vista geral do cenário: montanhas nevadas no horizonte
-MountainPeak_008;Mountains;-66.67;-2;301.53;120;0.96;0.69;0.96;MountainPeak;Vista geral do cenário: contraforte das montanhas
-MountainPeak_009;Mountains;-37.83;-2;311.85;0;1.43;1.46;1.43;MountainPeak;Vista geral do cenário: montanhas nevadas no horizonte
-MountainPeak_010;Mountains;-31.82;-2;306.99;120;1.12;0.8;1.12;MountainPeak;Vista geral do cenário: contraforte das montanhas
-MountainPeak_011;Mountains;-31.82;-2;324.45;0;1.38;1.21;1.38;MountainPeak;Vista geral do cenário: montanhas nevadas no horizonte
-MountainPeak_012;Mountains;-51.8;-2;318.56;120;0.93;0.67;0.93;MountainPeak;Vista geral do cenário: contraforte das montanhas
-MountainPeak_013;Mountains;-15.76;-2;324.48;0;1.48;1.45;1.48;MountainPeak;Vista geral do cenário: montanhas nevadas no horizonte
-MountainPeak_014;Mountains;5.82;-2;320.06;120;1.12;0.8;1.12;MountainPeak;Vista geral do cenário: contraforte das montanhas
-MountainPeak_015;Mountains;-6.35;-2;321.86;0;1.44;1.29;1.44;MountainPeak;Vista geral do cenário: montanhas nevadas no horizonte
-MountainPeak_016;Mountains;-7.72;-2;312.3;120;0.99;0.71;0.99;MountainPeak;Vista geral do cenário: contraforte das montanhas
-MountainPeak_017;Mountains;5.34;-2;325.51;0;1.13;1.12;1.13;MountainPeak;Vista geral do cenário: montanhas nevadas no horizonte
-MountainPeak_018;Mountains;17.17;-2;321.25;120;0.86;0.62;0.86;MountainPeak;Vista geral do cenário: contraforte das montanhas
-MountainPeak_019;Mountains;20.69;-2;315.11;0;1.18;1.1;1.18;MountainPeak;Vista geral do cenário: montanhas nevadas no horizonte
-MountainPeak_020;Mountains;1.36;-2;309.07;120;0.84;0.6;0.84;MountainPeak;Vista geral do cenário: contraforte das montanhas
-MountainPeak_021;Mountains;31.12;-2;325.34;0;0.9;1;0.9;MountainPeak;Vista geral do cenário: montanhas nevadas no horizonte
-MountainPeak_022;Mountains;25.24;-2;319.41;120;0.77;0.55;0.77;MountainPeak;Vista geral do cenário: contraforte das montanhas
-MountainPeak_023;Mountains;47.28;-2;315.93;0;1.56;1.55;1.56;MountainPeak;Vista geral do cenário: montanhas nevadas no horizonte
-MountainPeak_024;Mountains;31.63;-2;311.88;120;1.19;0.85;1.19;MountainPeak;Vista geral do cenário: contraforte das montanhas
-MountainPeak_025;Mountains;49.79;-2;301.27;0;1.08;1.2;1.08;MountainPeak;Vista geral do cenário: montanhas nevadas no horizonte
-MountainPeak_026;Mountains;59.56;-2;295.4;120;0.93;0.66;0.93;MountainPeak;Vista geral do cenário: contraforte das montanhas
-MountainPeak_027;Mountains;60.68;-2;299.21;0;1.39;1.42;1.39;MountainPeak;Vista geral do cenário: montanhas nevadas no horizonte
-MountainPeak_028;Mountains;33.76;-2;291.5;120;1.09;0.78;1.09;MountainPeak;Vista geral do cenário: contraforte das montanhas
-MountainPeak_029;Mountains;61.72;-2;286.66;0;1.25;1.18;1.25;MountainPeak;Vista geral do cenário: montanhas nevadas no horizonte
-MountainPeak_030;Mountains;76.36;-2;282.1;120;0.9;0.65;0.9;MountainPeak;Vista geral do cenário: contraforte das montanhas
-MountainPeak_031;Mountains;66.88;-2;276.24;0;0.78;0.8;0.78;MountainPeak;Vista geral do cenário: montanhas nevadas no horizonte
-MountainPeak_032;Mountains;67.38;-2;268.78;120;0.61;0.44;0.61;MountainPeak;Vista geral do cenário: contraforte das montanhas
+Ice_Crystal_025;Castle;8.4;0;244.5;0;1.14;1.14;1.14;Ice_Crystal;Castelo final (entrada): cristais de gelo
+MountainPeak_001;Mountains;-75.8;-2;278.39;0;0.86;0.79;0.86;MountainPeak;Vista geral do cenário: montanhas nevadas no horizonte
+MountainPeak_002;Mountains;-75.58;-2;272.03;120;0.61;0.43;0.61;MountainPeak;Vista geral do cenário: contraforte das montanhas
+MountainPeak_003;Mountains;-75.71;-2;285.08;0;1.25;1.14;1.25;MountainPeak;Vista geral do cenário: montanhas nevadas no horizonte
+MountainPeak_004;Mountains;-95.15;-2;281;120;0.88;0.63;0.88;MountainPeak;Vista geral do cenário: contraforte das montanhas
+MountainPeak_005;Mountains;-57.54;-2;298.7;0;1.27;1.3;1.27;MountainPeak;Vista geral do cenário: montanhas nevadas no horizonte
+MountainPeak_006;Mountains;-37.5;-2;289.63;120;1;0.72;1;MountainPeak;Vista geral do cenário: contraforte das montanhas
+MountainPeak_007;Mountains;-54.55;-2;303.87;0;0.93;1;0.93;MountainPeak;Vista geral do cenário: montanhas nevadas no horizonte
+MountainPeak_008;Mountains;-71.19;-2;294.81;120;0.77;0.55;0.77;MountainPeak;Vista geral do cenário: contraforte das montanhas
+MountainPeak_009;Mountains;-44.2;-2;311.81;0;1.62;1.51;1.62;MountainPeak;Vista geral do cenário: montanhas nevadas no horizonte
+MountainPeak_010;Mountains;-70.64;-2;307.42;120;1.16;0.83;1.16;MountainPeak;Vista geral do cenário: contraforte das montanhas
+MountainPeak_011;Mountains;-35.28;-2;316.29;0;1.31;1.43;1.31;MountainPeak;Vista geral do cenário: montanhas nevadas no horizonte
+MountainPeak_012;Mountains;-30.38;-2;308.69;120;1.1;0.79;1.1;MountainPeak;Vista geral do cenário: contraforte das montanhas
+MountainPeak_013;Mountains;-18.08;-2;319.06;0;1.44;1.26;1.44;MountainPeak;Vista geral do cenário: montanhas nevadas no horizonte
+MountainPeak_014;Mountains;-10.67;-2;309.32;120;0.97;0.69;0.97;MountainPeak;Vista geral do cenário: contraforte das montanhas
+MountainPeak_015;Mountains;-4.21;-2;326.15;0;1.19;1.17;1.19;MountainPeak;Vista geral do cenário: montanhas nevadas no horizonte
+MountainPeak_016;Mountains;-18.11;-2;321.15;120;0.9;0.65;0.9;MountainPeak;Vista geral do cenário: contraforte das montanhas
+MountainPeak_017;Mountains;5.14;-2;324.81;0;1.43;1.35;1.43;MountainPeak;Vista geral do cenário: montanhas nevadas no horizonte
+MountainPeak_018;Mountains;30.69;-2;317.82;120;1.04;0.74;1.04;MountainPeak;Vista geral do cenário: contraforte das montanhas
+MountainPeak_019;Mountains;18.31;-2;321.4;0;1.51;1.46;1.51;MountainPeak;Vista geral do cenário: montanhas nevadas no horizonte
+MountainPeak_020;Mountains;23.25;-2;316.69;120;1.13;0.8;1.13;MountainPeak;Vista geral do cenário: contraforte das montanhas
+MountainPeak_021;Mountains;39.36;-2;322.14;0;1.11;1.28;1.11;MountainPeak;Vista geral do cenário: montanhas nevadas no horizonte
+MountainPeak_022;Mountains;46.3;-2;314.43;120;0.98;0.7;0.98;MountainPeak;Vista geral do cenário: contraforte das montanhas
+MountainPeak_023;Mountains;51.67;-2;314.59;0;0.97;0.94;0.97;MountainPeak;Vista geral do cenário: montanhas nevadas no horizonte
+MountainPeak_024;Mountains;68.64;-2;306.27;120;0.72;0.52;0.72;MountainPeak;Vista geral do cenário: contraforte das montanhas
+MountainPeak_025;Mountains;51.78;-2;300.34;0;1.2;1.17;1.2;MountainPeak;Vista geral do cenário: montanhas nevadas no horizonte
+MountainPeak_026;Mountains;31.21;-2;294.52;120;0.9;0.64;0.9;MountainPeak;Vista geral do cenário: contraforte das montanhas
+MountainPeak_027;Mountains;62.91;-2;301.01;0;0.93;1.1;0.93;MountainPeak;Vista geral do cenário: montanhas nevadas no horizonte
+MountainPeak_028;Mountains;48.41;-2;295;120;0.84;0.6;0.84;MountainPeak;Vista geral do cenário: contraforte das montanhas
+MountainPeak_029;Mountains;76.27;-2;286.01;0;0.9;0.84;0.9;MountainPeak;Vista geral do cenário: montanhas nevadas no horizonte
+MountainPeak_030;Mountains;80.37;-2;277.85;120;0.65;0.46;0.65;MountainPeak;Vista geral do cenário: contraforte das montanhas
+MountainPeak_031;Mountains;72.91;-2;279.59;0;1.22;1.19;1.22;MountainPeak;Vista geral do cenário: montanhas nevadas no horizonte
+MountainPeak_032;Mountains;54.07;-2;269.7;120;0.91;0.65;0.91;MountainPeak;Vista geral do cenário: contraforte das montanhas
 Track_Bordered_001;Tracks;0;0;-35;0;1;1;1;Track_Bordered;Terreno e pistas (modulares): piso com borda
 Track_Bordered_002;Tracks;0;0;-25;0;1;1;1;Track_Bordered;Terreno e pistas (modulares): piso com borda
 Track_Bordered_003;Tracks;0;0;-15;0;1;1;1;Track_Bordered;Terreno e pistas (modulares): piso com borda
@@ -754,21 +762,21 @@ Track_Bordered_022;Tracks;0;0;235;0;1;1;1;Track_Bordered;Castelo final (entrada)
 Track_Bordered_023;Tracks;0;0;245;0;1;1;0.15;Track_Bordered;Castelo final (entrada): pavimento até a escadaria
 PlayerSpawnPoint_001;Gameplay_Preview;0;0;0;0;1;1;1;PlayerSpawnPoint;Vista traseira (spawn): formação do exército azul
 GateRowPoint_001;Gameplay_Preview;0;0;28;0;1;1;1;GateRowPoint;Portais de melhoria (escolha): fileira (2)
-Gate_Blue_001;Gameplay_Preview;-2.5;0;28;0;1;1;1;Gate_Blue;Portais de melhoria: +10 GUERREIROS (Troops)
-Gate_Green_001;Gameplay_Preview;2.5;0;28;0;1;1;1;Gate_Green;Portais de melhoria: x2 TROPAS (Multiply)
+FK_Gate_Blue_001;Gameplay_Preview;-2.5;0;28;0;1;1;1;FK_Gate_Blue;Portais de melhoria: +10 GUERREIROS (Troops)
+FK_Gate_Green_001;Gameplay_Preview;2.5;0;28;0;1;1;1;FK_Gate_Green;Portais de melhoria: x2 TROPAS (Multiply)
 GateRowPoint_002;Gameplay_Preview;0;0;75;0;1;1;1;GateRowPoint;Portais de melhoria (escolha): fileira (2)
-Gate_Blue_002;Gameplay_Preview;-2.5;0;75;0;1;1;1;Gate_Blue;Portais de melhoria: +15 ARQUEIROS (Troops)
-Gate_Yellow_001;Gameplay_Preview;2.5;0;75;0;1;1;1;Gate_Yellow;Portais de melhoria: +50% DANO (Upgrade)
+FK_Gate_Blue_002;Gameplay_Preview;-2.5;0;75;0;1;1;1;FK_Gate_Blue;Portais de melhoria: +15 ARQUEIROS (Troops)
+FK_Gate_Yellow_001;Gameplay_Preview;2.5;0;75;0;1;1;1;FK_Gate_Yellow;Portais de melhoria: +50% DANO (Upgrade)
 GateRowPoint_003;Gameplay_Preview;0;0;122;0;1;1;1;GateRowPoint;Portais de melhoria (escolha): fileira (3)
-Gate_Blue_003;Gameplay_Preview;-3.33;0;122;0;0.67;1;1;Gate_Blue;Portais de melhoria: CURA + ESCUDO (Defense)
-Gate_Purple_001;Gameplay_Preview;0;0;122;0;0.67;1;1;Gate_Purple;Portais de melhoria: +3 CAVALEIROS (Special)
-Gate_Purple_002;Gameplay_Preview;3.33;0;122;0;0.67;1;1;Gate_Purple;Portais de melhoria: -50% INIMIGOS (Special)
+FK_Gate_Blue_003;Gameplay_Preview;-3.33;0;122;0;0.67;1;1;FK_Gate_Blue;Portais de melhoria: CURA + ESCUDO (Defense)
+FK_Gate_Purple_001;Gameplay_Preview;0;0;122;0;0.67;1;1;FK_Gate_Purple;Portais de melhoria: +3 CAVALEIROS (Special)
+FK_Gate_Purple_002;Gameplay_Preview;3.33;0;122;0;0.67;1;1;FK_Gate_Purple;Portais de melhoria: -50% INIMIGOS (Special)
 GateRowPoint_004;Gameplay_Preview;0;0;162;0;1;1;1;GateRowPoint;Portais de melhoria (escolha): fileira (2)
-Gate_Blue_004;Gameplay_Preview;-2.5;0;162;0;1;1;1;Gate_Blue;Portais de melhoria: +8 MAGOS (Troops)
-Gate_Yellow_002;Gameplay_Preview;2.5;0;162;0;1;1;1;Gate_Yellow;Portais de melhoria: +1 NÍVEL TODAS AS TROPAS (Upgrade)
+FK_Gate_Blue_004;Gameplay_Preview;-2.5;0;162;0;1;1;1;FK_Gate_Blue;Portais de melhoria: +8 MAGOS (Troops)
+FK_Gate_Yellow_002;Gameplay_Preview;2.5;0;162;0;1;1;1;FK_Gate_Yellow;Portais de melhoria: +1 NÍVEL TODAS AS TROPAS (Upgrade)
 GateRowPoint_005;Gameplay_Preview;0;0;180;0;1;1;1;GateRowPoint;Portais de melhoria (escolha): fileira (2)
-Gate_Blue_005;Gameplay_Preview;-2.5;0;180;0;1;1;1;Gate_Blue;Portais de melhoria: ATALHO -18m · +12 INIMIGOS (Route)
-Gate_Blue_006;Gameplay_Preview;2.5;0;180;0;1;1;1;Gate_Blue;Portais de melhoria: CAMINHO LONGO +150 OURO · +10 ARQ (Route)
+FK_Gate_Blue_005;Gameplay_Preview;-2.5;0;180;0;1;1;1;FK_Gate_Blue;Portais de melhoria: ATALHO -18m · +12 INIMIGOS (Route)
+FK_Gate_Blue_006;Gameplay_Preview;2.5;0;180;0;1;1;1;FK_Gate_Blue;Portais de melhoria: CAMINHO LONGO +150 OURO · +10 ARQ (Route)
 EnemySpawnPoint_001;Gameplay_Preview;0;0;55;180;1;1;1;EnemySpawnPoint;Unidades (inimigo): onda de soldados vermelhos (12)
 EnemySpawnPoint_002;Gameplay_Preview;0;0;105;180;1;1;1;EnemySpawnPoint;Unidades (inimigo): onda de soldados vermelhos (24)
 EnemySpawnPoint_003;Gameplay_Preview;0;0;150;180;1;1;1;EnemySpawnPoint;Unidades (inimigo): onda de soldados vermelhos (36)

@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 108c12d754d281a4bad9930736b04e33, type: 3}
+  m_Name: CharacterVisualLibrary
+  m_EditorClassIdentifier: Assembly-CSharp::LegionRush.CharacterVisualLibrary
+  entries:
+  - id: 2
+    prefab: {fileID: 8709833041892219544, guid: 7a5380eb74980084d8e745234b220ff5, type: 3}
+    scale: 1
+    localOffset: {x: 0, y: 0, z: 0}
+    localEuler: {x: 0, y: 0, z: 0}
+  - id: 1
+    prefab: {fileID: 8758976430287513977, guid: 8aa9511bf11f6fc43a8ce4013462ffcd, type: 3}
+    scale: 1
+    localOffset: {x: 0, y: 0, z: 0}
+    localEuler: {x: 0, y: 0, z: 0}
+  - id: 0
+    prefab: {fileID: 1677106567115386825, guid: f477682481da95b47a2a60794cf42261, type: 3}
+    scale: 1
+    localOffset: {x: 0, y: 0, z: 0}
+    localEuler: {x: 0, y: 0, z: 0}
+  - id: 3
+    prefab: {fileID: 2282322940726221953, guid: e9c83c612420c3b44ba9b960b32db13e, type: 3}
+    scale: 1
+    localOffset: {x: 0, y: 0, z: 0}
+    localEuler: {x: 0, y: 0, z: 0}
+  - id: 6
+    prefab: {fileID: 3194780657478525743, guid: 5dcd5e34e3a87644183a4796e6ca4f7e, type: 3}
+    scale: 1
+    localOffset: {x: 0, y: 0, z: 0}
+    localEuler: {x: 0, y: 0, z: 0}
+  - id: 4
+    prefab: {fileID: 253257787629812771, guid: 81e1b31635c3ab24f9759cd709e88edd, type: 3}
+    scale: 1
+    localOffset: {x: 0, y: 0, z: 0}
+    localEuler: {x: 0, y: 0, z: 0}
+  - id: 5
+    prefab: {fileID: 7964430358199244634, guid: 8afc21d6b55aeb844a49617a378f2328, type: 3}
+    scale: 1
+    localOffset: {x: 0, y: 0, z: 0}
+    localEuler: {x: 0, y: 0, z: 0}
+  - id: 7
+    prefab: {fileID: 3933710704095314550, guid: abd9962a06a433647aaf70280c04b20e, type: 3}
+    scale: 1
+    localOffset: {x: 0, y: 0, z: 0}
+    localEuler: {x: 0, y: 0, z: 0}
+  - id: 8
+    prefab: {fileID: 3304283388601488590, guid: 5426d608b769b15418f35b7bfdd49076, type: 3}
+    scale: 1
+    localOffset: {x: 0, y: 0, z: 0}
+    localEuler: {x: 0, y: 0, z: 0}
+  - id: 9
+    prefab: {fileID: 4466373461701647563, guid: 557ce33cc8a0f114cb5483219b8ca9ea, type: 3}
+    scale: 1
+    localOffset: {x: 0, y: 0, z: 0}
+    localEuler: {x: 0, y: 0, z: 0}
+  - id: 10
+    prefab: {fileID: 29311487812595777, guid: d7dde9cfe7d224b4388f144ed8f82eea, type: 3}
+    scale: 1
+    localOffset: {x: 0, y: 0, z: 0}
+    localEuler: {x: 0, y: 0, z: 0}
+  - id: 11
+    prefab: {fileID: 5626665352469867420, guid: 41cff637e0cd55447828062274eb042c, type: 3}
+    scale: 1
+    localOffset: {x: 0, y: 0, z: 0}
+    localEuler: {x: 0, y: 0, z: 0}
+  - id: 12
+    prefab: {fileID: 3655665147576238555, guid: a22f8f7117b1c644db902873b89b4043, type: 3}
+    scale: 1
+    localOffset: {x: 0, y: 0, z: 0}
+    localEuler: {x: 0, y: 0, z: 0}
+  arrowTrailMaterial: {fileID: 0}
+  arrowPrefab: {fileID: 745877477283629955, guid: 2eae9a17cda94af49bb1e675b27f2077, type: 3}
+  enemyArrowPrefab: {fileID: 1377614838701167920, guid: 8ade216a9954a604da3ef09dbbd172a5, type: 3}

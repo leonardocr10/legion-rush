@@ -41,6 +41,11 @@ namespace LegionRush
         private ObjectPool<Projectile> orbPool;
         private System.Action<Projectile> releaseArrow;
         private System.Action<Projectile> releaseOrb;
+        private ObjectPool<Projectile> enemyArrowPool;
+        private ObjectPool<Projectile> enemyOrbPool;
+        private System.Action<Projectile> releaseEnemyArrow;
+        private System.Action<Projectile> releaseEnemyOrb;
+        private System.Func<Vector3, float, DamageInfo, int> damageArmyArea;
         private CorpseQueue corpses;
         private Transform commander;
         private Transform poolRoot;
@@ -86,6 +91,13 @@ namespace LegionRush
                 p => { if (p != null) Destroy(p.gameObject); }, false, 16, 128);
             releaseArrow = p => arrowPool.Release(p);
             releaseOrb = p => orbPool.Release(p);
+            enemyArrowPool = new ObjectPool<Projectile>(() => CreateArrow(true), p => p.gameObject.SetActive(true),
+                p => p.gameObject.SetActive(false), p => { if (p != null) Destroy(p.gameObject); }, false, 32, 256);
+            enemyOrbPool = new ObjectPool<Projectile>(CreateEnemyOrb, p => p.gameObject.SetActive(true),
+                p => p.gameObject.SetActive(false), p => { if (p != null) Destroy(p.gameObject); }, false, 8, 64);
+            releaseEnemyArrow = p => enemyArrowPool.Release(p);
+            releaseEnemyOrb = p => enemyOrbPool.Release(p);
+            damageArmyArea = DamageSoldiersInRadius;
 
             SetCount(config.startingSoldiers + metaStartTroops);
             GameLog.Info($"Exército pronto: {Count} soldados ({Describe()}), composição '{config.compositions[CompositionIndex].displayName}'.");
@@ -250,6 +262,7 @@ namespace LegionRush
         public void PlayVictory()
         {
             for (int i = 0; i < soldiers.Count; i++) soldiers[i].Celebrate();
+            if (commander != null && commander.TryGetComponent(out CommanderController leader)) leader.PlayVictory();
         }
 
         public Vector3 Centroid()
@@ -411,6 +424,38 @@ namespace LegionRush
         public void FireArrowAtPoint(Vector3 origin, Vector3 point, DamageInfo damage, float radius)
         {
             arrowPool.Get().LaunchAtPoint(origin, point, damage, Config.projectileSpeed * 1.2f, radius, releaseArrow);
+        }
+
+        // ---------- Projéteis inimigos (arqueiro e mago sombrio) ----------
+
+        public void FireEnemyArrow(Vector3 origin, Soldier target, DamageInfo damage)
+        {
+            if (target == null || !target.IsAlive) return;
+            enemyArrowPool.Get().Launch(origin, target, damage, Config.projectileSpeed * 0.8f, 0f, releaseEnemyArrow);
+        }
+
+        public void FireEnemyOrb(Vector3 origin, Vector3 point, DamageInfo damage, float radius)
+        {
+            point.y = 0.4f;
+            enemyOrbPool.Get().LaunchAtPoint(origin, point, damage, Config.orbSpeed * 0.8f, Mathf.Max(0.5f, radius), releaseEnemyOrb);
+        }
+
+        public int DamageSoldiersInRadius(Vector3 center, float radius, DamageInfo info)
+        {
+            int hits = 0;
+            for (int i = soldiers.Count - 1; i >= 0; i--)
+            {
+                if (i >= soldiers.Count) continue;
+                Soldier soldier = soldiers[i];
+                if (!soldier.IsAlive) continue;
+                Vector3 delta = soldier.transform.position - center;
+                delta.y = 0f;
+                float reach = radius + soldier.BodyRadius;
+                if (delta.sqrMagnitude > reach * reach) continue;
+                soldier.TakeDamage(info);
+                hits++;
+            }
+            return hits;
         }
 
         public void FireOrb(Vector3 origin, Combatant target, DamageInfo damage, float radius)
@@ -597,16 +642,55 @@ namespace LegionRush
             return go.AddComponent<Soldier>();
         }
 
-        private Projectile CreateArrow()
+        private Projectile CreateArrow() => CreateArrow(false);
+
+        // Flecha com o modelo da biblioteca (Weapon_RoyalArrow / Weapon_EnemyArrow) ou, sem ele, a haste primitiva.
+        private Projectile CreateArrow(bool enemy)
         {
-            var go = new GameObject("Arrow");
+            var go = new GameObject(enemy ? "EnemyArrow" : "Arrow");
             go.transform.SetParent(poolRoot, false);
-            PrimitiveFactory.Part(PrimitiveType.Cube, go.transform, Vector3.zero, new Vector3(0.07f, 0.07f, 0.55f),
-                MaterialLibrary.Get(new Color(1f, 0.85f, 0.35f), 2.5f, 0f, false), default, false);
+            CharacterVisualLibrary library = CharacterFactory.Library;
+            GameObject model = library != null ? (enemy ? library.enemyArrowPrefab : library.arrowPrefab) : null;
+            if (model != null)
+            {
+                GameObject arrow = Instantiate(model, go.transform, false);
+                arrow.transform.localRotation = Quaternion.Euler(90f, 0f, 0f);
+                arrow.transform.localPosition = new Vector3(0f, 0f, -0.25f);
+                arrow.transform.localScale = Vector3.one * 1.4f;
+                foreach (Renderer r in arrow.GetComponentsInChildren<Renderer>()) r.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            }
+            else
+            {
+                Color shaft = enemy ? new Color(1f, 0.35f, 0.2f) : new Color(1f, 0.85f, 0.35f);
+                PrimitiveFactory.Part(PrimitiveType.Cube, go.transform, Vector3.zero, new Vector3(0.07f, 0.07f, 0.55f),
+                    MaterialLibrary.Get(shaft, 2.5f, 0f, false), default, false);
+            }
             go.SetActive(false);
             Projectile projectile = go.AddComponent<Projectile>();
-            projectile.ConfigureTrail(arrowTrailMaterial, new Color(1f, 0.92f, 0.55f), new Color(1f, 0.55f, 0.15f), 0.14f);
-            projectile.ConfigureImpact(true, SoundId.ArrowImpact, new Color(1f, 0.8f, 0.4f, 0.8f));
+            if (enemy)
+            {
+                projectile.ConfigureTrail(arrowTrailMaterial, new Color(1f, 0.5f, 0.35f), new Color(0.9f, 0.1f, 0.05f), 0.12f);
+                projectile.ConfigureImpact(true, SoundId.ArrowImpact, new Color(1f, 0.35f, 0.25f, 0.8f));
+            }
+            else
+            {
+                projectile.ConfigureTrail(arrowTrailMaterial, new Color(1f, 0.92f, 0.55f), new Color(1f, 0.55f, 0.15f), 0.14f);
+                projectile.ConfigureImpact(true, SoundId.ArrowImpact, new Color(1f, 0.8f, 0.4f, 0.8f));
+            }
+            return projectile;
+        }
+
+        private Projectile CreateEnemyOrb()
+        {
+            var go = new GameObject("DarkFireOrb");
+            go.transform.SetParent(poolRoot, false);
+            PrimitiveFactory.Part(PrimitiveType.Sphere, go.transform, Vector3.zero, Vector3.one * 0.34f,
+                MaterialLibrary.Get(new Color(1f, 0.32f, 0.08f), 3.5f, 0f, false), default, false);
+            go.SetActive(false);
+            Projectile projectile = go.AddComponent<Projectile>();
+            projectile.ConfigureTrail(orbTrailMaterial, new Color(1f, 0.6f, 0.2f), new Color(0.6f, 0.05f, 0.1f), 0.32f);
+            projectile.ConfigureImpact(true, SoundId.FireExplosion, new Color(1f, 0.35f, 0.1f, 0.9f));
+            projectile.AreaDamage = damageArmyArea;
             return projectile;
         }
 

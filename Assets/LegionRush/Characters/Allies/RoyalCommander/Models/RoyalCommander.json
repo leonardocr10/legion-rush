@@ -1,0 +1,96 @@
+{
+  "name": "RoyalCommander",
+  "clips": [
+    {
+      "name": "Idle",
+      "loop": true,
+      "length": 2.4,
+      "impact": 0.0
+    },
+    {
+      "name": "Walk",
+      "loop": true,
+      "length": 1.0,
+      "impact": 0.0
+    },
+    {
+      "name": "Run",
+      "loop": true,
+      "length": 0.6333333333333333,
+      "impact": 0.0
+    },
+    {
+      "name": "Attack",
+      "loop": false,
+      "length": 0.7,
+      "impact": 0.27
+    },
+    {
+      "name": "Command",
+      "loop": false,
+      "length": 1.1,
+      "impact": 0.0
+    },
+    {
+      "name": "Rally",
+      "loop": false,
+      "length": 1.3,
+      "impact": 0.0
+    },
+    {
+      "name": "Buff",
+      "loop": false,
+      "length": 1.2,
+      "impact": 0.0
+    },
+    {
+      "name": "Hit",
+      "loop": false,
+      "length": 0.4,
+      "impact": 0.0
+    },
+    {
+      "name": "Death",
+      "loop": false,
+      "length": 1.1,
+      "impact": 0.0
+    },
+    {
+      "name": "Victory",
+      "loop": true,
+      "length": 1.6,
+      "impact": 0.0
+    }
+  ],
+  "slots": [
+    {
+      "slot": "AttackAlt",
+      "clip": "Command"
+    },
+    {
+      "slot": "Skill",
+      "clip": "Rally"
+    }
+  ],
+  "sockets": [
+    "HeadSocket",
+    "LeftHandSocket",
+    "RightHandSocket",
+    "BackSocket",
+    "VFXSocket"
+  ],
+  "stats": {
+    "LOD0_tris": 14793,
+    "LOD1_tris": 5621,
+    "LOD2_tris": 2023,
+    "bones": 30,
+    "shape_keys": "Basis,Happy,Angry,Attack,Surprised,Pain,Victory,Defeat"
+  },
+  "weapons": [
+    {
+      "id": "Weapon_CommanderSword",
+      "socket": "RightHandSocket",
+      "node": "CommanderSword"
+    }
+  ]
+}

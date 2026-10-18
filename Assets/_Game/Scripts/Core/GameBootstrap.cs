@@ -62,6 +62,7 @@ namespace LegionRush
 
         private readonly WorldLightingProfile[] runtimePresets = new WorldLightingProfile[WorldLightingProfile.WorldCount];
         private readonly BossDefinition[] bossPresets = new BossDefinition[5];
+        private BossDefinition[] resourceBosses;
         private readonly SkillId[] loadout = (SkillId[])SkillSystem.DefaultLoadout.Clone();
         private LevelCatalog catalog;
         private bool ownsCatalog;
@@ -86,6 +87,8 @@ namespace LegionRush
         private static void AutoCreate()
         {
             if (FindAnyObjectByType<GameBootstrap>() != null) return;
+            // Cena de abertura: ela carrega a cena Main, que traz o próprio Bootstrap.
+            if (FindAnyObjectByType<SplashScreenController>() != null) return;
             new GameObject("Bootstrap (auto)").AddComponent<GameBootstrap>();
         }
 
@@ -96,6 +99,8 @@ namespace LegionRush
             Screen.orientation = ScreenOrientation.Portrait;
             MaterialLibrary.PreferredToonShader = toonShader;
             MaterialLibrary.PreferredGlowShader = glowShader;
+            // Sem referência na cena: usa a biblioteca gerada pelo construtor de personagens (Resources).
+            if (visualLibrary == null) visualLibrary = Resources.Load<CharacterVisualLibrary>("CharacterVisualLibrary");
             CharacterFactory.Library = visualLibrary;
             if (visualLibrary != null) visualLibrary.Validate();
 
@@ -129,11 +134,23 @@ namespace LegionRush
             ui.transform.SetParent(transform, false);
             ui.Initialize(this);
             Build();
-            if (showSplash) ui.Replace<SplashScreen>();
+            if (SplashScreenController.IsShowing)
+            {
+                // A tela de abertura (cena SplashScreen) cobre tudo; o menu fica por baixo e reentra quando ela some.
+                ui.Replace<MainMenuScreen>();
+                SplashScreenController.Finished += OnSplashFinished;
+            }
+            else if (showSplash) ui.Replace<SplashScreen>();
             else ui.Replace<MainMenuScreen>();
         }
 
         // ---------- Fluxo ----------
+
+        private void OnSplashFinished()
+        {
+            SplashScreenController.Finished -= OnSplashFinished;
+            if (ui != null) ui.Replace<MainMenuScreen>(); // reexibe o menu para tocar as entradas por cima da fase
+        }
 
         public bool IsLevelAvailable(int levelNumber) => catalog.Has(levelNumber);
         public bool IsLevelUnlocked(int levelNumber) => levelNumber <= SaveManager.Current.progress.highestUnlocked;
@@ -286,6 +303,12 @@ namespace LegionRush
                     if (definition != null && definition.id == id) return definition;
                 }
             }
+            // Assets de chefão em qualquer pasta Resources/Bosses (ex.: LegionRush/Bosses/DarkGolem/ScriptableObjects).
+            resourceBosses ??= Resources.LoadAll<BossDefinition>("Bosses");
+            foreach (BossDefinition definition in resourceBosses)
+            {
+                if (definition != null && definition.id == id) return definition;
+            }
             int index = (int)id;
             if (bossPresets[index] == null) bossPresets[index] = BossDefinition.CreatePreset(id);
             return bossPresets[index];
@@ -378,6 +401,7 @@ namespace LegionRush
 
         private void OnDestroy()
         {
+            SplashScreenController.Finished -= OnSplashFinished;
             for (int i = 0; i < runtimePresets.Length; i++)
             {
                 if (runtimePresets[i] != null) Destroy(runtimePresets[i]);

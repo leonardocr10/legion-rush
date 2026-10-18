@@ -115,11 +115,24 @@ namespace LegionRush
             return button;
         }
 
-        protected static void Section(RectTransform list, string text)
+        protected static RectTransform Section(RectTransform list, string text)
         {
             RectTransform row = UI.Row(list, 80f);
+            row.name = "Section_" + text;
             TMP_Text label = UI.Label(row, text, 44, UIStyle.Gold, TextAnchor.MiddleLeft);
             UI.Stretch(label.rectTransform, 12f, 12f, 0f, 0f);
+            return row;
+        }
+
+        // Rola a lista até a seção com esse título (ex.: a loja aberta pelo "+" da carteira).
+        protected static void ScrollTo(RectTransform list, string section)
+        {
+            Transform row = list.Find("Section_" + section);
+            if (row == null) return;
+            LayoutRebuilder.ForceRebuildLayoutImmediate(list);
+            float y = -((RectTransform)row).anchoredPosition.y - ((RectTransform)row).rect.height * 0.5f;
+            float max = Mathf.Max(0f, list.rect.height - ((RectTransform)list.parent).rect.height);
+            list.anchoredPosition = new Vector2(list.anchoredPosition.x, Mathf.Clamp(y, 0f, max));
         }
 
         protected void Result(PurchaseResult result, string successMessage = null)

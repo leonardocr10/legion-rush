@@ -141,7 +141,7 @@ namespace LegionRush.Environments.EditorTools
                     foreach (Renderer r in instance.GetComponentsInChildren<Renderer>()) bounds.Encapsulate(r.bounds);
                     float radius = bounds.extents.magnitude;
                     float distance = radius / Mathf.Sin(cam.fieldOfView * 0.5f * Mathf.Deg2Rad) * 1.05f;
-                    Vector3 dir = Quaternion.Euler(28f, 215f, 0f) * Vector3.forward;
+                    Vector3 dir = Quaternion.Euler(22f, -24f, 0f) * Vector3.forward; // de frente, levemente pela direita (como os PNGs)
                     cam.transform.SetPositionAndRotation(bounds.center - dir * distance, Quaternion.LookRotation(dir));
                     RenderPng(cam, Path.Combine(outDir, prefab.name), 320, 320);
                     UnityEngine.Object.DestroyImmediate(instance);

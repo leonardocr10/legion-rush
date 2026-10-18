@@ -243,6 +243,7 @@ namespace LegionRush
             UIShineSweep sweep = clip.gameObject.AddComponent<UIShineSweep>();
             sweep.band = band;
             sweep.area = clip;
+            band.gameObject.SetActive(false); // só aparece durante a passada
         }
 
         private void Update()

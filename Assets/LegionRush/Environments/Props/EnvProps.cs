@@ -71,14 +71,23 @@ namespace LegionRush.Environments
             chunk.Matrix = Matrix4x4.TRS(position, Quaternion.Euler(0f, facingYaw, 0f), Vector3.one * scale);
             EnvMeshBuilder o = chunk.Opaque;
             o.NoSnow();
-            o.BeveledBox(new Vector3(0f, 0.2f, 0f), new Vector3(0.7f, 0.4f, 0.7f), 0.08f, EnvPalette.StoneDark);
-            o.BeveledBox(new Vector3(0f, 0.44f, 0f), new Vector3(0.74f, 0.1f, 0.74f), 0.04f, EnvPalette.Snow, rng, 0.03f);
-            o.Frustum(new Vector3(0f, 0.4f, 0f), 0.11f, 0.09f, height, 6, EnvPalette.Wood, false, false);
-            // Barra horizontal e ponteira.
+            // Base de pedra em dois degraus com neve (referência 07_pilar_bandeira).
+            chunk.Masonry.BeveledBox(new Vector3(0f, 0.18f, 0f), new Vector3(0.9f, 0.36f, 0.9f), 0.07f, EnvPalette.StoneDark);
+            chunk.Masonry.BeveledBox(new Vector3(0f, 0.5f, 0f), new Vector3(0.62f, 0.3f, 0.62f), 0.06f, EnvPalette.Stone);
+            o.BeveledBox(new Vector3(0.05f, 0.38f, 0.05f), new Vector3(0.94f, 0.08f, 0.9f), 0.03f, EnvPalette.Snow, rng, 0.03f);
+            o.BeveledBox(new Vector3(0f, 0.68f, 0f), new Vector3(0.66f, 0.08f, 0.66f), 0.03f, EnvPalette.Snow, rng, 0.02f);
+            // Haste dourada com anéis.
+            Color pole = EnvPalette.Gold * 0.85f;
+            o.Frustum(new Vector3(0f, 0.65f, 0f), 0.09f, 0.07f, height - 0.25f, 8, pole, false, false, true);
+            o.Frustum(new Vector3(0f, 0.7f, 0f), 0.14f, 0.12f, 0.12f, 8, EnvPalette.Gold, true, true);
+            // Barra horizontal dourada com remates em bola e ponta de lança.
             float barY = height - 0.1f;
-            o.BeveledBox(new Vector3(0f, barY, 0f), new Vector3(1.5f, 0.12f, 0.12f), 0.04f, EnvPalette.Wood);
+            o.BeveledBox(new Vector3(0f, barY, 0f), new Vector3(1.5f, 0.1f, 0.1f), 0.03f, EnvPalette.Gold);
             for (int side = -1; side <= 1; side += 2)
-                o.BeveledBox(new Vector3(side * 0.78f, barY, 0f), Vector3.one * 0.17f, 0.06f, EnvPalette.Gold);
+            {
+                o.Frustum(new Vector3(side * 0.78f, barY - 0.1f, 0f), 0.06f, 0.1f, 0.1f, 8, EnvPalette.Gold, true, false);
+                o.Frustum(new Vector3(side * 0.78f, barY, 0f), 0.1f, 0f, 0.22f, 8, EnvPalette.Gold, false, false, true);
+            }
             o.Frustum(new Vector3(0f, height + 0.35f, 0f), 0.13f, 0f, 0.55f, 6, EnvPalette.Gold, true, false);
             o.BeveledBox(new Vector3(0f, height + 0.3f, 0f), new Vector3(0.24f, 0.12f, 0.24f), 0.04f, EnvPalette.Gold);
             EnvCastle.HangingBanner(chunk.Banner, new Vector3(0f, barY - 0.05f, -0.14f), 1.3f, 2.1f);

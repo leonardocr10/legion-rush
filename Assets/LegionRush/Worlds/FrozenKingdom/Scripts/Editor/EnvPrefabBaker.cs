@@ -52,6 +52,7 @@ namespace LegionRush.Environments.EditorTools
             new Piece("Tracks", "Track_Ramp", Extra.Ramp, Do((c, r) => EnvTrackModules.Ramp(c, HalfWidth, 1.5f, r))),
             new Piece("Tracks", "Track_Stairs", Extra.Stairs, Do((c, r) => EnvTrackModules.Stairs(c, HalfWidth, r))),
             new Piece("Tracks", "Track_Platform", Extra.Platform, Do((c, r) => EnvTrackModules.Platform(c, HalfWidth, 0.3f, r))),
+            new Piece("Tracks", "Track_PlatformBlock", Extra.None, Do((c, r) => EnvTrackModules.PlatformBlock(c, r))),
             new Piece("Tracks", "Track_Elevated", Extra.PlatformElevated, Do((c, r) => EnvTrackModules.Platform(c, HalfWidth, 1.6f, r))),
             new Piece("Tracks", "Track_BorderLeft", Extra.Border, Do((c, r) => EnvTrackModules.Border(c, -1, HalfWidth, L, r))),
             new Piece("Tracks", "Track_BorderRight", Extra.Border, Do((c, r) => EnvTrackModules.Border(c, 1, HalfWidth, L, r))),
@@ -59,18 +60,18 @@ namespace LegionRush.Environments.EditorTools
             new Piece("Tracks", "Track_Curve", Extra.Curve, Do((c, r) => EnvTrackModules.Curve(c, HalfWidth, 14f, r))),
 
             // Castelo.
-            new Piece("Castle", "Castle_Main", Extra.None, (c, r, t) => { EnvCastle.Castle(c, Vector3.zero, FrozenKingdomTrack.CastlePlateau, r); AddDoors(t, EnvCastle.GateOffset(FrozenKingdomTrack.CastlePlateau)); return null; }),
-            new Piece("Castle", "Castle_Tower_Large", Extra.None, Do((c, r) => EnvCastle.Tower(c, Vector3.zero, 2.6f, 11f, 5.4f, r))),
-            new Piece("Castle", "Castle_Tower_Small", Extra.None, Do((c, r) => EnvCastle.Tower(c, Vector3.zero, 1.25f, 5.2f, 2.8f, r, false))),
-            new Piece("Castle", "Castle_Wall", Extra.None, Do((c, r) => EnvCastle.Wall(c, Matrix4x4.identity, 8f, 6.5f, 2.2f, r))),
-            new Piece("Castle", "Castle_Wall_Short", Extra.None, Do((c, r) => EnvCastle.Wall(c, Matrix4x4.identity, 4f, 4f, 1.6f, r))),
-            new Piece("Castle", "Castle_Gate", Extra.None, (c, r, t) => { EnvCastle.Gatehouse(c, Vector3.zero, EnvCastle.GateWidth, EnvCastle.GateHeight, r); AddDoors(t, Vector3.zero); return null; }),
-            new Piece("Castle", "Castle_Arch", Extra.None, Do((c, r) => EnvMedieval.StoneArch(c, Vector3.zero, 0f, 3.5f, 5f, r))),
-            new Piece("Castle", "Castle_Pillar", Extra.None, Do((c, r) => EnvMedieval.Pillar(c, Vector3.zero, 3.2f, r))),
-            new Piece("Castle", "Castle_Stairs", Extra.None, Do((c, r) => EnvCastle.Stairs(c, Vector3.zero, 7f, 10, 0.32f, 0.55f, r))),
-            new Piece("Castle", "Castle_Battlement", Extra.None, Do((c, r) => EnvCastle.Wall(c, Matrix4x4.identity, 4f, 0.6f, 1.2f, r))),
-            new Piece("Castle", "Castle_Banner", Extra.None, Do((c, r) => CastleBanner(c))),
-            new Piece("Castle", "Castle_Torch", Extra.None, (c, r, t) => new[] { EnvProps.Brazier(c, Vector3.zero, 1.6f, r) }),
+            new Piece("Castle", "FK_Castle_Main", Extra.None, (c, r, t) => { EnvCastle.Castle(c, Vector3.zero, FrozenKingdomTrack.CastlePlateau, r); AddDoors(t, EnvCastle.GateOffset(FrozenKingdomTrack.CastlePlateau)); return null; }),
+            new Piece("Castle", "FK_Castle_TowerLarge", Extra.None, Do((c, r) => EnvCastle.Tower(c, Vector3.zero, 2.6f, 11f, 5.4f, r))),
+            new Piece("Castle", "FK_Castle_TowerSmall", Extra.None, Do((c, r) => EnvCastle.Tower(c, Vector3.zero, 1.25f, 5.2f, 2.8f, r, false))),
+            new Piece("Castle", "FK_Castle_Wall", Extra.None, Do((c, r) => EnvCastle.Wall(c, Matrix4x4.identity, 8f, 6.5f, 2.2f, r, true, true))),
+            new Piece("Castle", "FK_Castle_WallShort", Extra.None, Do((c, r) => EnvCastle.Wall(c, Matrix4x4.identity, 4f, 4f, 1.6f, r))),
+            new Piece("Castle", "FK_Castle_Gate", Extra.None, (c, r, t) => { EnvCastle.Gatehouse(c, Vector3.zero, EnvCastle.GateWidth, EnvCastle.GateHeight, r); AddDoors(t, Vector3.zero); return null; }),
+            new Piece("Castle", "FK_Castle_Arch", Extra.None, Do((c, r) => EnvMedieval.StoneArch(c, Vector3.zero, 0f, 3.5f, 5f, r))),
+            new Piece("Castle", "FK_Castle_Pillar", Extra.None, Do((c, r) => EnvMedieval.Pillar(c, Vector3.zero, 3.2f, r))),
+            new Piece("Castle", "FK_Castle_Stairs", Extra.None, Do((c, r) => EnvCastle.Stairs(c, Vector3.zero, 7f, 10, 0.32f, 0.55f, r))),
+            new Piece("Castle", "FK_Castle_Battlement", Extra.None, Do((c, r) => EnvCastle.Wall(c, Matrix4x4.identity, 4f, 0.6f, 1.2f, r))),
+            new Piece("Castle", "FK_Castle_Banner", Extra.None, Do((c, r) => CastleBanner(c))),
+            new Piece("Castle", "FK_Castle_Torch", Extra.None, (c, r, t) => new[] { EnvProps.Brazier(c, Vector3.zero, 1.6f, r) }),
 
             // Estruturas laterais.
             new Piece("Structures", "WatchTower", Extra.Lod, Do((c, r) => EnvMedieval.WatchTower(c, Vector3.zero, 0f, 5.6f, r))),
@@ -131,6 +132,7 @@ namespace LegionRush.Environments.EditorTools
             SavedOther.Clear();
             PrefabPaths.Clear();
 
+            RenameLegacy();
             int count = 0;
             foreach (Piece piece in Pieces())
             {
@@ -139,7 +141,7 @@ namespace LegionRush.Environments.EditorTools
             }
             foreach (var gate in GateVariants())
             {
-                BakeGate("Gate_" + gate.name, gate.category);
+                BakeGate("FK_Gate_" + gate.name, gate.category);
                 count++;
             }
             count += BakeMarkers();
@@ -148,6 +150,31 @@ namespace LegionRush.Environments.EditorTools
             AssetDatabase.Refresh();
             EnvTextures.KeepReadable = false;
             Debug.Log($"[LegionRush] Reino Congelado: {count} prefabs em {Root}.");
+        }
+
+        // Nomes da rodada anterior → nomes FK_ do brief dos 46 PNGs. MoveAsset mantém o GUID, então cenas que
+        // já usavam o prefab continuam apontando para ele (o gerador só reescreve o conteúdo).
+        private static readonly (string from, string to)[] Renames =
+        {
+            ("Castle/Castle_Main", "FK_Castle_Main"), ("Castle/Castle_Tower_Large", "FK_Castle_TowerLarge"), ("Castle/Castle_Tower_Small", "FK_Castle_TowerSmall"),
+            ("Castle/Castle_Wall", "FK_Castle_Wall"), ("Castle/Castle_Wall_Short", "FK_Castle_WallShort"), ("Castle/Castle_Gate", "FK_Castle_Gate"),
+            ("Castle/Castle_Arch", "FK_Castle_Arch"), ("Castle/Castle_Pillar", "FK_Castle_Pillar"), ("Castle/Castle_Stairs", "FK_Castle_Stairs"),
+            ("Castle/Castle_Battlement", "FK_Castle_Battlement"), ("Castle/Castle_Banner", "FK_Castle_Banner"), ("Castle/Castle_Torch", "FK_Castle_Torch"),
+            ("Gates/Gate_Blue", "FK_Gate_Blue"), ("Gates/Gate_Green", "FK_Gate_Green"), ("Gates/Gate_Yellow", "FK_Gate_Yellow"), ("Gates/Gate_Purple", "FK_Gate_Purple"),
+        };
+
+        private static void RenameLegacy()
+        {
+            foreach (var (from, to) in Renames)
+            {
+                string oldPath = $"{Root}/{from}.prefab";
+                string folder = from.Substring(0, from.IndexOf('/'));
+                string newPath = $"{Root}/{folder}/{to}.prefab";
+                if (AssetDatabase.LoadAssetAtPath<GameObject>(oldPath) == null || AssetDatabase.LoadAssetAtPath<GameObject>(newPath) != null) continue;
+                string error = AssetDatabase.MoveAsset(oldPath, newPath);
+                if (!string.IsNullOrEmpty(error)) Debug.LogWarning($"[LegionRush] Renomear {oldPath}: {error}");
+                AssetDatabase.DeleteAsset($"{ModelDir}/{from.Substring(folder.Length + 1)}.asset");
+            }
         }
 
         public static void BakeBatch()
@@ -326,7 +353,7 @@ namespace LegionRush.Environments.EditorTools
         {
             var root = new GameObject(name);
             const float Width = 5f; // faixa de um portal numa fileira de 2 (pista de 10 m)
-            EnvGatePortal.Build(root.transform, Width, GateOption.ColorOf(category), StableHash(name));
+            EnvGatePortal.Build(root.transform, Width, GateOption.ColorOf(category), StableHash(name), 1f, category);
             foreach (EnvOwnedMeshes owner in root.GetComponentsInChildren<EnvOwnedMeshes>())
                 UnityEngine.Object.DestroyImmediate(owner);
             var trigger = root.AddComponent<BoxCollider>();

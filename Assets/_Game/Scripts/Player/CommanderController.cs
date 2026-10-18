@@ -23,6 +23,7 @@ namespace LegionRush
         private float bobPhase;
         private bool dragging;
         private Transform visual;
+        private CharacterAnimatorDriver animDriver;
         private TMP_Text countLabel;
         private int shownCount = -1;
 
@@ -34,6 +35,8 @@ namespace LegionRush
             halfWidth = Mathf.Max(1f, trackHalfWidth);
             targetX = Mathf.Clamp(transform.position.x, -Limit, Limit);
             visual = transform.childCount > 0 ? transform.GetChild(0) : null;
+            animDriver = visual != null ? visual.GetComponentInChildren<CharacterAnimatorDriver>(true) : null;
+            if (animDriver != null) animDriver.ResetState();
 
             countLabel = PrimitiveFactory.Label(transform, new Vector3(0f, 3.1f, 0f), "0", 110, 0.06f, Color.white);
             countLabel.transform.localRotation = Quaternion.Euler(30f, 0f, 0f);
@@ -42,6 +45,17 @@ namespace LegionRush
         }
 
         public void SetEngaged(bool engaged) => desiredFactor = engaged ? 0f : 1f;
+
+        // Comandante com modelo final: "Comando" ao usar uma habilidade e comemoração na vitória.
+        public void PlayCommand()
+        {
+            if (animDriver != null) animDriver.PlaySkill();
+        }
+
+        public void PlayVictory()
+        {
+            if (animDriver != null) animDriver.PlayVictory();
+        }
 
         public void SetCountLabel(int count)
         {
@@ -80,9 +94,16 @@ namespace LegionRush
             transform.position = position;
 
             if (visual == null) return;
+            float lean = Mathf.Clamp((targetX - position.x) * 8f, -12f, 12f);
+            if (animDriver != null)
+            {
+                // o Animator já anima a corrida; só a inclinação lateral continua procedural
+                animDriver.SetMoveSpeed(speedFactor);
+                visual.localRotation = Quaternion.Euler(0f, lean, -lean * 0.3f);
+                return;
+            }
             bobPhase += dt * (4f + 8f * speedFactor);
             visual.localPosition = new Vector3(0f, Mathf.Abs(Mathf.Sin(bobPhase)) * 0.08f * Mathf.Max(0.2f, speedFactor), 0f);
-            float lean = Mathf.Clamp((targetX - position.x) * 8f, -12f, 12f);
             visual.localRotation = Quaternion.Euler(0f, lean, -lean * 0.5f);
         }
     }

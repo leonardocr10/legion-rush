@@ -1,0 +1,91 @@
+{
+  "name": "DarkMage",
+  "clips": [
+    {
+      "name": "Idle",
+      "loop": true,
+      "length": 2.4,
+      "impact": 0.0
+    },
+    {
+      "name": "Walk",
+      "loop": true,
+      "length": 1.0,
+      "impact": 0.0
+    },
+    {
+      "name": "Run",
+      "loop": true,
+      "length": 0.6333333333333333,
+      "impact": 0.0
+    },
+    {
+      "name": "Cast",
+      "loop": false,
+      "length": 1.0,
+      "impact": 0.0
+    },
+    {
+      "name": "Attack",
+      "loop": false,
+      "length": 0.8,
+      "impact": 0.34
+    },
+    {
+      "name": "AreaAttack",
+      "loop": false,
+      "length": 1.1,
+      "impact": 0.5
+    },
+    {
+      "name": "Hit",
+      "loop": false,
+      "length": 0.4,
+      "impact": 0.0
+    },
+    {
+      "name": "Death",
+      "loop": false,
+      "length": 1.1,
+      "impact": 0.0
+    },
+    {
+      "name": "Victory",
+      "loop": true,
+      "length": 1.6,
+      "impact": 0.0
+    }
+  ],
+  "slots": [
+    {
+      "slot": "AttackAlt",
+      "clip": "AreaAttack"
+    },
+    {
+      "slot": "Skill",
+      "clip": "Cast"
+    }
+  ],
+  "sockets": [
+    "HeadSocket",
+    "LeftHandSocket",
+    "VFXSocket",
+    "RightHandSocket",
+    "ProjectileSpawn",
+    "BackSocket"
+  ],
+  "stats": {
+    "LOD0_tris": 8620,
+    "LOD1_tris": 3274,
+    "LOD2_tris": 1178,
+    "bones": 31,
+    "shape_keys": "Basis,Happy,Angry,Attack,Surprised,Pain,Victory,Defeat"
+  },
+  "weapons": [
+    {
+      "id": "Weapon_DarkStaff",
+      "socket": "RightHandSocket",
+      "node": "DarkStaff"
+    }
+  ]
+}

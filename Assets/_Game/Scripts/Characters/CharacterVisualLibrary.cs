@@ -8,7 +8,8 @@ namespace LegionRush
     {
         Commander, Archer, Warrior, Mage, Lancer, Healer, MountedKnight,
         EnemySoldier, EnemyArcher, Berserker, HeavyWarrior, Pikeman, DarkMage,
-        BossDarkTitan, BossMadPharaoh, BossAncientDragon, BossLordVulcan, BossMechColossus
+        BossDarkTitan, BossMadPharaoh, BossAncientDragon, BossLordVulcan, BossMechColossus,
+        BossDarkGolem
     }
 
     [Serializable]
@@ -28,6 +29,10 @@ namespace LegionRush
         public List<CharacterVisualEntry> entries = new List<CharacterVisualEntry>();
         [Tooltip("Material aditivo para rastros de flecha. Vazio = material de runtime com LegionRush/AdditiveGlow.")]
         public Material arrowTrailMaterial;
+        [Tooltip("Modelo da flecha do exército azul (projétil). Vazio = haste primitiva.")]
+        public GameObject arrowPrefab;
+        [Tooltip("Modelo da flecha do exército vermelho (projétil). Vazio = haste primitiva.")]
+        public GameObject enemyArrowPrefab;
 
         private Dictionary<CharacterId, CharacterVisualEntry> lookup;
 

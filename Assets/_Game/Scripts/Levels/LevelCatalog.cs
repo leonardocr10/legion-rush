@@ -9,6 +9,11 @@ namespace LegionRush
     {
         public const int TotalLevels = 30;
 
+        // Fases com chefão de fim de mundo (e o duelo extra do Reino Vulcânico).
+        public static readonly int[] BossStages = { 8, 15, 22, 26, 30 };
+
+        public static bool IsBossStage(int levelNumber) => System.Array.IndexOf(BossStages, levelNumber) >= 0;
+
         public List<LevelConfig> levels = new List<LevelConfig>();
 
         public static (int first, int last) WorldRange(WorldId world) => world switch

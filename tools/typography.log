@@ -1,0 +1,703 @@
+VBCSCompilerPreWarmer: watching VBCSCompiler (PID 35388)
+VBCSCompilerPreWarmer: pre-warm launched (dotnet PID 2712)
+VBCSCompiler prewarm took 15.41 ms
+[Licensing::Module] Trying to connect to existing licensing client channel...
+Built from '6000.6/staging' branch; Version is '6000.6.6f1 (d20c9ac777da) revision 13765786'; Using compiler version '194234433'; Build Type 'Release'
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-Leonardo" at "2026-10-18T13:29:07.1626868Z"
+OS: 'Windows 11  (10.0.26200) Core' Language: 'pt' Physical Memory: 32688 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1
+System  architecture: x64
+Process architecture: x64
+Date: 2026-10-18T13:29:07Z
+[Licensing::Client] Code 10 while verifying Licensing Client signature (process Id: 22120, path: "C:/Program Files/Unity Hub/UnityLicensingClient_V1/Unity.Licensing.Client.exe")
+[Licensing::Module] LicensingClient has failed validation; ignoring
+[Licensing::Client] Handshaking with LicensingClient:
+  Version:                 1.18.3+d7ffd15
+  Session Id:              22cb0f6d108e46e692e03fa7f9d58538
+  Correlation Id:          1aced8926a9d7030a8362f19af9728e2
+  External correlation Id: 1454212869265705990
+  Machine Id:              yB9TXOUQQHF3OxmZJbTIcaqKYGg=
+[Licensing::Module] Successfully connected to LicensingClient on channel: "LicenseClient-Leonardo" (connect: 0.00s, validation: 0.00s, handshake: 0.04s)
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-Leonardo-notifications" at "2026-10-18T13:29:07.199388Z"
+[Licensing::Module] Error: Access token is unavailable; failed to update
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Module] License group:
+  Id: 4674268847321-UnityPersXXXX
+  Product: Unity Personal
+  Type: Assigned
+  Expiration: Unlimited
+[Licensing::Client] Successfully updated license, isAsync: True, time: 0.00
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Module] Licensing Background thread has ended after 0.04s
+
+COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\6000.6.6f1\Editor\Unity.exe
+-batchmode
+-projectPath
+D:\legion-rush
+-executeMethod
+LegionRush.EditorTools.TypographyAssetBuilder.GenerateBatch
+-logFile
+D:\legion-rush\tools\typography.log
+Successfully changed project path to: D:\legion-rush
+D:/legion-rush
+[UnityMemory] Configuration Parameters - Can be set up in boot.config
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
+    "memorysetup-temp-allocator-size-audio-worker=65536"
+    "memorysetup-temp-allocator-size-cloud-worker=32768"
+    "memorysetup-temp-allocator-size-gfx=262144"
+    "memorysetup-remapper-allocator-initial-capacity=32768"
+    "memorysetup-temp-allocator-size-preload-manager=33554432"
+    "memorysetup-allocator-temp-initial-block-size-main=262144"
+    "memorysetup-allocator-temp-initial-block-size-worker=262144"
+    "memorysetup-temp-allocator-size-job-worker=262144"
+    "memorysetup-temp-allocator-size-background-worker=32768"
+    "memorysetup-bucket-allocator-granularity=16"
+    "memorysetup-bucket-allocator-bucket-count=8"
+    "memorysetup-bucket-allocator-block-size=33554432"
+    "memorysetup-bucket-allocator-block-count=8"
+    "memorysetup-main-allocator-block-size=16777216"
+    "memorysetup-thread-allocator-block-size=16777216"
+    "memorysetup-main-allocator-mimalloc-enabled=1"
+    "memorysetup-gfx-main-allocator-block-size=16777216"
+    "memorysetup-gfx-thread-allocator-block-size=16777216"
+    "memorysetup-cache-allocator-block-size=4194304"
+    "memorysetup-typetree-allocator-block-size=2097152"
+    "memorysetup-profiler-bucket-allocator-granularity=16"
+    "memorysetup-profiler-bucket-allocator-bucket-count=8"
+    "memorysetup-profiler-bucket-allocator-block-size=33554432"
+    "memorysetup-profiler-bucket-allocator-block-count=8"
+    "memorysetup-profiler-allocator-block-size=16777216"
+    "memorysetup-profiler-editor-allocator-block-size=1048576"
+    "memorysetup-temp-allocator-size-main=16777216"
+    "memorysetup-job-temp-allocator-block-size=2097152"
+    "memorysetup-job-temp-allocator-block-size-background=1048576"
+    "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
+Logging is directed to a specific file, skipping project log.
+Player connection [28332]  Target information:
+
+Player connection [28332]  * "[IP] 192.168.12.7 [Port] 55504 [Flags] 2 [Guid] 3324964413 [EditorId] 3324964413 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-AH1G17E) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+
+Player connection [28332]  * "[IP] 192.168.56.1 [Port] 55504 [Flags] 2 [Guid] 3324964413 [EditorId] 3324964413 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-AH1G17E) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+
+Player connection [28332] Host joined multi-casting on [225.0.0.222:54997]...
+Player connection [28332] Host joined alternative multi-casting on [225.0.0.222:34997]...
+Input System module state changed to: Initialized.
+[Physics::Module] Initialized fallback backend.
+[Physics::Module] Id: 0xdecafbad
+Initialising UDS system complete:
+  - System type: Client
+  - Resource namespace: 93d297cd97c763aef37dba3d683c4401
+  - Shared memory size: 1073741824
+  - Command buffer id: 1052576
+  - Command buffer size: 8192
+  - Hashmap size: 4194304
+  - Service connected: false
+[Package Manager] Connected to IPC stream "Upm-45952" after 0.3 seconds.
+[Licensing::Client] Successfully resolved entitlement details
+Library Redirect Path: Library/
+Launching Unity Data Store - C:/Program Files/Unity/Hub/Editor/6000.6.6f1/Editor/Data/Tools/Unity.DataStore.exe 
+Unity Data Store artifact dir = Library/DataStore, working dir = D:/legion-rushUnity Data Store running and initialised
+[Physics::Module] Selected backend (deferred post-plugins).
+[Physics::Module] Name: PhysX
+[Physics::Module] Id: 0xf2b8ea05
+[Physics::Module] SDK Version: 4.1.2
+[Physics::Module] Integration Version: 1.0.0
+[Physics::Module] Threading Mode: Multi-Threaded
+Initialize engine version: 6000.6.6f1 (d20c9ac777da)
+[EntityIdStore] init: VM path (explicit commit), pageSize=4096, blockCount=1048576, entitiesPerBlock=256, slots reserved=4294967296 bytes
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/6000.6.6f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path D:/legion-rush/Assets
+GfxDevice: creating device client; kGfxThreadingModeNonThreaded
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: NVIDIA GeForce RTX 4060 Ti (ID=0x2803)
+    Vendor:   NVIDIA
+    VRAM:     7949 MB
+    Driver:   32.0.16.1088
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/6000.6.6f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/6000.6.6f1/Editor/Data/BCLExtensions/runtime/netstandard2.1'
+Mono path[2] = 'C:/Program Files/Unity/Hub/Editor/6000.6.6f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/6000.6.6f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56952
+CodeReloadManager initialized
+ImportWorker Server TCP listen port: 0
+AcceleratorClientConnectionCallback - disconnected - :0
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/6000.6.6f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
+Register platform support module: C:/Program Files/Unity/Hub/Editor/6000.6.6f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.004427 seconds.
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Package Manager log level set to [2]
+ScheduleIndexationOnStartup MainProcess:False IndexOnStartup:True
+Scripting: successfully reloaded assembly
+- Finished resetting the current domain, in  0.738 seconds
+Domain Reload Profiling: 1563ms
+	BeginReloadAssembly (167ms)
+		CreateAndSetChildDomain (6ms)
+	RebuildCommonClasses (8ms)
+	RebuildNativeTypeToScriptingClass (27ms)
+	initialDomainReloadingComplete (121ms)
+	LoadAllAssembliesAndSetupDomain (502ms)
+		LoadAssemblies (153ms)
+		TypeCache.Refresh (350ms)
+			TypeCache.ScanAssembly (332ms)
+		AnalyzeDomain (1ms)
+	FinalizeReload (739ms)
+		SetupLoadedEditorAssemblies (0ms)
+			InitializePlatformSupportModulesInManaged (3ms)
+			BeforeProcessingInitializeOnLoad (115ms)
+			ProcessInitializeOnLoadAttributes (137ms)
+			ProcessInitializeOnLoadMethodAttributes (251ms)
+[Licensing::Client] Successfully resolved entitlement details
+Application.AssetDatabase Initial Refresh Start
+[Package Manager] Restoring resolved packages state from cache
+[Licensing::Client] Successfully resolved entitlement details
+[Package Manager] Registered 33 packages:
+  Packages from [https://packages.unity.com]:
+    com.unity.inputsystem@1.20.0 (location: D:\legion-rush\Library\PackageCache\com.unity.inputsystem@7a4e1a2a8194)
+    com.unity.searcher@4.9.5 (location: D:\legion-rush\Library\PackageCache\com.unity.searcher@a463122f2c00)
+    com.unity.profiling.core@1.0.3 (location: D:\legion-rush\Library\PackageCache\com.unity.profiling.core@8a49f7027d06)
+    com.unity.nuget.mono-cecil@1.11.6 (location: D:\legion-rush\Library\PackageCache\com.unity.nuget.mono-cecil@ecb9724e46ff)
+  Built-in packages:
+    com.unity.render-pipelines.universal@17.6.0 (location: D:\legion-rush\Library\PackageCache\com.unity.render-pipelines.universal@9b1eb8be54e0)
+    com.unity.ugui@2.6.0 (location: D:\legion-rush\Library\PackageCache\com.unity.ugui@0b1771797efc)
+    com.unity.modules.adaptiveperformance@1.0.0 (location: D:\legion-rush\Library\PackageCache\com.unity.modules.adaptiveperformance)
+    com.unity.modules.androidjni@1.0.0 (location: D:\legion-rush\Library\PackageCache\com.unity.modules.androidjni)
+    com.unity.modules.animation@1.0.0 (location: D:\legion-rush\Library\PackageCache\com.unity.modules.animation)
+    com.unity.modules.audio@1.0.0 (location: D:\legion-rush\Library\PackageCache\com.unity.modules.audio)
+    com.unity.modules.imageconversion@1.0.0 (location: D:\legion-rush\Library\PackageCache\com.unity.modules.imageconversion)
+    com.unity.modules.imgui@1.0.0 (location: D:\legion-rush\Library\PackageCache\com.unity.modules.imgui)
+    com.unity.modules.jsonserialize@1.0.0 (location: D:\legion-rush\Library\PackageCache\com.unity.modules.jsonserialize)
+    com.unity.modules.particlesystem@1.0.0 (location: D:\legion-rush\Library\PackageCache\com.unity.modules.particlesystem)
+    com.unity.modules.physics@1.0.0 (location: D:\legion-rush\Library\PackageCache\com.unity.modules.physics)
+    com.unity.modules.physicscore2d@1.0.0 (location: D:\legion-rush\Library\PackageCache\com.unity.modules.physicscore2d)
+    com.unity.modules.tetgen@1.0.0 (location: D:\legion-rush\Library\PackageCache\com.unity.modules.tetgen)
+    com.unity.modules.timelinefoundation@1.0.0 (location: D:\legion-rush\Library\PackageCache\com.unity.modules.timelinefoundation)
+    com.unity.modules.ui@1.0.0 (location: D:\legion-rush\Library\PackageCache\com.unity.modules.ui)
+    com.unity.modules.uielements@1.0.0 (location: D:\legion-rush\Library\PackageCache\com.unity.modules.uielements)
+    com.unity.modules.vectorgraphics@1.0.0 (location: D:\legion-rush\Library\PackageCache\com.unity.modules.vectorgraphics)
+    com.unity.modules.hierarchycore@1.0.0 (location: D:\legion-rush\Library\PackageCache\com.unity.modules.hierarchycore)
+    com.unity.modules.subsystems@1.0.0 (location: D:\legion-rush\Library\PackageCache\com.unity.modules.subsystems)
+    com.unity.modules.physics2d@1.0.0 (location: D:\legion-rush\Library\PackageCache\com.unity.modules.physics2d)
+    com.unity.render-pipelines.core@17.6.0 (location: D:\legion-rush\Library\PackageCache\com.unity.render-pipelines.core@e18bd88df4e3)
+    com.unity.shadergraph@17.6.0 (location: D:\legion-rush\Library\PackageCache\com.unity.shadergraph@0de771837e0e)
+    com.unity.render-pipelines.universal-config@17.6.0 (location: D:\legion-rush\Library\PackageCache\com.unity.render-pipelines.universal-config@561422b74439)
+    com.unity.graph-authoring@1.0.0 (location: D:\legion-rush\Library\PackageCache\com.unity.graph-authoring@cfd2588851ee)
+    com.unity.burst@2.0.0 (location: D:\legion-rush\Library\PackageCache\com.unity.burst@626e66ab421b)
+    com.unity.collections@6.6.0 (location: D:\legion-rush\Library\PackageCache\com.unity.collections@10fff0607388)
+    com.unity.test-framework@1.8.0 (location: D:\legion-rush\Library\PackageCache\com.unity.test-framework@80f691d4262b)
+    com.unity.test-framework.performance@6.6.0 (location: D:\legion-rush\Library\PackageCache\com.unity.test-framework.performance@54c5bd86aedb)
+    com.unity.ext.nunit@2.1.0 (location: D:\legion-rush\Library\PackageCache\com.unity.ext.nunit@0198eae3b53e)
+[Subsystems] No new subsystems found in resolved package list.
+[Package Manager] Done registering packages in 0.01 seconds
+[ScriptCompilation] Requested script compilation because: AssetDatabase observed changes in script compilation related files
+Starting: C:\Program Files\Unity\Hub\Editor\6000.6.6f1\Editor\Data\Tools\BuildPipeline\bee_backend.exe --ipc --defer-dag-verification --dagfile="Library/Bee/2000b0aE.dag" --continue-on-failure --profile="Library/Bee/backend1.traceevents" ScriptAssemblies
+WorkingDir: D:/legion-rush
+warn: Unity.ILPP.Runner.PostProcessingAssemblyLoadContext[0]
+      Assembly system.runtime.interopservices.windowsruntime has duplicate hint path. Ignoring "C:\Program Files\Unity\Hub\Editor\6000.6.6f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Runtime.InteropServices.WindowsRuntime.dll" in favor of "C:\Program Files\Unity\Hub\Editor\6000.6.6f1\Editor\Data\NetStandard\Extensions\2.0.0\System.Runtime.InteropServices.WindowsRuntime.dll"
+warn: Unity.ILPP.Runner.PostProcessingAssemblyLoadContext[0]
+      Assembly system.componentmodel.composition has duplicate hint path. Ignoring "C:\Program Files\Unity\Hub\Editor\6000.6.6f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\System.ComponentModel.Composition.dll" in favor of "C:\Program Files\Unity\Hub\Editor\6000.6.6f1\Editor\Data\NetStandard\compat\2.1.0\shims\netfx\System.ComponentModel.Composition.dll"
+DisplayProgressbar: Compiling Scripts
+ExitCode: 4 Duration: 0s637ms
+Rebuilding DAG because FileSignature timestamp changed: Library/Bee/2000b0aE-inputdata.json
+[583/741    0s] ILPP-Configuration Library/ilpp-configuration.nevergeneratedoutput
+[584/741    0s] Csc Library/Bee/artifacts/2000b0aE.dag/Assembly-CSharp-Editor.dll (+2 others)
+Assets\_Game\Editor\Typography\TypographyAssetBuilder.cs(148,13): warning CS0618: 'AssetDatabase.ImportPackage(string, bool)' is obsolete: 'Use UnityEditor.AssetPackage.Package.Import(string packagePath, bool interactive) instead.'
+*** Tundra requires additional run (0.59 seconds), 2 items updated, 582 evaluated
+Starting: C:\Program Files\Unity\Hub\Editor\6000.6.6f1\Editor\Data\DotNetSdk\dotnet.exe "C:\Program Files\Unity\Hub\Editor\6000.6.6f1\Editor\Data\Tools\BuildPipeline\ScriptCompilationBuildProgram.exe" "Library/Bee/2000b0aE.dag.json" "Library/Bee/2000b0aE-inputdata.json" "Library\Bee\buildprogram0.traceevents"
+WorkingDir: D:/legion-rush
+ExitCode: 0 Duration: 0s912ms
+Starting: C:\Program Files\Unity\Hub\Editor\6000.6.6f1\Editor\Data\Tools\BuildPipeline\bee_backend.exe --ipc --defer-dag-verification --dagfile="Library/Bee/2000b0aE.dag" --continue-on-failure --dagfilejson="Library\Bee\2000b0aE.dag.json" --profile="Library/Bee/backend2.traceevents" ScriptAssemblies
+WorkingDir: D:/legion-rush
+ExitCode: 0 Duration: 1s823ms
+Finished compiling graph: 744 nodes, 12598 flattened edges (10590 ToBuild, 106 ToUse), maximum node priority 791
+[430/741    0s] WriteText Library/Bee/artifacts/2000b0aE.dag/Assembly-CSharp.rsp
+[582/741    0s] ILPP-Configuration Library/ilpp-configuration.nevergeneratedoutput
+[733/741    0s] Csc Library/Bee/artifacts/2000b0aE.dag/Assembly-CSharp.dll (+2 others)
+Assets\_Game\Scripts\Core\GameBootstrap.cs(108,21): warning UAC0009: DEVELOPMENT_BUILD preprocessor directive has been deprecated. Please use one of the managed code variant directives (such as DEBUG, UNITY_ENABLE_CHECKS or UNITY_INCLUDE_INSTRUMENTATION) if different code paths are desired for different managed code variants. Checking for development build is possible at runtime using Debug.isDebugBuild. See the Conditional Compilation manual page for more details.
+[734/741    0s] Csc Library/Bee/artifacts/2000b0aE.dag/Assembly-CSharp-Editor.dll (+2 others)
+Assets\_Game\Editor\Typography\TypographyAssetBuilder.cs(148,13): warning CS0618: 'AssetDatabase.ImportPackage(string, bool)' is obsolete: 'Use UnityEditor.AssetPackage.Package.Import(string packagePath, bool interactive) instead.'
+[735/741    0s] ILPostProcess Library/Bee/artifacts/2000b0aE.dag/post-processed/Assembly-CSharp.dll (+pdb)
+Processing assembly Library/Bee/artifacts/2000b0aE.dag/Assembly-CSharp.dll, with 125 defines and 308 references
+
+processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+
+1 processor(s) skipped this assembly
+
+running Unity.Jobs.CodeGen.JobsILPostProcessor
+[736/741    0s] CopyFiles Library/ScriptAssemblies/Assembly-CSharp.pdb
+[737/741    0s] ILPostProcess Library/Bee/artifacts/2000b0aE.dag/post-processed/Assembly-CSharp-Editor.dll (+pdb)
+Processing assembly Library/Bee/artifacts/2000b0aE.dag/Assembly-CSharp-Editor.dll, with 123 defines and 346 references
+
+processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+
+1 processor(s) skipped this assembly
+
+running Unity.Jobs.CodeGen.JobsILPostProcessor
+[738/741    0s] CopyFiles Library/ScriptAssemblies/Assembly-CSharp.dll
+[739/741    0s] CopyFiles Library/ScriptAssemblies/Assembly-CSharp-Editor.pdb
+[740/741    0s] CopyFiles Library/ScriptAssemblies/Assembly-CSharp-Editor.dll
+*** Tundra build success (1.80 seconds), 10 items updated, 741 evaluated
+Assets\_Game\Editor\Typography\TypographyAssetBuilder.cs(148,13): warning CS0618: 'AssetDatabase.ImportPackage(string, bool)' is obsolete: 'Use UnityEditor.AssetPackage.Package.Import(string packagePath, bool interactive) instead.'
+Assets\_Game\Scripts\Core\GameBootstrap.cs(108,21): warning UAC0009: DEVELOPMENT_BUILD preprocessor directive has been deprecated. Please use one of the managed code variant directives (such as DEBUG, UNITY_ENABLE_CHECKS or UNITY_INCLUDE_INSTRUMENTATION) if different code paths are desired for different managed code variants. Checking for development build is possible at runtime using Debug.isDebugBuild. See the Conditional Compilation manual page for more details.
+Assets\_Game\Editor\Typography\TypographyAssetBuilder.cs(148,13): warning CS0618: 'AssetDatabase.ImportPackage(string, bool)' is obsolete: 'Use UnityEditor.AssetPackage.Package.Import(string packagePath, bool interactive) instead.'
+Total cache size 95300393
+Total cache size after purge 95300393, took 00:00:00.1467068
+AssetDatabase: script compilation time: 4.125305s
+Begin MonoManager ReloadAssembly
+'Packages/com.unity.render-pipelines.core/Editor/Deprecated.cs' contains partial class of Unity.Object, exactly 1 of the partial classes needs to be in a file with the same filename. This is to know the one that can be referenced from ie. GameObjects
+'Packages/com.unity.render-pipelines.core/Editor/Deprecated.cs' contains partial class of Unity.Object, exactly 1 of the partial classes needs to be in a file with the same filename. This is to know the one that can be referenced from ie. GameObjects
+Importing 'GUID: f54d1bd14bd3ca042bd867b519fee8cc - Path: Assets/TextMesh Pro' with importer (DefaultImporter)
+Imported 'GUID: f54d1bd14bd3ca042bd867b519fee8cc' -> (Import Result ID: '8712daf9d3b95c72f186e30662b78988') in 0.021 seconds [static dependencies only]. Details - ImportResultOutputID=07d54fd0b42542d364c57c8100cd7673 DependenciesID=81e348e08cfbf683260fce8968e354dc StaticDependenciesID=141731b302ee35f3505a729e05f04825 
+Importing 'GUID: 243e06394e614e5d99fab26083b707fa - Path: Assets/TextMesh Pro/Resources' with importer (DefaultImporter)
+Imported 'GUID: 243e06394e614e5d99fab26083b707fa' -> (Import Result ID: 'dba7fb4c2c9724c420a5231d03295920') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=337f7928f0a9e6d09ca17b3d2cadb9ff DependenciesID=34bb55da82317cbac54bff677ae4878c StaticDependenciesID=3af243cbefaac330f75f021e99720af8 
+Importing 'GUID: e9f693669af91aa45ad615fc681ed29f - Path: Assets/TextMesh Pro/Shaders' with importer (DefaultImporter)
+Imported 'GUID: e9f693669af91aa45ad615fc681ed29f' -> (Import Result ID: '8fcfbf574434906d6d183d24c485e008') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=e1a435da0e5a5132786c0692b655407b DependenciesID=0b779fab10f1da1f9c506a0e3ecf95bd StaticDependenciesID=212a099e704a75a37522cb1bf52f8800 
+Importing 'GUID: 6ab70aee4d56447429c680537fbf93ed - Path: Assets/TextMesh Pro/Fonts' with importer (DefaultImporter)
+Imported 'GUID: 6ab70aee4d56447429c680537fbf93ed' -> (Import Result ID: 'dfa207cbd2e4fc08f2fce45ce3fbe99f') in 0.000 seconds [static dependencies only]. Details - ImportResultOutputID=31a627b057c18a7022d98fc12eca437c DependenciesID=23756c0753be09958db7288b25e21b61 StaticDependenciesID=0ce0e8244de9f62eb32ae67cd1fdab53 
+Importing 'GUID: 220b89adfe09b5a4ca4d19b1d4c6d9a6 - Path: Assets/LegionRush/Environments/Props' with importer (DefaultImporter)
+Imported 'GUID: 220b89adfe09b5a4ca4d19b1d4c6d9a6' -> (Import Result ID: '47526b6a53d3daa3fe8e991467dc892a') in 0.012 seconds [static dependencies only]. Details - ImportResultOutputID=5d5e3629cd0879a6edad09d4a371fe96 DependenciesID=8016d7ebcc502f37c8525364d60202e5 StaticDependenciesID=3365017e4025b0c1388dabcc93d2411b 
+Importing 'GUID: 731f1baa9d144a9897cb1d341c2092b8 - Path: Assets/TextMesh Pro/Resources/Fonts & Materials' with importer (DefaultImporter)
+Imported 'GUID: 731f1baa9d144a9897cb1d341c2092b8' -> (Import Result ID: 'e8c3b288ed6b269d0dc4d3be481fc93f') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=be71128b6e507064624e3531fc1104be DependenciesID=4772e1d0687cb4bfea2c68d6962b0f1d StaticDependenciesID=dbf992900be276aa47360e1afab0bad9 
+Importing 'GUID: 4aecb92fff08436c8303b10eab8da368 - Path: Assets/TextMesh Pro/Resources/Style Sheets' with importer (DefaultImporter)
+Imported 'GUID: 4aecb92fff08436c8303b10eab8da368' -> (Import Result ID: 'a91670a3ee9aa5653f7eb418413d0be1') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=654d6535d746c387e871080dd73d0049 DependenciesID=2bb88bdd738d6c036d0d42aa021852a4 StaticDependenciesID=ccf1d065662f39f93ebc99c8b6bdad8b 
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+ScheduleIndexationOnStartup MainProcess:True IndexOnStartup:True
+Scripting: successfully reloaded assembly
+- Finished resetting the current domain, in  0.904 seconds
+Domain Reload Profiling: 1765ms
+	BeginReloadAssembly (262ms)
+		DisableScriptedObjects (38ms)
+		CreateAndSetChildDomain (46ms)
+	RebuildCommonClasses (11ms)
+	RebuildNativeTypeToScriptingClass (20ms)
+	initialDomainReloadingComplete (76ms)
+	LoadAllAssembliesAndSetupDomain (492ms)
+		LoadAssemblies (294ms)
+		TypeCache.Refresh (88ms)
+			TypeCache.ScanAssembly (78ms)
+		AnalyzeDomain (46ms)
+			BuildScriptInfoCaches (33ms)
+			ResolveRequiredComponents (10ms)
+	FinalizeReload (905ms)
+		SetupLoadedEditorAssemblies (0ms)
+			BeforeProcessingInitializeOnLoad (129ms)
+			ProcessInitializeOnLoadAttributes (160ms)
+			ProcessInitializeOnLoadMethodAttributes (62ms)
+			AfterProcessingInitializeOnLoad (13ms)
+		AwakeInstancesAfterBackupRestoration (38ms)
+Starting new worker id: 0 with log in D:/legion-rush/Logs/AssetImportWorkerHW0.log
+Importing 'GUID: 407bc68d299748449bbf7f48ee690f8d - Path: Assets/TextMesh Pro/Shaders/TMPro.cginc' with importer (ShaderIncludeImporter)
+Imported 'GUID: 407bc68d299748449bbf7f48ee690f8d' -> (Import Result ID: 'd227f2dd508ce61a689b34921e048c35') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=46a1927eb95741484c2d104891d14e5e DependenciesID=b4ff306b5e1616d41a9fb0ccb124ba0b StaticDependenciesID=eec1547f024763f4eab6bf4290b5a3da 
+Importing 'GUID: c334973cef89a9840b0b0c507e0377ab - Path: Assets/TextMesh Pro/Shaders/TMPro_Mobile.cginc' with importer (ShaderIncludeImporter)
+Imported 'GUID: c334973cef89a9840b0b0c507e0377ab' -> (Import Result ID: '941ca3ab0f2c9c9712307cd2f3bf3666') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=927d0fffe06b84ba422840e2831f6165 DependenciesID=75024ca808231fb9c3256a9b4e6aa291 StaticDependenciesID=d219936ba5ad2c559469fd2392b77617 
+Importing 'GUID: 96de908384869cd409c75efa351d5edf - Path: Assets/TextMesh Pro/Shaders/SDFFunctions.hlsl' with importer (ShaderIncludeImporter)
+Imported 'GUID: 96de908384869cd409c75efa351d5edf' -> (Import Result ID: '54d83cc44a8d97ce8a0874e3ab654a3a') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=d6f60797eddd41edf5a61b71d05d4077 DependenciesID=202b3b66ba46548fb1ef5dcfad2c1bc1 StaticDependenciesID=7f201b7190e8d0ac2d22cc6f9e6c8a71 
+Importing 'GUID: 3997e2241185407d80309a82f9148466 - Path: Assets/TextMesh Pro/Shaders/TMPro_Properties.cginc' with importer (ShaderIncludeImporter)
+Imported 'GUID: 3997e2241185407d80309a82f9148466' -> (Import Result ID: '6fe094437061bd298fd555aade7610c3') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=c25f0464bdc49b204f1022ec115aee10 DependenciesID=8275019b884c6de5fced4d68339c67f9 StaticDependenciesID=d762073601b2acefe9900f689fc2f9a3 
+Importing 'GUID: d930090c0cd643c7b55f19a38538c162 - Path: Assets/TextMesh Pro/Shaders/TMPro_Surface.cginc' with importer (ShaderIncludeImporter)
+Imported 'GUID: d930090c0cd643c7b55f19a38538c162' -> (Import Result ID: '3cb6cfc362a63fcfa483ba7595f09283') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=dfcddd3eeb30280548e7170739efda9b DependenciesID=6ec92dc8079733725bf7308024edd48c StaticDependenciesID=efce7f45d5ff52a2617d5a5a68bed86e 
+Importing 'GUID: a02a7d8c237544f1962732b55a9aebf1 - Path: Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Overlay.shader' with importer (ShaderImporter)
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.01 seconds
+Imported 'GUID: a02a7d8c237544f1962732b55a9aebf1' -> (Import Result ID: '2e058b66b2b8025ed787f17d3cd18eef') in 0.036 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=9da4d99d64ee918f939dd52f68d68a92 DependenciesID=618f0640f13bf81c88c30d80022ba8bc StaticDependenciesID=aba77a95c07a63c3eb5d7edd7ecbb2e4 
+Importing 'GUID: 0178fcb869bafef4690d177d31d17db8 - Path: Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile-2-Pass.shader' with importer (ShaderImporter)
+Imported 'GUID: 0178fcb869bafef4690d177d31d17db8' -> (Import Result ID: '4656ae8750308cbfa7af845798f555f9') in 0.004 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=62f4ea8677021feb82c75c34d858f4ff DependenciesID=7425847885fc819b3166783d42bf1db3 StaticDependenciesID=b395f17e22b97e232decd98d1446bb37 
+Importing 'GUID: 128e987d567d4e2c824d754223b3f3b0 - Path: Assets/TextMesh Pro/Shaders/TMP_Bitmap.shader' with importer (ShaderImporter)
+Imported 'GUID: 128e987d567d4e2c824d754223b3f3b0' -> (Import Result ID: '566d6e217afc4b19c2f03e13070a7eb1') in 0.002 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=e197bf0ef6881c359f093776a069e9f6 DependenciesID=5e27c98897688004ec0ee2e2ee5b8f66 StaticDependenciesID=a6bdefdff2bc423c1ea0bb27b11a69f4 
+Importing 'GUID: 14eb328de4b8eb245bb7cea29e4ac00b - Path: Assets/TextMesh Pro/Shaders/TMP_SDF SSD.shader' with importer (ShaderImporter)
+Imported 'GUID: 14eb328de4b8eb245bb7cea29e4ac00b' -> (Import Result ID: '18c3af4d8bd350789138a7c98cfd9baf') in 0.003 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=24e814dc0e0557731ff9963a59dc337e DependenciesID=320743903054e0814693dcd5e2f50706 StaticDependenciesID=0dc21b5bf94efb15c2ef9e7d861fcd75 
+Importing 'GUID: 85187c2149c549c5b33f0cdb02836b17 - Path: Assets/TextMesh Pro/Shaders/TMP_SDF-Surface-Mobile.shader' with importer (ShaderImporter)
+Imported 'GUID: 85187c2149c549c5b33f0cdb02836b17' -> (Import Result ID: '8a50bdc361c55f57fbd0df6fd05bbd47') in 0.173 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=9b926ee88c9f56485fa35fed374e7b79 DependenciesID=f221c423b620d1e541202502fce372d2 StaticDependenciesID=fa4371816394caa72e816ac76871b906 
+Importing 'GUID: b5ab6cb89ffa7004ca59c01dddd06493 - Path: Assets/TextMesh Pro/Shaders/TMP_SDF SpaceWarp.shader' with importer (ShaderImporter)
+Imported 'GUID: b5ab6cb89ffa7004ca59c01dddd06493' -> (Import Result ID: '91de203f148a6c8f58923df6f1f17557') in 0.004 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=4256d4b398ef916e75c777fbbb041640 DependenciesID=dfb259e1ead1b56d937aea04cf4552ea StaticDependenciesID=2fde26cb22fc85ccc5f83236b6419736 
+Importing 'GUID: f7ada0af4f174f0694ca6a487b8f543d - Path: Assets/TextMesh Pro/Shaders/TMP_SDF-Surface.shader' with importer (ShaderImporter)
+Imported 'GUID: f7ada0af4f174f0694ca6a487b8f543d' -> (Import Result ID: '7238f6c8ee8c5b930b66274a92be95f8') in 0.335 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=a961bbf4be07caabcd2847046a94400a DependenciesID=de8ef127a858c2c9792a57d27ae82fdd StaticDependenciesID=ede61b4875151285d735658afc2beda0 
+Importing 'GUID: 48bb5f55d8670e349b6e614913f9d910 - Path: Assets/TextMesh Pro/Shaders/TMP_Bitmap-Custom-Atlas.shader' with importer (ShaderImporter)
+Imported 'GUID: 48bb5f55d8670e349b6e614913f9d910' -> (Import Result ID: '5fd08fd51dfb27de9b4a4ee34e8534b0') in 0.003 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=237503f7db9b7abc10ec21e6170758a9 DependenciesID=f625304d1261d172734145bedc938999 StaticDependenciesID=70ad083497d642b308f90f2efa474f10 
+Importing 'GUID: 68e6db2ebdc24f95958faec2be5558d6 - Path: Assets/TextMesh Pro/Shaders/TMP_SDF.shader' with importer (ShaderImporter)
+Imported 'GUID: 68e6db2ebdc24f95958faec2be5558d6' -> (Import Result ID: '877258df402426a3d1dd3fdebfbaf248') in 0.003 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=f8cfd4e4a874e8c54e8729747e2f34b6 DependenciesID=9983649f09cf446db2af8e63814d66e1 StaticDependenciesID=e215a09018cd2c721b4761806dddceb5 
+Importing 'GUID: c8d12adcee749c344b8117cf7c7eb912 - Path: Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile SSD.shader' with importer (ShaderImporter)
+Imported 'GUID: c8d12adcee749c344b8117cf7c7eb912' -> (Import Result ID: 'd027d9d5d1a41faf9642f86c0594bda4') in 0.003 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=ccb58e7d4a5386aabd38761a30533511 DependenciesID=57cc369f8e7d69438eff80e6c02dd328 StaticDependenciesID=a8ec54940a758547332134bba24516f2 
+Importing 'GUID: 2ae3f84ba70f31a448850bf95ca45125 - Path: Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile SpaceWarp.shader' with importer (ShaderImporter)
+Imported 'GUID: 2ae3f84ba70f31a448850bf95ca45125' -> (Import Result ID: 'bac52026ee9c1e58bc57f9cb65e991d3') in 0.003 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=f797bbab309d78e7c20de83009c727ca DependenciesID=73d7199161551f1e12e54d0f2f613d57 StaticDependenciesID=4f83f5324df22500632cf99be9dc5bcd 
+Importing 'GUID: 5c6f31a5a80ebc04f8bcfdeed8327fe1 - Path: Assets/TextMesh Pro/Shaders/TMP_SDF SSD SpaceWarp.shader' with importer (ShaderImporter)
+Imported 'GUID: 5c6f31a5a80ebc04f8bcfdeed8327fe1' -> (Import Result ID: '51b19d3990958cae0248eab49283d58f') in 0.004 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=6e3cc1be0a24451c37af164d1dd1fe58 DependenciesID=6bfa61239e5e316e383488f3b8f3407c StaticDependenciesID=52f1d86df3477967f7f0acda294b07fc 
+Importing 'GUID: bc1ede39bf3643ee8e493720e4259791 - Path: Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Masking.shader' with importer (ShaderImporter)
+Imported 'GUID: bc1ede39bf3643ee8e493720e4259791' -> (Import Result ID: '589281d423693e196a8e0c3c97fe4182') in 0.003 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=e170b98ca7f76161218af28c7bb7e2ed DependenciesID=cafd2a86439f2a3b3d5882c706b270bd StaticDependenciesID=b7e7b1c769b03bfc0e25022489e2e07e 
+Importing 'GUID: dd89cf5b9246416f84610a006f916af7 - Path: Assets/TextMesh Pro/Shaders/TMP_SDF Overlay.shader' with importer (ShaderImporter)
+Imported 'GUID: dd89cf5b9246416f84610a006f916af7' -> (Import Result ID: '8bc6b54a639848ae0174042c2c27b050') in 0.003 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=6f0bf85cd711871e7cd810865d75d69f DependenciesID=5b883c27b77977bc2a5c908a16f4779f StaticDependenciesID=8a6fb65dd4b0639a26516685b0cd6348 
+Importing 'GUID: 1e3b057af24249748ff873be7fafee47 - Path: Assets/TextMesh Pro/Shaders/TMP_Bitmap-Mobile.shader' with importer (ShaderImporter)
+Imported 'GUID: 1e3b057af24249748ff873be7fafee47' -> (Import Result ID: 'db6df6adc62ed2ebc6c608e625dbd0ff') in 0.002 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=e24c245dbab5776d092015d4be5153ac DependenciesID=74b2aa35961c871d84df88c16e6e950a StaticDependenciesID=b204e391030d8532ffc7155a07de0775 
+Importing 'GUID: fe393ace9b354375a9cb14cdbbc28be4 - Path: Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile.shader' with importer (ShaderImporter)
+Imported 'GUID: fe393ace9b354375a9cb14cdbbc28be4' -> (Import Result ID: 'ad933da6200aff5449c6d93e9394129c') in 0.003 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=4e1bca89916680db85a21e7c9b6f4858 DependenciesID=0314d9fac345dc48729e9ca353484437 StaticDependenciesID=99167ffab2029c66ef3719f7ab4710df 
+Importing 'GUID: 2f52e8cb070aaf94289b130df84e2882 - Path: Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile SSD SpaceWarp.shader' with importer (ShaderImporter)
+Imported 'GUID: 2f52e8cb070aaf94289b130df84e2882' -> (Import Result ID: '6337bfeec0893015d09b4d85a89d1a8a') in 0.003 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=94737448964a3ce8b1d9bdc9807e6184 DependenciesID=b5b6e306f657804b53591ed03860dd40 StaticDependenciesID=f952afa11168b2eda24140e60a543224 
+Importing 'GUID: cf81c85f95fe47e1a27f6ae460cf182c - Path: Assets/TextMesh Pro/Shaders/TMP_Sprite.shader' with importer (ShaderImporter)
+Imported 'GUID: cf81c85f95fe47e1a27f6ae460cf182c' -> (Import Result ID: 'b2fc8c20cbc01a312d74adf0652f379c') in 0.002 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=3375e2ed83fc1770e59c778527622495 DependenciesID=d5ad9fb4021da63f71a6542b8c4eeef3 StaticDependenciesID=0a2b64f4bb1ca0ce9dbb24e73b8ef954 
+Importing 'GUID: e73a58f6e2794ae7b1b7e50b7fb811b0 - Path: Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Drop Shadow.mat' with importer (NativeFormatImporter)
+Imported 'GUID: e73a58f6e2794ae7b1b7e50b7fb811b0' -> (Import Result ID: '22351b6fe615ff23095778099322d553') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=c428cf535d72a5be5785afed635f9e54 DependenciesID=dcbdaa5568a5a5e02c3699aa51c51fad StaticDependenciesID=b2f246f6eeb574b51ca16791cd3972f5 
+Importing 'GUID: 79459efec17a4d00a321bdcc27bbc385 - Path: Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Outline.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 79459efec17a4d00a321bdcc27bbc385' -> (Import Result ID: 'ba50dd45a61d873a1b376c7fa2c4af4f') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=2682b122d46e1a6b6bf23e29c4026251 DependenciesID=380f614febc0662e12e88e0f917496d3 StaticDependenciesID=41b6999c542dd9794842c3aefa332423 
+Serialized file "Assets/TextMesh Pro/Fonts/LiberationSans.ttf.meta" contains a TrueTypeFontImporter object at version 2, below the supported minimum (4). Open and re-save the file to upgrade.
+Importing 'GUID: e3265ab4bf004d28a9537516768c1c75 - Path: Assets/TextMesh Pro/Fonts/LiberationSans.ttf' with importer (TrueTypeFontImporter)
+Imported 'GUID: e3265ab4bf004d28a9537516768c1c75' -> (Import Result ID: '9972dc31fb98a11402fa8f1458f8485a') in 0.338 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=287058275687a0cb6586b2960b964c63 DependenciesID=3d5c12246705becdc22d25558b5bbe29 StaticDependenciesID=9cb9c18831ae635933df6326b5ae3140 
+Importing 'GUID: 124c112a6e8f1a54e8b0870e881b56d8 - Path: Assets/TextMesh Pro/Shaders/TMP_SDF-URP Unlit.shadergraph' with importer (ScriptedImporter : Unity.ShaderGraph.Editor:UnityEditor.ShaderGraph:ShaderGraphImporter)
+Imported 'GUID: 124c112a6e8f1a54e8b0870e881b56d8' -> (Import Result ID: 'fc637a68f765c756d1bcd64cdf26df03') in 0.544 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=016dcb41f5049f10074b02538e3db9c8 DependenciesID=01dcc24e1a3781f3a9e4d13a1c91e834 StaticDependenciesID=50e118db922ba17c8aba2da19648ea4a 
+Importing 'GUID: a3d800b099a06e0478fb790c5e79057a - Path: Assets/TextMesh Pro/Shaders/TMP_SDF-URP Lit.shadergraph' with importer (ScriptedImporter : Unity.ShaderGraph.Editor:UnityEditor.ShaderGraph:ShaderGraphImporter)
+Imported 'GUID: a3d800b099a06e0478fb790c5e79057a' -> (Import Result ID: 'd61477138db552431a4771c339599a51') in 0.210 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=f96cd9432664e005733949a6a5e04dc3 DependenciesID=23fea48f2980c65e1833f252210aa301 StaticDependenciesID=a6f5d35aa739bd082c3796f5d89dce92 
+Importing 'GUID: f63d574838ccfb44f84acc05fed0af48 - Path: Assets/TextMesh Pro/Shaders/TMP_SDF-HDRP UNLIT.shadergraph' with importer (ScriptedImporter : Unity.ShaderGraph.Editor:UnityEditor.ShaderGraph:ShaderGraphImporter)
+WARNING: Shader Unsupported: 'TextMeshPro/SRP/TMP_SDF-HDRP UNLIT' - All subshaders removed
+WARNING: Shader Did you use #pragma only_renderers and omit this platform?
+WARNING: Shader If subshaders removal was intentional, you may have forgotten turning Fallback off?
+WARNING: Shader Unsupported: 'TextMeshPro/SRP/TMP_SDF-HDRP UNLIT' - All subshaders removed
+WARNING: Shader Did you use #pragma only_renderers and omit this platform?
+WARNING: Shader If subshaders removal was intentional, you may have forgotten turning Fallback off?
+Imported 'GUID: f63d574838ccfb44f84acc05fed0af48' -> (Import Result ID: 'dfbfe3b4f07b37d10b09075f6ab7a365') in 0.039 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=36b999930be867466660cd6a23eedb0a DependenciesID=9abc1137d23b6dfa5bc941fed7e89076 StaticDependenciesID=3b1ecc38706259946933e91804cc5722 
+Importing 'GUID: ca2ed216f98028c4dae6c5224a952b3c - Path: Assets/TextMesh Pro/Shaders/TMP_SDF-HDRP LIT.shadergraph' with importer (ScriptedImporter : Unity.ShaderGraph.Editor:UnityEditor.ShaderGraph:ShaderGraphImporter)
+WARNING: Shader Unsupported: 'TextMeshPro/SRP/TMP_SDF-HDRP LIT' - All subshaders removed
+WARNING: Shader Did you use #pragma only_renderers and omit this platform?
+WARNING: Shader If subshaders removal was intentional, you may have forgotten turning Fallback off?
+WARNING: Shader Unsupported: 'TextMeshPro/SRP/TMP_SDF-HDRP LIT' - All subshaders removed
+WARNING: Shader Did you use #pragma only_renderers and omit this platform?
+WARNING: Shader If subshaders removal was intentional, you may have forgotten turning Fallback off?
+Imported 'GUID: ca2ed216f98028c4dae6c5224a952b3c' -> (Import Result ID: '2720d125caff3c6d7fbe45518a2671ea') in 0.034 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=c0880081b3d652082dd4fe71dcfc8547 DependenciesID=d3fdfc16f5e9c521751f6047fabc9cce StaticDependenciesID=d3443be7fea1ab593bdc27b4624b6bc5 
+Importing 'GUID: f952c082cb03451daed3ee968ac6c63e - Path: Assets/TextMesh Pro/Resources/Style Sheets/Default Style Sheet.asset' with importer (NativeFormatImporter)
+Imported 'GUID: f952c082cb03451daed3ee968ac6c63e' -> (Import Result ID: 'ac651d7984c68288d0e69f56e30e8f0f') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=a0ece0a9c498454841a18af31b0b9a41 DependenciesID=8d596c754299580c48537dd80955af32 StaticDependenciesID=24a632da1a35e992125fdb41a5f62bad 
+Importing 'GUID: 2e498d1c8094910479dc3e1b768306a4 - Path: Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset' with importer (NativeFormatImporter)
+Imported 'GUID: 2e498d1c8094910479dc3e1b768306a4' -> (Import Result ID: '594767e065be67de7511a036a7f9e94d') in 0.005 seconds [static dependencies only]. Details - ImportResultOutputID=15c8c079d336d28f621b2cb41a27d1c5 DependenciesID=2a1087a6e13911eb3b7149f35fd2a528 StaticDependenciesID=b39e9398ebabaead3374994a6a0f6822 
+Importing 'GUID: 3f5b5dff67a942289a9defa416b206f3 - Path: Assets/TextMesh Pro/Resources/TMP Settings.asset' with importer (NativeFormatImporter)
+Imported 'GUID: 3f5b5dff67a942289a9defa416b206f3' -> (Import Result ID: '8ebe0fb86c15ad9d1e3fe8fe34aad3a5') in 0.004 seconds [static dependencies only]. Details - ImportResultOutputID=603efaa7f5869716d3b798bcf98e4051 DependenciesID=bb34636286dc8c40060ed25abb654566 StaticDependenciesID=44806fb80757889a50693f4eb230ac07 
+Importing 'GUID: 8f586378b4e144a9851e7b34d9b748ee - Path: Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF.asset' with importer (NativeFormatImporter)
+Imported 'GUID: 8f586378b4e144a9851e7b34d9b748ee' -> (Import Result ID: '1299350bea1bf08c888bdf4449f30694') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=cbfa3f1a3614d2631609046721426d07 DependenciesID=50ba76ff15b26facb63710723173c22d StaticDependenciesID=1473ac5895a2f6d44b30ac155258162f 
+Importing 'GUID: d82c1b31c7e74239bff1220585707d2b - Path: Assets/TextMesh Pro/Resources/LineBreaking Leading Characters.txt' with importer (TextScriptImporter)
+Imported 'GUID: d82c1b31c7e74239bff1220585707d2b' -> (Import Result ID: 'ae47c18b96fcb81aa9c2ce84d6069478') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=accbd916521184ba52956bf5a3d569e8 DependenciesID=be87e060d2bf568c99219215b0d15428 StaticDependenciesID=eab78316816044ef656b5d8cdaf1f3fa 
+Importing 'GUID: fade42e8bc714b018fac513c043d323b - Path: Assets/TextMesh Pro/Resources/LineBreaking Following Characters.txt' with importer (TextScriptImporter)
+Imported 'GUID: fade42e8bc714b018fac513c043d323b' -> (Import Result ID: 'e70f5531d92f367a097dfb0a0a2f59e0') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=c8e4cb8494a571806026f46ac8e51867 DependenciesID=b68b3a300b7b57863a818365947d2d80 StaticDependenciesID=e2cd1f8fe0c327e1314ed548f89a1e0a 
+Importing 'GUID: 6e59c59b81ab47f9b6ec5781fa725d2c - Path: Assets/TextMesh Pro/Fonts/LiberationSans - OFL.txt' with importer (TextScriptImporter)
+Imported 'GUID: 6e59c59b81ab47f9b6ec5781fa725d2c' -> (Import Result ID: 'f4cfd38c40ddfe40e1882ffbe2b82743') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=a7cf72e10b5334f76bceabe6ce29cc32 DependenciesID=ee3690583f4188d956a910e55c119296 StaticDependenciesID=cc9d7fc8aa195c5d30db41d4d39ad4d3 
+WARNING: Shader Unsupported: 'TextMeshPro/SRP/TMP_SDF-HDRP LIT' - All subshaders removed
+WARNING: Shader Did you use #pragma only_renderers and omit this platform?
+WARNING: Shader If subshaders removal was intentional, you may have forgotten turning Fallback off?
+WARNING: Shader Unsupported: 'TextMeshPro/SRP/TMP_SDF-HDRP UNLIT' - All subshaders removed
+WARNING: Shader Did you use #pragma only_renderers and omit this platform?
+WARNING: Shader If subshaders removal was intentional, you may have forgotten turning Fallback off?
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.01 seconds
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.01 seconds
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.01 seconds
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.01 seconds
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.01 seconds
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.01 seconds
+
+Asset Pipeline Refresh (id=ed302594ed62cf04e92754db5991aa75): Total: 8.688 seconds - Initiated by InitialRefreshV2(ForceSynchronousImport)
+	(Values over 0.05ms)
+	Summary:
+		Imports: total=44 (actual=44, local cache=0, cache server=0)
+		Asset DB Process Time: managed=6 ms, native=3224 ms
+		Asset DB Callback time: managed=184 ms, native=160 ms
+		Scripting: domain reloads=1, domain reload time=932 ms, compile time=4128 ms, other=51 ms
+		Project Asset Count: scripts=925, non-scripts=1856
+		Asset File Changes: new=45, changed=46, moved=0, deleted=1
+		Scan Filter Count: 0
+	InvokePackagesCallback: 17.429ms
+	ApplyChangesToAssetFolders: 0.551ms
+	Scan: 111.493ms
+	Collect global state as custom dependencies: 22.901ms
+	OnSourceAssetsModified: 14.437ms
+	CategorizeScriptCompilationAssets: 16.722ms
+	ProcessAssetsWithTransientArtifactChanges: 92.268ms
+	CategorizeAssets: 44.609ms
+	CompileScripts: 4127.700ms
+	ImportOutOfDateAssets: 2780.636ms (909.540ms without children)
+		ImportManagerImport: 1858.011ms (36.090ms without children)
+			UpdateCategorizedAssets: 0.953ms
+		UnloadImportedAssets: 2.349ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 0.425ms
+		ImportSchedulerStart: 10.273ms
+	PostProcessAllAssets: 314.143ms
+		ShaderAssetModifiedCallback 127.664ms
+		VCAutoAddAssetPostprocess 0.885ms
+		VersionControlSettings.HiddenFilePostprocess 0.599ms
+		ComputeShaderImportPostprocess 0.175ms
+		PostProcessCallbackCreateDeferredMaterials 0.089ms
+		XRBuildSystem.XRAssetImported 0.082ms
+		LocalizationDatabase.AssetDatabasePostprocessCallback 0.075ms
+		RaytracingShaderImportPostprocess 0.065ms
+		BlockShaderImporter.PostprocessAllAssets 0.058ms
+		MonoPostProcessAllAssets: 183.234ms
+			AssetPostprocessor.OnPostprocessAllAssets 97.525ms
+			UniversalRenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 16.530ms
+			StyleCatalogPostProcessor.OnPostprocessAllAssets 14.836ms
+			BuilderAssetPostprocessor.OnPostprocessAllAssets 9.008ms
+			ShaderGraphAssetPostProcessor.OnPostprocessAllAssets 6.419ms
+			AssetChangedListener.OnPostprocessAllAssets 3.115ms
+			SpeedTree9Postprocessor.OnPostprocessAllAssets 2.864ms
+			WindowAssetPostprocessingWatcher.OnPostprocessAllAssets 2.299ms
+			RetainedModeAssetPostprocessor.OnPostprocessAllAssets 2.161ms
+			MaterialPostprocessor.OnPostprocessAllAssets 2.133ms
+			SyncVS.PostprocessSyncProject 1.670ms
+			RenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 1.315ms
+			EditModeScopePostprocessor.OnPostprocessAllAssets 1.294ms
+			ShaderReflectionAssetPostProcessor.OnPostprocessAllAssets 0.922ms
+			InputActionJsonNameModifierAssetProcessor.OnPostprocessAllAssets 0.830ms
+			InputActionAssetPostprocessor.OnPostprocessAllAssets 0.830ms
+			TextAssetPostProcessor.OnPostprocessAllAssets 0.630ms
+			PostProcessor.OnPostprocessAllAssets 0.598ms
+			TMPro_TexturePostProcessor.OnPostprocessAllAssets 0.488ms
+			ArtifactBrowserPostProcessor.OnPostprocessAllAssets 0.475ms
+			ProjectSettingsPostprocessor.OnPostprocessAllAssets 0.330ms
+			AudioMixerPostprocessor.OnPostprocessAllAssets 0.319ms
+			TerrainToolbarOverlayPostProcessor.OnPostprocessAllAssets 0.292ms
+			ReferencedClipsPostProcessor.OnPostprocessAllAssets 0.284ms
+			AssetDatabaseCallbacks.OnPostprocessAllAssets 0.276ms
+			AssetEvents.OnPostprocessAllAssets 0.262ms
+			SpeedTreePostProcessor.OnPostprocessAllAssets 0.224ms
+			ThemePostprocessor.OnPostprocessAllAssets 0.194ms
+			ConfigAssetsTracker.OnPostprocessAllAssets 0.160ms
+			ScenarioDriftAssetsTracker.OnPostprocessAllAssets 0.148ms
+			AudioContainerPostProcessor.OnPostprocessAllAssets 0.086ms
+	PostAssetChangesProfiler: 2.003ms
+	UnloadStreamsBegin: 1.983ms
+	PersistCurrentRevisions: 0.417ms
+	GenerateScriptTypeHashes: 1.138ms
+	GenerateScriptTypeSerializationHashes: 2.147ms
+	Untracked: 1113.207ms
+
+Application.AssetDatabase Initial Refresh End
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.01 seconds
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.02 seconds
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.02 seconds
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.01 seconds
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.01 seconds
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.01 seconds
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.01 seconds
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.01 seconds
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.01 seconds
+Worker ready: AssetImportWorkerHW0 0
+Scanning for USB devices : 10.702ms
+Initializing Unity extensions:
+[MODES] ModeService[none].Initialize
+[MODES] ModeService[none].LoadModes
+[MODES] Loading mode Default (0) for mode-current-id-Legion Rush 3D
+Unloading 54 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 3684 unused Assets / (8.3 MB). Loaded Objects now: 4713.
+Memory consumption went from 355.5 MB to 347.2 MB.
+Total: 13.322700 ms (FindLiveObjects: 0.356700 ms CreateObjectMapping: 0.106600 ms MarkObjects: 8.502400 ms  DeleteObjects: 4.163000 ms)
+
+Importing 'GUID: 9cf9fb645b4ef1344823664cf07dc817 - Path: Assets/Fonts/TMP/LilitaOne SDF.asset' with importer (NativeFormatImporter)
+Imported 'GUID: 9cf9fb645b4ef1344823664cf07dc817' -> (Import Result ID: '63946612c2191dd8e72e227b730378fa') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=9ffc1443426c6d2bcc152d6d8586680c DependenciesID=1e731be731bbe0f261107eefb0a7aaa1 StaticDependenciesID=2bb00e63cc10bcc46f2e1ff8cd209e8b 
+Asset Pipeline Refresh (id=bd68f5b03942d6849a2c870f7ed8fde7): Total: 0.064 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: 9cf9fb645b4ef1344823664cf07dc817 - Path: Assets/Fonts/TMP/LilitaOne SDF.asset' with importer (NativeFormatImporter)
+Imported 'GUID: 9cf9fb645b4ef1344823664cf07dc817' -> (Import Result ID: '8272036a79aa2fc9fdb2f8f9c404b25b') in 0.004 seconds [static dependencies only]. Details - ImportResultOutputID=49c4960c6fc42afec426692f9d82d7a9 DependenciesID=81c8985335b6f9bd9ad14197edcd3900 StaticDependenciesID=b6ee7af949a9b1cc946e39fec0de08a6 
+Asset Pipeline Refresh (id=46f2a1dbe9e1ad446acff81fadd11181): Total: 0.041 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: a7b06dd64f401e34c95db97ad3ad3244 - Path: Assets/Fonts/TMP/Fredoka Bold SDF.asset' with importer (NativeFormatImporter)
+Imported 'GUID: a7b06dd64f401e34c95db97ad3ad3244' -> (Import Result ID: '682bb60d1393d0f7b3089febbb8f56e9') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=47dd2a2f36bbad70746b1c7b8202f1e8 DependenciesID=247d3fe36a0c921a243611ed8617ee7e StaticDependenciesID=7a4cd55704516fb8542d69d2966645ae 
+Asset Pipeline Refresh (id=be18170d4eb4a4843a85620c1fb78b55): Total: 0.034 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: a7b06dd64f401e34c95db97ad3ad3244 - Path: Assets/Fonts/TMP/Fredoka Bold SDF.asset' with importer (NativeFormatImporter)
+Imported 'GUID: a7b06dd64f401e34c95db97ad3ad3244' -> (Import Result ID: '9fc6d3467a7e7b8680a57bbe02df7bba') in 0.004 seconds [static dependencies only]. Details - ImportResultOutputID=2a4761bf5d7b70ba0aa21d0964babfc0 DependenciesID=971d8770db2682ca2d06c90f7fdcbffa StaticDependenciesID=9d04db4748e194a2de815a5d7cd7785e 
+Asset Pipeline Refresh (id=ff869acfa587a714caf30412fa6ca9f2): Total: 0.039 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: 5bf2798e969b99b40892006cffd6dbb9 - Path: Assets/Fonts/TMP/Fredoka Medium SDF.asset' with importer (NativeFormatImporter)
+Imported 'GUID: 5bf2798e969b99b40892006cffd6dbb9' -> (Import Result ID: '5ac2da0460aa81b0ac25fae459919f4d') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=7cb636de856ff0004ffad09e1d2d3a51 DependenciesID=d96958116b2e124794af48db5d8239d0 StaticDependenciesID=8f4953519139b9458f7ea85c9662eb93 
+Asset Pipeline Refresh (id=f9d039a5d4e7e444b9d300654efebab5): Total: 0.033 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: 5bf2798e969b99b40892006cffd6dbb9 - Path: Assets/Fonts/TMP/Fredoka Medium SDF.asset' with importer (NativeFormatImporter)
+Imported 'GUID: 5bf2798e969b99b40892006cffd6dbb9' -> (Import Result ID: 'fcec55ce5f0afe3aa6fce4e1d8a8d662') in 0.004 seconds [static dependencies only]. Details - ImportResultOutputID=4465bbdff4d1e33f0ffc969697c45c52 DependenciesID=fe53267e3328396ae6cd6c3fa9d5e843 StaticDependenciesID=afb0f9feb1cbd1c14865098a24775192 
+Asset Pipeline Refresh (id=b07dca78dd3d3424687dc68c67b959f5): Total: 0.041 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: 7439045fcad807641b7717fab564ae3a - Path: Assets/Fonts/TMP/Baloo2 ExtraBold SDF.asset' with importer (NativeFormatImporter)
+Imported 'GUID: 7439045fcad807641b7717fab564ae3a' -> (Import Result ID: 'ab80d4c6f5fedad3c88267187c76e634') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=eeeb2cbfba3ab5ed63b18a8a401bf433 DependenciesID=f06862335bc345f8af18755cbe2badc3 StaticDependenciesID=315a2b894a78d89de68d9c3dbd75fedc 
+Asset Pipeline Refresh (id=ee0ba69fd52e0c5459bdc42ac9bc8c72): Total: 0.034 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: 7439045fcad807641b7717fab564ae3a - Path: Assets/Fonts/TMP/Baloo2 ExtraBold SDF.asset' with importer (NativeFormatImporter)
+Imported 'GUID: 7439045fcad807641b7717fab564ae3a' -> (Import Result ID: '79fc4e870d9ff28d212b6a890f042fee') in 0.004 seconds [static dependencies only]. Details - ImportResultOutputID=7f7803ad59dabf8de61ce14e523a7908 DependenciesID=c5bfe1b20e65e2dea206c9b4f9da1f2a StaticDependenciesID=e1e85021b9cb253076e285839617e253 
+Asset Pipeline Refresh (id=6701108fd5bce444ab7c30bce7605212): Total: 0.038 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: b169f199e18365e4783e02b6037a3f4e - Path: Assets/_Game/Resources/Typography/LegionTypographyTheme.asset' with importer (NativeFormatImporter)
+Imported 'GUID: b169f199e18365e4783e02b6037a3f4e' -> (Import Result ID: 'f1b87f17962df3a2dd4dc2d901455720') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=449cab29a6b08f966a7fc76cee99401b DependenciesID=0720266fd2326c9ff5dbf615ef384278 StaticDependenciesID=19a0761c5d24f5dcbaf2934e4e7520fe 
+Asset Pipeline Refresh (id=df5f4632e4c47df4caaaab7df516c71c): Total: 0.032 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: 12220ec520bd0774fb3381b69b5456c6 - Path: Assets/Fonts/Materials/LilitaOne SDF - Legion Title.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 12220ec520bd0774fb3381b69b5456c6' -> (Import Result ID: '814ff4426a3b3ffcd28f552f3cf862ca') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=99ac8a514a2a9d66944b238fb2404630 DependenciesID=fad7646112c2a74f10fca2b53dcebadf StaticDependenciesID=0829fc2083d41f29595fe9a30ec51186 
+Asset Pipeline Refresh (id=0544f55ac58dbe945845279efd90ee1a): Total: 0.033 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: dfb0775b07b8f294c944ff214f54d934 - Path: Assets/Fonts/Presets/Legion Title.preset' with importer (NativeFormatImporter)
+Imported 'GUID: dfb0775b07b8f294c944ff214f54d934' -> (Import Result ID: 'afd0343920482e17f863f330e19e52de') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=aaab129acab144ba71ab67e901847bdb DependenciesID=53d794b3ea0f655aabb3e4ccb454ab15 StaticDependenciesID=e447f25a3dfded1a9d29878ca8709fa4 
+Asset Pipeline Refresh (id=726e09ddaf8ff4a4faeaa719c19495fd): Total: 0.033 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: 79629a21215b5dd4497193173c18c363 - Path: Assets/Fonts/Materials/LilitaOne SDF - Legion PrimaryButton.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 79629a21215b5dd4497193173c18c363' -> (Import Result ID: 'c3bc7906e1102e12452db5e0315cf173') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=5707278f3589234afba53e788944c3a5 DependenciesID=60e8909c170d9b67af708bcd6999a101 StaticDependenciesID=b9401c946ecd585d7bb0b41ad8061606 
+Asset Pipeline Refresh (id=362b724d4d6eed64191f2ff740dfd8b0): Total: 0.036 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: a288538cdba7f304fb8d7e865e78295d - Path: Assets/Fonts/Presets/Legion PrimaryButton.preset' with importer (NativeFormatImporter)
+Imported 'GUID: a288538cdba7f304fb8d7e865e78295d' -> (Import Result ID: 'b258bdaa8cf9298c841047901f87f5bf') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=1856e142774288fe720e0187a3c041a5 DependenciesID=56972dec45eb22dad1ec8b2fe5d9760f StaticDependenciesID=de33ada32fedb5e9e2504280dab86d2c 
+Asset Pipeline Refresh (id=8f0269dc2b0b41d46a9c67ffb6711639): Total: 0.035 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: 37a63b66b8352d04eb305bc32e736c52 - Path: Assets/Fonts/Materials/Fredoka Bold SDF - Legion Menu.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 37a63b66b8352d04eb305bc32e736c52' -> (Import Result ID: 'f7ffda28a596b95e8c3a6a01cb3a06db') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=6310e0a24843631e5759c8179d11bea1 DependenciesID=ad12c79c57d4a5335c172568cc282490 StaticDependenciesID=d7da711d37941b583d55b9a349dac3b6 
+Asset Pipeline Refresh (id=b3ba435aa8037d345b3d98460d429d1b): Total: 0.037 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: 1febfd09db9d3034cad10b6a59f1d04e - Path: Assets/Fonts/Presets/Legion Menu.preset' with importer (NativeFormatImporter)
+Imported 'GUID: 1febfd09db9d3034cad10b6a59f1d04e' -> (Import Result ID: 'c275ef4cedf9d9f8846a4c06f75cb255') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=029fc89ca3574d035c2abfb1d8fec410 DependenciesID=f922f489c8b1b6ed1fcd81c553808619 StaticDependenciesID=8819c40c410ec686097d6f3b07a09710 
+Asset Pipeline Refresh (id=7757e9b844694d44ebf95f3dea0c2eba): Total: 0.036 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: 67f83a8f46ee8d04abfcd4146af90d02 - Path: Assets/Fonts/Materials/Fredoka Medium SDF - Legion Body.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 67f83a8f46ee8d04abfcd4146af90d02' -> (Import Result ID: '5a24811859684e39e05c45a34f16c042') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=1a6f6482e939efee7a9c1b87bc547a92 DependenciesID=c1ded1578f11dae6cdf8db1bca9b84df StaticDependenciesID=54eddb2c931c1afefdf3a16a6e26cf36 
+Asset Pipeline Refresh (id=a88772d710f37c04dbe5d6ccf81c7aba): Total: 0.037 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: 90e3a891b40f58e40bfab8e39a0346b3 - Path: Assets/Fonts/Presets/Legion Body.preset' with importer (NativeFormatImporter)
+Imported 'GUID: 90e3a891b40f58e40bfab8e39a0346b3' -> (Import Result ID: '2a79c060e7c9b86269d65f93e0420507') in 0.002 seconds [static dependencies only]. Details - ImportResultOutputID=ef6a3d55fc6162dfaba9fb2b75e22628 DependenciesID=ef1ea89a26b09081dc4a6681dc221381 StaticDependenciesID=b1ed0aa989ba6f89dbdec751497ed14c 
+Asset Pipeline Refresh (id=c6268d2c270134d419671be973fa2a7d): Total: 0.049 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: dae84e90bdc89844e9ea75631efbf2f7 - Path: Assets/Fonts/Materials/Baloo2 ExtraBold SDF - Legion Hud.mat' with importer (NativeFormatImporter)
+Imported 'GUID: dae84e90bdc89844e9ea75631efbf2f7' -> (Import Result ID: '6453b6e3ef7c4c0e664abcfc58e89b8e') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=ebbf108d054d66986a51fee468f45af3 DependenciesID=45695958e0e2d6c963f37e52706978fa StaticDependenciesID=0c5d57d837d63dfabec51aa26312d33d 
+Asset Pipeline Refresh (id=8719ba2782fcd61408fb682204dd2047): Total: 0.044 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: e0b2070c35d4b7549b4ee907a3515eac - Path: Assets/Fonts/Presets/Legion Hud.preset' with importer (NativeFormatImporter)
+Imported 'GUID: e0b2070c35d4b7549b4ee907a3515eac' -> (Import Result ID: '334948ccb2519e2535edeeca2a7c81b5') in 0.002 seconds [static dependencies only]. Details - ImportResultOutputID=2ae77651e1307bcc2b291f0bcb168f8e DependenciesID=baafe0212d9f8628b528636630074977 StaticDependenciesID=64347eeadf3a4e89a5436fcd9bb1fd42 
+Asset Pipeline Refresh (id=93ded6fa9133520439cdbe0a1a98af28): Total: 0.055 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: 381143197ac37de4fb703aed8b5223a3 - Path: Assets/Fonts/Materials/Baloo2 ExtraBold SDF - Legion Positive.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 381143197ac37de4fb703aed8b5223a3' -> (Import Result ID: '5d107e8a97fab55e615764b60b53535a') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=6f5d3675a37e2f7906d6188c7255aa79 DependenciesID=7263f004f6b292942a9c9d26e0644505 StaticDependenciesID=1ca0ce35ecd8201b54cb2bb70884e1ee 
+Asset Pipeline Refresh (id=5352047d3ee551446918b9457f1ae80e): Total: 0.056 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: c764df5f3d0ed5843bac53604d2a31c0 - Path: Assets/Fonts/Presets/Legion Positive.preset' with importer (NativeFormatImporter)
+Imported 'GUID: c764df5f3d0ed5843bac53604d2a31c0' -> (Import Result ID: '296ec53ad03ce6db4dfd8bd6a512d6d0') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=698f0cd6e39e8d6e6c1293eb0ecf4e97 DependenciesID=f743991e4c37e2d466ccb0eb53664355 StaticDependenciesID=473c39e7bcf85198df37cc9370b50961 
+Asset Pipeline Refresh (id=613d8ed89eeb185498dd2e21c6481d0e): Total: 0.047 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: c03bcdb931be32b48a21ab240bd8e89c - Path: Assets/Fonts/Materials/Baloo2 ExtraBold SDF - Legion Negative.mat' with importer (NativeFormatImporter)
+Imported 'GUID: c03bcdb931be32b48a21ab240bd8e89c' -> (Import Result ID: '0cb0a37830136db8a3922e800ca1195a') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=e6d57f2590560552514101974552e743 DependenciesID=9650ea2c3d5447ae2cbfadc302e44b39 StaticDependenciesID=0368d000e1aa760340fab27fab002df7 
+Asset Pipeline Refresh (id=1aeeded96d747af41b026c61d4b509b6): Total: 0.040 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: 58d7c716999d9ab43a7f304e04f47850 - Path: Assets/Fonts/Presets/Legion Negative.preset' with importer (NativeFormatImporter)
+Imported 'GUID: 58d7c716999d9ab43a7f304e04f47850' -> (Import Result ID: '528e56eaf75439f4257f99c8d6affa09') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=0a83f9a7c471f61131bb743b1f0bcd12 DependenciesID=6c69a621058fc85e0e5bebbf1c6479b4 StaticDependenciesID=26a4e86401f6cdf738fc9f74acfa19cd 
+Asset Pipeline Refresh (id=23bade2222f7ee8408b2901d37dbd4b9): Total: 0.060 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: 65c2312f3e4f2f54bb05c24e4de2ff9a - Path: Assets/Fonts/Materials/LilitaOne SDF - Legion Epic.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 65c2312f3e4f2f54bb05c24e4de2ff9a' -> (Import Result ID: '27d3750a7bdab58e49dfb2d0ab6e30b3') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=4e207a4ffe089b89cc869060167ddfdb DependenciesID=0491cc3c49a3176c24370356acb6e043 StaticDependenciesID=59e53d4bb6a29367c48fd177f8be333b 
+Asset Pipeline Refresh (id=7d7e5aa89ca36124f8bdb2ceee6361cf): Total: 0.038 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: e3f2520d27c27d74dabef85e77a12a11 - Path: Assets/Fonts/Presets/Legion Epic.preset' with importer (NativeFormatImporter)
+Imported 'GUID: e3f2520d27c27d74dabef85e77a12a11' -> (Import Result ID: '4b3e9af1cc47bdb3e6764df26ce0be4e') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=c37d2faac3134e0ff7b7a27bf036da4b DependenciesID=663765266f297c44e73b24bbac1f441f StaticDependenciesID=f4e955e7129d07fc8704832ffe6c680c 
+Asset Pipeline Refresh (id=bb609994ab52e7d42a2cb899a8f888e6): Total: 0.035 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: c03bcdb931be32b48a21ab240bd8e89c - Path: Assets/Fonts/Materials/Baloo2 ExtraBold SDF - Legion Negative.mat' with importer (NativeFormatImporter)
+Imported 'GUID: c03bcdb931be32b48a21ab240bd8e89c' -> (Import Result ID: '961f7c1dabef6b020bfb646a9aecf54b') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=e6d57f2590560552514101974552e743 DependenciesID=ff4b130e0110b1fc1c67e951e1f3a478 StaticDependenciesID=b3d27e62fc4843848d1fd7afaa4ac1b4 
+Importing 'GUID: 12220ec520bd0774fb3381b69b5456c6 - Path: Assets/Fonts/Materials/LilitaOne SDF - Legion Title.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 12220ec520bd0774fb3381b69b5456c6' -> (Import Result ID: '82290b3f96a74e0f2cd0a180f5b6369f') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=99ac8a514a2a9d66944b238fb2404630 DependenciesID=316956cdfc56ffe078b0f563bf718f3a StaticDependenciesID=20e9be3a18f9efaee1b0db6695f241cd 
+Importing 'GUID: 65c2312f3e4f2f54bb05c24e4de2ff9a - Path: Assets/Fonts/Materials/LilitaOne SDF - Legion Epic.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 65c2312f3e4f2f54bb05c24e4de2ff9a' -> (Import Result ID: '57c3de4fb4f8bfb8a1be2a05f0712f58') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=4e207a4ffe089b89cc869060167ddfdb DependenciesID=fcb4ce7e92efa71ff9c20730df90f8d6 StaticDependenciesID=1700a9358d756fcd8d3a2540b685120f 
+Importing 'GUID: 37a63b66b8352d04eb305bc32e736c52 - Path: Assets/Fonts/Materials/Fredoka Bold SDF - Legion Menu.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 37a63b66b8352d04eb305bc32e736c52' -> (Import Result ID: '2c5b2e15208c36096e15739bc58a7a01') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=6310e0a24843631e5759c8179d11bea1 DependenciesID=98c32563a8e4876f71bcedeb28c61afd StaticDependenciesID=0b5f2620a0285f0eb82da530c8e042dd 
+Importing 'GUID: 67f83a8f46ee8d04abfcd4146af90d02 - Path: Assets/Fonts/Materials/Fredoka Medium SDF - Legion Body.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 67f83a8f46ee8d04abfcd4146af90d02' -> (Import Result ID: '5a8b5296957abff80773eedfccafd1f3') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=1a6f6482e939efee7a9c1b87bc547a92 DependenciesID=4d2e218c0facf89dd0974e951e755f0f StaticDependenciesID=51ddd91b4bddb36fc6a229ea4a7366c7 
+Importing 'GUID: 381143197ac37de4fb703aed8b5223a3 - Path: Assets/Fonts/Materials/Baloo2 ExtraBold SDF - Legion Positive.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 381143197ac37de4fb703aed8b5223a3' -> (Import Result ID: '7ad701a411ee1c9448a69421fa2a92ec') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=6f5d3675a37e2f7906d6188c7255aa79 DependenciesID=c1a2b3e8a03e780eb6e9b8fda06b900b StaticDependenciesID=9c1ca2df6586d31b70dd36b8684564a5 
+Importing 'GUID: 79629a21215b5dd4497193173c18c363 - Path: Assets/Fonts/Materials/LilitaOne SDF - Legion PrimaryButton.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 79629a21215b5dd4497193173c18c363' -> (Import Result ID: '5e27886019470484d7761afa315fcead') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=5707278f3589234afba53e788944c3a5 DependenciesID=e5231778b86e59e9bdd20b443dc0f717 StaticDependenciesID=cbe7bae7b2d39de9a4cae427bd858599 
+Importing 'GUID: dae84e90bdc89844e9ea75631efbf2f7 - Path: Assets/Fonts/Materials/Baloo2 ExtraBold SDF - Legion Hud.mat' with importer (NativeFormatImporter)
+Imported 'GUID: dae84e90bdc89844e9ea75631efbf2f7' -> (Import Result ID: 'dd9c5d3eca27dd230d3c725078eb4a81') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=ebbf108d054d66986a51fee468f45af3 DependenciesID=e63763d7e824f0167485992cd0ee60aa StaticDependenciesID=e142f38ac8c693cafe3590744a8afbe2 
+Importing 'GUID: b169f199e18365e4783e02b6037a3f4e - Path: Assets/_Game/Resources/Typography/LegionTypographyTheme.asset' with importer (NativeFormatImporter)
+Imported 'GUID: b169f199e18365e4783e02b6037a3f4e' -> (Import Result ID: '55d4796ca7156c160834e4a9737ffe3d') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=449cab29a6b08f966a7fc76cee99401b DependenciesID=230472cbaf9c2e08b640e323f18741a8 StaticDependenciesID=374147d080abe45444aa1b5da15e9f4d 
+Importing 'GUID: 7439045fcad807641b7717fab564ae3a - Path: Assets/Fonts/TMP/Baloo2 ExtraBold SDF.asset' with importer (NativeFormatImporter)
+Imported 'GUID: 7439045fcad807641b7717fab564ae3a' -> (Import Result ID: 'ecf0ffc55011447df6e66b34295877db') in 0.004 seconds [static dependencies only]. Details - ImportResultOutputID=7f7803ad59dabf8de61ce14e523a7908 DependenciesID=8a9a765e807af4a87683712af09077f0 StaticDependenciesID=4be90c1c02fdd3eaaf7c4ef8bc6f48f7 
+Importing 'GUID: a7b06dd64f401e34c95db97ad3ad3244 - Path: Assets/Fonts/TMP/Fredoka Bold SDF.asset' with importer (NativeFormatImporter)
+Imported 'GUID: a7b06dd64f401e34c95db97ad3ad3244' -> (Import Result ID: '741c4129de8b2d0e9ac9e81a66cd0ca8') in 0.004 seconds [static dependencies only]. Details - ImportResultOutputID=2a4761bf5d7b70ba0aa21d0964babfc0 DependenciesID=f3d401f292f2084572ed7a55c9a6a876 StaticDependenciesID=e72c5ee81013c7dbfb43eec511d915e4 
+Importing 'GUID: 5bf2798e969b99b40892006cffd6dbb9 - Path: Assets/Fonts/TMP/Fredoka Medium SDF.asset' with importer (NativeFormatImporter)
+Imported 'GUID: 5bf2798e969b99b40892006cffd6dbb9' -> (Import Result ID: '2e750510d4ded262c111eda58110f9a9') in 0.004 seconds [static dependencies only]. Details - ImportResultOutputID=4465bbdff4d1e33f0ffc969697c45c52 DependenciesID=07e6fb9d2da0f3298f6d11ca16041f2d StaticDependenciesID=04ad38062deabb92b28ccee973ede682 
+Importing 'GUID: 9cf9fb645b4ef1344823664cf07dc817 - Path: Assets/Fonts/TMP/LilitaOne SDF.asset' with importer (NativeFormatImporter)
+Imported 'GUID: 9cf9fb645b4ef1344823664cf07dc817' -> (Import Result ID: '0e02f1847789847b5a0acbafe69d9c4e') in 0.004 seconds [static dependencies only]. Details - ImportResultOutputID=49c4960c6fc42afec426692f9d82d7a9 DependenciesID=78946ab0af3fd5f53dbbe0f3bbdc0f92 StaticDependenciesID=cfff4ae7aee19c43ef5155676f17d522 
+Importing 'GUID: 3f5b5dff67a942289a9defa416b206f3 - Path: Assets/TextMesh Pro/Resources/TMP Settings.asset' with importer (NativeFormatImporter)
+Imported 'GUID: 3f5b5dff67a942289a9defa416b206f3' -> (Import Result ID: 'd7507f1a0859878560a11ece848afded') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=603efaa7f5869716d3b798bcf98e4051 DependenciesID=9f0c6fb2dfa2f6bbb21801c7ea9eeb3c StaticDependenciesID=576b859f0bd821e65a6ed15c8cecd89d 
+Asset Pipeline Refresh (id=66c89d8d0635c6d4aa65a0d6f7b18166): Total: 0.081 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+[LegionRush] Tipografia gerada: Assets/_Game/Resources/Typography/LegionTypographyTheme.asset
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+LegionRush.EditorTools.TypographyAssetBuilder:Generate () (at Assets/_Game/Editor/Typography/TypographyAssetBuilder.cs:90)
+LegionRush.EditorTools.TypographyAssetBuilder:GenerateBatch () (at Assets/_Game/Editor/Typography/TypographyAssetBuilder.cs:97)
+
+(Filename: Assets/_Game/Editor/Typography/TypographyAssetBuilder.cs Line: 90)
+
+MonoPathRemapper: Attempts to remap: 6951; Successful remaps: 24
+Serialized file version minimum: 23, current 23
+Clearing [Baloo2 ExtraBold SDF] dynamic font asset data.
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+TMPro.EditorEventCallbacks/<>c:<InitializeFontAssetResourceChangeCallBacks>b__0_0 () (at ./Library/PackageCache/com.unity.ugui@0b1771797efc/Editor/TMP/TMP_EditorResourceManager.cs:36)
+UnityEditor.EditorApplication:Internal_EditorApplicationQuit ()
+LegionRush.EditorTools.TypographyAssetBuilder:GenerateBatch () (at Assets/_Game/Editor/Typography/TypographyAssetBuilder.cs:98)
+
+(Filename: ./Library/PackageCache/com.unity.ugui@0b1771797efc/Editor/TMP/TMP_EditorResourceManager.cs Line: 36)
+
+Clearing [Fredoka Bold SDF] dynamic font asset data.
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+TMPro.EditorEventCallbacks/<>c:<InitializeFontAssetResourceChangeCallBacks>b__0_0 () (at ./Library/PackageCache/com.unity.ugui@0b1771797efc/Editor/TMP/TMP_EditorResourceManager.cs:36)
+UnityEditor.EditorApplication:Internal_EditorApplicationQuit ()
+LegionRush.EditorTools.TypographyAssetBuilder:GenerateBatch () (at Assets/_Game/Editor/Typography/TypographyAssetBuilder.cs:98)
+
+(Filename: ./Library/PackageCache/com.unity.ugui@0b1771797efc/Editor/TMP/TMP_EditorResourceManager.cs Line: 36)
+
+Clearing [Fredoka Medium SDF] dynamic font asset data.
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+TMPro.EditorEventCallbacks/<>c:<InitializeFontAssetResourceChangeCallBacks>b__0_0 () (at ./Library/PackageCache/com.unity.ugui@0b1771797efc/Editor/TMP/TMP_EditorResourceManager.cs:36)
+UnityEditor.EditorApplication:Internal_EditorApplicationQuit ()
+LegionRush.EditorTools.TypographyAssetBuilder:GenerateBatch () (at Assets/_Game/Editor/Typography/TypographyAssetBuilder.cs:98)
+
+(Filename: ./Library/PackageCache/com.unity.ugui@0b1771797efc/Editor/TMP/TMP_EditorResourceManager.cs Line: 36)
+
+Clearing [LilitaOne SDF] dynamic font asset data.
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+TMPro.EditorEventCallbacks/<>c:<InitializeFontAssetResourceChangeCallBacks>b__0_0 () (at ./Library/PackageCache/com.unity.ugui@0b1771797efc/Editor/TMP/TMP_EditorResourceManager.cs:36)
+UnityEditor.EditorApplication:Internal_EditorApplicationQuit ()
+LegionRush.EditorTools.TypographyAssetBuilder:GenerateBatch () (at Assets/_Game/Editor/Typography/TypographyAssetBuilder.cs:98)
+
+(Filename: ./Library/PackageCache/com.unity.ugui@0b1771797efc/Editor/TMP/TMP_EditorResourceManager.cs Line: 36)
+
+Importing 'GUID: 7439045fcad807641b7717fab564ae3a - Path: Assets/Fonts/TMP/Baloo2 ExtraBold SDF.asset' with importer (NativeFormatImporter)
+Imported 'GUID: 7439045fcad807641b7717fab564ae3a' -> (Import Result ID: 'e25befd9392b01b3524403ab9e2f8d4e') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=7f7803ad59dabf8de61ce14e523a7908 DependenciesID=f6f60101a3417c376e1bb11a214ed5a3 StaticDependenciesID=11eb14766cb1137bcd078e85c6294eb1 
+Importing 'GUID: a7b06dd64f401e34c95db97ad3ad3244 - Path: Assets/Fonts/TMP/Fredoka Bold SDF.asset' with importer (NativeFormatImporter)
+Imported 'GUID: a7b06dd64f401e34c95db97ad3ad3244' -> (Import Result ID: '723fffd1d9b078f9af66119134d7cda4') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=2a4761bf5d7b70ba0aa21d0964babfc0 DependenciesID=578015a1089881ebdc8b6eae967c47dd StaticDependenciesID=f26fc9fc713e2d614b901b6d681ac292 
+Importing 'GUID: 5bf2798e969b99b40892006cffd6dbb9 - Path: Assets/Fonts/TMP/Fredoka Medium SDF.asset' with importer (NativeFormatImporter)
+Imported 'GUID: 5bf2798e969b99b40892006cffd6dbb9' -> (Import Result ID: '30e3cc4422d3dd045128482afe504268') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=4465bbdff4d1e33f0ffc969697c45c52 DependenciesID=6d9b4de5294e5a357d3b1df339b87830 StaticDependenciesID=282a574c29ab43f511b22803cbcd6484 
+Importing 'GUID: 9cf9fb645b4ef1344823664cf07dc817 - Path: Assets/Fonts/TMP/LilitaOne SDF.asset' with importer (NativeFormatImporter)
+Imported 'GUID: 9cf9fb645b4ef1344823664cf07dc817' -> (Import Result ID: '18c3bf317ae56db9186454d911c5c9bf') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=49c4960c6fc42afec426692f9d82d7a9 DependenciesID=f82a20eefc43d1e8584fdeee28994dcc StaticDependenciesID=4b3c3b8243b4d61228860c4a1517e061 
+Asset Pipeline Refresh (id=1f51e309699af4b4aaeb281123642745): Total: 0.033 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+[Physics::Module] Cleanup current backend.
+[Physics::Module] Id: 0xf2b8ea05
+Input System module state changed to: ShutdownInProgress.
+Input Polling Thread exited.
+Input System module state changed to: Shutdown.
+[Licensing::IpcConnector] LicenseClient-Leonardo-notifications channel disconnected successfully.
+[Licensing::IpcConnector] LicenseClient-Leonardo channel disconnected successfully.
+Lingering sessions upon destruction of worker manager
+Unity Data Store service was successfully shut down
+UDS shutting down local client system
+Shut down UDS service system complete
+AcceleratorClientConnectionCallback - disconnected - :0
+Cleanup mono
+CodeReloadManager destroyed
+abort_threads: Failed aborting id: 0000000000004024, mono_thread_manage will ignore it
+
+abort_threads: Failed aborting id: 000000000000A658, mono_thread_manage will ignore it
+
+abort_threads: Failed aborting id: 0000000000004024, mono_thread_manage will ignore it
+
+abort_threads: Failed aborting id: 000000000000A658, mono_thread_manage will ignore it
+
+debugger-agent: Unable to listen on 4132
+VBCSCompilerPreWarmer: requested VBCSCompiler shutdown
+Checking for leaked weakptr:
+  Found no leaked weakptrs.
+[Package Manager] Server process was shutdown
+##utp:{"type":"MemoryLeaks","version":2,"phase":"Immediate","time":1792330162109,"processId":45952,"allocatedMemory":15807705,"memoryLabels":[{"Default":199778},{"Permanent":15516},{"NewDelete":69303},{"Thread":4198384},{"Manager":33661},{"VertexData":8},{"Geometry":816},{"Texture":24},{"Shader":845480},{"Material":132},{"GfxDevice":55968},{"Animation":952},{"Audio":1272},{"Font":350245},{"FreeType":6868},{"FontEngine":736},{"Physics":1970},{"Physics2D":16},{"Serialization":17080},{"Input":42840},{"JobScheduler":256},{"TextLib":336},{"Mono":48},{"MonoCode":64},{"ScriptingNativeRuntime":1157372},{"BaseObject":43024},{"Resource":1444},{"Renderer":2504},{"Transform":4685},{"File":4416},{"WebCam":616},{"Culling":32},{"Terrain":11442},{"Wind":24},{"STL":40},{"String":893465},{"StaticString":3808},{"Utility":2674806},{"Curl":2579},{"PoolAlloc":2168},{"AI":80},{"TypeTree":17165},{"ScriptManager":12656},{"CodeReload":448},{"RuntimeInitializeOnLoadManager":64},{"Sprites":102},{"SpriteAtlas":120},{"GI":7816},{"Director":8296},{"CloudService":7296},{"WebRequest":989},{"VR":49650},{"SceneManager":608},{"Video":64},{"LazyScriptCache":32},{"Camera":729},{"Secure":2377},{"SerializationCache":9256},{"APIUpdating":10320},{"Subsystems":336},{"VirtualTexturing":57888},{"StaticSafetyDebugInfo":278528},{"Analytics":768},{"Hierarchy":1188},{"UIElements":40},{"CoreStats":14456},{"Identifiers":7152},{"Gui":128},{"EditorUtility":116057},{"VersionControl":8},{"Undo":931},{"AssetDatabase":4488190},{"AssetImporter":40},{"EditorGi":328},{"UnityConnect":40441},{"Upm":1912},{"UpmDiagnostics":8},{"AssetCompliance":96},{"DrivenProperties":72},{"LocalIPC":266},{"ProfilerEditor":9746},{"CoreBusinessMetrics":3600},{"Windowing":456},{"Licensing":12760},{"AssetReference":32},{"IPCStream":32}]}
+~StackAllocator(ALLOC_TEMP_MAIN) m_LastAlloc not NULL. Did you forget to call FreeAllStackAllocations()? To get more information, run app with -diag-temp-memory-leak-validation cmd line argument

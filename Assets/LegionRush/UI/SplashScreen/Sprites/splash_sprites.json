@@ -1,0 +1,414 @@
+{
+  "Splash_Logo": {
+    "file": "Sprites/Splash_Logo.png",
+    "size": [
+      467,
+      358
+    ],
+    "origin": [
+      11,
+      18
+    ],
+    "transparent_pct": 28.0
+  },
+  "Splash_King": {
+    "file": "Characters/Splash_King.png",
+    "size": [
+      513,
+      405
+    ],
+    "origin": [
+      465,
+      9
+    ],
+    "transparent_pct": 46.9
+  },
+  "Splash_Archer": {
+    "file": "Characters/Splash_Archer.png",
+    "size": [
+      307,
+      404
+    ],
+    "origin": [
+      899,
+      24
+    ],
+    "transparent_pct": 50.5
+  },
+  "Splash_Mage": {
+    "file": "Characters/Splash_Mage.png",
+    "size": [
+      314,
+      405
+    ],
+    "origin": [
+      1207,
+      23
+    ],
+    "transparent_pct": 39.2
+  },
+  "Splash_Army": {
+    "file": "Characters/Splash_Army.png",
+    "size": [
+      508,
+      239
+    ],
+    "origin": [
+      12,
+      389
+    ],
+    "transparent_pct": 37.9
+  },
+  "Splash_Castle": {
+    "file": "Backgrounds/Splash_Castle.png",
+    "size": [
+      648,
+      397
+    ],
+    "origin": [
+      482,
+      407
+    ],
+    "transparent_pct": 37.2
+  },
+  "Splash_Mountains": {
+    "file": "Backgrounds/Splash_Mountains.png",
+    "size": [
+      506,
+      168
+    ],
+    "origin": [
+      1019,
+      432
+    ],
+    "transparent_pct": 39.9
+  },
+  "Splash_PineTree": {
+    "file": "Decorations/Splash_PineTree.png",
+    "size": [
+      98,
+      129
+    ],
+    "origin": [
+      1148,
+      595
+    ],
+    "transparent_pct": 57.9
+  },
+  "Splash_PineTree_2": {
+    "file": "Decorations/Splash_PineTree_2.png",
+    "size": [
+      66,
+      108
+    ],
+    "origin": [
+      1240,
+      607
+    ],
+    "transparent_pct": 57.5
+  },
+  "Splash_PineTree_3": {
+    "file": "Decorations/Splash_PineTree_3.png",
+    "size": [
+      91,
+      122
+    ],
+    "origin": [
+      1334,
+      597
+    ],
+    "transparent_pct": 57.7
+  },
+  "Splash_PineTree_4": {
+    "file": "Decorations/Splash_PineTree_4.png",
+    "size": [
+      69,
+      104
+    ],
+    "origin": [
+      1454,
+      601
+    ],
+    "transparent_pct": 59.2
+  },
+  "Splash_Rocks": {
+    "file": "Decorations/Splash_Rocks.png",
+    "size": [
+      134,
+      82
+    ],
+    "origin": [
+      1380,
+      714
+    ],
+    "transparent_pct": 36.9
+  },
+  "Splash_Rocks_2": {
+    "file": "Decorations/Splash_Rocks_2.png",
+    "size": [
+      97,
+      74
+    ],
+    "origin": [
+      1264,
+      726
+    ],
+    "transparent_pct": 35.1
+  },
+  "Splash_Rocks_3": {
+    "file": "Decorations/Splash_Rocks_3.png",
+    "size": [
+      120,
+      70
+    ],
+    "origin": [
+      1263,
+      945
+    ],
+    "transparent_pct": 37.4
+  },
+  "Splash_Banner": {
+    "file": "Decorations/Splash_Banner.png",
+    "size": [
+      144,
+      192
+    ],
+    "origin": [
+      11,
+      628
+    ],
+    "transparent_pct": 38.7
+  },
+  "Splash_Banner_2": {
+    "file": "Decorations/Splash_Banner_2.png",
+    "size": [
+      93,
+      143
+    ],
+    "origin": [
+      156,
+      663
+    ],
+    "transparent_pct": 40.2
+  },
+  "Splash_Banner_3": {
+    "file": "Decorations/Splash_Banner_3.png",
+    "size": [
+      55,
+      107
+    ],
+    "origin": [
+      275,
+      635
+    ],
+    "transparent_pct": 40.3
+  },
+  "Splash_Banner_4": {
+    "file": "Decorations/Splash_Banner_4.png",
+    "size": [
+      55,
+      84
+    ],
+    "origin": [
+      262,
+      736
+    ],
+    "transparent_pct": 38.1
+  },
+  "Splash_Torch": {
+    "file": "Decorations/Splash_Torch.png",
+    "size": [
+      61,
+      166
+    ],
+    "origin": [
+      344,
+      655
+    ],
+    "transparent_pct": 34.4
+  },
+  "Splash_Torch_2": {
+    "file": "Decorations/Splash_Torch_2.png",
+    "size": [
+      67,
+      198
+    ],
+    "origin": [
+      411,
+      623
+    ],
+    "transparent_pct": 37.3
+  },
+  "Splash_Crown": {
+    "file": "Decorations/Splash_Crown.png",
+    "size": [
+      122,
+      96
+    ],
+    "origin": [
+      543,
+      916
+    ],
+    "transparent_pct": 33.4
+  },
+  "Splash_Shield": {
+    "file": "Decorations/Splash_Shield.png",
+    "size": [
+      81,
+      98
+    ],
+    "origin": [
+      700,
+      920
+    ],
+    "transparent_pct": 26.2
+  },
+  "Splash_CrystalBar": {
+    "file": "Decorations/Splash_CrystalBar.png",
+    "size": [
+      276,
+      61
+    ],
+    "origin": [
+      794,
+      933
+    ],
+    "transparent_pct": 30.9
+  },
+  "Splash_BannerSmall": {
+    "file": "Decorations/Splash_BannerSmall.png",
+    "size": [
+      76,
+      83
+    ],
+    "origin": [
+      1134,
+      930
+    ],
+    "transparent_pct": 31.7
+  },
+  "Splash_Panel": {
+    "file": "Sprites/Splash_Panel.png",
+    "size": [
+      443,
+      102
+    ],
+    "origin": [
+      506,
+      811
+    ],
+    "transparent_pct": 2.2
+  },
+  "Splash_ProgressPanel": {
+    "file": "Sprites/Splash_ProgressPanel.png",
+    "size": [
+      560,
+      135
+    ],
+    "origin": [
+      964,
+      807
+    ],
+    "transparent_pct": 6.4
+  },
+  "Splash_StartButton": {
+    "file": "Buttons/Splash_StartButton.png",
+    "size": [
+      478,
+      104
+    ],
+    "origin": [
+      19,
+      814
+    ],
+    "transparent_pct": 29.1
+  },
+  "Splash_LoadingBar": {
+    "file": "Sprites/Splash_LoadingBar.png",
+    "size": [
+      475,
+      70
+    ],
+    "origin": [
+      21,
+      917
+    ],
+    "transparent_pct": 33.1,
+    "inner": [
+      0.04,
+      0.1714,
+      0.96,
+      0.5714
+    ]
+  },
+  "Splash_LoadingBarGem": {
+    "file": "Sprites/Splash_LoadingBarGem.png",
+    "size": [
+      45,
+      70
+    ],
+    "rect": [
+      0.4526,
+      0.0,
+      0.5474,
+      1.0
+    ]
+  },
+  "Splash_LoadingBarFill": {
+    "file": "Sprites/Splash_LoadingBarFill.png",
+    "size": [
+      64,
+      28
+    ],
+    "transparent_pct": 0.0
+  },
+  "Splash_Sky": {
+    "file": "Backgrounds/Splash_Sky.png",
+    "size": [
+      540,
+      960
+    ],
+    "transparent_pct": 0.0,
+    "generated": true
+  },
+  "Splash_Glow": {
+    "file": "Sprites/Splash_Glow.png",
+    "size": [
+      128,
+      128
+    ],
+    "generated": true
+  },
+  "Splash_Shine": {
+    "file": "Sprites/Splash_Shine.png",
+    "size": [
+      96,
+      256
+    ],
+    "generated": true
+  },
+  "Splash_Fog": {
+    "file": "Sprites/Splash_Fog.png",
+    "size": [
+      64,
+      256
+    ],
+    "generated": true
+  },
+  "Splash_SnowGround": {
+    "file": "Sprites/Splash_SnowGround.png",
+    "size": [
+      1024,
+      256
+    ],
+    "generated": true
+  },
+  "Splash_Vignette": {
+    "file": "Sprites/Splash_Vignette.png",
+    "size": [
+      16,
+      256
+    ],
+    "generated": true
+  }
+}

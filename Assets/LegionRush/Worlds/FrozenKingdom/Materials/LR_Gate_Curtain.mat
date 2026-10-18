@@ -29,8 +29,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _DstBlend: 1
-    - _Intensity: 1.3
+    - _DstBlend: 10
+    - _Intensity: 1.25
     - _SrcBlend: 5
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}

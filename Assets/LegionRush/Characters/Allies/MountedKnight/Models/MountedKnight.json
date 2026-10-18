@@ -1,0 +1,91 @@
+{
+  "name": "MountedKnight",
+  "clips": [
+    {
+      "name": "Idle",
+      "loop": true,
+      "length": 2.4,
+      "impact": 0.0
+    },
+    {
+      "name": "Walk",
+      "loop": true,
+      "length": 1.1,
+      "impact": 0.0
+    },
+    {
+      "name": "Run",
+      "loop": true,
+      "length": 0.5333333333333333,
+      "impact": 0.0
+    },
+    {
+      "name": "Charge",
+      "loop": true,
+      "length": 0.5,
+      "impact": 0.0
+    },
+    {
+      "name": "Attack",
+      "loop": false,
+      "length": 0.7333333333333333,
+      "impact": 0.32
+    },
+    {
+      "name": "Skill",
+      "loop": false,
+      "length": 1.1,
+      "impact": 0.55
+    },
+    {
+      "name": "Hit",
+      "loop": false,
+      "length": 0.4666666666666667,
+      "impact": 0.0
+    },
+    {
+      "name": "Death",
+      "loop": false,
+      "length": 1.2,
+      "impact": 0.0
+    },
+    {
+      "name": "Victory",
+      "loop": true,
+      "length": 1.8,
+      "impact": 0.0
+    }
+  ],
+  "slots": [
+    {
+      "slot": "AttackAlt",
+      "clip": "Charge"
+    }
+  ],
+  "sockets": [
+    "Saddle",
+    "HeadSocket",
+    "LeftHandSocket",
+    "RightHandSocket",
+    "BackSocket"
+  ],
+  "stats": {
+    "LOD0_tris": 19662,
+    "LOD1_tris": 7471,
+    "LOD2_tris": 2689,
+    "bones": 47,
+    "shape_keys": "Basis,Happy,Angry,Attack,Surprised,Pain,Victory,Defeat"
+  },
+  "weapons": [
+    {
+      "id": "Weapon_RoyalLance",
+      "socket": "RightHandSocket",
+      "node": "RoyalLance"
+    },
+    {
+      "id": "Weapon_KnightShield",
+      "socket": "LeftHandSocket",
+      "node": "KnightShield"
+    }
+  ]
+}

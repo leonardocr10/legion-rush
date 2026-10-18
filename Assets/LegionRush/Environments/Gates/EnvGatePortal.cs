@@ -25,7 +25,8 @@ namespace LegionRush.Environments
             {
                 if (curtainMaterial == null)
                 {
-                    curtainMaterial = MaterialLibrary.CreateGlow(null, Color.white, true, 1.3f);
+                    // Mistura alfa (não aditiva): cor saturada como nos PNGs, sem estourar para branco sobre neve.
+                    curtainMaterial = MaterialLibrary.CreateGlow(null, Color.white, false, 1.25f);
                     if (curtainMaterial != null) curtainMaterial.name = "LR_Gate_Curtain";
                 }
                 return curtainMaterial;
@@ -47,7 +48,8 @@ namespace LegionRush.Environments
 
         // Monta o portal como filho de "gate" (coordenadas locais; frente em -Z). As malhas pertencem ao
         // portal e são destruídas com ele (EnvOwnedMeshes). sparkles = intensidade das faíscas (0 desliga).
-        public static void Build(Transform gate, float width, Color color, int seed, float sparkles = 1f)
+        // icon: categoria do portal (desenha o emblema da placa do topo, como nos PNGs 21–24).
+        public static void Build(Transform gate, float width, Color color, int seed, float sparkles = 1f, GateCategory? icon = null)
         {
             var rng = new System.Random(seed);
             var chunk = new EnvChunk();
@@ -56,8 +58,9 @@ namespace LegionRush.Environments
             EnvMeshBuilder g = chunk.Glow;
             o.NoSnow();
             float half = width * 0.5f - 0.2f;
-            Color pale = new Color(0.86f, 0.89f, 0.95f);
-            Color paleShade = new Color(0.76f, 0.8f, 0.9f);
+            // Pedra clara levemente tingida pela cor do portal (moldura azulada, esverdeada, dourada, lilás).
+            Color pale = Color.Lerp(new Color(0.88f, 0.9f, 0.95f), color, 0.22f);
+            Color paleShade = Color.Lerp(new Color(0.76f, 0.8f, 0.9f), color, 0.25f);
             Color trim = Color.Lerp(color, Color.white, 0.1f);
 
             for (int side = -1; side <= 1; side += 2)
@@ -72,10 +75,10 @@ namespace LegionRush.Environments
                 // Estandarte azul com flor-de-lis pendurado na frente do pilar (barra dourada).
                 o.BeveledBox(new Vector3(x, 2.72f, -0.26f), new Vector3(0.56f, 0.07f, 0.07f), 0.02f, EnvPalette.Gold);
                 EnvCastle.HangingBanner(chunk.Banner, new Vector3(x, 2.68f, -0.3f), 0.46f, 1.45f);
-                // Orbe no topo do pilar, acima do arco.
-                o.Frustum(new Vector3(x, ArchTop + 0.05f, 0f), 0.2f, 0.12f, 0.16f, 8, EnvPalette.Gold, true, true);
-                g.Frustum(new Vector3(x, ArchTop + 0.2f, 0f), 0.15f, 0.15f, 0.26f, 8, color * 0.8f, true, false, true);
-                g.Frustum(new Vector3(x, ArchTop + 0.46f, 0f), 0.15f, 0f, 0.16f, 8, color * 0.8f, false, false, true);
+                // Haste dourada com tocha acesa no topo do pilar (referências 21–24).
+                o.Frustum(new Vector3(x, Height + 0.17f, 0f), 0.07f, 0.06f, ArchTop - Height + 0.15f, 8, EnvPalette.Gold * 0.9f, false, false, true);
+                o.Frustum(new Vector3(x, ArchTop + 0.3f, 0f), 0.08f, 0.2f, 0.2f, 8, EnvPalette.Gold, true, true);
+                EnvProps.Flame(g, new Vector3(x, ArchTop + 0.48f, 0f), 0.36f, rng);
                 // Neve na base.
                 o.BeveledBox(new Vector3(x + side * 0.1f, 0.06f, -0.15f), new Vector3(0.9f, 0.14f, 0.8f), 0.06f, EnvPalette.Snow, rng, 0.05f);
             }
@@ -103,6 +106,9 @@ namespace LegionRush.Environments
             o.BeveledBox(new Vector3(0f, ArchTop, -0.12f), new Vector3(0.46f, 0.6f, 0.28f), 0.08f, EnvPalette.Gold);
             g.BeveledBox(new Vector3(0f, ArchTop, -0.27f), new Vector3(0.24f, 0.32f, 0.05f), 0.04f, Color.Lerp(color, Color.white, 0.35f) * 0.8f);
 
+            // Placa do topo com emblema da categoria (escudo, espadas, moeda, poção...).
+            Emblem(chunk, new Vector3(0f, ArchTop + 0.5f, -0.1f), pale, color, icon ?? GateCategory.Defense);
+
             // Faixa luminosa no chão (marca a faixa da escolha).
             float innerHalf = half - 0.22f;
             g.BeveledBox(new Vector3(0f, 0.025f, -0.2f), new Vector3(innerHalf * 2f, 0.05f, 1.2f), 0.02f, color * 0.45f);
@@ -118,20 +124,72 @@ namespace LegionRush.Environments
             owner.Collect();
         }
 
+        private static void Emblem(EnvChunk chunk, Vector3 center, Color plaque, Color color, GateCategory category)
+        {
+            EnvMeshBuilder o = chunk.Opaque;
+            EnvMeshBuilder g = chunk.Glow;
+            Matrix4x4 saved = o.Matrix;
+            o.BeveledBox(center + new Vector3(0f, 0f, 0.04f), new Vector3(1.05f, 0.95f, 0.16f), 0.1f, EnvPalette.Gold);
+            o.BeveledBox(center, new Vector3(0.88f, 0.78f, 0.18f), 0.1f, plaque);
+            o.Frustum(center + new Vector3(0f, 0.47f, 0.02f), 0.12f, 0f, 0.22f, 6, EnvPalette.Gold, true, false);
+            Vector3 f = center + new Vector3(0f, 0f, -0.11f);
+            Color ink = color * 0.85f;
+            switch (category)
+            {
+                case GateCategory.Multiply: // espadas cruzadas
+                    for (int k = -1; k <= 1; k += 2)
+                    {
+                        g.Matrix = saved * Matrix4x4.TRS(f, Quaternion.Euler(0f, 0f, k * 40f), Vector3.one);
+                        g.BeveledBox(Vector3.zero, new Vector3(0.08f, 0.62f, 0.04f), 0.02f, ink);
+                        g.BeveledBox(new Vector3(0f, -0.16f, 0f), new Vector3(0.22f, 0.06f, 0.05f), 0.02f, ink);
+                    }
+                    g.Matrix = saved;
+                    break;
+                case GateCategory.Resource:
+                case GateCategory.Upgrade: // moeda
+                    g.Matrix = saved * Matrix4x4.TRS(f, Quaternion.Euler(-90f, 0f, 0f), Vector3.one);
+                    g.Frustum(Vector3.zero, 0.24f, 0.24f, 0.05f, 12, ink, true, true);
+                    g.Matrix = saved;
+                    o.Matrix = saved * Matrix4x4.TRS(f + new Vector3(0f, 0f, -0.03f), Quaternion.Euler(-90f, 0f, 0f), Vector3.one);
+                    o.Frustum(Vector3.zero, 0.12f, 0.12f, 0.04f, 10, plaque, true, true);
+                    o.Matrix = saved;
+                    break;
+                case GateCategory.Special:
+                case GateCategory.Negative: // dois anéis (símbolo arcano)
+                    for (int k = -1; k <= 1; k += 2)
+                    {
+                        g.Matrix = saved * Matrix4x4.TRS(f + new Vector3(k * 0.15f, 0f, 0f), Quaternion.Euler(-90f, 0f, 0f), Vector3.one);
+                        g.Frustum(Vector3.zero, 0.15f, 0.15f, 0.05f, 10, ink, true, true);
+                        g.Matrix = saved;
+                        o.Matrix = saved * Matrix4x4.TRS(f + new Vector3(k * 0.15f, 0f, -0.03f), Quaternion.Euler(-90f, 0f, 0f), Vector3.one);
+                        o.Frustum(Vector3.zero, 0.07f, 0.07f, 0.04f, 8, plaque, true, true);
+                        o.Matrix = saved;
+                    }
+                    break;
+                default: // escudo
+                    g.BeveledBox(f + new Vector3(0f, 0.06f, 0f), new Vector3(0.42f, 0.36f, 0.05f), 0.04f, ink);
+                    g.Matrix = saved * Matrix4x4.TRS(f + new Vector3(0f, -0.13f, 0f), Quaternion.Euler(0f, 0f, 45f), Vector3.one);
+                    g.BeveledBox(Vector3.zero, new Vector3(0.3f, 0.3f, 0.05f), 0.03f, ink);
+                    g.Matrix = saved;
+                    o.BeveledBox(f + new Vector3(0f, 0f, -0.03f), new Vector3(0.06f, 0.3f, 0.03f), 0.01f, plaque);
+                    break;
+            }
+        }
+
         // Interior translúcido: mais opaco e claro nas bordas e embaixo, quase transparente no meio (vê-se a pista).
         private static void BuildCurtain(Transform root, float innerHalf, Color color)
         {
             Material material = CurtainMaterial;
             if (material == null) return;
             var b = new EnvMeshBuilder();
-            Color rim = Color.Lerp(color, Color.white, 0.45f);
+            Color rim = Color.Lerp(color, Color.white, 0.55f);
             b.Sheet(new Vector3(-innerHalf, 0.04f, 0.02f), Vector3.right * innerHalf * 2f, Vector3.up * (Height - 0.06f), 10, 8,
                 (u, v) =>
                 {
                     float edge = Mathf.Max(Mathf.Pow(Mathf.Abs(u - 0.5f) * 2f, 3f), Mathf.Pow(1f - v, 2.5f) * 0.9f);
                     Color c = Color.Lerp(color, rim, edge);
                     // Na cor do vértice a Unity espera sRGB e o construtor converte; alfa vai como está.
-                    c.a = Mathf.Lerp(0.32f, 0.9f, edge);
+                    c.a = Mathf.Lerp(0.72f, 0.95f, edge);
                     return c;
                 });
             var go = new GameObject("Curtain");

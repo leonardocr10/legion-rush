@@ -101,6 +101,7 @@ namespace LegionRush
             }
 
             Execute(skill, target);
+            commander.PlayCommand();
             cooldowns[index] = skill.cooldown;
             level.ReportSkillUsed();
             SkillUsed?.Invoke(skill);

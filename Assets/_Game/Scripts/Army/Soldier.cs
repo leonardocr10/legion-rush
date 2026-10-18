@@ -198,7 +198,7 @@ namespace LegionRush
             Combatant victim = impactTarget;
             impactTarget = null;
             if (victim == null || !victim.IsAlive) return;
-            Vector3 origin = transform.position + Vector3.up + transform.forward * 0.3f;
+            Vector3 origin = ProjectileOrigin(transform.position + Vector3.up + transform.forward * 0.3f);
 
             switch (stats.attackKind)
             {
