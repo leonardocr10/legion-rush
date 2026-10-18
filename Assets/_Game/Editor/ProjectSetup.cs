@@ -35,6 +35,7 @@ namespace LegionRush.EditorTools
             EnsureScene();
             TypographyAssetBuilder.EnsureAssets();
             MainMenuArtTools.RebuildCatalog();
+            RenderingSetup.EnsureSsao();
             ConfigurePlayer();
             AssetDatabase.SaveAssets();
             Debug.Log("[LegionRush] Projeto configurado: URP ativo, cena Main na build, Android IL2CPP ARM64 retrato.");

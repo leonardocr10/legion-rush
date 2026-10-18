@@ -99,8 +99,8 @@ namespace LegionRush.Characters.EditorTools
             material.SetTexture("_EmissionMap", AssetDatabase.LoadAssetAtPath<Texture2D>(Root + "/Textures/LR_CharacterAtlas_Emission.png"));
             material.SetColor("_BaseColor", Color.white);
             material.SetColor("_EmissionColor", Color.white * 1.8f);
-            material.SetFloat("_OutlineWidth", 0.009f);
-            material.SetFloat("_RimIntensity", 0.35f);
+            material.SetFloat("_OutlineWidth", 0.014f);
+            material.SetFloat("_RimIntensity", 0.5f);
             material.enableInstancing = true;
             EditorUtility.SetDirty(material);
             return material;

@@ -119,9 +119,9 @@ namespace LegionRush
             // Neve branca na luz e azul só na sombra (referência): balanço quase neutro, split toning suave.
             postExposure = -0.12f; contrast = 28f; saturation = 24f; temperature = -2f; tint = 0f; colorFilter = Color.white;
             splitShadows = new Color(0.47f, 0.5f, 0.57f); splitHighlights = new Color(0.55f, 0.53f, 0.5f); splitBalance = -10f;
-            bloomIntensity = 0.55f; bloomThreshold = 1f; bloomScatter = 0.6f; bloomTint = new Color(0.85f, 0.93f, 1f);
+            bloomIntensity = 0.8f; bloomThreshold = 0.9f; bloomScatter = 0.65f; bloomTint = new Color(1f, 0.93f, 0.85f);
             vignetteIntensity = 0.18f; vignetteColor = new Color(0.1f, 0.15f, 0.3f);
-            characterRimBoost = 0.4f; emissionBoost = 0.2f;
+            characterRimBoost = 0.9f; emissionBoost = 0.35f;
             torchColor = new Color(1f, 0.55f, 0.2f); torchSpacing = 36f; lavaChannels = false; godRays = false;
             particles = AmbientParticleType.Snow; particleColor = new Color(1f, 1f, 1f, 0.9f); particleRate = 70;
             propStyle = PropStyle.SnowPine; groundColor = new Color(0.92f, 0.95f, 1f); roadColor = new Color(0.66f, 0.74f, 0.86f);

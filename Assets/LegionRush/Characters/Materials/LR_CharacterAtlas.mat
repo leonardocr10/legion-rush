@@ -35,10 +35,10 @@ Material:
     m_Floats:
     - _FlashAmount: 0
     - _HighlightSize: 0.5
-    - _OutlineWidth: 0.009
+    - _OutlineWidth: 0.014
     - _RampSmoothness: 0.12
     - _RampThreshold: 0
-    - _RimIntensity: 0.35
+    - _RimIntensity: 0.5
     - _RimPower: 3.5
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
