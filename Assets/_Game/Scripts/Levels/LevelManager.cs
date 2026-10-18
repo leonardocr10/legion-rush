@@ -7,7 +7,6 @@ namespace LegionRush
     {
         public enum State { Ready, Running, Victory, Defeat }
 
-        [SerializeField] private float startInputDelay = 0.4f;
         [SerializeField] private float propSpacing = 9f;
 
         public State Current { get; private set; } = State.Ready;
@@ -19,8 +18,12 @@ namespace LegionRush
         public LevelOutcome LastOutcome { get; private set; }
         public int PeakArmy { get; private set; }
         public float RunSeconds { get; private set; }
+        public int SkillsUsed { get; private set; }
+
+        public void ReportSkillUsed() => SkillsUsed++;
         public LevelConfig Config => config;
         public WorldLightingProfile World => world;
+        public ArmyManager Army => army;
         public float Progress => commander == null ? 0f : Mathf.Clamp01(commander.transform.position.z / config.trackLength);
         public event System.Action<State> StateChanged;
         public event System.Action<bool> PauseChanged;
@@ -69,7 +72,8 @@ namespace LegionRush
 
         public void StartRun()
         {
-            if (Current != State.Ready || stateTimer < startInputDelay) return;
+            if (Current != State.Ready) return;
+            MetaService.ConsumeActivePotions();
             SetState(State.Running);
         }
 
@@ -321,7 +325,8 @@ namespace LegionRush
                 Survivors = army.Count,
                 PeakArmy = Mathf.Max(1, PeakArmy),
                 BossDefeated = boss != null && !boss.IsAlive,
-                Seconds = RunSeconds
+                Seconds = RunSeconds,
+                SkillsUsed = SkillsUsed
             };
             LastOutcome = Progression.Record(result);
             GameLog.Info($"Resultado: {(victory ? "vitória" : "derrota")}, {LastOutcome.Stars} estrelas, pontuação {LastOutcome.Score}{(LastOutcome.NewBestScore ? " (recorde)" : string.Empty)}.");

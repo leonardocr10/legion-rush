@@ -39,7 +39,7 @@ namespace LegionRush
             army = owner;
             stats = unitStats;
             levelMultiplier = Mathf.Max(0.1f, level);
-            SetupCombatant(stats.maxHealth * army.HealthMultiplier * levelMultiplier, stats.armor, stats.bodyRadius);
+            SetupCombatant(stats.maxHealth * army.ClassHealthMultiplier(stats.unitClass) * levelMultiplier, stats.armor, stats.bodyRadius);
             cooldown = Random.Range(0f, stats.attackInterval);
             retargetTimer = Random.Range(0f, RetargetInterval);
             bobPhase = Random.Range(0f, 10f);
@@ -158,7 +158,7 @@ namespace LegionRush
 
         private void BeginAttack()
         {
-            float amount = stats.damage * army.DamageMultiplier * army.LevelMultiplier(stats.unitClass);
+            float amount = stats.damage * army.DamageMultiplier * army.LevelMultiplier(stats.unitClass) * army.ClassDamageMultiplier(stats.unitClass);
             bool critical = Random.value < stats.critChance;
             if (critical) amount *= stats.critMultiplier;
             if (chargeReady && stats.chargeMultiplier > 1f)

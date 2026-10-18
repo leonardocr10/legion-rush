@@ -39,6 +39,24 @@ csc() {
 echo "== Stubs URP =="
 csc "${BASE_REFS[@]}" "${ENGINE_REFS[@]}" -out:"$OUT/LR.Stubs.dll" ci/stubs/*.cs
 
+echo "== UGUI (com.unity.ugui) =="
+UGUI_ASMDEF=$(find "$UNITY_ROOT" -name 'UnityEngine.UI.asmdef' 2>/dev/null | head -1 || true)
+if [ -z "$UGUI_ASMDEF" ]; then
+  echo "UGUI não embutido no editor; baixando com.unity.ugui do registro da Unity."
+  mkdir -p "$OUT/ugui"
+  curl -fsSL "https://download.packages.unity.com/com.unity.ugui/-/com.unity.ugui-2.0.0.tgz" -o "$OUT/ugui.tgz"
+  tar -xzf "$OUT/ugui.tgz" -C "$OUT/ugui"
+  UGUI_ASMDEF=$(find "$OUT/ugui" -name 'UnityEngine.UI.asmdef' | head -1)
+fi
+[ -n "$UGUI_ASMDEF" ] || { echo "::error::UnityEngine.UI.asmdef não encontrado"; exit 2; }
+UGUI_DIR=$(dirname "$UGUI_ASMDEF")
+echo "UGUI: $UGUI_DIR"
+mapfile -t UGUI_SRC < <(find "$UGUI_DIR" -name '*.cs' -not -path '*/Editor/*' -not -path '*/Tests/*' | sort)
+csc "${BASE_REFS[@]}" "${ENGINE_REFS[@]}" -unsafe -nowarn:0618,0649,0414,0169 \
+  -define:"UNITY_6000_0_OR_NEWER;PACKAGE_PHYSICS;PACKAGE_PHYSICS2D;PACKAGE_ANIMATION;PACKAGE_TILEMAP;PACKAGE_UITOOLKIT" \
+  -out:"$OUT/UnityEngine.UI.dll" "${UGUI_SRC[@]}"
+ENGINE_REFS+=(-r:"$OUT/UnityEngine.UI.dll")
+
 mapfile -t RUNTIME < <(find Assets -name '*.cs' -not -path '*/Editor/*' | sort)
 mapfile -t EDITOR < <(find Assets -path '*/Editor/*' -name '*.cs' | sort)
 echo "Runtime: ${#RUNTIME[@]} arquivos | Editor: ${#EDITOR[@]} arquivos"

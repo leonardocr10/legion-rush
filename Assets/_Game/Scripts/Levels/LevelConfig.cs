@@ -92,6 +92,7 @@ namespace LegionRush
     {
         public int levelNumber = 1;
         public string worldName = "Reino Congelado";
+        public WorldId world = WorldId.FrozenKingdom;
         [Min(50f)] public float trackLength = 220f;
         [Min(3f)] public float trackHalfWidth = 5f;
         [Min(1f)] public float forwardSpeed = 7f;

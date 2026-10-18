@@ -102,6 +102,7 @@ namespace LegionRush
 
             Execute(skill, target);
             cooldowns[index] = skill.cooldown;
+            level.ReportSkillUsed();
             SkillUsed?.Invoke(skill);
             GameLog.Info($"Habilidade: {skill.displayName}.");
             return true;

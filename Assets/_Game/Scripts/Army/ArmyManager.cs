@@ -20,7 +20,7 @@ namespace LegionRush
         public float AttackIntervalMultiplier => 1f / ((1f + permanentAttackSpeed) * (1f + timedAttackSpeed));
         public float HealthMultiplier { get; set; } = 1f;
         public float HealMultiplier { get; set; } = 1f;
-        public float ArmorMultiplier => Stance == FormationStance.Defensive ? 1.35f : Stance == FormationStance.Aggressive ? 0.9f : 1f;
+        public float ArmorMultiplier => metaArmor * (Stance == FormationStance.Defensive ? 1.35f : Stance == FormationStance.Aggressive ? 0.9f : 1f);
         public float FrontLeash => Config.frontLeashRange * (Stance == FormationStance.Aggressive ? 1.6f : Stance == FormationStance.Defensive ? 0.55f : 1f);
         public IReadOnlyList<Soldier> Soldiers => soldiers;
         public event System.Action<int, int> CountChanged;
@@ -30,6 +30,12 @@ namespace LegionRush
         private readonly ObjectPool<Soldier>[] pools = new ObjectPool<Soldier>[ArmyConfig.ClassCount];
         private readonly int[] classLevels = new int[ArmyConfig.ClassCount];
         private readonly int[] pendingLevels = new int[ArmyConfig.ClassCount];
+        private readonly float[] metaClassDamage = { 1f, 1f, 1f, 1f, 1f, 1f };
+        private readonly float[] metaClassHealth = { 1f, 1f, 1f, 1f, 1f, 1f };
+        private readonly bool[] unlockedClasses = { true, true, true, true, true, true };
+        private float metaArmor = 1f;
+        private int metaStartTroops;
+        private Color skinTint = Color.white;
         private readonly float[] weights = new float[ArmyConfig.ClassCount];
         private ObjectPool<Projectile> arrowPool;
         private ObjectPool<Projectile> orbPool;
@@ -81,7 +87,7 @@ namespace LegionRush
             releaseArrow = p => arrowPool.Release(p);
             releaseOrb = p => orbPool.Release(p);
 
-            SetCount(config.startingSoldiers);
+            SetCount(config.startingSoldiers + metaStartTroops);
             GameLog.Info($"Exército pronto: {Count} soldados ({Describe()}), composição '{config.compositions[CompositionIndex].displayName}'.");
         }
 
@@ -90,6 +96,26 @@ namespace LegionRush
         public int CountOf(UnitClass unitClass) => byClass[(int)unitClass].Count;
         public int LevelOf(UnitClass unitClass) => classLevels[(int)unitClass];
         public float LevelMultiplier(UnitClass unitClass) => 1f + Config.levelScaling * (classLevels[(int)unitClass] - 1);
+
+        // Bônus permanentes (melhorias, equipamentos, herói, poções), classes liberadas e visual. Chamar antes de Initialize.
+        public void ApplyMeta(MetaBonuses bonuses, bool[] unlocked, Color tint)
+        {
+            for (int i = 0; i < ArmyConfig.ClassCount; i++)
+            {
+                metaClassDamage[i] = bonuses.ClassDamage[i] * bonuses.AllDamage;
+                metaClassHealth[i] = bonuses.ClassHealth[i] * bonuses.AllHealth;
+                unlockedClasses[i] = unlocked == null || i >= unlocked.Length || unlocked[i];
+            }
+            permanentAttackSpeed += bonuses.AttackSpeed;
+            HealMultiplier = bonuses.Heal;
+            metaArmor = bonuses.Armor;
+            metaStartTroops = bonuses.StartTroops;
+            skinTint = tint;
+        }
+
+        public float ClassDamageMultiplier(UnitClass unitClass) => metaClassDamage[(int)unitClass];
+        public float ClassHealthMultiplier(UnitClass unitClass) => HealthMultiplier * metaClassHealth[(int)unitClass];
+        public bool IsClassUnlocked(UnitClass unitClass) => unlockedClasses[(int)unitClass];
 
         // Níveis permanentes vindos do save, aplicados antes de criar as tropas iniciais.
         public void SetClassLevelBeforeSpawn(UnitClass unitClass, int level) => pendingLevels[(int)unitClass] = level;
@@ -473,8 +499,14 @@ namespace LegionRush
             CompositionIndex = Mathf.Clamp(compositionIndex, 0, Config.compositions.Count - 1);
             float[] source = Config.compositions[CompositionIndex].weights;
             float total = 0f;
-            for (int i = 0; i < ArmyConfig.ClassCount; i++) total += Mathf.Max(0f, source[i]);
-            for (int i = 0; i < ArmyConfig.ClassCount; i++) weights[i] = total > 0f ? Mathf.Max(0f, source[i]) / total : 0f;
+            for (int i = 0; i < ArmyConfig.ClassCount; i++) total += unlockedClasses[i] ? Mathf.Max(0f, source[i]) : 0f;
+            for (int i = 0; i < ArmyConfig.ClassCount; i++)
+                weights[i] = total > 0f && unlockedClasses[i] ? Mathf.Max(0f, source[i]) / total : 0f;
+            if (total <= 0f)
+            {
+                weights[(int)UnitClass.Warrior] = 0.5f;
+                weights[(int)UnitClass.Archer] = 0.5f;
+            }
         }
 
         private UnitClass PickClassToAdd()
@@ -558,7 +590,9 @@ namespace LegionRush
 
         private Soldier CreateSoldier(UnitClass unitClass)
         {
-            GameObject go = CharacterFactory.CreateSoldier(unitClass, poolRoot, Config.Get(unitClass).color);
+            Color baseColor = Config.Get(unitClass).color;
+            Color tunic = skinTint == Color.white ? baseColor : Color.Lerp(baseColor, skinTint, 0.6f);
+            GameObject go = CharacterFactory.CreateSoldier(unitClass, poolRoot, tunic);
             go.SetActive(false);
             return go.AddComponent<Soldier>();
         }

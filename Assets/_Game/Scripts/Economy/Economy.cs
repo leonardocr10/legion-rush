@@ -70,6 +70,7 @@ namespace LegionRush
         public int PeakArmy;
         public bool BossDefeated;
         public float Seconds;
+        public int SkillsUsed;
     }
 
     public struct LevelOutcome
@@ -79,6 +80,8 @@ namespace LegionRush
         public bool NewBestScore;
         public bool NewStars;
         public bool UnlockedNext;
+        public int GoldEarned;
+        public int GemsEarned;
     }
 
     // Registra o resultado da fase: estrelas, recordes, desbloqueio da próxima fase e recompensas na carteira.
@@ -133,7 +136,11 @@ namespace LegionRush
             save.records.totalKills += result.Kills;
             if (result.BossDefeated) save.records.bossesDefeated++;
             save.records.bestArmySize = Mathf.Max(save.records.bestArmySize, result.PeakArmy);
-            Economy.Add(result.Gold, result.Gems, $"fase {result.LevelNumber}");
+            float goldMultiplier = MetaService.ComputeBonuses(false).Gold;
+            outcome.GoldEarned = Mathf.RoundToInt(result.Gold * goldMultiplier);
+            outcome.GemsEarned = result.Gems;
+            Economy.Add(outcome.GoldEarned, outcome.GemsEarned, $"fase {result.LevelNumber}");
+            MetaService.ReportLevel(result, outcome.Stars, outcome.GoldEarned);
             SaveManager.Save();
             return outcome;
         }
