@@ -1,0 +1,6 @@
+<!-- Keeps engine components that are only added by name or from generated content (stripped in WebGL/IL2CPP). -->
+<linker>
+  <assembly fullname="UnityEngine.PhysicsModule">
+    <type fullname="UnityEngine.MeshCollider" preserve="all" />
+  </assembly>
+</linker>

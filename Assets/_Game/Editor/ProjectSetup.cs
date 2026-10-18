@@ -34,6 +34,7 @@ namespace LegionRush.EditorTools
             EnsureUrp();
             EnsureScene();
             TypographyAssetBuilder.EnsureAssets();
+            MainMenuArtTools.RebuildCatalog();
             ConfigurePlayer();
             AssetDatabase.SaveAssets();
             Debug.Log("[LegionRush] Projeto configurado: URP ativo, cena Main na build, Android IL2CPP ARM64 retrato.");
@@ -90,6 +91,7 @@ namespace LegionRush.EditorTools
                 PlayerSettings.WebGL.compressionFormat = WebGLCompressionFormat.Disabled;
                 PlayerSettings.WebGL.decompressionFallback = false;
                 PlayerSettings.WebGL.dataCaching = true;
+                PlayerSettings.WebGL.template = "PROJECT:LegionRush";
                 PlayerSettings.defaultWebScreenWidth = 540;
                 PlayerSettings.defaultWebScreenHeight = 960;
                 PlayerSettings.runInBackground = true;

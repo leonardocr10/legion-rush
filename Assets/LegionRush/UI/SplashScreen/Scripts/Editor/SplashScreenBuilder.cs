@@ -306,12 +306,12 @@ namespace LegionRush.EditorTools
         private static void BuildCharacters(RectTransform layer)
         {
             RectTransform archer = Group(layer, "RoyalArcher");
-            Image archerArt = Img(archer, "Archer", "Characters/Splash_Archer", Bottom, new Vector2(-330f, 470f), 1.42f, Bottom);
+            Image archerArt = Img(archer, "Archer", "Characters/Splash_Archer", Bottom, new Vector2(-330f, 330f), 1.42f, Bottom);
             Entrance(archer, 0.6f, 0.7f, new Vector2(-140f, 0f));
             Drift(archerArt.rectTransform, new Vector2(2f, 5f), 4.2f, 0.3f);
 
             RectTransform mage = Group(layer, "ArcaneMage");
-            Image mageArt = Img(mage, "Mage", "Characters/Splash_Mage", Bottom, new Vector2(330f, 470f), 1.42f, Bottom);
+            Image mageArt = Img(mage, "Mage", "Characters/Splash_Mage", Bottom, new Vector2(330f, 330f), 1.42f, Bottom);
             // orbe mágico na mão estendida (≈ 74% da largura, 40% da altura a partir do topo)
             Vector2 ms = mageArt.rectTransform.sizeDelta;
             Image orb = GlowImage(mageArt.rectTransform, "MagicOrbGlow", new Vector2(ms.x * 0.24f, ms.y * 0.1f), new Vector2(300f, 300f),
