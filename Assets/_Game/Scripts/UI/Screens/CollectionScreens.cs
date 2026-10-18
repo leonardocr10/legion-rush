@@ -4,63 +4,6 @@ using UnityEngine.UI;
 
 namespace LegionRush
 {
-    // 5. Seleção e evolução de heróis
-    public class HeroScreen : MenuScreen
-    {
-        private RectTransform list;
-        protected override string Title => "HERÓIS";
-        protected override void BuildBody(RectTransform body) => list = UI.ScrollList(body);
-
-        protected override void RefreshBody()
-        {
-            UI.Clear(list);
-            SaveData save = SaveManager.Current;
-            float power = 1f + 0.1f * MetaService.UpgradeLevel("hero_power");
-            foreach (HeroDef hero in MetaCatalog.Heroes)
-            {
-                HeroRecord record = save.heroes.Get(hero.Id);
-                bool owned = record != null;
-                bool selected = save.heroes.selected == hero.Id;
-                int level = owned ? record.level : 1;
-                string passive = hero.Passive.Describe((1f + hero.PerLevel * (level - 1)) * power);
-                string subtitle = $"{hero.Title} · {MetaCatalog.RarityName(hero.Rarity)} · {ArmyConfig.ClassName(hero.Class)}\n" +
-                                  (owned ? $"Nível {level}/10 · Passiva: {passive}" : $"Passiva: {passive}");
-                string id = hero.Id;
-                HeroDef captured = hero;
-                RectTransform row = UI.Row(list, 250f, UIStyle.Panel);
-                Image stripe = UI.Panel(row, MetaCatalog.RarityColor(hero.Rarity), "Rarity");
-                UI.Place(stripe.rectTransform, 0.01f, 0.1f, 0.025f, 0.9f);
-                TMP_Text name = UI.Label(row, hero.Name + (selected ? "  (EM CAMPO)" : string.Empty), 48, selected ? UIStyle.Gold : Color.white, TextAnchor.MiddleLeft);
-                UI.Place(name.rectTransform, 0.045f, 0.62f, 0.98f, 0.95f);
-                TMP_Text detail = UI.Label(row, subtitle, 30, UIStyle.TextDim, TextAnchor.UpperLeft, false);
-                UI.Place(detail.rectTransform, 0.045f, 0.3f, 0.98f, 0.62f);
-
-                if (!owned)
-                {
-                    Button unlock = UI.Button(row, "DESBLOQUEAR\n" + Price(hero.Gold, hero.Gems), UIStyle.Gold,
-                        () => ConfirmPurchase("Herói " + captured.Name, captured.Gold, captured.Gems, () => MetaService.UnlockHero(id), captured.Name + " entrou na legião!"), 30);
-                    UI.Place((RectTransform)unlock.transform, 0.5f, 0.04f, 0.985f, 0.3f);
-                    continue;
-                }
-                Button select = UI.Button(row, selected ? "SELECIONADO" : "SELECIONAR", selected ? UIStyle.Gray : UIStyle.Blue, () =>
-                {
-                    MetaService.SelectHero(id);
-                    Ui.Toast(captured.Name + " lidera a legião");
-                    Game.Restart();
-                    Ui.RefreshTop();
-                }, 32);
-                UI.Place((RectTransform)select.transform, 0.045f, 0.04f, 0.48f, 0.3f);
-                select.interactable = !selected;
-                bool max = level >= 10;
-                int cost = hero.LevelCost(level);
-                Button upgrade = UI.Button(row, max ? "NÍVEL MÁX." : $"MELHORAR\n{cost} OURO", max ? UIStyle.Gray : UIStyle.Green,
-                    () => ConfirmPurchase($"{captured.Name} nível {level + 1}", cost, 0, () => MetaService.LevelUpHero(id)), 30);
-                UI.Place((RectTransform)upgrade.transform, 0.52f, 0.04f, 0.985f, 0.3f);
-                upgrade.interactable = !max;
-            }
-        }
-    }
-
     // 6. Gerenciamento de tropas (desbloqueio, nível e composição)
     public class TroopScreen : MenuScreen
     {

@@ -52,10 +52,14 @@ namespace LegionRush
         public int Gold, Gems;
     }
 
+    public enum HeroRole { Tank, Damage, Support }
+
     public class HeroDef
     {
         public string Id, Name, Title;
         public UnitClass Class;
+        public HeroRole Role;
+        public string Portrait, LockedPortrait, Showcase;
         public TroopRarity Rarity;
         public Bonus Passive;
         public float PerLevel;
@@ -145,11 +149,15 @@ namespace LegionRush
 
         public static readonly List<HeroDef> Heroes = new List<HeroDef>
         {
-            new HeroDef { Id = "arthor", Name = "ARTHOR", Title = "Guardião Real", Class = UnitClass.Warrior, Rarity = TroopRarity.Epic, Passive = new Bonus(BonusType.Armor, 0.1f), PerLevel = 0.2f },
-            new HeroDef { Id = "lyra", Name = "LYRA", Title = "Arqueira Celestial", Class = UnitClass.Archer, Rarity = TroopRarity.Epic, Passive = new Bonus(BonusType.ClassDamage, 0.15f, UnitClass.Archer), PerLevel = 0.2f, Gold = 1500 },
-            new HeroDef { Id = "morvan", Name = "MORVAN", Title = "Mago Arcano", Class = UnitClass.Mage, Rarity = TroopRarity.Legendary, Passive = new Bonus(BonusType.ClassDamage, 0.2f, UnitClass.Mage), PerLevel = 0.2f, Gems = 40 },
-            new HeroDef { Id = "kael", Name = "KAEL", Title = "Guerreiro das Sombras", Class = UnitClass.Warrior, Rarity = TroopRarity.Legendary, Passive = new Bonus(BonusType.AllDamage, 0.1f), PerLevel = 0.2f, Gold = 2500 },
-            new HeroDef { Id = "elara", Name = "ELARA", Title = "Sacerdotisa da Luz", Class = UnitClass.Healer, Rarity = TroopRarity.Epic, Passive = new Bonus(BonusType.Heal, 0.25f), PerLevel = 0.2f, Gems = 50 }
+            new HeroDef { Id = "arthor", Name = "Rei Supremo", Title = "Guardião Real", Class = UnitClass.Warrior, Role = HeroRole.Tank, Rarity = TroopRarity.Epic, Passive = new Bonus(BonusType.Armor, 0.1f), PerLevel = 0.2f, Portrait = "Portrait_King", Showcase = "Showcase_King" },
+            new HeroDef { Id = "lyra", Name = "Arqueira Real", Title = "Arqueira Celestial", Class = UnitClass.Archer, Role = HeroRole.Damage, Rarity = TroopRarity.Epic, Passive = new Bonus(BonusType.ClassDamage, 0.15f, UnitClass.Archer), PerLevel = 0.2f, Gold = 1500, Portrait = "Portrait_Archer" },
+            new HeroDef { Id = "kael", Name = "Cavaleiro", Title = "Guerreiro das Sombras", Class = UnitClass.Knight, Role = HeroRole.Tank, Rarity = TroopRarity.Legendary, Passive = new Bonus(BonusType.AllDamage, 0.1f), PerLevel = 0.2f, Gold = 2500, Portrait = "Portrait_Knight" },
+            new HeroDef { Id = "morvan", Name = "Mago Arcano", Title = "Mago Arcano", Class = UnitClass.Mage, Role = HeroRole.Damage, Rarity = TroopRarity.Legendary, Passive = new Bonus(BonusType.ClassDamage, 0.2f, UnitClass.Mage), PerLevel = 0.2f, Gems = 40, Portrait = "Portrait_Mage", Showcase = "Showcase_Mage" },
+            new HeroDef { Id = "doran", Name = "Lanceiro", Title = "Muralha de Lanças", Class = UnitClass.Lancer, Role = HeroRole.Tank, Rarity = TroopRarity.Rare, Passive = new Bonus(BonusType.ClassHealth, 0.15f, UnitClass.Lancer), PerLevel = 0.2f, Gold = 1200, Portrait = "Portrait_Lancer" },
+            new HeroDef { Id = "elara", Name = "Curandeira", Title = "Sacerdotisa da Luz", Class = UnitClass.Healer, Role = HeroRole.Support, Rarity = TroopRarity.Epic, Passive = new Bonus(BonusType.Heal, 0.25f), PerLevel = 0.2f, Gems = 50, Portrait = "Portrait_Healer" },
+            new HeroDef { Id = "galen", Name = "Paladino", Title = "Escudo Sagrado", Class = UnitClass.Knight, Role = HeroRole.Tank, Rarity = TroopRarity.Legendary, Passive = new Bonus(BonusType.AllHealth, 0.12f), PerLevel = 0.2f, Gems = 80, Portrait = "Portrait_PaladinLocked", LockedPortrait = "Portrait_PaladinLocked" },
+            new HeroDef { Id = "vex", Name = "Assassino", Title = "Lâmina Oculta", Class = UnitClass.Warrior, Role = HeroRole.Damage, Rarity = TroopRarity.Legendary, Passive = new Bonus(BonusType.AttackSpeed, 0.12f), PerLevel = 0.2f, Gold = 4000, Portrait = "Portrait_AssassinLocked", LockedPortrait = "Portrait_AssassinLocked" },
+            new HeroDef { Id = "sylva", Name = "Atiradora Élfica", Title = "Olho da Floresta", Class = UnitClass.Archer, Role = HeroRole.Damage, Rarity = TroopRarity.Legendary, Passive = new Bonus(BonusType.ClassDamage, 0.25f, UnitClass.Archer), PerLevel = 0.2f, Gems = 100, Portrait = "Portrait_ElfLocked", LockedPortrait = "Portrait_ElfLocked" }
         };
 
         public static readonly List<SkinDef> Skins = new List<SkinDef>
