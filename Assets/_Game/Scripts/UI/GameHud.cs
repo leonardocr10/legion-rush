@@ -244,6 +244,14 @@ namespace LegionRush
             ring.effectDistance = new Vector2(2f, -2f);
             TMP_Text count = UI.Label(badge, "0", Mathf.RoundToInt(24 * LegionUI.Px), Color.white, TextAnchor.MiddleCenter, true, "Value", LegionTextStyle.Hud);
             UI.Stretch(count.rectTransform, 2f, 2f, 0f, 2f);
+            // O rei é um só: no selo dele vai uma coroa (o total do exército já aparece no contador sobre as tropas).
+            if (index == 0)
+            {
+                count.gameObject.SetActive(false);
+                Image crown = LegionArt.Image(badge, "Hud/hud_crown", false, "Crown");
+                UI.Stretch(crown.rectTransform, 6f, 6f, 6f, 6f);
+                crown.preserveAspect = true;
+            }
             slot = rect.gameObject;
             return count;
         }

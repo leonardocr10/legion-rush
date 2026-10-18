@@ -8,6 +8,11 @@ namespace LegionRush
     {
         public static CharacterVisualLibrary Library { get; set; }
 
+        // Tropas, inimigos e comandante maiores na pista, como na arte de referência da batalha (chefões ficam no tamanho próprio).
+        public const float TroopScale = 1.5f;
+
+        private static bool IsBoss(CharacterId id) => id.ToString().StartsWith("Boss");
+
         private static readonly HashSet<CharacterId> WarnedPlaceholders = new HashSet<CharacterId>();
         private static readonly Color SkinColor = new Color(0.96f, 0.78f, 0.62f);
         private static readonly Color LeatherColor = new Color(0.36f, 0.22f, 0.12f);
@@ -76,9 +81,10 @@ namespace LegionRush
 
             Transform visual = CreateRoot(id.ToString(), parent, out root);
             GameObject model = Object.Instantiate(entry.prefab, visual, false);
-            model.transform.localPosition = entry.localOffset;
+            float scale = IsBoss(id) ? 1f : TroopScale;
+            model.transform.localPosition = entry.localOffset * scale;
             model.transform.localRotation = Quaternion.Euler(entry.localEuler);
-            model.transform.localScale = Vector3.one * entry.scale;
+            model.transform.localScale = Vector3.one * (entry.scale * scale);
 
             Animator animator = model.GetComponentInChildren<Animator>(true);
             if (animator != null && animator.GetComponent<CharacterAnimatorDriver>() == null)

@@ -53,7 +53,7 @@ namespace LegionRush
         public List<CompositionPreset> compositions = new List<CompositionPreset>();
         [Min(1)] public int startingSoldiers = 12;
         [Min(1)] public int maxSoldiers = 150;
-        [Min(0.3f)] public float formationSpacing = 0.6f;
+        [Min(0.3f)] public float formationSpacing = 0.95f;
         [Min(1f), Tooltip("Distância máxima que a linha de frente avança para engajar (postura equilibrada).")]
         public float frontLeashRange = 6f;
         [Min(1f)] public float projectileSpeed = 24f;
