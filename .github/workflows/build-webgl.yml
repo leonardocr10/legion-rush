@@ -1,0 +1,81 @@
+name: Build WebGL (navegador)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  license:
+    name: Verificar licença Unity
+    runs-on: ubuntu-latest
+    outputs:
+      ok: ${{ steps.check.outputs.ok }}
+    steps:
+      - id: check
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        run: |
+          if [ -n "$UNITY_LICENSE" ] && [ -n "$UNITY_EMAIL" ] && [ -n "$UNITY_PASSWORD" ]; then
+            echo "ok=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ok=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Build WebGL pulado: configure UNITY_LICENSE, UNITY_EMAIL e UNITY_PASSWORD (veja o README)."
+          fi
+
+  build-webgl:
+    name: Legion Rush 3D (WebGL)
+    needs: license
+    if: needs.license.outputs.ok == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+      UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+      UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Cache da pasta Library
+        uses: actions/cache@v4
+        with:
+          path: Library
+          key: Library-WebGL-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          restore-keys: Library-WebGL-
+
+      - name: Build WebGL
+        uses: game-ci/unity-builder@v4
+        with:
+          unityVersion: 6000.0.83f1
+          targetPlatform: WebGL
+          buildName: LegionRush3D
+          buildMethod: LegionRush.EditorTools.ProjectSetup.BuildWebGL
+
+      - name: Preparar página
+        run: sudo chown -R "$USER" build && touch build/WebGL/LegionRush3D/.nojekyll
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: build/WebGL/LegionRush3D
+
+  deploy:
+    name: Publicar no GitHub Pages
+    needs: build-webgl
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -76,6 +76,48 @@ namespace LegionRush.EditorTools
             }
         }
 
+        // Build para navegador (WebGL). Usado pelo GitHub Actions para publicar no GitHub Pages.
+        [MenuItem("Legion Rush/Setup/Build WebGL (navegador)")]
+        public static void BuildWebGL()
+        {
+            try
+            {
+                ConfigureProject();
+                string output = GetArgument("-customBuildPath") ?? "Builds/WebGL/LegionRush3D";
+                if (output.EndsWith(".html", StringComparison.OrdinalIgnoreCase)) output = Path.GetDirectoryName(output);
+                Directory.CreateDirectory(output);
+                PlayerSettings.WebGL.compressionFormat = WebGLCompressionFormat.Disabled;
+                PlayerSettings.WebGL.decompressionFallback = false;
+                PlayerSettings.WebGL.dataCaching = true;
+                PlayerSettings.defaultWebScreenWidth = 540;
+                PlayerSettings.defaultWebScreenHeight = 960;
+                PlayerSettings.runInBackground = true;
+
+                var options = new BuildPlayerOptions
+                {
+                    scenes = new[] { ScenePath },
+                    locationPathName = output,
+                    target = BuildTarget.WebGL,
+                    targetGroup = BuildTargetGroup.WebGL,
+                    options = BuildOptions.None
+                };
+                BuildSummary summary = BuildPipeline.BuildPlayer(options).summary;
+                if (summary.result != BuildResult.Succeeded)
+                {
+                    Debug.LogError($"[LegionRush] Build WebGL falhou: {summary.result}, {summary.totalErrors} erros.");
+                    ExitIfBatch(1);
+                    return;
+                }
+                Debug.Log($"[LegionRush] WebGL gerado em {output} ({summary.totalSize / (1024f * 1024f):0.0} MB).");
+                ExitIfBatch(0);
+            }
+            catch (Exception exception)
+            {
+                Debug.LogError("[LegionRush] Build WebGL interrompido: " + exception);
+                ExitIfBatch(1);
+            }
+        }
+
         private static void EnsureUrp()
         {
             var asset = AssetDatabase.LoadAssetAtPath<UniversalRenderPipelineAsset>(UrpAssetPath);
