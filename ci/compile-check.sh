@@ -25,7 +25,16 @@ for f in "$MANAGED"/UnityEngine*.dll; do ENGINE_REFS+=(-r:"$f"); done
 for f in "$MANAGED"/UnityEditor*.dll; do EDITOR_REFS+=(-r:"$f"); done
 [ -f "$DATA/Managed/UnityEditor.Graphs.dll" ] && EDITOR_REFS+=(-r:"$DATA/Managed/UnityEditor.Graphs.dll")
 
-csc() { "$DOTNET" "$CSC" -nologo -nostdlib -noconfig -langversion:9.0 -target:library -nowarn:1701,1702 -warnaserror- "$@"; }
+# Erros viram anotações do GitHub (visíveis na aba Actions e pela API de check-runs).
+csc() {
+  set +e
+  "$DOTNET" "$CSC" -nologo -nostdlib -noconfig -langversion:9.0 -target:library -nowarn:1701,1702 -warnaserror- "$@" > "$OUT/csc.log" 2>&1
+  local code=$?
+  set -e
+  cat "$OUT/csc.log"
+  grep -E ': error ' "$OUT/csc.log" | head -40 | sed -E 's#^(.*)\(([0-9]+),([0-9]+)\): error (CS[0-9]+): (.*)$#::error file=\1,line=\2,col=\3::\4 \5#' || true
+  [ $code -eq 0 ] || { echo "::error::Falha de compilação (código $code)"; exit $code; }
+}
 
 echo "== Stubs URP =="
 csc "${BASE_REFS[@]}" "${ENGINE_REFS[@]}" -out:"$OUT/LR.Stubs.dll" ci/stubs/*.cs
