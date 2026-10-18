@@ -9,8 +9,29 @@ permissions:
   contents: write
 
 jobs:
+  license:
+    name: Verificar licença Unity
+    runs-on: ubuntu-latest
+    outputs:
+      ok: ${{ steps.check.outputs.ok }}
+    steps:
+      - id: check
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        run: |
+          if [ -n "$UNITY_LICENSE" ] && [ -n "$UNITY_EMAIL" ] && [ -n "$UNITY_PASSWORD" ]; then
+            echo "ok=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ok=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Build do APK pulado: configure UNITY_LICENSE, UNITY_EMAIL e UNITY_PASSWORD (veja o README)."
+          fi
+
   build-android:
     name: Legion Rush 3D (Android)
+    needs: license
+    if: needs.license.outputs.ok == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 90
     env:
@@ -18,11 +39,6 @@ jobs:
       UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
       UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
     steps:
-      - name: Verificar segredos da licença Unity
-        if: ${{ env.UNITY_LICENSE == '' || env.UNITY_EMAIL == '' || env.UNITY_PASSWORD == '' }}
-        run: |
-          echo "::error::Configure os segredos UNITY_LICENSE, UNITY_EMAIL e UNITY_PASSWORD em Settings > Secrets and variables > Actions. Veja o README."
-          exit 1
 
       - name: Liberar espaço em disco
         uses: jlumbroso/free-disk-space@v1.3.1

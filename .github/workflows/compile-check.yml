@@ -1,0 +1,17 @@
+name: Compile Check
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  compile:
+    name: Compilar scripts (Unity 6000.0.83f1, sem licença)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    container: unityci/editor:ubuntu-6000.0.83f1-base-3
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compilar
+        run: bash ci/compile-check.sh
