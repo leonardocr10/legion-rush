@@ -105,9 +105,19 @@ namespace LegionRush
             sign.SetParent(gate, false);
             sign.localPosition = new Vector3(0f, ornate ? 5.75f : 3.75f, ornate ? 0.1f : 0f);
             sign.localRotation = Quaternion.Euler(30f, 0f, 0f);
-            if (ornate)
+            // Placa da prancha de batalha na cor da categoria (ícone à esquerda); o texto vem dos dados do portal.
+            Material plate = PlateMaterial(option.category);
+            float textX = 0f;
+            float textWidth = width - 0.5f;
+            if (plate != null)
             {
-                // Placa na cor da categoria com moldura dourada (texto continua vindo dos dados do portal).
+                float plateWidth = width - 0.1f;
+                PrimitiveFactory.Part(PrimitiveType.Quad, sign, new Vector3(0f, 0f, -0.02f), new Vector3(plateWidth, plateWidth / 2.75f, 1f), plate, default, false);
+                textX = plateWidth * 0.14f;
+                textWidth = plateWidth * 0.62f;
+            }
+            else if (ornate)
+            {
                 Material plaque = MaterialLibrary.Get(color * 0.55f, 0.5f, 0f);
                 Material gold = MaterialLibrary.Get(new Color(1f, 0.76f, 0.26f), 0.15f, 0.2f);
                 PrimitiveFactory.Part(PrimitiveType.Cube, sign, new Vector3(0f, 0f, 0.03f), new Vector3(width - 0.05f, 1.8f, 0.14f), gold);
@@ -116,13 +126,38 @@ namespace LegionRush
             else PrimitiveFactory.Part(PrimitiveType.Cube, sign, Vector3.zero, new Vector3(width - 0.15f, 1.7f, 0.18f), glow);
             float titleSize = Mathf.Clamp(0.32f / Mathf.Max(3, option.title.Length) * width, 0.035f, 0.075f);
             float subtitleSize = Mathf.Clamp(0.5f / Mathf.Max(6, option.subtitle.Length) * width, 0.02f, 0.035f);
-            title = PrimitiveFactory.Label(sign, new Vector3(0f, 0.28f, -0.12f), option.title, 128, titleSize, Color.white);
-            TMP_Text subtitle = PrimitiveFactory.Label(sign, new Vector3(0f, -0.48f, -0.12f), option.subtitle, 96, subtitleSize, new Color(1f, 1f, 1f, 0.95f),
+            title = PrimitiveFactory.Label(sign, new Vector3(textX, 0.2f, -0.12f), option.title, 128, titleSize, Color.white);
+            TMP_Text subtitle = PrimitiveFactory.Label(sign, new Vector3(textX, -0.32f, -0.12f), option.subtitle, 96, subtitleSize, new Color(1f, 1f, 1f, 0.95f),
                 LegionTextStyle.Menu);
             // Títulos longos ("CAMINHO LONGO") encolhem para caber na placa em vez de invadir o portal vizinho.
-            FitWidth(title, width - 0.5f, 0.95f);
-            FitWidth(subtitle, width - 0.5f, 0.5f);
+            FitWidth(title, textWidth, 0.7f);
+            FitWidth(subtitle, textWidth, 0.4f);
             return gate;
+        }
+
+        // Placas recortadas da prancha: azul (tropas e defesa), verde (multiplicar), laranja (melhorias e recursos),
+        // vermelha (perdas e rotas). Material compartilhado por categoria.
+        private static readonly System.Collections.Generic.Dictionary<string, Material> plates =
+            new System.Collections.Generic.Dictionary<string, Material>();
+
+        private static Material PlateMaterial(GateCategory category)
+        {
+            string name = category switch
+            {
+                GateCategory.Multiply => "Gate_Green",
+                GateCategory.Upgrade => "Gate_Orange",
+                GateCategory.Resource => "Gate_Orange",
+                GateCategory.Negative => "Gate_Red",
+                GateCategory.Route => "Gate_Red",
+                _ => "Gate_Blue"
+            };
+            if (plates.TryGetValue(name, out Material material)) return material;
+            Texture2D texture = BattleArt.Texture(name);
+            material = texture != null ? MaterialLibrary.CreateGlow(texture, Color.white, false, 1f) : null;
+            // Antes do texto: sem isso a ordenação por distância às vezes desenha a placa por cima do rótulo.
+            if (material != null) material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent - 20;
+            plates[name] = material;
+            return material;
         }
 
         private static void FitWidth(TMP_Text text, float width, float height)
