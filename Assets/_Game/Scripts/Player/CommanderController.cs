@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 namespace LegionRush
@@ -22,7 +23,8 @@ namespace LegionRush
         private float bobPhase;
         private bool dragging;
         private Transform visual;
-        private TextMesh countLabel;
+        private TMP_Text countLabel;
+        private int shownCount = -1;
 
         private float Limit => Mathf.Max(0f, halfWidth - edgeMargin);
 
@@ -43,7 +45,10 @@ namespace LegionRush
 
         public void SetCountLabel(int count)
         {
-            if (countLabel != null) countLabel.text = count.ToString();
+            if (countLabel == null || count == shownCount) return;
+            if (shownCount >= 0 && count > shownCount) LegionTextFx.Play(countLabel, LegionTextAnimation.Punch);
+            shownCount = count;
+            countLabel.SetText("{0}", count);
         }
 
         private void Update()

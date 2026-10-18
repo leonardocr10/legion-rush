@@ -1,0 +1,18 @@
+{
+  "Buttons/btn_blue": [82, 43, 80, 43],
+  "Buttons/btn_gold": [36, 69, 38, 69],
+  "Buttons/btn_gray": [34, 44, 34, 44],
+  "Buttons/btn_green": [58, 43, 58, 43],
+  "Buttons/btn_orange": [52, 41, 46, 41],
+  "Buttons/btn_purple": [62, 45, 60, 45],
+  "Buttons/btn_red": [26, 41, 32, 41],
+  "Frames/frame_gold": [48, 48, 48, 48],
+  "Frames/frame_gold_b": [40, 40, 40, 40],
+  "Hud/hud_boss_fill": [24, 27, 24, 27],
+  "Hud/hud_boss_track": [28, 28, 26, 28],
+  "ProgressBars/bar_fill_blue": [24, 18, 24, 18],
+  "ProgressBars/bar_fill_green": [24, 18, 24, 18],
+  "ProgressBars/bar_fill_orange": [24, 18, 24, 18],
+  "ProgressBars/bar_fill_purple": [24, 18, 24, 18],
+  "ProgressBars/bar_track": [60, 28, 60, 28]
+}

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 namespace LegionRush
@@ -411,7 +412,8 @@ namespace LegionRush
             for (int side = -1; side <= 1; side += 2)
                 PrimitiveFactory.Part(PrimitiveType.Cube, track, new Vector3(side * (hw + 0.8f), 2.75f, finishZ), new Vector3(1f, 5.5f, 1f), border);
             PrimitiveFactory.Part(PrimitiveType.Cube, track, new Vector3(0f, 5.6f, finishZ), new Vector3(hw * 2f + 2.6f, 0.7f, 0.5f), border);
-            TextMesh banner = PrimitiveFactory.Label(track, new Vector3(0f, 5.6f, finishZ - 0.3f), "VITÓRIA", 120, 0.07f, new Color(1f, 0.85f, 0.35f));
+            TMP_Text banner = PrimitiveFactory.Label(track, new Vector3(0f, 5.6f, finishZ - 0.3f), "VITÓRIA", 120, 0.07f, new Color(1f, 0.85f, 0.35f),
+                LegionTextStyle.Epic);
             banner.transform.localRotation = Quaternion.Euler(20f, 0f, 0f);
 
             WorldAmbience ambience = track.gameObject.AddComponent<WorldAmbience>();

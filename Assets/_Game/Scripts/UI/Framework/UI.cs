@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -154,34 +155,57 @@ namespace LegionRush
             image.type = Image.Type.Sliced;
             image.color = color;
             image.raycastTarget = false;
+            // Painéis da paleta padrão usam a moldura ornamentada do pacote de arte.
+            if (color == UIStyle.Panel || color == UIStyle.PanelLight)
+            {
+                if (ApplyFrame(image, color == UIStyle.Panel ? "Frames/frame_gold" : "Frames/frame_gold_b", 0.35f)) return image;
+            }
             if (shine) AddShine(rect);
             return image;
         }
 
-        public static Text Label(Transform parent, string text, int size, Color color, TextAnchor anchor = TextAnchor.MiddleCenter,
-            bool outline = true, string name = "Label")
+        // Moldura 9-slice do pacote; heightRatio controla a espessura relativa das bordas.
+        public static bool ApplyFrame(Image image, string path, float heightRatio)
+        {
+            Sprite sprite = LegionArt.Get(path);
+            if (sprite == null) return false;
+            image.sprite = sprite;
+            image.type = Image.Type.Sliced;
+            image.color = Color.white;
+            UISliceFit fit = image.GetComponent<UISliceFit>() ?? image.gameObject.AddComponent<UISliceFit>();
+            fit.heightRatio = 1f / Mathf.Max(0.05f, heightRatio);
+            return true;
+        }
+
+        // Texto TextMeshPro com estilo do tema. Sem estilo explícito: sem contorno = Body, grande = Title, demais = Menu.
+        // A cor passada é preservada (exceto estilos com gradiente, que usam a cor do tema).
+        public static TMP_Text Label(Transform parent, string text, int size, Color color, TextAnchor anchor = TextAnchor.MiddleCenter,
+            bool outline = true, string name = "Label", LegionTextStyle? style = null)
         {
             RectTransform rect = Rect(parent, name);
-            Text label = rect.gameObject.AddComponent<Text>();
-            label.font = UIStyle.Font;
+            TextMeshProUGUI label = rect.gameObject.AddComponent<TextMeshProUGUI>();
+            LegionTextStyle chosen = style ?? (!outline ? LegionTextStyle.Body : size >= 64 ? LegionTextStyle.Title : LegionTextStyle.Menu);
+            bool gradient = LegionTypography.HasGradient(chosen);
+            LegionStyledText.Attach(label, chosen, gradient);
+            if (!gradient) label.color = color;
             label.text = text;
+            label.alignment = LegionTypography.Alignment(anchor);
+            label.textWrappingMode = TextWrappingModes.Normal;
+            label.overflowMode = TextOverflowModes.Overflow;
+            label.enableAutoSizing = true;
+            label.fontSizeMax = size;
+            label.fontSizeMin = Mathf.Max(10, size / 2);
             label.fontSize = size;
-            label.fontStyle = FontStyle.Bold;
-            label.color = color;
-            label.alignment = anchor;
-            label.horizontalOverflow = HorizontalWrapMode.Wrap;
-            label.verticalOverflow = VerticalWrapMode.Overflow;
-            label.resizeTextForBestFit = true;
-            label.resizeTextMinSize = Mathf.Max(10, size / 2);
-            label.resizeTextMaxSize = size;
             label.raycastTarget = false;
-            if (outline)
-            {
-                Outline effect = rect.gameObject.AddComponent<Outline>();
-                effect.effectColor = UIStyle.Outline;
-                effect.effectDistance = new Vector2(2.5f, -2.5f);
-            }
             return label;
+        }
+
+        public static void SetStyle(TMP_Text label, LegionTextStyle style)
+        {
+            bool gradient = LegionTypography.HasGradient(style);
+            Color color = label.color;
+            LegionStyledText.Attach(label, style, gradient);
+            if (!gradient) label.color = color;
         }
 
         public static Button Button(Transform parent, string label, Color color, Action onClick, int fontSize = 46, string name = "Button")
@@ -194,15 +218,22 @@ namespace LegionRush
             Shadow shadow = rect.gameObject.AddComponent<Shadow>();
             shadow.effectColor = new Color(0f, 0f, 0f, 0.45f);
             shadow.effectDistance = new Vector2(0f, -7f);
-            AddShine(rect);
+            bool art = ApplyButtonArt(image, color);
+            if (!art) AddShine(rect);
 
             Button button = rect.gameObject.AddComponent<Button>();
             button.targetGraphic = image;
             ColorBlock colors = button.colors;
             colors.highlightedColor = new Color(1.05f, 1.05f, 1.05f);
             colors.pressedColor = new Color(0.8f, 0.8f, 0.8f);
-            colors.disabledColor = new Color(0.55f, 0.55f, 0.55f, 0.8f);
+            colors.disabledColor = art ? Color.white : new Color(0.55f, 0.55f, 0.55f, 0.8f);
             button.colors = colors;
+            if (art)
+            {
+                UIButtonArtState state = rect.gameObject.AddComponent<UIButtonArtState>();
+                state.normal = image.sprite;
+                state.disabled = LegionArt.Get("Buttons/btn_gray");
+            }
             rect.gameObject.AddComponent<UIButtonFeedback>();
             if (onClick != null)
             {
@@ -214,20 +245,41 @@ namespace LegionRush
                 });
             }
 
-            Text text = Label(rect, label, fontSize, Color.white);
+            TMP_Text text = Label(rect, label, fontSize, Color.white, TextAnchor.MiddleCenter, true, "Label", LegionTextStyle.PrimaryButton);
             Stretch(text.rectTransform, 16f, 16f, 6f, 10f);
             return button;
         }
 
         public static void SetLabel(Button button, string text)
         {
-            Text label = button.GetComponentInChildren<Text>();
+            TMP_Text label = button.GetComponentInChildren<TMP_Text>();
             if (label != null) label.text = text;
         }
 
         public static void SetColor(Button button, Color color)
         {
-            if (button.targetGraphic != null) button.targetGraphic.color = color;
+            if (!(button.targetGraphic is Image image)) return;
+            UIButtonArtState state = button.GetComponent<UIButtonArtState>();
+            if (state != null && ApplyButtonArt(image, color))
+            {
+                state.normal = image.sprite;
+                if (!button.interactable) image.sprite = state.disabled;
+                return;
+            }
+            image.color = color;
+        }
+
+        // Botões com a arte do pacote (dourado, verde, azul, roxo, laranja, vermelho, cinza), em 9-slice.
+        private static bool ApplyButtonArt(Image image, Color color)
+        {
+            string path = LegionArt.ButtonFor(color);
+            Sprite sprite = path != null ? LegionArt.Get(path) : null;
+            if (sprite == null) return false;
+            image.sprite = sprite;
+            image.type = Image.Type.Sliced;
+            image.color = Color.white;
+            if (image.GetComponent<UISliceFit>() == null) image.gameObject.AddComponent<UISliceFit>();
+            return true;
         }
 
         // Lista rolável vertical. Retorna o conteúdo, onde se adicionam linhas com Row().
@@ -277,6 +329,7 @@ namespace LegionRush
                 image.type = Image.Type.Sliced;
                 image.color = background.Value;
                 image.raycastTarget = false;
+                if (background.Value == UIStyle.Panel) ApplyFrame(image, "Frames/frame_gold_b", 1f);
             }
             return row;
         }

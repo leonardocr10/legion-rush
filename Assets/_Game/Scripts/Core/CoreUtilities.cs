@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
 #if ENABLE_INPUT_SYSTEM
@@ -168,26 +169,27 @@ namespace LegionRush
             return t;
         }
 
-        public static TextMesh Label(Transform parent, Vector3 localPosition, string text, int fontSize,
-            float characterSize, Color color)
+        // Texto 3D (TextMeshPro) com estilo do tema tipográfico. Altura ≈ fontSize × characterSize / 10 unidades,
+        // a mesma escala do antigo TextMesh.
+        public static TMP_Text Label(Transform parent, Vector3 localPosition, string text, int fontSize,
+            float characterSize, Color color, LegionTextStyle style = LegionTextStyle.Hud)
         {
             var go = new GameObject("Label");
             go.transform.SetParent(parent, false);
             go.transform.localPosition = localPosition;
 
-            TextMesh mesh = go.AddComponent<TextMesh>();
-            mesh.font = BuiltinFont;
-            mesh.fontSize = fontSize;
-            mesh.fontStyle = FontStyle.Bold;
-            mesh.characterSize = characterSize;
-            mesh.anchor = TextAnchor.MiddleCenter;
-            mesh.alignment = TextAlignment.Center;
-            mesh.color = color;
+            TextMeshPro mesh = go.AddComponent<TextMeshPro>();
+            bool gradient = LegionTypography.HasGradient(style);
+            LegionStyledText.Attach(mesh, style, gradient);
+            if (!gradient) mesh.color = color;
+            mesh.fontSize = fontSize * characterSize;
+            mesh.alignment = TextAlignmentOptions.Center;
+            mesh.textWrappingMode = TextWrappingModes.NoWrap;
+            mesh.overflowMode = TextOverflowModes.Overflow;
+            mesh.rectTransform.sizeDelta = new Vector2(1f, 1f);
             mesh.text = text;
 
             MeshRenderer renderer = go.GetComponent<MeshRenderer>();
-            if (renderer == null) renderer = go.AddComponent<MeshRenderer>();
-            renderer.sharedMaterial = mesh.font.material;
             renderer.shadowCastingMode = ShadowCastingMode.Off;
             renderer.receiveShadows = false;
             return mesh;

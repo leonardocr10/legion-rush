@@ -68,6 +68,21 @@ csc "${BASE_REFS[@]}" "${ENGINE_REFS[@]}" -unsafe -nowarn:0618,0649,0414,0169 \
   -out:"$OUT/UnityEngine.UI.dll" "${UGUI_SRC[@]}"
 ENGINE_REFS+=(-r:"$OUT/UnityEngine.UI.dll")
 
+echo "== TextMeshPro (com.unity.ugui/Runtime/TMP) =="
+TMP_DIR="$(dirname "$UGUI_DIR")/TMP"
+mapfile -t TMP_SRC < <(find "$TMP_DIR" -name '*.cs' -not -path "$TMP_DIR/*Editor/*" | sort)
+# Versões novas do UGUI movem auxiliares do TMP para Runtime/InternalBridge (APIs internas): usa substitutos.
+BRIDGE_DIR="$(dirname "$UGUI_DIR")/InternalBridge"
+[ -d "$BRIDGE_DIR" ] && TMP_SRC+=(ci/stubs-tmp/TmpInternalBridge.cs)
+[ ${#TMP_SRC[@]} -gt 0 ] || { echo "::error::Fontes do TextMeshPro não encontrados em $TMP_DIR"; exit 2; }
+if [ -n "${TMP_DLL:-}" ]; then
+  # Checagem local com editor mais novo: usa o Unity.TextMeshPro.dll já compilado pelo editor (Library/ScriptAssemblies).
+  cp "$TMP_DLL" "$OUT/Unity.TextMeshPro.dll"
+else
+  csc "${BASE_REFS[@]}" "${ENGINE_REFS[@]}" -unsafe -nowarn:0618,0649,0414,0169,0067     -define:"UNITY_6000_0_OR_NEWER;PACKAGE_PHYSICS;PACKAGE_PHYSICS2D;PACKAGE_ANIMATION;PACKAGE_TILEMAP;PACKAGE_UITOOLKIT"     -out:"$OUT/Unity.TextMeshPro.dll" "${TMP_SRC[@]}"
+fi
+ENGINE_REFS+=(-r:"$OUT/Unity.TextMeshPro.dll")
+
 mapfile -t RUNTIME < <(find Assets -name '*.cs' -not -path '*/Editor/*' | sort)
 mapfile -t EDITOR < <(find Assets -path '*/Editor/*' -name '*.cs' | sort)
 echo "Runtime: ${#RUNTIME[@]} arquivos | Editor: ${#EDITOR[@]} arquivos"

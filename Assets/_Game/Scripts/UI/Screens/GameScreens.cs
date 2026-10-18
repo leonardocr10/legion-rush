@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,10 +7,10 @@ namespace LegionRush
     // Preparação da fase: herói, composição, habilidades e poções ativas. Fica sobre o cenário 3D da fase.
     public class PrepScreen : MenuScreen
     {
-        private Text info;
+        private TMP_Text info;
         private RectTransform compositions;
         private RectTransform skillRow;
-        private Text skillHint;
+        private TMP_Text skillHint;
 
         protected override string Title => "PREPARAR TROPAS";
         protected override Color BackgroundColor => new Color(0.02f, 0.04f, 0.1f, 0.35f);
@@ -25,12 +26,12 @@ namespace LegionRush
             info = UI.Label(content, string.Empty, 36, Color.white, TextAnchor.UpperLeft, false);
             UI.Place(info.rectTransform, 0.04f, 0.78f, 0.96f, 0.97f);
 
-            Text compositionTitle = UI.Label(content, "COMPOSIÇÃO", 38, UIStyle.Gold, TextAnchor.MiddleLeft);
+            TMP_Text compositionTitle = UI.Label(content, "COMPOSIÇÃO", 38, UIStyle.Gold, TextAnchor.MiddleLeft);
             UI.Place(compositionTitle.rectTransform, 0.04f, 0.7f, 0.96f, 0.78f);
             compositions = UI.Rect(content, "Compositions");
             UI.Place(compositions, 0.02f, 0.58f, 0.98f, 0.7f);
 
-            Text skillTitle = UI.Label(content, "HABILIDADES (toque para trocar)", 38, UIStyle.Gold, TextAnchor.MiddleLeft);
+            TMP_Text skillTitle = UI.Label(content, "HABILIDADES (toque para trocar)", 38, UIStyle.Gold, TextAnchor.MiddleLeft);
             UI.Place(skillTitle.rectTransform, 0.04f, 0.49f, 0.96f, 0.57f);
             skillRow = UI.Rect(content, "Skills");
             UI.Place(skillRow, 0.02f, 0.33f, 0.98f, 0.49f);
@@ -124,9 +125,9 @@ namespace LegionRush
     // 17/18. Vitória e derrota
     public class ResultScreen : MenuScreen
     {
-        private Text heading;
-        private Text stars;
-        private Text details;
+        private TMP_Text heading;
+        private TMP_Text stars;
+        private TMP_Text details;
         private Button primary;
         private Button secondary;
         private bool victory;
@@ -162,9 +163,11 @@ namespace LegionRush
             victory = level.Current == LevelManager.State.Victory;
             LevelOutcome outcome = level.LastOutcome;
             heading.text = victory ? "VITÓRIA!" : "DERROTA";
-            heading.color = victory ? UIStyle.Gold : UIStyle.Red;
+            UI.SetStyle(heading, victory ? LegionTextStyle.Epic : LegionTextStyle.Negative);
+            LegionTextFx.Play(heading, victory ? LegionTextAnimation.Entrance : LegionTextAnimation.Shake);
             stars.text = victory ? new string('*', outcome.Stars) + new string('-', 3 - outcome.Stars) : "Tente outra estratégia";
-            stars.fontSize = victory ? 90 : 48;
+            stars.fontSizeMax = victory ? 90 : 48;
+            UI.SetStyle(stars, victory ? LegionTextStyle.Epic : LegionTextStyle.Menu);
             string best = outcome.NewBestScore ? "  (RECORDE!)" : string.Empty;
             string unlocked = outcome.UnlockedNext ? "\nPróxima fase liberada!" : string.Empty;
             details.text = $"Pontuação {outcome.Score}{best}\nSoldados {level.Army.Count}  ·  Inimigos {level.Kills}\n" +
@@ -185,14 +188,16 @@ namespace LegionRush
     // 19. Recompensas (baús e recompensa diária)
     public class RewardScreen : MenuScreen
     {
-        private Text heading;
-        private Text lines;
+        private TMP_Text heading;
+        private TMP_Text lines;
         protected override string Title => "RECOMPENSAS";
 
         public RewardScreen Show(string title, RewardBundle reward)
         {
             heading.text = title;
             lines.text = reward != null && reward.Lines.Count > 0 ? string.Join("\n", reward.Lines) : "Nada desta vez";
+            LegionTextFx.Play(heading, LegionTextAnimation.FadeScale);
+            LegionTextFx.Play(lines, LegionTextAnimation.FadeScale);
             GameAudio.Play(SoundId.ChestOpen);
             Haptics.Impact();
             Refresh();
@@ -206,9 +211,9 @@ namespace LegionRush
             UI.Place(glow.rectTransform, 0.2f, 0.55f, 0.8f, 0.9f);
             Image chest = UI.Panel(body, UIStyle.Gold, "Chest", true);
             UI.Place(chest.rectTransform, 0.33f, 0.63f, 0.67f, 0.8f);
-            heading = UI.Label(body, string.Empty, 64, UIStyle.Gold);
+            heading = UI.Label(body, string.Empty, 64, UIStyle.Gold, TextAnchor.MiddleCenter, true, "Label", LegionTextStyle.Epic);
             UI.Place(heading.rectTransform, 0.05f, 0.48f, 0.95f, 0.56f);
-            lines = UI.Label(body, string.Empty, 46, Color.white);
+            lines = UI.Label(body, string.Empty, 46, Color.white, TextAnchor.MiddleCenter, true, "Label", LegionTextStyle.Positive);
             UI.Place(lines.rectTransform, 0.08f, 0.2f, 0.92f, 0.47f);
             Button ok = UI.Button(body, "CONTINUAR", UIStyle.Green, () => Ui.Pop(), 54);
             UI.Place((RectTransform)ok.transform, 0.2f, 0.05f, 0.8f, 0.16f);

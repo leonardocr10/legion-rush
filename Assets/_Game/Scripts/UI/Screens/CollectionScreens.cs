@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -29,9 +30,9 @@ namespace LegionRush
                 RectTransform row = UI.Row(list, 250f, UIStyle.Panel);
                 Image stripe = UI.Panel(row, MetaCatalog.RarityColor(hero.Rarity), "Rarity");
                 UI.Place(stripe.rectTransform, 0.01f, 0.1f, 0.025f, 0.9f);
-                Text name = UI.Label(row, hero.Name + (selected ? "  (EM CAMPO)" : string.Empty), 48, selected ? UIStyle.Gold : Color.white, TextAnchor.MiddleLeft);
+                TMP_Text name = UI.Label(row, hero.Name + (selected ? "  (EM CAMPO)" : string.Empty), 48, selected ? UIStyle.Gold : Color.white, TextAnchor.MiddleLeft);
                 UI.Place(name.rectTransform, 0.045f, 0.62f, 0.98f, 0.95f);
-                Text detail = UI.Label(row, subtitle, 30, UIStyle.TextDim, TextAnchor.UpperLeft, false);
+                TMP_Text detail = UI.Label(row, subtitle, 30, UIStyle.TextDim, TextAnchor.UpperLeft, false);
                 UI.Place(detail.rectTransform, 0.045f, 0.3f, 0.98f, 0.62f);
 
                 if (!owned)

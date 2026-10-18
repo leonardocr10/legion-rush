@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -52,7 +53,7 @@ namespace LegionRush
         private RectTransform screenLayer;
         private RectTransform modalLayer;
         private RectTransform toastLayer;
-        private Text toastText;
+        private TMP_Text toastText;
         private CanvasGroup toastGroup;
         private float toastTimer;
         private UIScreen animating;
@@ -170,9 +171,8 @@ namespace LegionRush
 
             Image panel = UI.Panel(modal.transform, UIStyle.Panel, "Dialog");
             UI.Place(panel.rectTransform, 0.06f, 0.36f, 0.94f, 0.64f);
-            Text heading = UI.Label(panel.transform, title, 58, UIStyle.Gold);
-            UI.Place(heading.rectTransform, 0.05f, 0.7f, 0.95f, 0.95f);
-            Text body = UI.Label(panel.transform, message, 40, UIStyle.Text);
+            TMP_Text heading = PopupHeader(panel.rectTransform, title);
+            TMP_Text body = UI.Label(panel.transform, message, 40, UIStyle.Text);
             UI.Place(body.rectTransform, 0.06f, 0.36f, 0.94f, 0.7f);
 
             Button cancel = UI.Button(panel.transform, "CANCELAR", UIStyle.Gray, () =>
@@ -198,12 +198,27 @@ namespace LegionRush
             dim.color = new Color(0f, 0f, 0f, 0.6f);
             Image panel = UI.Panel(modal.transform, UIStyle.Panel, "Dialog");
             UI.Place(panel.rectTransform, 0.06f, 0.3f, 0.94f, 0.7f);
-            Text heading = UI.Label(panel.transform, title, 60, UIStyle.Gold);
-            UI.Place(heading.rectTransform, 0.05f, 0.78f, 0.95f, 0.96f);
-            Text body = UI.Label(panel.transform, message, 42, UIStyle.Text);
+            TMP_Text heading = PopupHeader(panel.rectTransform, title);
+            TMP_Text body = UI.Label(panel.transform, message, 42, UIStyle.Text);
             UI.Place(body.rectTransform, 0.06f, 0.26f, 0.94f, 0.78f);
             Button ok = UI.Button(panel.transform, "OK", UIStyle.Blue, CloseModal, 44);
             UI.Place((RectTransform)ok.transform, 0.25f, 0.05f, 0.75f, 0.22f);
+        }
+
+        // LegionPopup: coroa e faixa do pacote sobre a moldura, com o título ao vivo na faixa; entra com escala.
+        private static TMP_Text PopupHeader(RectTransform panel, string title)
+        {
+            panel.gameObject.AddComponent<UIPopIn>();
+            Image header = LegionArt.Image(panel, "Popups/popup_header", false, "Header");
+            header.rectTransform.anchorMin = new Vector2(0.02f, 1f);
+            header.rectTransform.anchorMax = new Vector2(0.98f, 1f);
+            header.rectTransform.pivot = new Vector2(0.5f, 0.35f);
+            header.rectTransform.sizeDelta = new Vector2(0f, 250f);
+            header.rectTransform.anchoredPosition = Vector2.zero;
+            TMP_Text heading = UI.Label(header.transform, title, 58, Color.white, TextAnchor.MiddleCenter, true, "Title", LegionTextStyle.Title);
+            UI.Place(heading.rectTransform, 0.27f, 0.12f, 0.74f, 0.58f);
+            heading.textWrappingMode = TextWrappingModes.NoWrap;
+            return heading;
         }
 
         public void CloseModal()
@@ -319,6 +334,28 @@ namespace LegionRush
         {
             if (Instance == this) Instance = null;
             if (Game != null) Game.LevelBuilt -= HandleLevelBuilt;
+        }
+    }
+
+    // Entrada de popup: cresce de 85% com leve ultrapassagem.
+    public class UIPopIn : MonoBehaviour
+    {
+        private float time;
+
+        private void OnEnable()
+        {
+            time = 0f;
+            transform.localScale = Vector3.one * 0.85f;
+        }
+
+        private void Update()
+        {
+            time += Time.unscaledDeltaTime;
+            float t = Mathf.Clamp01(time / 0.25f);
+            float x = t - 1f;
+            float eased = 1f + 2.70158f * x * x * x + 1.70158f * x * x;
+            transform.localScale = Vector3.one * Mathf.LerpUnclamped(0.85f, 1f, eased);
+            if (t >= 1f) enabled = false;
         }
     }
 

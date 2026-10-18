@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -77,7 +78,7 @@ namespace LegionRush
                 Image tile = UI.Panel(grid, color, "Day" + (i + 1), true);
                 if (last) UI.Place(tile.rectTransform, 0.02f, 0.02f, 0.98f, 0.3f);
                 else UI.Place(tile.rectTransform, 0.02f + column * 0.327f, 0.68f - row * 0.33f, 0.02f + column * 0.327f + 0.31f, 0.98f - row * 0.33f);
-                Text label = UI.Label(tile.transform, $"DIA {i + 1}\n{MetaCatalog.Daily[i].Describe()}{(past ? "\nOK" : string.Empty)}", 38, Color.white);
+                TMP_Text label = UI.Label(tile.transform, $"DIA {i + 1}\n{MetaCatalog.Daily[i].Describe()}{(past ? "\nOK" : string.Empty)}", 38, Color.white);
                 UI.Stretch(label.rectTransform, 10f, 10f, 10f, 10f);
             }
             claimButton.interactable = available;
@@ -155,9 +156,9 @@ namespace LegionRush
         private void Stat(string name, string value)
         {
             RectTransform row = UI.Row(list, 100f, UIStyle.Panel);
-            Text left = UI.Label(row, name, 38, Color.white, TextAnchor.MiddleLeft);
+            TMP_Text left = UI.Label(row, name, 38, Color.white, TextAnchor.MiddleLeft);
             UI.Place(left.rectTransform, 0.04f, 0f, 0.6f, 1f);
-            Text right = UI.Label(row, value, 38, UIStyle.Gold, TextAnchor.MiddleRight);
+            TMP_Text right = UI.Label(row, value, 38, UIStyle.Gold, TextAnchor.MiddleRight);
             UI.Place(right.rectTransform, 0.5f, 0f, 0.96f, 1f);
         }
     }
@@ -184,7 +185,7 @@ namespace LegionRush
             {
                 AudioBus bus = Buses[i];
                 RectTransform row = UI.Row(list, 130f, UIStyle.Panel);
-                Text label = UI.Label(row, BusLabels[i], 36, Color.white, TextAnchor.MiddleLeft);
+                TMP_Text label = UI.Label(row, BusLabels[i], 36, Color.white, TextAnchor.MiddleLeft);
                 UI.Place(label.rectTransform, 0.04f, 0f, 0.3f, 1f);
                 Slider slider = UI.Slider(row, audio != null ? audio.GetVolume(bus) : 1f, v => { if (audio != null) audio.SetVolume(bus, v); });
                 UI.Place((RectTransform)slider.transform, 0.3f, 0.15f, 0.74f, 0.85f);
@@ -252,7 +253,7 @@ namespace LegionRush
                 Game.CycleBossOverride();
                 Ui.RefreshTop();
             }, UIStyle.Blue);
-            Text version = UI.Label(UI.Row(list, 70f), $"Legion Rush 3D v{Application.version} · Save v{SaveData.CurrentVersion}", 28, UIStyle.TextDim, TextAnchor.MiddleCenter, false);
+            TMP_Text version = UI.Label(UI.Row(list, 70f), $"Legion Rush 3D v{Application.version} · Save v{SaveData.CurrentVersion}", 28, UIStyle.TextDim, TextAnchor.MiddleCenter, false);
             UI.Stretch(version.rectTransform);
         }
 

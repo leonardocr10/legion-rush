@@ -1,0 +1,150 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb54d6c0982afbc45a39f2d574061584, type: 3}
+  m_Name: LegionTypographyTheme
+  m_EditorClassIdentifier: Assembly-CSharp::LegionRush.LegionTypographyTheme
+  titleFont: {fileID: 11400000, guid: 9cf9fb645b4ef1344823664cf07dc817, type: 2}
+  menuFont: {fileID: 11400000, guid: a7b06dd64f401e34c95db97ad3ad3244, type: 2}
+  bodyFont: {fileID: 11400000, guid: 5bf2798e969b99b40892006cffd6dbb9, type: 2}
+  numbersFont: {fileID: 11400000, guid: 7439045fcad807641b7717fab564ae3a, type: 2}
+  titleSource: {fileID: 12800000, guid: 18d5e409a66c9c74faa9247e63a81204, type: 3}
+  menuSource: {fileID: 12800000, guid: b2845ebb0d790ac49b59ddb5ff123bef, type: 3}
+  numbersSource: {fileID: 12800000, guid: d600cc2b924227549957f08a75381ce0, type: 3}
+  styles:
+  - style: 0
+    font: 0
+    color: {r: 1, g: 0.8, b: 0.22, a: 1}
+    useGradient: 1
+    gradientTop: {r: 1, g: 0.93, b: 0.52, a: 1}
+    gradientBottom: {r: 1, g: 0.66, b: 0.12, a: 1}
+    outlineWidth: 0.24
+    outlineColor: {r: 0.24, g: 0.11, b: 0.02, a: 1}
+    underlay: 1
+    underlayColor: {r: 0, g: 0, b: 0, a: 0.65}
+    underlayOffset: {x: 0.7, y: -0.9}
+    underlaySoftness: 0.1
+    faceDilate: 0
+    characterSpacing: 1
+    fontStyle: 0
+    materialPreset: {fileID: 2100000, guid: 12220ec520bd0774fb3381b69b5456c6, type: 2}
+  - style: 1
+    font: 0
+    color: {r: 1, g: 1, b: 1, a: 1}
+    useGradient: 0
+    gradientTop: {r: 1, g: 1, b: 1, a: 1}
+    gradientBottom: {r: 1, g: 1, b: 1, a: 1}
+    outlineWidth: 0.2
+    outlineColor: {r: 0.03, g: 0.05, b: 0.14, a: 1}
+    underlay: 1
+    underlayColor: {r: 0, g: 0, b: 0, a: 0.45}
+    underlayOffset: {x: 0, y: -0.9}
+    underlaySoftness: 0.35
+    faceDilate: 0
+    characterSpacing: 1
+    fontStyle: 0
+    materialPreset: {fileID: 2100000, guid: 79629a21215b5dd4497193173c18c363, type: 2}
+  - style: 2
+    font: 1
+    color: {r: 1, g: 0.98, b: 0.92, a: 1}
+    useGradient: 0
+    gradientTop: {r: 1, g: 1, b: 1, a: 1}
+    gradientBottom: {r: 1, g: 1, b: 1, a: 1}
+    outlineWidth: 0.14
+    outlineColor: {r: 0.03, g: 0.06, b: 0.16, a: 0.9}
+    underlay: 0
+    underlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+    underlayOffset: {x: 0, y: -0.8}
+    underlaySoftness: 0.2
+    faceDilate: 0
+    characterSpacing: 0.5
+    fontStyle: 0
+    materialPreset: {fileID: 2100000, guid: 37a63b66b8352d04eb305bc32e736c52, type: 2}
+  - style: 3
+    font: 2
+    color: {r: 0.86, g: 0.9, b: 1, a: 1}
+    useGradient: 0
+    gradientTop: {r: 1, g: 1, b: 1, a: 1}
+    gradientBottom: {r: 1, g: 1, b: 1, a: 1}
+    outlineWidth: 0.06
+    outlineColor: {r: 0.03, g: 0.06, b: 0.16, a: 0.8}
+    underlay: 0
+    underlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+    underlayOffset: {x: 0, y: -0.8}
+    underlaySoftness: 0.2
+    faceDilate: 0
+    characterSpacing: 0
+    fontStyle: 0
+    materialPreset: {fileID: 2100000, guid: 67f83a8f46ee8d04abfcd4146af90d02, type: 2}
+  - style: 4
+    font: 3
+    color: {r: 1, g: 1, b: 1, a: 1}
+    useGradient: 0
+    gradientTop: {r: 1, g: 1, b: 1, a: 1}
+    gradientBottom: {r: 1, g: 1, b: 1, a: 1}
+    outlineWidth: 0.22
+    outlineColor: {r: 0.03, g: 0.05, b: 0.14, a: 1}
+    underlay: 1
+    underlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+    underlayOffset: {x: 0, y: -0.8}
+    underlaySoftness: 0.25
+    faceDilate: 0
+    characterSpacing: 0
+    fontStyle: 0
+    materialPreset: {fileID: 2100000, guid: dae84e90bdc89844e9ea75631efbf2f7, type: 2}
+  - style: 5
+    font: 3
+    color: {r: 0.42, g: 1, b: 0.36, a: 1}
+    useGradient: 0
+    gradientTop: {r: 1, g: 1, b: 1, a: 1}
+    gradientBottom: {r: 1, g: 1, b: 1, a: 1}
+    outlineWidth: 0.22
+    outlineColor: {r: 0.02, g: 0.2, b: 0.04, a: 1}
+    underlay: 1
+    underlayColor: {r: 0, g: 0, b: 0, a: 0.45}
+    underlayOffset: {x: 0, y: -0.8}
+    underlaySoftness: 0.25
+    faceDilate: 0
+    characterSpacing: 0
+    fontStyle: 0
+    materialPreset: {fileID: 2100000, guid: 381143197ac37de4fb703aed8b5223a3, type: 2}
+  - style: 6
+    font: 3
+    color: {r: 1, g: 0.3, b: 0.25, a: 1}
+    useGradient: 0
+    gradientTop: {r: 1, g: 1, b: 1, a: 1}
+    gradientBottom: {r: 1, g: 1, b: 1, a: 1}
+    outlineWidth: 0.22
+    outlineColor: {r: 0.25, g: 0.02, b: 0.02, a: 1}
+    underlay: 1
+    underlayColor: {r: 0, g: 0, b: 0, a: 0.45}
+    underlayOffset: {x: 0, y: -0.8}
+    underlaySoftness: 0.25
+    faceDilate: 0
+    characterSpacing: 0
+    fontStyle: 0
+    materialPreset: {fileID: 2100000, guid: c03bcdb931be32b48a21ab240bd8e89c, type: 2}
+  - style: 7
+    font: 0
+    color: {r: 1, g: 0.82, b: 0.25, a: 1}
+    useGradient: 1
+    gradientTop: {r: 1, g: 0.98, b: 0.66, a: 1}
+    gradientBottom: {r: 1, g: 0.58, b: 0.06, a: 1}
+    outlineWidth: 0.22
+    outlineColor: {r: 0.24, g: 0.11, b: 0.02, a: 1}
+    underlay: 1
+    underlayColor: {r: 1, g: 0.72, b: 0.15, a: 0.55}
+    underlayOffset: {x: 0, y: 0}
+    underlaySoftness: 0.65
+    faceDilate: 0.05
+    characterSpacing: 1
+    fontStyle: 0
+    materialPreset: {fileID: 2100000, guid: 65c2312f3e4f2f54bb05c24e4de2ff9a, type: 2}

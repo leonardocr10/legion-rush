@@ -115,6 +115,8 @@ namespace LegionRush
                 flash = 1f;
             }
             OnDamaged(amount, info);
+            // Números de dano só no que o exército acerta (inimigos e chefes), para não poluir a tela.
+            if (!info.Silent && !(this is Soldier)) LegionFloatingText.Damage(transform.position, amount, info.Critical);
 
             if (Health <= 0f)
             {
