@@ -12,6 +12,8 @@ namespace LegionRush
         protected abstract string Title { get; }
         protected virtual bool ShowBack => true;
         protected virtual bool ShowWallet => true;
+        protected virtual bool ShowHeader => true;
+        protected virtual bool ShowSnow => true;
         protected virtual Color BackgroundColor => UIStyle.Background;
         protected GameBootstrap Game => Ui.Game;
 
@@ -21,16 +23,19 @@ namespace LegionRush
         protected override void Build(RectTransform root)
         {
             BuildScenery(root);
-            UISnow.Attach((RectTransform)root);
+            if (ShowSnow) UISnow.Attach((RectTransform)root);
 
             // Cabeçalho ornamentado (coroa e faixas do pacote) com o título ao vivo.
-            Image header = LegionArt.Image(root, "Popups/popup_header", false, "Header");
-            Vector4 box = HeaderBox;
-            UI.Place(header.rectTransform, box.x, box.y, box.z, box.w);
-            TMP_Text title = UI.Label(header.transform, Title, 56, Color.white, TextAnchor.MiddleCenter, true, "Title", LegionTextStyle.Title);
-            UI.Place(title.rectTransform, 0.27f, 0.12f, 0.74f, 0.58f);
-            title.textWrappingMode = TextWrappingModes.NoWrap;
-            header.gameObject.AddComponent<UISlideIn>().offset = new Vector2(0f, 80f);
+            if (ShowHeader)
+            {
+                Image header = LegionArt.Image(root, "Popups/popup_header", false, "Header");
+                Vector4 box = HeaderBox;
+                UI.Place(header.rectTransform, box.x, box.y, box.z, box.w);
+                TMP_Text title = UI.Label(header.transform, Title, 56, Color.white, TextAnchor.MiddleCenter, true, "Title", LegionTextStyle.Title);
+                UI.Place(title.rectTransform, 0.27f, 0.12f, 0.74f, 0.58f);
+                title.textWrappingMode = TextWrappingModes.NoWrap;
+                header.gameObject.AddComponent<UISlideIn>().offset = new Vector2(0f, 80f);
+            }
 
             if (ShowBack)
             {

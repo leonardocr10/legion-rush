@@ -254,7 +254,12 @@ namespace LegionRush
             if (resultDelay >= 0f)
             {
                 resultDelay -= dt;
-                if (resultDelay < 0f) Replace<ResultScreen>();
+                if (resultDelay < 0f)
+                {
+                    bool defeat = Game != null && Game.CurrentLevel != null && Game.CurrentLevel.Current == LevelManager.State.Defeat;
+                    if (defeat) Replace<DefeatScreen>();
+                    else Replace<ResultScreen>();
+                }
             }
             if (animating != null)
             {
