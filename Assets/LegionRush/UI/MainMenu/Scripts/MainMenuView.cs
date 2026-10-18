@@ -53,7 +53,7 @@ namespace LegionRush
             Image mountains = Layer(scenery, "Background_Mountains", new Vector2(0.5f, 1f - 150f / 1920f), 1.02f, 0f, 0.4f);
             mountains.color = new Color(0.92f, 0.95f, 1f);
 
-            Image castle = Layer(scenery, "Background_FrozenKingdom", new Vector2(0.5f, 1f - 410f / 1920f), 1.08f, 0f, 0.7f);
+            Image castle = Layer(scenery, "Background_FrozenKingdom", new Vector2(0.5f, 1f - 380f / 1920f), 1.45f, 0f, 0.7f);
             RectTransform castleRect = castle.rectTransform;
 
             // Chão de neve escurecendo até a base, fundindo com o pé do castelo.
@@ -63,7 +63,7 @@ namespace LegionRush
             g.anchorMin = new Vector2(0f, 0f);
             g.anchorMax = new Vector2(1f, 0f);
             g.pivot = new Vector2(0.5f, 0f);
-            g.sizeDelta = new Vector2(0f, 1130f);
+            g.sizeDelta = new Vector2(0f, 760f);
 
             // Pinheiros, rochas, bandeiras e tochas nas laterais, presos ao castelo (acompanham sua escala).
             Deco(castleRect, "Deco_Pine_2", -0.06f, -0.38f, 0.17f, 0.32f, false, 0f, 0.9f);
@@ -80,7 +80,7 @@ namespace LegionRush
             RectTransform a = army.rectTransform;
             a.anchorMin = a.anchorMax = new Vector2(0.5f, 0f);
             a.pivot = new Vector2(0.5f, 0f);
-            float width = 860f;
+            float width = 1000f;
             a.sizeDelta = new Vector2(width, width * 463f / 420f);
             a.anchoredPosition = new Vector2(10f, 150f);
             army.gameObject.AddComponent<UIParallaxLayer>().depth = 1.6f;

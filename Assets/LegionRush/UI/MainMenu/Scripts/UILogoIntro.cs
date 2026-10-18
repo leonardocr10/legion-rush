@@ -25,20 +25,22 @@ namespace LegionRush
         {
             time += Time.unscaledDeltaTime;
             Apply(Mathf.Clamp01(time / 0.55f));
+            // Só o deslocamento da flutuação: a posição base é do layout (pode mudar ao redimensionar a tela).
             float bob = time > 0.55f ? 6f * Mathf.Sin((time - 0.55f) * 1.3f) : 0f;
-            ((RectTransform)transform).localPosition = new Vector3(((RectTransform)transform).localPosition.x, baseY + bob, 0f);
+            transform.localPosition += new Vector3(0f, bob - lastBob, 0f);
+            lastBob = bob;
         }
 
-        private float baseY;
-        private bool hasBase;
+        private float lastBob;
+
+        private void OnDisable()
+        {
+            transform.localPosition -= new Vector3(0f, lastBob, 0f);
+            lastBob = 0f;
+        }
 
         private void Apply(float t)
         {
-            if (!hasBase)
-            {
-                baseY = ((RectTransform)transform).localPosition.y;
-                hasBase = true;
-            }
             float x = t - 1f;
             float eased = 1f + 2.70158f * x * x * x + 1.70158f * x * x;
             transform.localScale = Vector3.one * Mathf.LerpUnclamped(0.7f, 1f, eased);
