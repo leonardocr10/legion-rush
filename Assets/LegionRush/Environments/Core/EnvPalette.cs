@@ -8,9 +8,9 @@ namespace LegionRush.Environments
     {
         public static readonly Color Snow = new Color(0.94f, 0.97f, 1f);
         public static readonly Color SnowShade = new Color(0.82f, 0.89f, 0.99f);
-        public static readonly Color Stone = new Color(0.6f, 0.65f, 0.76f);
+        public static readonly Color Stone = new Color(0.54f, 0.58f, 0.68f);
         public static readonly Color StoneLight = new Color(0.7f, 0.74f, 0.84f);
-        public static readonly Color StoneDark = new Color(0.43f, 0.48f, 0.6f);
+        public static readonly Color StoneDark = new Color(0.4f, 0.44f, 0.55f);
         public static readonly Color Cliff = new Color(0.5f, 0.56f, 0.7f);
         public static readonly Color CliffDark = new Color(0.38f, 0.43f, 0.57f);
         public static readonly Color Ice = new Color(0.45f, 0.82f, 1f);

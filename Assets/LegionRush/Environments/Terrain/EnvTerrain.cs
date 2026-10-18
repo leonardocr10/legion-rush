@@ -62,7 +62,7 @@ namespace LegionRush.Environments
             chunk.Matrix = Matrix4x4.identity;
             EnvMeshBuilder b = chunk.Road;
             b.NoSnow();
-            b.WorldUvScale = 1f / 3.2f;
+            b.WorldUvScale = 1f / 4f;
             int cellsZ = Mathf.Max(1, Mathf.CeilToInt((z1 - z0) / 4f));
             b.HeightGrid(-halfWidth - 0.3f, halfWidth + 0.3f, z0, z1, 4, cellsZ, (x, z) => 0f, (x, z, n) => Color.white);
             // Faixa central levemente mais clara (caminho batido) feita pela textura; bordas com meio-fio.

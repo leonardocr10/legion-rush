@@ -134,6 +134,73 @@ namespace LegionRush.Environments
             m.Matrix = Matrix4x4.identity;
         }
 
+        // Muro de pedra da borda da pista (peças "muro longo/curto" e "pilar nevado" da folha do Reino Congelado):
+        // fiadas de blocos com capa de neve contínua e pilares quadrados mais altos a cada pillarEvery metros.
+        // Pilares nas posições de skip (braseiros) ficam de fora, porque o braseiro já é um pilar.
+        public static void Rampart(EnvChunk chunk, float edgeX, float z0, float z1, float pillarEvery, System.Func<float, bool> skipPillar,
+            System.Random rng)
+        {
+            chunk.Matrix = Matrix4x4.identity;
+            EnvMeshBuilder m = chunk.Masonry;
+            EnvMeshBuilder o = chunk.Opaque;
+            m.Matrix = o.Matrix = Matrix4x4.identity;
+            m.NoSnow();
+            o.NoSnow();
+            float side = Mathf.Sign(edgeX);
+            const float Height = 1.3f;
+            const float Depth = 0.95f;
+            float cx = edgeX + side * (Depth * 0.5f);
+
+            // Duas fiadas de blocos desencontrados.
+            for (int course = 0; course < 2; course++)
+            {
+                float y0 = course * Height * 0.5f;
+                float z = z0 - (course == 1 ? 0.45f : 0f);
+                while (z < z1)
+                {
+                    float len = EnvMeshBuilder.Rand(rng, 0.9f, 1.35f);
+                    float a = Mathf.Max(z, z0);
+                    float b = Mathf.Min(z + len, z1);
+                    if (b - a > 0.15f)
+                    {
+                        Color stone = EnvPalette.Vary(Color.Lerp(EnvPalette.StoneDark, EnvPalette.Stone, (float)rng.NextDouble()), rng, 0.06f);
+                        m.BeveledBox(new Vector3(cx + EnvMeshBuilder.Rand(rng, -0.03f, 0.03f), y0 + Height * 0.25f - 0.03f, (a + b) * 0.5f),
+                            new Vector3(Depth, Height * 0.5f - 0.03f, b - a - 0.05f), 0.08f, stone);
+                    }
+                    z += len;
+                }
+            }
+            // Capa de neve contínua, levemente ondulada, transbordando para os dois lados.
+            for (float z = z0; z < z1; z += 1.6f)
+            {
+                float len = Mathf.Min(1.7f, z1 - z);
+                if (len < 0.2f) break;
+                if (rng.NextDouble() < 0.35) continue; // trechos sem neve mostram a pedra
+                o.BeveledBox(new Vector3(cx + EnvMeshBuilder.Rand(rng, -0.1f, 0.1f), Height + 0.04f, z + len * 0.5f),
+                    new Vector3(Depth * EnvMeshBuilder.Rand(rng, 0.7f, 1.05f), EnvMeshBuilder.Rand(rng, 0.1f, 0.18f), len * EnvMeshBuilder.Rand(rng, 0.6f, 1f)),
+                    0.07f, EnvPalette.Snow, rng, 0.05f);
+            }
+
+            float first = Mathf.Ceil(z0 / pillarEvery) * pillarEvery;
+            for (float z = first; z < z1; z += pillarEvery)
+            {
+                if (skipPillar != null && skipPillar(z)) continue;
+                Color stone = EnvPalette.Vary(EnvPalette.Stone, rng, 0.05f);
+                m.BeveledBox(new Vector3(cx, 1f, z), new Vector3(1.25f, 2f, 1.25f), 0.1f, stone);
+                m.BeveledBox(new Vector3(cx, 2.06f, z), new Vector3(1.4f, 0.16f, 1.4f), 0.06f, EnvPalette.StoneLight);
+                o.BeveledBox(new Vector3(cx, 2.2f, z), new Vector3(1.2f, 0.16f, 1.2f), 0.1f, EnvPalette.Snow, rng, 0.05f);
+            }
+
+            // Neve acumulada no pé do muro, do lado da pista.
+            for (float z = z0; z < z1; z += EnvMeshBuilder.Rand(rng, 2.5f, 4.5f))
+            {
+                if (rng.NextDouble() > 0.6) continue;
+                o.BeveledBox(new Vector3(edgeX - side * 0.1f, 0.07f, z), new Vector3(0.45f, 0.22f, EnvMeshBuilder.Rand(rng, 0.8f, 1.8f)), 0.1f,
+                    EnvPalette.Snow, rng, 0.06f);
+            }
+            m.Matrix = Matrix4x4.identity;
+        }
+
         // Caixa de madeira com reforço de ferro.
         public static void Crate(EnvChunk chunk, Vector3 position, float size, System.Random rng)
         {

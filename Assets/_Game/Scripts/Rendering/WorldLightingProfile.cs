@@ -113,11 +113,11 @@ namespace LegionRush
         {
             sunColor = new Color(1f, 0.97f, 0.94f); sunIntensity = 1.25f; sunPitch = 50f; sunYaw = -30f; shadowStrength = 0.65f;
             shadowTint = new Color(0.55f, 0.68f, 1f); shadowTintAmount = 0.5f;
-            ambientSky = new Color(0.66f, 0.78f, 0.98f); ambientEquator = new Color(0.62f, 0.68f, 0.8f); ambientGround = new Color(0.52f, 0.58f, 0.7f);
+            ambientSky = new Color(0.54f, 0.63f, 0.82f); ambientEquator = new Color(0.48f, 0.54f, 0.66f); ambientGround = new Color(0.38f, 0.42f, 0.52f);
             // Neblina azul-clara mais longa: deixa ver o cânion e o castelo do fim (guia de iluminação: "luz fria e brilhante").
             fogColor = new Color(0.64f, 0.79f, 0.98f); fogStart = 55f; fogEnd = 150f;
             // Neve branca na luz e azul só na sombra (referência): balanço quase neutro, split toning suave.
-            postExposure = 0f; contrast = 20f; saturation = 14f; temperature = -2f; tint = 0f; colorFilter = Color.white;
+            postExposure = -0.12f; contrast = 28f; saturation = 24f; temperature = -2f; tint = 0f; colorFilter = Color.white;
             splitShadows = new Color(0.47f, 0.5f, 0.57f); splitHighlights = new Color(0.55f, 0.53f, 0.5f); splitBalance = -10f;
             bloomIntensity = 0.55f; bloomThreshold = 1f; bloomScatter = 0.6f; bloomTint = new Color(0.85f, 0.93f, 1f);
             vignetteIntensity = 0.18f; vignetteColor = new Color(0.1f, 0.15f, 0.3f);

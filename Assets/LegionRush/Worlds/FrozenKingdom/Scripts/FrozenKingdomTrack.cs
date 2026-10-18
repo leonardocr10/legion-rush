@@ -13,7 +13,8 @@ namespace LegionRush.Environments
         public const float ChunkLength = 30f;
         public const float StartZ = -30f;
         public const float CastlePlateau = 3.2f;
-        private const float BraziersEvery = 24f;
+        private const float BraziersEvery = 12f;
+        private const float PillarEvery = 6f;
 
         // Seções da folha de referência (para a tabela de coordenadas).
         private const string SecFront = "Vista frontal / traseira";
@@ -171,52 +172,61 @@ namespace LegionRush.Environments
             EnvTerrain.SnowBanks(chunk, shape, z0, z1, halfWidth + 38f, 2.5f);
         }
 
-        // Mureta contínua dos dois lados + braseiros e estandartes alternados.
+        // Muro de pedra com capa de neve dos dois lados (como a folha do Reino Congelado): pilares a cada 6 m,
+        // braseiros em pedestal sobre a linha do muro a cada 12 m, estandartes atrás do muro e uma faixa de
+        // rochas nevadas encostada nele, antes do campo de pinheiros.
         private void BuildEdges(EnvChunk chunk, float z0, float z1, System.Random rng)
         {
             float edge = halfWidth + 0.3f;
             float stop = Mathf.Min(z1, trackLength - 2f);
             float resume = trackLength + 2f;
+            System.Func<float, bool> brazierAt = z => IsBrazier(z);
             for (int side = -1; side <= 1; side += 2)
             {
-                if (z0 < stop) EnvProps.Parapet(chunk, side * edge, z0, stop, rng);
-                if (z1 > resume) EnvProps.Parapet(chunk, side * edge, Mathf.Max(z0, resume), Mathf.Min(z1, CastleZ - 9f), rng);
+                if (z0 < stop) EnvProps.Rampart(chunk, side * edge, z0, stop, PillarEvery, brazierAt, rng);
+                if (z1 > resume) EnvProps.Rampart(chunk, side * edge, Mathf.Max(z0, resume), Mathf.Min(z1, CastleZ - 9f), PillarEvery, brazierAt, rng);
             }
 
-            float first = Mathf.Ceil((z0 - 12f) / BraziersEvery) * BraziersEvery + 12f;
+            float first = Mathf.Ceil(z0 / BraziersEvery) * BraziersEvery;
             for (float z = first; z < z1; z += BraziersEvery)
             {
-                if (z < 4f || Mathf.Abs(z - trackLength) < 6f || z > CastleZ - 12f) continue;
+                if (!IsBrazier(z)) continue;
                 for (int side = -1; side <= 1; side += 2)
                 {
-                    Vector3 p = new Vector3(side * (halfWidth + 2f), 0f, z);
+                    Vector3 p = new Vector3(side * (edge + 0.48f), 0f, z);
                     Vector3 flame = EnvProps.Brazier(chunk, p, 2.1f, rng);
                     fire.Add(flame, 0f);
-                    Record("TorchStand", p, 0f, 1f, "Structures", SecFront + ": braseiro em pedestal na borda");
-                    if (rng.NextDouble() < 0.5)
-                    {
-                        Vector3 b = p + new Vector3(side * 1.2f, 0f, EnvMeshBuilder.Rand(rng, 0.8f, 1.4f));
-                        EnvProps.Barrel(chunk, b, 0.9f, rng);
-                        Record("Barrel_Wood", b, 0f, 1f, "Props", SecProps + ": barril");
-                    }
-                    else
-                    {
-                        Vector3 c = p + new Vector3(side * 1.3f, 0f, EnvMeshBuilder.Rand(rng, -1.4f, -0.8f));
-                        EnvProps.Crate(chunk, c, 0.75f, rng);
-                        Record("Crate_Wood", c, (float)rng.NextDouble() * 90f, 1f, "Props", SecProps + ": caixa");
-                    }
+                    Record("TorchStand", p, 0f, 1f, "Structures", SecFront + ": braseiro em pedestal sobre o muro");
                 }
                 float bz = z + BraziersEvery * 0.5f;
-                if (bz < z1 && bz > 4f && Mathf.Abs(bz - trackLength) > 6f && bz < CastleZ - 12f)
+                if (bz < z1 && IsBrazier(bz - BraziersEvery * 0.5f) && Mathf.Abs(bz - trackLength) > 6f && bz < CastleZ - 12f)
                 {
                     for (int side = -1; side <= 1; side += 2)
                     {
-                        EnvProps.BannerPole(chunk, new Vector3(side * (halfWidth + 1.8f), 0f, bz), 3.6f, side * -18f, rng);
-                        Record("BannerPole", new Vector3(side * (halfWidth + 1.8f), 0f, bz), side * -18f, 1f, "Structures", SecFront + ": estandarte azul na borda");
+                        EnvProps.BannerPole(chunk, new Vector3(side * (halfWidth + 2.3f), 0f, bz), 3.8f, side * -18f, rng);
+                        Record("BannerPole", new Vector3(side * (halfWidth + 2.3f), 0f, bz), side * -18f, 1f, "Structures", SecFront + ": estandarte azul atrás do muro");
                     }
                 }
             }
+
+            // Rochas nevadas encostadas no muro (as "rochas grandes/médias" da folha), deixando os estandartes livres.
+            for (float z = z0 + EnvMeshBuilder.Rand(rng, 0f, 2f); z < Mathf.Min(z1, CastleZ - 12f); z += EnvMeshBuilder.Rand(rng, 2.6f, 4.2f))
+            {
+                for (int side = -1; side <= 1; side += 2)
+                {
+                    if (rng.NextDouble() < 0.25) continue;
+                    float x = side * (halfWidth + EnvMeshBuilder.Rand(rng, 2.6f, 4.6f));
+                    if (Mathf.Abs(Mathf.Repeat(z, BraziersEvery) - BraziersEvery * 0.5f) < 1.4f && Mathf.Abs(x) < halfWidth + 3.4f) continue;
+                    float scale = EnvMeshBuilder.Rand(rng, 0.9f, 1.6f);
+                    Vector3 p = Ground(x, z) + Vector3.down * 0.2f;
+                    EnvRocks.RockCluster(chunk, p, scale, rng);
+                    Record("Rock_Snow_Cluster", p, 0f, scale, "Nature", SecProps + ": rochas nevadas junto ao muro");
+                }
+            }
         }
+
+        private bool IsBrazier(float z) => z > 4f && Mathf.Abs(z - trackLength) >= 6f && z <= CastleZ - 12f
+                                           && Mathf.Abs(Mathf.Repeat(z + 0.01f, BraziersEvery)) < 0.1f;
 
         // Barranco de neve entre a mureta e o penhasco, conforme o perfil de distribuição (FrozenScatterProfile).
         // Nada fica a menos de 1,5 m da borda da pista: a área de movimento, portais e inimigos ficam livres.
@@ -526,8 +536,8 @@ namespace LegionRush.Environments
 
         private bool NearBrazier(float z)
         {
-            float k = Mathf.Repeat(z - 12f, BraziersEvery * 0.5f);
-            return k < 2.5f || k > BraziersEvery * 0.5f - 2.5f;
+            float k = Mathf.Repeat(z, BraziersEvery);
+            return k < 2.5f || k > BraziersEvery - 2.5f;
         }
 
         private Vector3 Ground(float x, float z) => new Vector3(x, EnvTerrain.Height(shape, x, z), z);

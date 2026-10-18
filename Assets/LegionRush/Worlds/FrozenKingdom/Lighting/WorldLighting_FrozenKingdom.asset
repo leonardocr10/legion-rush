@@ -21,15 +21,15 @@ MonoBehaviour:
   shadowStrength: 0.65
   shadowTint: {r: 0.55, g: 0.68, b: 1, a: 1}
   shadowTintAmount: 0.5
-  ambientSky: {r: 0.66, g: 0.78, b: 0.98, a: 1}
-  ambientEquator: {r: 0.62, g: 0.68, b: 0.8, a: 1}
-  ambientGround: {r: 0.52, g: 0.58, b: 0.7, a: 1}
+  ambientSky: {r: 0.54, g: 0.63, b: 0.82, a: 1}
+  ambientEquator: {r: 0.48, g: 0.54, b: 0.66, a: 1}
+  ambientGround: {r: 0.38, g: 0.42, b: 0.52, a: 1}
   fogColor: {r: 0.64, g: 0.79, b: 0.98, a: 1}
   fogStart: 55
   fogEnd: 150
-  postExposure: 0
-  contrast: 20
-  saturation: 14
+  postExposure: -0.12
+  contrast: 28
+  saturation: 24
   temperature: -2
   tint: 0
   colorFilter: {r: 1, g: 1, b: 1, a: 1}

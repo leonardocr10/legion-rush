@@ -5,14 +5,14 @@ namespace LegionRush
     [RequireComponent(typeof(Camera))]
     public class ArmyCameraController : MonoBehaviour
     {
-        [SerializeField] private float baseHeight = 10f;
-        [SerializeField] private float baseDistance = 8.5f;
+        [SerializeField] private float baseHeight = 13f;
+        [SerializeField] private float baseDistance = 6.5f;
         [SerializeField] private float heightPerRadius = 0.9f;
         [SerializeField] private float distancePerRadius = 0.6f;
         [SerializeField] private float lookAhead = 7f;
         [SerializeField] private float lateralFollow = 0.5f;
         [SerializeField] private float followSmoothTime = 0.22f;
-        [SerializeField] private float horizontalFov = 46f;
+        [SerializeField] private float horizontalFov = 52f;
         [SerializeField] private Vector2 verticalFovLimits = new Vector2(40f, 75f);
 
         private Camera cam;

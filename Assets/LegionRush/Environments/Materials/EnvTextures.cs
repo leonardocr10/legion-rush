@@ -42,9 +42,9 @@ namespace LegionRush.Environments
 
             Color gap = new Color(0.16f, 0.19f, 0.27f);
             Color snow = new Color(0.9f, 0.94f, 1f);
-            Color stoneDark = new Color(0.46f, 0.5f, 0.6f);
-            Color stoneLight = new Color(0.7f, 0.73f, 0.8f);
-            Color stoneWarm = new Color(0.64f, 0.62f, 0.64f);
+            Color stoneDark = new Color(0.4f, 0.44f, 0.54f);
+            Color stoneLight = new Color(0.62f, 0.66f, 0.74f);
+            Color stoneWarm = new Color(0.56f, 0.56f, 0.6f);
             var rowStarts = new List<float>[Rows];
             var rowTints = new List<float>[Rows];
             var rowSnow = new List<bool>[Rows];
