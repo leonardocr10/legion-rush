@@ -79,6 +79,41 @@ namespace LegionRush
         }
     }
 
+    // Sprites recortados da arte do projeto (Resources/UIArt, gerados por tools/art/extract_ui_art.py).
+    public static class UIArt
+    {
+        private static readonly System.Collections.Generic.Dictionary<string, Sprite> cache =
+            new System.Collections.Generic.Dictionary<string, Sprite>();
+
+        public static Sprite Get(string name)
+        {
+            if (cache.TryGetValue(name, out Sprite sprite)) return sprite;
+            Texture2D texture = Resources.Load<Texture2D>("UIArt/" + name);
+            if (texture != null)
+            {
+                texture.wrapMode = TextureWrapMode.Clamp;
+                sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100f);
+            }
+            else
+            {
+                GameLog.Warn("Arte de interface ausente: " + name);
+            }
+            cache[name] = sprite;
+            return sprite;
+        }
+
+        public static Image Image(Transform parent, string name, bool preserveAspect = true)
+        {
+            RectTransform rect = UI.Rect(parent, name);
+            Image image = rect.gameObject.AddComponent<Image>();
+            image.sprite = Get(name);
+            image.preserveAspect = preserveAspect;
+            image.raycastTarget = false;
+            if (image.sprite == null) image.color = Color.clear;
+            return image;
+        }
+    }
+
     // Fábrica de elementos UGUI criados por código (sem prefabs), todos com âncoras relativas para qualquer resolução.
     public static class UI
     {
