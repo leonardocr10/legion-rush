@@ -1,0 +1,243 @@
+using System;
+using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
+
+namespace LegionRush
+{
+    public enum QualityTier { Low = 0, Medium = 1, High = 2 }
+    public enum FrameRateMode { Auto = 0, Fps30 = 30, Fps60 = 60 }
+
+    public struct QualityTierSettings
+    {
+        public float RenderScale;
+        public int Msaa;
+        public float ShadowDistance;
+        public int ShadowCascades;
+        public bool SoftShadows;
+        public bool Hdr;
+        public bool PostProcessing;
+        public float BloomScale;
+        public bool Vignette;
+        public bool AmbientOcclusion;
+        public float AmbienceScale;
+        public float GodRayDensity;
+        public bool TorchPools;
+        public int DefaultFps;
+    }
+
+    public class VisualQualityManager : MonoBehaviour
+    {
+        private const string TierKey = "LR_QualityTier_v2";
+        private const string FpsKey = "LR_FrameRate_v1";
+
+        private static readonly QualityTierSettings[] Tiers =
+        {
+            // BAIXO: desempenho primeiro. Sombras duras e curtas, só color grading, ambiência mínima.
+            new QualityTierSettings { RenderScale = 0.8f, Msaa = 1, ShadowDistance = 22f, ShadowCascades = 1, SoftShadows = false, Hdr = false, PostProcessing = true, BloomScale = 0f, Vignette = false, AmbientOcclusion = false, AmbienceScale = 0.35f, GodRayDensity = 0f, TorchPools = false, DefaultFps = 30 },
+            // MÉDIO: sombras suaves, MSAA 2x, bloom moderado.
+            new QualityTierSettings { RenderScale = 0.9f, Msaa = 2, ShadowDistance = 32f, ShadowCascades = 1, SoftShadows = true, Hdr = false, PostProcessing = true, BloomScale = 0.6f, Vignette = true, AmbientOcclusion = false, AmbienceScale = 0.7f, GodRayDensity = 0.5f, TorchPools = true, DefaultFps = 60 },
+            // ALTO: HDR, MSAA 4x, 2 cascatas, SSAO em aparelhos compatíveis, ambiência completa.
+            new QualityTierSettings { RenderScale = 1f, Msaa = 4, ShadowDistance = 45f, ShadowCascades = 2, SoftShadows = true, Hdr = true, PostProcessing = true, BloomScale = 1f, Vignette = true, AmbientOcclusion = true, AmbienceScale = 1f, GodRayDensity = 1f, TorchPools = true, DefaultFps = 60 }
+        };
+
+        [SerializeField] private bool adaptiveDowngrade = true;
+        [SerializeField, Range(0.5f, 1f)] private float adaptiveThreshold = 0.85f;
+        [SerializeField] private float adaptiveWindow = 4f;
+        [SerializeField] private float adaptiveCooldown = 8f;
+
+        public QualityTier Current { get; private set; }
+        public QualityTierSettings Settings => Tiers[(int)Current];
+        public FrameRateMode FrameRate { get; private set; }
+        public bool IsManual { get; private set; }
+        public bool AmbientOcclusionSupported { get; private set; }
+        public int TargetFps => FrameRate == FrameRateMode.Auto ? Settings.DefaultFps : (int)FrameRate;
+        public event Action<QualityTier> TierChanged;
+
+        private UniversalRenderPipelineAsset urpAsset;
+        private Camera targetCamera;
+        private ScriptableRendererFeature ambientOcclusionFeature;
+        private float originalRenderScale;
+        private float originalShadowDistance;
+        private int originalCascades;
+        private int originalMsaa;
+        private bool originalHdr;
+        private bool originalAo;
+        private bool capturedOriginals;
+        private float windowTime;
+        private int windowFrames;
+        private float cooldownTimer;
+
+        public void Initialize(Camera cam, ScriptableRendererFeature aoFeature, QualityTier editorDefault)
+        {
+            targetCamera = cam;
+            ambientOcclusionFeature = aoFeature;
+            QualitySettings.vSyncCount = 0;
+
+            urpAsset = GraphicsSettings.currentRenderPipeline as UniversalRenderPipelineAsset;
+            if (urpAsset == null)
+            {
+                GameLog.Error("URP asset não encontrado. Configure o projeto com Universal Render Pipeline.");
+            }
+            else
+            {
+                originalRenderScale = urpAsset.renderScale;
+                originalShadowDistance = urpAsset.shadowDistance;
+                originalCascades = urpAsset.shadowCascadeCount;
+                originalMsaa = urpAsset.msaaSampleCount;
+                originalHdr = urpAsset.supportsHDR;
+                capturedOriginals = true;
+            }
+            if (ambientOcclusionFeature != null) originalAo = ambientOcclusionFeature.isActive;
+            AmbientOcclusionSupported = DetectAmbientOcclusionSupport();
+
+            int savedFps = PlayerPrefs.GetInt(FpsKey, 0);
+            FrameRate = savedFps == 30 ? FrameRateMode.Fps30 : savedFps == 60 ? FrameRateMode.Fps60 : FrameRateMode.Auto;
+
+            QualityTier tier;
+            if (PlayerPrefs.HasKey(TierKey))
+            {
+                tier = (QualityTier)Mathf.Clamp(PlayerPrefs.GetInt(TierKey), 0, Tiers.Length - 1);
+                IsManual = true;
+            }
+            else
+            {
+                tier = DetectTier(editorDefault);
+                IsManual = false;
+            }
+            ApplyTier(tier);
+        }
+
+        public void SetTier(QualityTier tier, bool manual)
+        {
+            if (manual)
+            {
+                IsManual = true;
+                PlayerPrefs.SetInt(TierKey, (int)tier);
+                PlayerPrefs.Save();
+            }
+            ApplyTier(tier);
+        }
+
+        public void SetFrameRate(FrameRateMode mode)
+        {
+            FrameRate = mode;
+            PlayerPrefs.SetInt(FpsKey, (int)mode);
+            PlayerPrefs.Save();
+            ApplyFrameRate();
+            GameLog.Info($"Frame rate -> {mode} ({TargetFps} FPS).");
+        }
+
+        public void ResetToAutomatic(QualityTier editorDefault)
+        {
+            PlayerPrefs.DeleteKey(TierKey);
+            PlayerPrefs.DeleteKey(FpsKey);
+            PlayerPrefs.Save();
+            IsManual = false;
+            FrameRate = FrameRateMode.Auto;
+            ApplyTier(DetectTier(editorDefault));
+        }
+
+        private void ApplyTier(QualityTier tier)
+        {
+            Current = tier;
+            QualityTierSettings s = Tiers[(int)tier];
+
+            if (urpAsset != null)
+            {
+                urpAsset.renderScale = s.RenderScale;
+                urpAsset.msaaSampleCount = s.Msaa;
+                urpAsset.shadowDistance = s.ShadowDistance;
+                urpAsset.shadowCascadeCount = s.ShadowCascades;
+                urpAsset.supportsHDR = s.Hdr;
+            }
+            if (targetCamera != null)
+            {
+                UniversalAdditionalCameraData data = targetCamera.GetUniversalAdditionalCameraData();
+                data.renderPostProcessing = s.PostProcessing;
+                data.antialiasing = AntialiasingMode.None;
+                data.renderShadows = true;
+                targetCamera.allowMSAA = s.Msaa > 1;
+                targetCamera.allowHDR = s.Hdr;
+            }
+
+            bool ambientOcclusion = s.AmbientOcclusion && AmbientOcclusionSupported && ambientOcclusionFeature != null;
+            if (ambientOcclusionFeature != null) ambientOcclusionFeature.SetActive(ambientOcclusion);
+            ApplyFrameRate();
+
+            windowTime = 0f;
+            windowFrames = 0;
+            cooldownTimer = adaptiveCooldown;
+            GameLog.Info($"Qualidade -> {tier} (escala {s.RenderScale}, MSAA {s.Msaa}x, sombras {s.ShadowDistance}m/{(s.SoftShadows ? "suaves" : "duras")}, HDR {s.Hdr}, AO {ambientOcclusion}, {TargetFps} FPS{(IsManual ? ", manual" : string.Empty)}).");
+            TierChanged?.Invoke(tier);
+        }
+
+        private void ApplyFrameRate()
+        {
+            QualitySettings.vSyncCount = 0;
+            Application.targetFrameRate = TargetFps;
+        }
+
+        private void Update()
+        {
+            if (Application.isEditor || !adaptiveDowngrade || IsManual || Current == QualityTier.Low) return;
+            float dt = Time.unscaledDeltaTime;
+            if (cooldownTimer > 0f)
+            {
+                cooldownTimer -= dt;
+                return;
+            }
+
+            windowTime += dt;
+            windowFrames++;
+            if (windowTime < adaptiveWindow) return;
+
+            float fps = windowFrames / windowTime;
+            windowTime = 0f;
+            windowFrames = 0;
+            if (fps >= TargetFps * adaptiveThreshold) return;
+
+            GameLog.Warn($"FPS médio {fps:0.0} abaixo da meta {TargetFps}; reduzindo qualidade.");
+            ApplyTier((QualityTier)((int)Current - 1));
+        }
+
+        private static QualityTier DetectTier(QualityTier editorDefault)
+        {
+#if UNITY_EDITOR
+            return editorDefault;
+#else
+            int ramMb = SystemInfo.systemMemorySize;
+            int cores = SystemInfo.processorCount;
+            int shaderLevel = SystemInfo.graphicsShaderLevel;
+            QualityTier tier;
+            if (ramMb >= 6000 && cores >= 8 && shaderLevel >= 45) tier = QualityTier.High;
+            else if (ramMb >= 3500 && shaderLevel >= 35) tier = QualityTier.Medium;
+            else tier = QualityTier.Low;
+            GameLog.Info($"Aparelho {SystemInfo.deviceModel} | RAM {ramMb}MB | {cores} núcleos | GPU {SystemInfo.graphicsDeviceName} | SM {shaderLevel} -> {tier}");
+            return tier;
+#endif
+        }
+
+        private static bool DetectAmbientOcclusionSupport()
+        {
+#if UNITY_EDITOR
+            return true;
+#else
+            return SystemInfo.graphicsShaderLevel >= 45 && SystemInfo.systemMemorySize >= 6000;
+#endif
+        }
+
+        private void OnDestroy()
+        {
+            if (capturedOriginals && urpAsset != null)
+            {
+                urpAsset.renderScale = originalRenderScale;
+                urpAsset.shadowDistance = originalShadowDistance;
+                urpAsset.shadowCascadeCount = originalCascades;
+                urpAsset.msaaSampleCount = originalMsaa;
+                urpAsset.supportsHDR = originalHdr;
+            }
+            if (ambientOcclusionFeature != null) ambientOcclusionFeature.SetActive(originalAo);
+        }
+    }
+}

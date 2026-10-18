@@ -1,0 +1,352 @@
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace LegionRush
+{
+    public class LevelManager : MonoBehaviour
+    {
+        public enum State { Ready, Running, Victory, Defeat }
+
+        [SerializeField] private float startInputDelay = 0.4f;
+        [SerializeField] private float propSpacing = 9f;
+
+        public State Current { get; private set; } = State.Ready;
+        public bool IsPaused { get; private set; }
+        public int Gold { get; private set; }
+        public int Kills { get; private set; }
+        public LevelConfig Config => config;
+        public WorldLightingProfile World => world;
+        public float Progress => commander == null ? 0f : Mathf.Clamp01(commander.transform.position.z / config.trackLength);
+        public event System.Action<State> StateChanged;
+        public event System.Action<bool> PauseChanged;
+        public event System.Action<GateDef, int, int> GateApplied;
+        public event System.Action<Vector3, int> EnemyKilled;
+
+        private readonly List<GateRowController> gates = new List<GateRowController>();
+        private LevelConfig config;
+        private WorldLightingProfile world;
+        private ArmyManager army;
+        private CommanderController commander;
+        private ArmyCameraController cameraController;
+        private VisualQualityManager quality;
+        private Transform enemyRoot;
+        private CorpseQueue enemyCorpses;
+        private float stateTimer;
+
+        public void Initialize(LevelConfig levelConfig, WorldLightingProfile worldProfile, ArmyManager armyManager,
+            CommanderController commanderController, ArmyCameraController cameraRig, VisualQualityManager qualityManager)
+        {
+            config = levelConfig;
+            world = worldProfile;
+            army = armyManager;
+            commander = commanderController;
+            cameraController = cameraRig;
+            quality = qualityManager;
+            enemyCorpses = new CorpseQueue(body => { if (body != null) body.gameObject.SetActive(false); });
+
+            CombatRegistry.Reset();
+            BuildTrack();
+            BuildGates();
+            SpawnWaves();
+
+            army.CountChanged += HandleArmyCountChanged;
+            commander.SetCountLabel(army.Count);
+            SetState(State.Ready);
+            GameLog.Info($"Level {config.levelNumber} ({world.displayName}) ready: {gates.Count} gate rows, {CombatRegistry.Enemies.Count} enemies, {config.trackLength}m track.");
+        }
+
+        public void HandleEnemyDeath(Enemy enemy)
+        {
+            CombatRegistry.Enemies.Remove(enemy);
+            enemyCorpses.Add(enemy);
+            Gold += config.goldPerEnemy;
+            Kills++;
+            EnemyKilled?.Invoke(enemy.transform.position, config.goldPerEnemy);
+        }
+
+        public void SetPaused(bool paused)
+        {
+            if (paused && Current != State.Running) return;
+            if (IsPaused == paused) return;
+            IsPaused = paused;
+            Time.timeScale = paused ? 0f : 1f;
+            commander.ControlEnabled = !paused && Current == State.Running;
+            GameAudio.SetGameplayPaused(paused);
+            GameLog.Info(paused ? "Pausado." : "Retomado.");
+            PauseChanged?.Invoke(paused);
+        }
+
+        private void OnApplicationPause(bool pauseStatus)
+        {
+            if (pauseStatus && Current == State.Running) SetPaused(true);
+        }
+
+        private void OnDestroy()
+        {
+            if (army != null) army.CountChanged -= HandleArmyCountChanged;
+            if (!IsPaused) return;
+            Time.timeScale = 1f;
+            GameAudio.SetGameplayPaused(false);
+        }
+
+        private void Update()
+        {
+            if (config == null) return;
+            float dt = Time.deltaTime;
+            enemyCorpses.Tick(dt);
+            if (IsPaused) return;
+            stateTimer += dt;
+
+            if (Current == State.Ready)
+            {
+                if (stateTimer >= startInputDelay && PointerInput.IsPressed(out _)) SetState(State.Running);
+            }
+            else if (Current == State.Running)
+            {
+                TickRunning(dt);
+            }
+        }
+
+        private void TickRunning(float deltaTime)
+        {
+            Vector3 commanderPosition = commander.transform.position;
+            bool engaged = false;
+            List<Enemy> enemies = CombatRegistry.Enemies;
+            for (int i = enemies.Count - 1; i >= 0; i--)
+            {
+                if (i >= enemies.Count) continue;
+                Enemy enemy = enemies[i];
+                enemy.Tick(deltaTime, commanderPosition);
+                if (enemy.IsAggro && enemy.IsAlive) engaged = true;
+            }
+            commander.SetEngaged(engaged);
+
+            for (int i = 0; i < gates.Count; i++)
+            {
+                if (gates[i].TryResolve(commanderPosition, out GateDef gate)) ApplyGate(gate);
+            }
+
+            if (army.Count == 0)
+            {
+                SetState(State.Defeat);
+                return;
+            }
+            if (commanderPosition.z >= config.trackLength && !engaged) SetState(State.Victory);
+        }
+
+        private void ApplyGate(GateDef gate)
+        {
+            int before = army.Count;
+            int after = gate.Apply(before, army.Config.maxSoldiers);
+            army.SetCount(after);
+            cameraController.Shake(gate.IsPositive ? 0.15f : 0.5f);
+            GameLog.Info($"Gate {gate.Label}: {before} -> {after}");
+            GateApplied?.Invoke(gate, before, after);
+        }
+
+        private void HandleArmyCountChanged(int previous, int current) => commander.SetCountLabel(current);
+
+        private void SetState(State next)
+        {
+            Current = next;
+            stateTimer = 0f;
+            switch (next)
+            {
+                case State.Ready:
+                    commander.ControlEnabled = false;
+                    commander.AdvanceEnabled = false;
+                    break;
+                case State.Running:
+                    commander.ControlEnabled = true;
+                    commander.AdvanceEnabled = true;
+                    break;
+                case State.Victory:
+                    Gold += config.victoryGold;
+                    commander.ControlEnabled = false;
+                    commander.AdvanceEnabled = false;
+                    cameraController.SetZoom(0.7f);
+                    army.PlayVictory();
+                    break;
+                case State.Defeat:
+                    commander.ControlEnabled = false;
+                    commander.AdvanceEnabled = false;
+                    cameraController.Shake(0.8f);
+                    break;
+            }
+            GameLog.Info("State -> " + next);
+            StateChanged?.Invoke(next);
+        }
+
+        // ---------- Cenário ----------
+
+        private void BuildTrack()
+        {
+            Transform track = new GameObject("Track").transform;
+            track.SetParent(transform, false);
+
+            float hw = config.trackHalfWidth;
+            float length = config.trackLength + 60f;
+            float centerZ = config.trackLength * 0.5f;
+            Material road = MaterialLibrary.Get(world.roadColor, 0f, 0f, false);
+            Material ground = MaterialLibrary.Get(world.groundColor, 0f, 0f, false);
+            Material border = MaterialLibrary.Get(world.borderColor, 0f, 0.1f);
+            Material finish = MaterialLibrary.Get(new Color(1f, 0.8f, 0.25f), 1.5f, 0f, false);
+
+            PrimitiveFactory.Part(PrimitiveType.Cube, track, new Vector3(0f, -0.5f, centerZ), new Vector3(hw * 2f, 1f, length), road, default, false);
+            PrimitiveFactory.Part(PrimitiveType.Cube, track, new Vector3(0f, -0.6f, centerZ), new Vector3(80f, 1f, length), ground, default, false);
+            for (int side = -1; side <= 1; side += 2)
+            {
+                PrimitiveFactory.Part(PrimitiveType.Cube, track, new Vector3(side * (hw + 0.25f), 0.25f, centerZ),
+                    new Vector3(0.5f, 0.5f, length), border);
+            }
+
+            var rng = new System.Random(config.levelNumber * 7919 + (int)world.world * 131);
+            int propIndex = 0;
+            float lateralStart = world.lavaChannels ? hw + 5.6f : hw + 2f;
+            for (float z = -20f; z < config.trackLength + 30f; z += propSpacing)
+            {
+                for (int side = -1; side <= 1; side += 2)
+                {
+                    float x = side * (lateralStart + (float)rng.NextDouble() * 10f);
+                    float height = 1.6f + (float)rng.NextDouble() * 1.4f;
+                    Vector3 position = new Vector3(x, 0f, z + (float)rng.NextDouble() * 4f);
+                    BuildProp(track, position, height, rng);
+                    if (propIndex % 3 == 0) BuildAccent(track, new Vector3(side * (lateralStart - 0.8f), 0f, z + 2f), rng);
+                    propIndex++;
+                }
+            }
+
+            float finishZ = config.trackLength;
+            PrimitiveFactory.Part(PrimitiveType.Cube, track, new Vector3(0f, 0.02f, finishZ), new Vector3(hw * 2f, 0.05f, 1.2f), finish, default, false);
+            for (int side = -1; side <= 1; side += 2)
+                PrimitiveFactory.Part(PrimitiveType.Cube, track, new Vector3(side * (hw + 0.8f), 2.75f, finishZ), new Vector3(1f, 5.5f, 1f), border);
+            PrimitiveFactory.Part(PrimitiveType.Cube, track, new Vector3(0f, 5.6f, finishZ), new Vector3(hw * 2f + 2.6f, 0.7f, 0.5f), border);
+            TextMesh banner = PrimitiveFactory.Label(track, new Vector3(0f, 5.6f, finishZ - 0.3f), "VITÓRIA", 120, 0.07f, new Color(1f, 0.85f, 0.35f));
+            banner.transform.localRotation = Quaternion.Euler(20f, 0f, 0f);
+
+            WorldAmbience ambience = track.gameObject.AddComponent<WorldAmbience>();
+            ambience.Build(world, config.trackLength, hw, commander.transform, quality);
+        }
+
+        private void BuildProp(Transform parent, Vector3 position, float height, System.Random rng)
+        {
+            Transform prop = new GameObject("Prop").transform;
+            prop.SetParent(parent, false);
+            prop.localPosition = position;
+            prop.localRotation = Quaternion.Euler(0f, (float)rng.NextDouble() * 360f, 0f);
+            Material primary = MaterialLibrary.Get(world.propPrimary);
+            Material secondary = MaterialLibrary.Get(world.propSecondary);
+
+            switch (world.propStyle)
+            {
+                case PropStyle.SnowPine:
+                {
+                    Material snow = MaterialLibrary.Get(world.groundColor);
+                    PrimitiveFactory.Part(PrimitiveType.Cylinder, prop, new Vector3(0f, 0.4f, 0f), new Vector3(0.25f, 0.4f, 0.25f), secondary);
+                    PrimitiveFactory.Part(PrimitiveType.Capsule, prop, new Vector3(0f, 0.6f + height * 0.45f, 0f), new Vector3(height * 0.6f, height * 0.45f, height * 0.6f), primary);
+                    PrimitiveFactory.Part(PrimitiveType.Capsule, prop, new Vector3(0f, 0.6f + height * 0.85f, 0f), new Vector3(height * 0.38f, height * 0.3f, height * 0.38f), primary);
+                    PrimitiveFactory.Part(PrimitiveType.Sphere, prop, new Vector3(0f, 0.6f + height * 1.12f, 0f), Vector3.one * (height * 0.22f), snow);
+                    break;
+                }
+                case PropStyle.Palm:
+                {
+                    float lean = (float)rng.NextDouble() * 12f - 6f;
+                    Transform trunk = PrimitiveFactory.Part(PrimitiveType.Cylinder, prop, new Vector3(0f, height, 0f), new Vector3(0.22f, height, 0.22f), secondary, new Vector3(lean, 0f, lean));
+                    Vector3 top = trunk.localPosition + trunk.localRotation * Vector3.up * height;
+                    for (int i = 0; i < 5; i++)
+                    {
+                        float angle = i * 72f;
+                        Vector3 offset = Quaternion.Euler(0f, angle, 0f) * new Vector3(0f, 0f, 0.7f);
+                        PrimitiveFactory.Part(PrimitiveType.Cube, prop, top + offset, new Vector3(0.35f, 0.06f, 1.5f), primary, new Vector3(25f, angle, 0f));
+                    }
+                    if (rng.NextDouble() < 0.5)
+                        PrimitiveFactory.Part(PrimitiveType.Cube, prop, new Vector3(1.4f, 0.45f, 0.6f), new Vector3(1.2f, 0.9f, 1.2f), secondary, new Vector3(0f, 20f, 0f));
+                    break;
+                }
+                case PropStyle.LeafyTree:
+                {
+                    PrimitiveFactory.Part(PrimitiveType.Cylinder, prop, new Vector3(0f, height * 0.5f, 0f), new Vector3(0.35f, height * 0.5f, 0.35f), secondary);
+                    PrimitiveFactory.Part(PrimitiveType.Sphere, prop, new Vector3(0f, height * 1.15f, 0f), Vector3.one * (height * 1.1f), primary);
+                    PrimitiveFactory.Part(PrimitiveType.Sphere, prop, new Vector3(height * 0.35f, height * 0.95f, 0.2f), Vector3.one * (height * 0.7f), primary);
+                    break;
+                }
+                default:
+                {
+                    Material crack = MaterialLibrary.Get(world.accentColor, world.accentEmission, 0f, false);
+                    for (int i = 0; i < 3; i++)
+                    {
+                        float s = height * (0.5f + 0.25f * i);
+                        PrimitiveFactory.Part(PrimitiveType.Cube, prop, new Vector3(i * 0.5f - 0.5f, s * 0.45f, (float)rng.NextDouble() - 0.5f),
+                            new Vector3(s * 0.6f, s, s * 0.6f), primary, new Vector3((float)rng.NextDouble() * 20f - 10f, (float)rng.NextDouble() * 90f, 45f));
+                    }
+                    PrimitiveFactory.Part(PrimitiveType.Cube, prop, new Vector3(0f, 0.05f, 0f), new Vector3(1.8f, 0.08f, 0.15f), crack, new Vector3(0f, 30f, 0f), false);
+                    break;
+                }
+            }
+        }
+
+        // Cristais luminosos (gelo, magia, lava) ou ruínas quando o mundo não tem emissivo.
+        private void BuildAccent(Transform parent, Vector3 position, System.Random rng)
+        {
+            Transform accent = new GameObject("Accent").transform;
+            accent.SetParent(parent, false);
+            accent.localPosition = position;
+            if (world.accentEmission <= 0f)
+            {
+                Material block = MaterialLibrary.Get(world.borderColor);
+                PrimitiveFactory.Part(PrimitiveType.Cube, accent, new Vector3(0f, 0.5f, 0f), new Vector3(0.9f, 1f, 0.9f), block, new Vector3(0f, (float)rng.NextDouble() * 40f, 0f));
+                PrimitiveFactory.Part(PrimitiveType.Cube, accent, new Vector3(0.2f, 1.2f, 0f), new Vector3(0.6f, 0.45f, 0.6f), block, new Vector3(0f, (float)rng.NextDouble() * 40f, 8f));
+                return;
+            }
+
+            Material crystal = MaterialLibrary.Get(world.accentColor, world.accentEmission, 0.3f);
+            for (int i = 0; i < 3; i++)
+            {
+                float h = 0.6f + (float)rng.NextDouble() * 0.9f;
+                PrimitiveFactory.Part(PrimitiveType.Cube, accent, new Vector3(i * 0.3f - 0.3f, h * 0.45f, (float)rng.NextDouble() * 0.4f),
+                    new Vector3(0.22f, h, 0.22f), crystal, new Vector3((float)rng.NextDouble() * 30f - 15f, 45f, (float)rng.NextDouble() * 30f - 15f), false);
+            }
+        }
+
+        private void BuildGates()
+        {
+            foreach (GateRow row in config.gateRows)
+            {
+                var go = new GameObject($"GateRow_{row.z:0}");
+                go.transform.SetParent(transform, false);
+                var gate = go.AddComponent<GateRowController>();
+                gate.Initialize(row, config.trackHalfWidth);
+                gates.Add(gate);
+            }
+        }
+
+        private void SpawnWaves()
+        {
+            enemyRoot = new GameObject("Enemies").transform;
+            enemyRoot.SetParent(transform, false);
+
+            foreach (EnemyWave wave in config.waves)
+            {
+                int maxColumns = Mathf.Max(1, Mathf.FloorToInt((config.trackHalfWidth * 2f - 1f) / wave.spacing) + 1);
+                int columns = Mathf.Clamp(Mathf.CeilToInt(Mathf.Sqrt(wave.count * 1.6f)), 1, maxColumns);
+                for (int i = 0; i < wave.count; i++)
+                {
+                    int column = i % columns;
+                    int rowIndex = i / columns;
+                    float x = (column - (columns - 1) * 0.5f) * wave.spacing;
+                    float z = wave.z + rowIndex * wave.spacing;
+                    SpawnEnemy(new Vector3(x, 0f, z), wave.healthMultiplier);
+                }
+            }
+        }
+
+        private void SpawnEnemy(Vector3 position, float healthMultiplier)
+        {
+            GameObject go = CharacterFactory.CreateEnemy(enemyRoot, config.enemy.color);
+            go.transform.SetPositionAndRotation(position, Quaternion.Euler(0f, 180f, 0f));
+            Enemy enemy = go.AddComponent<Enemy>();
+            enemy.Initialize(config.enemy, healthMultiplier, this, army);
+            CombatRegistry.Enemies.Add(enemy);
+        }
+    }
+}
