@@ -20,21 +20,13 @@ namespace LegionRush
 
         protected override void Build(RectTransform root)
         {
-            Image background = root.gameObject.AddComponent<Image>();
-            background.color = new Color(0.02f, 0.05f, 0.14f);
-            Image scenery = LegionArt.Image(root, "Backgrounds/bg_frozen_a", false, "Scenery");
-            scenery.preserveAspect = false;
-            AspectRatioFitter fitter = scenery.gameObject.AddComponent<AspectRatioFitter>();
-            fitter.aspectMode = AspectRatioFitter.AspectMode.EnvelopeParent;
-            fitter.aspectRatio = scenery.sprite != null ? scenery.sprite.rect.width / scenery.sprite.rect.height : 1.4f;
-            Image shade = UI.Rect(root, "Shade").gameObject.AddComponent<Image>();
-            shade.color = new Color(BackgroundColor.r, BackgroundColor.g, BackgroundColor.b, 0.72f);
-            shade.raycastTarget = false;
+            BuildScenery(root);
             UISnow.Attach((RectTransform)root);
 
             // Cabeçalho ornamentado (coroa e faixas do pacote) com o título ao vivo.
             Image header = LegionArt.Image(root, "Popups/popup_header", false, "Header");
-            UI.Place(header.rectTransform, 0.17f, 0.865f, 0.83f, 0.955f);
+            Vector4 box = HeaderBox;
+            UI.Place(header.rectTransform, box.x, box.y, box.z, box.w);
             TMP_Text title = UI.Label(header.transform, Title, 56, Color.white, TextAnchor.MiddleCenter, true, "Title", LegionTextStyle.Title);
             UI.Place(title.rectTransform, 0.27f, 0.12f, 0.74f, 0.58f);
             title.textWrappingMode = TextWrappingModes.NoWrap;
@@ -58,6 +50,24 @@ namespace LegionRush
             UI.Place(Body, 0.02f, 0.01f, 0.98f, 0.86f);
             BuildBody(Body);
             Body.gameObject.AddComponent<UISlideIn>().offset = new Vector2(0f, -60f);
+        }
+
+        // Caixa do cabeçalho em frações da tela (xMin, yMin, xMax, yMax).
+        protected virtual Vector4 HeaderBox => new Vector4(0.17f, 0.865f, 0.83f, 0.955f);
+
+        // Fundo da tela: cenário congelado escurecido. Telas com arte própria substituem.
+        protected virtual void BuildScenery(RectTransform root)
+        {
+            Image background = root.gameObject.AddComponent<Image>();
+            background.color = new Color(0.02f, 0.05f, 0.14f);
+            Image scenery = LegionArt.Image(root, "Backgrounds/bg_frozen_a", false, "Scenery");
+            scenery.preserveAspect = false;
+            AspectRatioFitter fitter = scenery.gameObject.AddComponent<AspectRatioFitter>();
+            fitter.aspectMode = AspectRatioFitter.AspectMode.EnvelopeParent;
+            fitter.aspectRatio = scenery.sprite != null ? scenery.sprite.rect.width / scenery.sprite.rect.height : 1.4f;
+            Image shade = UI.Rect(root, "Shade").gameObject.AddComponent<Image>();
+            shade.color = new Color(BackgroundColor.r, BackgroundColor.g, BackgroundColor.b, 0.72f);
+            shade.raycastTarget = false;
         }
 
         // LegionCurrencyBar: chip de moeda do menu principal (ícone + pílula + "+") com valor ao vivo.
