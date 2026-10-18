@@ -14,7 +14,9 @@ O detalhamento por fase está em [`docs/PROGRESSO.md`](docs/PROGRESSO.md). Resum
 - Iluminação por mundo (4 mundos), qualidade Baixo/Médio/Alto, shaders ToonLit e Glow.
 - Áudio com canais, limite de vozes e persistência.
 
-**Ainda provisório:** os personagens são primitivas (Fase B depende de arte 3D) e a interface é um HUD IMGUI temporário (as telas UGUI ficam para a Fase E).
+- 20 telas UGUI navegáveis (menu, loja, heróis, tropas, missões, conquistas, recompensa diária, recordes, ajustes...) com meta-progressão completa.
+
+**Ainda provisório:** os personagens são primitivas (a Fase B depende de arte 3D). O HUD durante a partida usa IMGUI simples, e os ícones e painéis ainda não têm arte 2D final.
 
 ## Gerar o APK pelo GitHub (sem PC no dia a dia)
 

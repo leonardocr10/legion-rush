@@ -8,7 +8,7 @@ Cada fase é commitada e passa no **Compile Check**. O workflow compila todo o c
 | B — Modelos e animações | ⛔ bloqueada | Depende de arte 3D (ver auditoria, seção 5). O pipeline de integração já existe. |
 | C — Tropas, habilidades e chefões | ✅ código | Detalhes abaixo |
 | D — Portais estratégicos | ✅ código | Detalhes abaixo |
-| E — Menus, loja, inventário e save | 🟡 parte 1 | Save, economia e progresso feitos. Faltam as telas UGUI, loja, inventário, missões, conquistas, recompensa diária e heróis. |
+| E — Menus, loja, inventário e save | ✅ código | Save, economia, meta-progressão e 20 telas UGUI |
 | F — 30 fases | ⏳ | — |
 | G — Otimização, profiling e build | ⏳ | Depende do aparelho e da licença Unity |
 
@@ -82,8 +82,56 @@ Cada fase é commitada e passa no **Compile Check**. O workflow compila todo o c
 - `Economy`: transações atômicas de ouro e gemas, sem dinheiro real.
 - `Progression`: estrelas (vitória, 40% e 70% de sobrevivência), pontuação, recordes e desbloqueio da próxima fase.
 
+## Fase E — parte 2
+
+- **UI UGUI criada por código** (`UI/Framework`), sem prefabs:
+  - pilha de navegação com transição;
+  - área segura e escala adaptada a celular dobrável aberto ou fechado;
+  - botão voltar do Android;
+  - diálogos de confirmação e notificações;
+  - vibração curta no Android (desligável).
+- **Telas:**
+  1. Splash
+  2. Menu
+  3. Mundos
+  4. Fases (30, com estrelas, bloqueio e "em breve")
+  5. Heróis
+  6. Tropas
+  7. Inventário
+  8. Equipamentos
+  9. Melhorias
+  10. Loja
+  11. Missões
+  12. Recompensa diária
+  13. Conquistas
+  14. Recordes
+  15. Ajustes
+  16. Pausa
+  17. Vitória
+  18. Derrota
+  19. Recompensas
+  20. Confirmações e notificações
+
+  A tela de **Preparação** (composição e habilidades) completa o fluxo.
+- **Meta-progressão** (`Meta/`):
+  - 7 melhorias permanentes;
+  - nível (até 10) e desbloqueio das classes Lanceiro, Mago, Curandeira e Cavaleiro;
+  - 5 heróis (ARTHOR, LYRA, MORVAN, KAEL, ELARA) com passiva e evolução;
+  - 9 equipamentos em 3 espaços;
+  - 3 poções;
+  - 5 visuais do exército;
+  - 3 baús;
+  - 3 habilidades desbloqueáveis;
+  - 7 missões (diárias e semanais);
+  - 8 conquistas;
+  - recompensa diária de 7 dias.
+- **Bônus:** são somados em `MetaBonuses` e aplicados ao exército a cada montagem de fase. O ouro ganho recebe o bônus de ouro.
+- **Fluxo:** Splash → Menu → Preparação → Partida → Resultado → Próxima fase ou Menu. A fase fica montada atrás dos menus como cenário.
+- **CI:** compila o UGUI embutido no editor com o perfil .NET Standard 2.1, o padrão do Unity 6.
+
 ## Testar no celular (quando houver APK)
 
-1. Em **Preparar Tropas**, escolha a composição e as 4 habilidades e toque em **JOGAR**.
-2. Durante a fase, use os botões de habilidade (parte de baixo) e de **Postura**.
-3. Em **Pausa** (**II**), troque o **Mundo** ou o **Chefão** para testar todos os 5. Pela mesma tela é possível exportar ou importar o progresso.
+1. Toque na Splash e depois em **JOGAR** no menu.
+2. Em **Preparar Tropas**, escolha a composição e as 4 habilidades e toque em **JOGAR**.
+3. Durante a fase, use os botões de habilidade (parte de baixo) e de **Postura**.
+4. Em **Ajustes → Teste no aparelho**, troque o mundo ou o chefão para testar todos os 5.
