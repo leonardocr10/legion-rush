@@ -84,6 +84,7 @@ namespace LegionRush
             CharacterFactory.Library = visualLibrary;
             if (visualLibrary != null) visualLibrary.Validate();
 
+            SaveManager.Load();
             runtimeLevel = levelConfig != null ? Instantiate(levelConfig) : LevelConfig.CreateDefault();
             runtimeArmy = armyConfig != null ? Instantiate(armyConfig) : ArmyConfig.CreateDefault();
             runtimeLevel.Sanitize();
@@ -219,6 +220,8 @@ namespace LegionRush
             var armyGo = new GameObject("Army");
             armyGo.transform.SetParent(root, false);
             var army = armyGo.AddComponent<ArmyManager>();
+            int[] savedLevels = SaveManager.Current.troops.levels;
+            for (int i = 0; i < ArmyConfig.ClassCount; i++) army.SetClassLevelBeforeSpawn((UnitClass)i, savedLevels[i]);
             army.Initialize(runtimeArmy, commanderGo.transform, runtimeLevel.trackHalfWidth, compositionIndex);
             currentArmy = army;
 

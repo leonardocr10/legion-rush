@@ -29,6 +29,7 @@ namespace LegionRush
         private readonly List<Soldier>[] byClass = new List<Soldier>[ArmyConfig.ClassCount];
         private readonly ObjectPool<Soldier>[] pools = new ObjectPool<Soldier>[ArmyConfig.ClassCount];
         private readonly int[] classLevels = new int[ArmyConfig.ClassCount];
+        private readonly int[] pendingLevels = new int[ArmyConfig.ClassCount];
         private readonly float[] weights = new float[ArmyConfig.ClassCount];
         private ObjectPool<Projectile> arrowPool;
         private ObjectPool<Projectile> orbPool;
@@ -66,7 +67,7 @@ namespace LegionRush
             for (int i = 0; i < ArmyConfig.ClassCount; i++)
             {
                 byClass[i] = new List<Soldier>(64);
-                classLevels[i] = 1;
+                classLevels[i] = Mathf.Clamp(pendingLevels[i] > 0 ? pendingLevels[i] : 1, 1, config.maxTroopLevel);
                 pools[i] = CreateSoldierPool((UnitClass)i);
             }
             ApplyWeights(compositionIndex);
@@ -89,6 +90,9 @@ namespace LegionRush
         public int CountOf(UnitClass unitClass) => byClass[(int)unitClass].Count;
         public int LevelOf(UnitClass unitClass) => classLevels[(int)unitClass];
         public float LevelMultiplier(UnitClass unitClass) => 1f + Config.levelScaling * (classLevels[(int)unitClass] - 1);
+
+        // Níveis permanentes vindos do save, aplicados antes de criar as tropas iniciais.
+        public void SetClassLevelBeforeSpawn(UnitClass unitClass, int level) => pendingLevels[(int)unitClass] = level;
 
         public void SetClassLevel(UnitClass unitClass, int level)
         {

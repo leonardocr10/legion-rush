@@ -16,6 +16,9 @@ namespace LegionRush
         public int Kills { get; private set; }
         public int Gems { get; private set; }
         public BossController Boss => boss;
+        public LevelOutcome LastOutcome { get; private set; }
+        public int PeakArmy { get; private set; }
+        public float RunSeconds { get; private set; }
         public LevelConfig Config => config;
         public WorldLightingProfile World => world;
         public float Progress => commander == null ? 0f : Mathf.Clamp01(commander.transform.position.z / config.trackLength);
@@ -59,6 +62,7 @@ namespace LegionRush
 
             army.CountChanged += HandleArmyCountChanged;
             commander.SetCountLabel(army.Count);
+            PeakArmy = army.Count;
             SetState(State.Ready);
             GameLog.Info($"Level {config.levelNumber} ({world.displayName}) ready: {gates.Count} gate rows, {CombatRegistry.Enemies.Count} enemies, chefão {(boss != null ? boss.Definition.displayName : "nenhum")}, {config.trackLength}m track.");
         }
@@ -156,6 +160,7 @@ namespace LegionRush
 
         private void TickRunning(float deltaTime)
         {
+            RunSeconds += deltaTime;
             Vector3 commanderPosition = commander.transform.position;
             bool engaged = false;
             List<Enemy> enemies = CombatRegistry.Enemies;
@@ -298,7 +303,29 @@ namespace LegionRush
             Vfx.Ring(commander.transform.position, new Color(0.2f, 0.8f, 0.7f, 0.8f), 6f, 0.6f);
         }
 
-        private void HandleArmyCountChanged(int previous, int current) => commander.SetCountLabel(current);
+        private void HandleArmyCountChanged(int previous, int current)
+        {
+            commander.SetCountLabel(current);
+            if (current > PeakArmy) PeakArmy = current;
+        }
+
+        private void RecordResult(bool victory)
+        {
+            var result = new LevelResult
+            {
+                LevelNumber = config.levelNumber,
+                Victory = victory,
+                Gold = Gold,
+                Gems = Gems,
+                Kills = Kills,
+                Survivors = army.Count,
+                PeakArmy = Mathf.Max(1, PeakArmy),
+                BossDefeated = boss != null && !boss.IsAlive,
+                Seconds = RunSeconds
+            };
+            LastOutcome = Progression.Record(result);
+            GameLog.Info($"Resultado: {(victory ? "vitória" : "derrota")}, {LastOutcome.Stars} estrelas, pontuação {LastOutcome.Score}{(LastOutcome.NewBestScore ? " (recorde)" : string.Empty)}.");
+        }
 
         private void SetState(State next)
         {
@@ -322,11 +349,13 @@ namespace LegionRush
                     commander.AdvanceEnabled = false;
                     cameraController.SetZoom(0.7f);
                     army.PlayVictory();
+                    RecordResult(true);
                     break;
                 case State.Defeat:
                     commander.ControlEnabled = false;
                     commander.AdvanceEnabled = false;
                     cameraController.Shake(0.8f);
+                    RecordResult(false);
                     break;
             }
             GameLog.Info("State -> " + next);

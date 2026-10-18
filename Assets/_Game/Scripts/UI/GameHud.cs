@@ -90,7 +90,13 @@ namespace LegionRush
         {
             resultSettingsOpen = false;
             if (state == LevelManager.State.Victory || state == LevelManager.State.Defeat)
-                resultText = $"Soldados: {army.Count}   ·   Inimigos: {level.Kills}\nOuro: {level.Gold}   ·   Gemas: {level.Gems}";
+            {
+                LevelOutcome outcome = level.LastOutcome;
+                string stars = state == LevelManager.State.Victory ? $"ESTRELAS {outcome.Stars}/3   ·   " : string.Empty;
+                string best = outcome.NewBestScore ? "  (RECORDE!)" : string.Empty;
+                resultText = $"{stars}Pontuação {outcome.Score}{best}\nSoldados {army.Count}   ·   Inimigos {level.Kills}\n" +
+                             $"+{level.Gold} ouro   ·   +{level.Gems} gemas\nCarteira: {Economy.Gold} ouro   ·   {Economy.Gems} gemas";
+            }
         }
 
         private void HandleBossAwakened(BossController boss) => Toast($"{boss.Definition.displayName.ToUpperInvariant()} DESPERTOU!");
@@ -332,7 +338,7 @@ namespace LegionRush
         private PanelAction DrawResult(string title, Color titleColor, string buttonLabel, Rect safe, float scale, float pad)
         {
             float width = Mathf.Min(safe.width - pad * 2f, 960f * scale);
-            float height = 720f * scale;
+            float height = 800f * scale;
             Rect panel = new Rect(safe.x + (safe.width - width) * 0.5f, safe.y + (safe.height - height) * 0.5f, width, height);
             Fill(panel, new Color(0.04f, 0.06f, 0.12f, 0.88f));
 
@@ -341,7 +347,7 @@ namespace LegionRush
             Shadowed(new Rect(panel.x, panel.y + 40f * scale, panel.width, 140f * scale), title, hugeStyle, scale);
             hugeStyle.normal.textColor = previous;
 
-            GUI.Label(new Rect(panel.x + pad, panel.y + 200f * scale, panel.width - pad * 2f, 160f * scale), resultText, centerStyle);
+            GUI.Label(new Rect(panel.x + pad, panel.y + 190f * scale, panel.width - pad * 2f, 260f * scale), resultText, centerStyle);
             Rect primary = new Rect(panel.x + panel.width * 0.15f, panel.yMax - 310f * scale, panel.width * 0.7f, 120f * scale);
             Rect secondary = new Rect(panel.x + panel.width * 0.25f, panel.yMax - 160f * scale, panel.width * 0.5f, 100f * scale);
             if (GUI.Button(primary, buttonLabel, buttonStyle)) return PanelAction.Primary;
@@ -355,7 +361,7 @@ namespace LegionRush
             float optionHeight = 96f * scale;
             float buttonHeight = 104f * scale;
             int buttons = secondaryLabel != null ? 2 : 1;
-            float height = 120f * scale + rowHeight * Buses.Length + optionHeight * 4f + (buttonHeight + 16f * scale) * buttons + pad * 2f;
+            float height = 120f * scale + rowHeight * Buses.Length + optionHeight * 5f + (buttonHeight + 16f * scale) * buttons + pad * 2f;
             float width = Mathf.Min(safe.width - pad * 2f, 1000f * scale);
             Rect panel = new Rect(safe.x + (safe.width - width) * 0.5f, safe.y + Mathf.Max(pad, (safe.height - height) * 0.5f), width, height);
             Fill(panel, new Color(0.04f, 0.06f, 0.12f, 0.92f));
@@ -425,6 +431,22 @@ namespace LegionRush
                 GameAudio.Play(SoundId.UiConfirm);
                 bootstrap.CycleBossOverride();
                 return PanelAction.None;
+            }
+            y += optionHeight;
+
+            GUI.Label(new Rect(x, y, inner * 0.3f, optionHeight), "PROGRESSO", leftStyle);
+            float half = inner * 0.35f;
+            if (GUI.Button(new Rect(x + inner * 0.3f + 4f, y + optionHeight * 0.1f, half - 8f, optionHeight * 0.8f), "EXPORTAR", smallButtonStyle))
+            {
+                GUIUtility.systemCopyBuffer = SaveManager.Export();
+                GameAudio.Play(SoundId.UiConfirm);
+                Toast("Código do progresso copiado");
+            }
+            if (GUI.Button(new Rect(x + inner * 0.65f + 4f, y + optionHeight * 0.1f, half - 8f, optionHeight * 0.8f), "IMPORTAR", smallButtonStyle))
+            {
+                bool imported = SaveManager.Import(GUIUtility.systemCopyBuffer, out string message);
+                GameAudio.Play(imported ? SoundId.UiConfirm : SoundId.UiBack);
+                Toast(message);
             }
             y += optionHeight + pad;
 
