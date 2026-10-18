@@ -256,8 +256,10 @@ namespace LegionRush.Environments
             chunk.Matrix = Matrix4x4.TRS(keep, Quaternion.identity, Vector3.one);
             m.BeveledBox(new Vector3(0f, 9f, 0f), new Vector3(14f, 18f, 10f), 0.2f, EnvPalette.Stone);
             // Vitral em losango com flor-de-lis luminosa.
-            g.BeveledBox(new Vector3(0f, 11f, -5.05f), new Vector3(3.4f, 5.6f, 0.3f), 0.4f, EnvPalette.GateGlow * 0.6f);
-            o.BeveledBox(new Vector3(0f, 11f, -5.2f), new Vector3(3.9f, 6.1f, 0.15f), 0.2f, EnvPalette.Gold);
+            // Moldura dourada atrás e vitral azul na frente (a moldura aparece só como aro).
+            o.BeveledBox(new Vector3(0f, 11f, -5.05f), new Vector3(3.9f, 6.1f, 0.15f), 0.2f, EnvPalette.Gold);
+            g.BeveledBox(new Vector3(0f, 11f, -5.2f), new Vector3(3.3f, 5.5f, 0.2f), 0.4f, EnvPalette.GateGlow * 0.6f);
+            o.BeveledBox(new Vector3(0f, 11.2f, -5.33f), new Vector3(1.1f, 1.5f, 0.06f), 0.15f, EnvPalette.Gold);
             Wall(chunk, Matrix4x4.TRS(keep + new Vector3(0f, 18f, -4.6f), Quaternion.identity, Vector3.one), 14.4f, 0.01f, 1.2f, rng);
             for (int side = -1; side <= 1; side += 2)
             {
@@ -266,11 +268,10 @@ namespace LegionRush.Environments
             }
             Tower(chunk, keep + new Vector3(0f, 18f, 1f), 2.4f, 7f, 7.5f, rng);
 
-            // Cachoeiras congeladas descendo da plataforma.
+            // Cachoeiras congeladas descendo da plataforma (as muralhas ficam livres para os estandartes).
             for (int side = -1; side <= 1; side += 2)
             {
                 EnvRocks.FrozenWaterfall(chunk, origin + new Vector3(side * 27f, py, 0.5f), 4.5f, py, Vector3.back, rng);
-                EnvRocks.FrozenWaterfall(chunk, p0 + new Vector3(side * 12f, 6.4f, 0.65f), 2.2f, 5.5f, Vector3.back, rng);
             }
         }
     }

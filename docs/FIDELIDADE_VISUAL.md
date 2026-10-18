@@ -60,7 +60,7 @@ Kit em `Assets/LegionRush/Environments/` (o Blender não está instalado, então
 - **Pista**: `FrozenKingdomTrack` monta 11 trechos de 30 m (1 objeto por material por trecho, ~440 mil vértices no Alto). O `LevelManager` usa o kit só no mundo 1; portões, inimigos, chefão e colisão não mudaram. Os outros mundos continuam com primitivas.
 - **Qualidade** (`VisualQualityManager`): Baixo = ~55% da decoração, sem sombras do cenário, fogo sem partículas; Médio = 80%, sombras, poucas partículas; Alto = tudo. Meta de 60 FPS em todos os níveis.
 - **Luz**: preset Frozen com neblina azul mais longa (55–150 m) e céu da mesma cor no horizonte.
-- **Ferramentas**: menu *Legion Rush › Ambiente › Capturar prévia* (também em batch: `LegionRush.Environments.EditorTools.EnvPreviewCapture.CaptureBatch -captureDir <pasta>`) e *Gerar prefabs do Reino Congelado* (`EnvPrefabBaker`, executado: ver abaixo).
+- **Ferramentas**: menu *Legion Rush › Ambiente › Capturar prévia* (também em batch: `LegionRush.Environments.EditorTools.EnvPreviewCapture.CaptureBatch -captureDir <pasta>`) e *Legion Rush › Reino Congelado › 1. Gerar prefabs / 2. Montar cena* (ver rodada 3).
 
 ### Falta / limitações (cenário)
 
@@ -81,20 +81,11 @@ Comparado com a folha `Vista geral do cenário — Reino Congelado` e com captur
 - **Montanhas**: cordilheira 3D atrás e dos lados do castelo (`EnvRocks.MountainPeak`, material `Distant` com 45% de neblina, dentro do far clip de 140 m) + anel do céu mais alto.
 - **Paisagem**: torres de observação a cada 64 m, dois acampamentos (tenda, fogueira, carroça, cerca, caixas, lamparina), estátuas de cavaleiro na reta final, árvores parcialmente congeladas, pinheiros com neve intensa, blocos de gelo, rochas grandes e plantinhas.
 - **Fogo**: chama de malha em línguas laranja (braseiro, fogueira, tocha), sem o cone amarelo.
-- **Distribuição configurável**: `FrozenScatterProfile` (ScriptableObject em `FrozenKingdom/ScriptableObjects/Resources/FrozenScatter_Default`): tipo, distância da borda, peças por metro, espaçamento mínimo, giro, escala, probabilidade e semente. Nada a menos de 1,5 m da pista; áreas dos marcos ficam reservadas.
+- **Distribuição configurável**: `FrozenScatterProfile` (ScriptableObject em `Worlds/FrozenKingdom/Configurations/Resources/FrozenScatter_Default`): tipo, distância da borda, peças por metro, espaçamento mínimo, giro, escala, probabilidade e semente. Nada a menos de 1,5 m da pista; áreas dos marcos ficam reservadas.
 
-#### Prefabs (60) — `Assets/LegionRush/Environments/FrozenKingdom/Prefabs`
+#### Prefabs
 
-Gerados por *Legion Rush › Ambiente › Gerar prefabs do Reino Congelado* (ou `EnvPrefabBaker.BakeBatch`), com malhas em `Models`, materiais em `Materials`, texturas em `Textures`; peças paradas marcadas para Static Batching. Conferência visual: `EnvPreviewCapture.CapturePrefabsBatch` (uma PNG por prefab).
-
-- `Track/`: Straight, Start, End, Gate, Enemy, Boss, Ramp, Stairs, Platform, PlatformElevated, BorderLeft, BorderRight, Crossroad, Curve (módulos de 10 m, largura do jogo).
-- `Castle/`: Main (com portas que abrem), TowerLarge, TowerSmall, Wall, WallShort, Gate, Arch, Stairs, Pillar, Battlement, Banner.
-- `Terrain/`: Cliff, FrozenWaterfall, MountainPeak, SnowPile, IceBlock, IceCrystal, RockSmall, RockLarge, RockCluster.
-- `Vegetation/`: Pine Small/Medium/Large/HeavySnow, Tree_PartiallyFrozen, Bush_Snow, Plant_Small.
-- `Props/`: Torch, Brazier, Campfire (com `EnvFlameSpawner`), Banner Large/Medium/Small, Lantern, Fence, Barrel, Crate, Cart, Tent, WatchTower, KnightStatue, Parapet.
-- `Gates/`: FrozenGate_Blue/Green/Yellow/Purple (só o visual; texto e valores vêm do jogo).
-
-O jogo continua montando a fase por código (`FrozenKingdomTrack`) com as mesmas funções dos prefabs: um trecho = 1 malha por material (poucas draw calls), sem precisar instanciar dezenas de prefabs no celular.
+Substituídos na rodada 3 pelos prefabs de `Assets/LegionRush/Worlds/FrozenKingdom` (nomes do blueprint). Ver abaixo.
 
 #### Ainda falta
 
@@ -103,3 +94,13 @@ O jogo continua montando a fase por código (`FrozenKingdomTrack`) com as mesmas
 - LOD Groups não foram criados (as peças já são low-poly; o corte por distância é a neblina + far clip).
 - Partículas de vitória específicas na chegada ao castelo: hoje só a abertura do portão + efeitos já existentes do exército.
 - Não testado em aparelho Android (FPS real).
+
+### Rodada 3 — mapa fiel ao blueprint (cena FrozenKingdom_01)
+
+Tudo do Reino Congelado agora fica em `Assets/LegionRush/Worlds/FrozenKingdom/` (`Scenes`, `Prefabs`, `Models`, `Materials`, `Textures`, `Terrain`, `Tracks`, `Gates`, `Castle`, `Structures`, `Nature`, `Props`, `Lighting`, `VFX`, `Scripts`, `Configurations`). O kit genérico (malhas, shaders, peças) continua em `Assets/LegionRush/Environments`, para os outros mundos.
+
+- **Cena** `FrozenKingdom_01.unity`: cópia da Main (Bootstrap, câmera, sol), então é jogável. O mapa é montado por prefabs com a mesma lógica do cenário do jogo: 753 peças, terreno de neve em 11 malhas, pista modular contínua, castelo, torres, florestas, acampamentos e montanhas. O `LevelManager` usa esse mapa quando a fase bate (Reino Congelado, 220 m, meia-largura 5). Nas outras fases ele some e o cenário procedural volta. A cena Main não mudou.
+- **Construção automática**: menu *Legion Rush › Reino Congelado* → *1. Gerar prefabs* (`EnvPrefabBaker`) e *2. Montar cena* (`FrozenKingdomSceneBuilder`). Pode rodar de novo: apaga e remonta só o que criou. Em batch: `FrozenKingdomSceneBuilder.BuildAllBatch`, `CaptureBatch` e `BuildWebGLBatch`.
+- **Prefabs (73)**: `Track_Straight/Bordered/Ramp/Platform/Crossroad/Curve/Stairs/Elevated` (+ Start, End, Gate2, Gate3, Enemy, Boss, BorderLeft/Right) com colisores simplificados e pivô no início do módulo de 10 m. `Gate_Blue/Green/Yellow/Purple` têm trigger e `EnvGatePortalInfo` (categoria do `GateOption`). Também: `Castle_*` (Main, Tower_Large/Small, Wall, Gate, Arch, Pillar, Stairs, Banner, Torch, Battlement), `WatchTower`, `StonePillar`, `StoneArch`, `BannerPole`, `Banner_Large/Medium/Small`, `TorchStand`, `PineTree_Snow` (+ Small/Large/Heavy), `Rock_Snow`, `Fence_Wood`, `Barrel_Wood`, `Crate_Wood`, `Cart_Wood`, `Tent_Blue`, `Campfire`, `Snow_Decal`, `Stone_Decal` e os marcadores `PlayerSpawnPoint`, `EnemySpawnPoint`, `BossSpawnPoint` e `GateRowPoint`. A vegetação e os props têm LOD Group de corte.
+- **Tabela de coordenadas**: `docs/reino_congelado/MAPA.md` (sequência do percurso, peças principais e resumo da vegetação) e `coordenadas.csv` (todas as peças com a seção da referência).
+- **Relatório de diferenças**: `docs/reino_congelado/RELATORIO.md`.

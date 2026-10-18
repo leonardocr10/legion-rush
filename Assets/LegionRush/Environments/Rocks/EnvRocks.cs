@@ -130,5 +130,32 @@ namespace LegionRush.Environments
             b.Frustum(new Vector3(0f, rockH * 0.55f, 0f), radius * 0.78f, radius * 0.5f, rockH * 0.5f, 7, EnvPalette.SnowShade, false, false, false,
                 phase + 0.45f, rng, 0.25f);
         }
+
+        // "Decal" de neve: placa fina de contorno irregular rente ao chão (cobre emendas e quebra o calçamento).
+        public static void SnowPatch(EnvChunk chunk, Vector3 position, float radius, System.Random rng)
+        {
+            chunk.Matrix = Matrix4x4.TRS(position, Quaternion.Euler(0f, EnvMeshBuilder.Rand(rng, 0f, 360f), 0f), Vector3.one);
+            EnvMeshBuilder o = chunk.Opaque;
+            o.NoSnow();
+            o.Frustum(Vector3.zero, radius, radius * 0.82f, 0.06f, 11, EnvPalette.Snow, false, true, false, 0f, rng, 0.28f);
+            o.Frustum(new Vector3(radius * 0.25f, 0.05f, 0f), radius * 0.5f, radius * 0.3f, 0.06f, 8, EnvPalette.Snow, false, true, false, 1f, rng, 0.25f);
+        }
+
+        // "Decal" de pedras: punhado de pedrinhas achatadas espalhadas.
+        public static void PebbleScatter(EnvChunk chunk, Vector3 position, float radius, System.Random rng)
+        {
+            EnvMeshBuilder o = chunk.Opaque;
+            int count = 6 + rng.Next(5);
+            for (int i = 0; i < count; i++)
+            {
+                float a = EnvMeshBuilder.Rand(rng, 0f, Mathf.PI * 2f);
+                float d = Mathf.Sqrt((float)rng.NextDouble()) * radius;
+                float s = EnvMeshBuilder.Rand(rng, 0.12f, 0.3f);
+                chunk.Matrix = Matrix4x4.TRS(position + new Vector3(Mathf.Cos(a) * d, 0f, Mathf.Sin(a) * d), Quaternion.Euler(0f, EnvMeshBuilder.Rand(rng, 0f, 360f), 0f), Vector3.one);
+                o.SetSnow(0.8f);
+                o.BeveledBox(new Vector3(0f, s * 0.2f, 0f), new Vector3(s * 1.3f, s * 0.5f, s), s * 0.2f, EnvPalette.Vary(EnvPalette.Stone, rng, 0.12f), rng, s * 0.15f);
+            }
+            o.NoSnow();
+        }
     }
 }

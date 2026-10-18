@@ -132,7 +132,7 @@ namespace LegionRush.Environments.EditorTools
                 WorldLightingProfile profile = WorldLightingProfile.CreatePreset(WorldId.FrozenKingdom);
                 lighting.Apply(profile);
                 RenderSettings.fog = false;
-                foreach (string guid in AssetDatabase.FindAssets("t:Prefab", new[] { "Assets/LegionRush/Environments/FrozenKingdom/Prefabs" }))
+                foreach (string guid in AssetDatabase.FindAssets("t:Prefab", new[] { "Assets/LegionRush/Worlds/FrozenKingdom" }))
                 {
                     string path = AssetDatabase.GUIDToAssetPath(guid);
                     var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(path);

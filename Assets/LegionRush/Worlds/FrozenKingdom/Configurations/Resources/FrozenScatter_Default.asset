@@ -1,0 +1,106 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f31adad301dac734bad20763559aada6, type: 3}
+  m_Name: FrozenScatter_Default
+  m_EditorClassIdentifier: Assembly-CSharp::LegionRush.Environments.FrozenScatterProfile
+  seed: 0
+  rules:
+  - label: Pinheiros
+    kind: 0
+    distance: {x: 2.2, y: 15}
+    perMeter: 0.45
+    minSpacing: 1.6
+    yaw: {x: 0, y: 360}
+    scale: {x: 3.2, y: 6.2}
+    probability: 1
+    avoidBraziers: 1
+  - label: Pinheiros com muita neve
+    kind: 1
+    distance: {x: 3.5, y: 15}
+    perMeter: 0.12
+    minSpacing: 2
+    yaw: {x: 0, y: 360}
+    scale: {x: 3, y: 5}
+    probability: 1
+    avoidBraziers: 1
+  - label: Rochas
+    kind: 4
+    distance: {x: 2, y: 15}
+    perMeter: 0.14
+    minSpacing: 0
+    yaw: {x: 0, y: 360}
+    scale: {x: 0.6, y: 1.2}
+    probability: 1
+    avoidBraziers: 1
+  - label: Rochas grandes
+    kind: 5
+    distance: {x: 5, y: 15}
+    perMeter: 0.03
+    minSpacing: 6
+    yaw: {x: 0, y: 360}
+    scale: {x: 1.4, y: 2.2}
+    probability: 0.8
+    avoidBraziers: 1
+  - label: Cristais de gelo
+    kind: 6
+    distance: {x: 1.6, y: 12}
+    perMeter: 0.07
+    minSpacing: 0
+    yaw: {x: 0, y: 360}
+    scale: {x: 0.9, y: 1.7}
+    probability: 1
+    avoidBraziers: 1
+  - label: Blocos de gelo
+    kind: 7
+    distance: {x: 3, y: 14}
+    perMeter: 0.025
+    minSpacing: 5
+    yaw: {x: 0, y: 360}
+    scale: {x: 0.9, y: 1.6}
+    probability: 0.8
+    avoidBraziers: 1
+  - label: Arbustos nevados
+    kind: 2
+    distance: {x: 0.6, y: 5}
+    perMeter: 0.06
+    minSpacing: 0
+    yaw: {x: 0, y: 360}
+    scale: {x: 0.7, y: 1.2}
+    probability: 1
+    avoidBraziers: 1
+  - label: "\xC1rvores congeladas"
+    kind: 9
+    distance: {x: 3, y: 14}
+    perMeter: 0.02
+    minSpacing: 6
+    yaw: {x: 0, y: 360}
+    scale: {x: 3, y: 4.5}
+    probability: 0.7
+    avoidBraziers: 1
+  - label: Plantinhas
+    kind: 10
+    distance: {x: 1.5, y: 6}
+    perMeter: 0.08
+    minSpacing: 0
+    yaw: {x: 0, y: 360}
+    scale: {x: 0.6, y: 1}
+    probability: 1
+    avoidBraziers: 1
+  - label: Montes de neve
+    kind: 3
+    distance: {x: 0.4, y: 5}
+    perMeter: 0.09
+    minSpacing: 0
+    yaw: {x: 0, y: 360}
+    scale: {x: 1, y: 1.8}
+    probability: 1
+    avoidBraziers: 1

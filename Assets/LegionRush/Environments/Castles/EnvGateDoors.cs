@@ -39,6 +39,13 @@ namespace LegionRush.Environments
             SetOpenAmount(k);
         }
 
+        // Fecha na hora (fase recomeçada na mesma cena).
+        public void ResetClosed()
+        {
+            elapsed = -1f;
+            SetOpenAmount(0f);
+        }
+
         // 0 = fechado, 1 = aberto (também usado pela prévia no editor, onde Update não roda).
         public void SetOpenAmount(float k)
         {

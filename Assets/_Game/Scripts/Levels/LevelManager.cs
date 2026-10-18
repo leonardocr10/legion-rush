@@ -36,6 +36,7 @@ namespace LegionRush
 
         private readonly List<GateRowController> gates = new List<GateRowController>();
         private FrozenKingdomTrack frozenTrack;
+        private FrozenKingdomSceneLayout sceneLayout;
         private LevelConfig config;
         private WorldLightingProfile world;
         private ArmyManager army;
@@ -358,6 +359,7 @@ namespace LegionRush
                     cameraController.SetZoom(0.7f);
                     army.PlayVictory();
                     if (frozenTrack != null) frozenTrack.OpenCastleGate();
+                    if (sceneLayout != null) sceneLayout.OpenCastleGate();
                     RecordResult(true);
                     break;
                 case State.Defeat:
@@ -386,8 +388,14 @@ namespace LegionRush
 
             // Mundo com kit de ambiente 3D (Assets/LegionRush/Environments): cenário estilizado completo.
             // Os demais mundos continuam com o cenário de primitivas abaixo.
+            // Cena com o mapa montado por prefabs (FrozenKingdom_01): usa-o quando bate com a fase; senão some.
             bool environmentKit = FrozenKingdomTrack.Supports(world.world);
-            if (environmentKit)
+            sceneLayout = FrozenKingdomSceneLayout.FindFor(world.world, config.trackLength, hw);
+            if (environmentKit && sceneLayout != null)
+            {
+                sceneLayout.Activate(world, quality, Camera.main);
+            }
+            else if (environmentKit)
             {
                 frozenTrack = track.gameObject.AddComponent<FrozenKingdomTrack>();
                 frozenTrack.Build(config.trackLength, hw, config.levelNumber, world, quality, Camera.main);

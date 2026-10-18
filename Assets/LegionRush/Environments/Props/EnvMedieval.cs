@@ -251,17 +251,23 @@ namespace LegionRush.Environments
             g.BeveledBox(new Vector3(0f, height * 0.62f, -1.31f), new Vector3(0.45f, 0.8f, 0.06f), 0.04f, EnvPalette.WindowGlow * 0.55f);
             o.BeveledBox(new Vector3(0f, height * 0.32f + 1.2f, -1.32f), new Vector3(1.4f, 0.1f, 0.1f), 0.03f, EnvPalette.Gold);
             EnvCastle.HangingBanner(chunk.Banner, new Vector3(0f, height * 0.32f + 1.15f, -1.4f), 1.1f, 1.9f);
-            // Plataforma de madeira com mísulas, parapeito de tábuas.
+            // Topo de pedra com mísula e ameias (neve em cada merlão); postes de madeira sustentam o telhado.
             float py = height;
-            o.BeveledBox(new Vector3(0f, py + 0.1f, 0f), new Vector3(3.6f, 0.2f, 3.6f), 0.04f, EnvPalette.Wood);
+            m.BeveledBox(new Vector3(0f, py + 0.1f, 0f), new Vector3(3.4f, 0.3f, 3.4f), 0.08f, EnvPalette.StoneLight);
             for (int k = 0; k < 4; k++)
             {
                 Quaternion r = Quaternion.Euler(0f, k * 90f, 0f);
-                Matrix4x4 saved = o.Matrix;
+                Matrix4x4 savedM = m.Matrix, saved = o.Matrix;
+                m.Matrix = savedM * Matrix4x4.TRS(Vector3.zero, r, Vector3.one);
                 o.Matrix = saved * Matrix4x4.TRS(Vector3.zero, r, Vector3.one);
-                o.BeveledBox(new Vector3(0f, py + 0.55f, -1.75f), new Vector3(3.6f, 0.7f, 0.1f), 0.03f, EnvPalette.WoodDark);
-                o.BeveledBox(new Vector3(0f, py + 0.95f, -1.75f), new Vector3(3.7f, 0.12f, 0.2f), 0.03f, EnvPalette.Snow, rng, 0.02f);
-                o.BeveledBox(new Vector3(-1.7f, py + 1.6f, -1.7f), new Vector3(0.16f, 1.4f, 0.16f), 0.03f, EnvPalette.WoodDark);
+                m.BeveledBox(new Vector3(0f, py + 0.45f, -1.55f), new Vector3(3.4f, 0.4f, 0.3f), 0.05f, EnvPalette.Stone);
+                for (int i = -1; i <= 1; i++)
+                {
+                    m.BeveledBox(new Vector3(i * 1.15f, py + 0.9f, -1.55f), new Vector3(0.62f, 0.5f, 0.32f), 0.05f, EnvPalette.Stone);
+                    o.BeveledBox(new Vector3(i * 1.15f, py + 1.18f, -1.55f), new Vector3(0.68f, 0.1f, 0.38f), 0.03f, EnvPalette.Snow, rng, 0.02f);
+                }
+                o.BeveledBox(new Vector3(-1.45f, py + 1.65f, -1.45f), new Vector3(0.16f, 1.3f, 0.16f), 0.03f, EnvPalette.WoodDark);
+                m.Matrix = savedM;
                 o.Matrix = saved;
             }
             // Telhado piramidal azul com neve e ponta dourada.

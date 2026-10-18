@@ -1,22 +1,53 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace LegionRush.Environments
 {
-    // Portal de melhoria no estilo da referência: pilares de pedra clara com base e capitel dourados, orbe
-    // luminoso na cor da categoria, arco na cor da categoria com friso dourado e neve no topo, cortina de
-    // energia com degradê (mais clara nas bordas) e faixa luminosa no chão. Só a aparência: a lógica, os
-    // textos e os valores continuam no GateRowController (dados reais do jogo).
+    // Portal de melhoria como na folha "Portais de melhoria (escolha)": moldura de pedra clara com friso
+    // dourado, estandarte azul pendurado na frente de cada pilar, orbe luminoso na cor da categoria no topo
+    // dos pilares, arco claro com friso colorido e pedra-chave dourada, interior translúcido luminoso em
+    // degradê e faíscas subindo. Só a aparência: lógica, textos e valores continuam no GateRowController.
     public static class EnvGatePortal
     {
         public const float Height = 3.2f;
         public const float ArchTop = 3.95f;
 
+        private static Material curtainMaterial;
+        private static Material sparkMaterial;
+
         public static bool Available => EnvMaterials.Available;
 
+        // Material translúcido compartilhado (cor vem do vértice); exposto para o gerador de prefabs salvar.
+        public static Material CurtainMaterial
+        {
+            get
+            {
+                if (curtainMaterial == null)
+                {
+                    curtainMaterial = MaterialLibrary.CreateGlow(null, Color.white, true, 1.3f);
+                    if (curtainMaterial != null) curtainMaterial.name = "LR_Gate_Curtain";
+                }
+                return curtainMaterial;
+            }
+        }
+
+        public static Material SparkMaterial
+        {
+            get
+            {
+                if (sparkMaterial == null)
+                {
+                    sparkMaterial = MaterialLibrary.CreateGlow(ProceduralTextures.SoftCircle, Color.white, true, 1.6f);
+                    if (sparkMaterial != null) sparkMaterial.name = "LR_Gate_Spark";
+                }
+                return sparkMaterial;
+            }
+        }
+
         // Monta o portal como filho de "gate" (coordenadas locais; frente em -Z). As malhas pertencem ao
-        // portal e são destruídas com ele (EnvOwnedMeshes).
-        public static void Build(Transform gate, float width, Color color, int seed)
+        // portal e são destruídas com ele (EnvOwnedMeshes). sparkles = intensidade das faíscas (0 desliga).
+        public static void Build(Transform gate, float width, Color color, int seed, float sparkles = 1f)
         {
             var rng = new System.Random(seed);
             var chunk = new EnvChunk();
@@ -25,28 +56,31 @@ namespace LegionRush.Environments
             EnvMeshBuilder g = chunk.Glow;
             o.NoSnow();
             float half = width * 0.5f - 0.2f;
-            Color frame = Color.Lerp(color, Color.white, 0.15f);
-            Color frameDark = Color.Lerp(color, Color.black, 0.35f);
+            Color pale = new Color(0.86f, 0.89f, 0.95f);
+            Color paleShade = new Color(0.76f, 0.8f, 0.9f);
+            Color trim = Color.Lerp(color, Color.white, 0.1f);
 
             for (int side = -1; side <= 1; side += 2)
             {
                 float x = side * half;
-                // Base, fuste e capitel.
-                m.BeveledBox(new Vector3(x, 0.22f, 0f), new Vector3(0.62f, 0.44f, 0.62f), 0.07f, EnvPalette.StoneLight);
-                o.BeveledBox(new Vector3(x, 0.5f, 0f), new Vector3(0.5f, 0.12f, 0.5f), 0.04f, EnvPalette.Gold);
-                m.BeveledBox(new Vector3(x, 1.85f, 0f), new Vector3(0.4f, 2.6f, 0.4f), 0.08f, EnvPalette.StoneLight);
-                // Faixa na cor da categoria ao longo do fuste (frente).
-                o.BeveledBox(new Vector3(x, 1.85f, -0.19f), new Vector3(0.18f, 2.2f, 0.05f), 0.02f, frame);
-                o.BeveledBox(new Vector3(x, Height + 0.02f, 0f), new Vector3(0.56f, 0.16f, 0.56f), 0.05f, EnvPalette.Gold);
-                // Orbe no topo do pilar (acima do arco).
+                // Base, fuste e capitel em pedra clara com frisos dourados.
+                m.BeveledBox(new Vector3(x, 0.24f, 0f), new Vector3(0.66f, 0.48f, 0.66f), 0.07f, paleShade);
+                o.BeveledBox(new Vector3(x, 0.52f, 0f), new Vector3(0.54f, 0.1f, 0.54f), 0.03f, EnvPalette.Gold);
+                m.BeveledBox(new Vector3(x, 1.86f, 0f), new Vector3(0.44f, 2.62f, 0.44f), 0.08f, pale);
+                o.BeveledBox(new Vector3(x, Height - 0.05f, 0f), new Vector3(0.58f, 0.12f, 0.58f), 0.04f, EnvPalette.Gold);
+                m.BeveledBox(new Vector3(x, Height + 0.08f, 0f), new Vector3(0.62f, 0.18f, 0.62f), 0.05f, pale);
+                // Estandarte azul com flor-de-lis pendurado na frente do pilar (barra dourada).
+                o.BeveledBox(new Vector3(x, 2.72f, -0.26f), new Vector3(0.56f, 0.07f, 0.07f), 0.02f, EnvPalette.Gold);
+                EnvCastle.HangingBanner(chunk.Banner, new Vector3(x, 2.68f, -0.3f), 0.46f, 1.45f);
+                // Orbe no topo do pilar, acima do arco.
                 o.Frustum(new Vector3(x, ArchTop + 0.05f, 0f), 0.2f, 0.12f, 0.16f, 8, EnvPalette.Gold, true, true);
-                g.Frustum(new Vector3(x, ArchTop + 0.2f, 0f), 0.15f, 0.15f, 0.26f, 8, color, true, false, true);
-                g.Frustum(new Vector3(x, ArchTop + 0.46f, 0f), 0.15f, 0f, 0.16f, 8, color, false, false, true);
+                g.Frustum(new Vector3(x, ArchTop + 0.2f, 0f), 0.15f, 0.15f, 0.26f, 8, color * 0.8f, true, false, true);
+                g.Frustum(new Vector3(x, ArchTop + 0.46f, 0f), 0.15f, 0f, 0.16f, 8, color * 0.8f, false, false, true);
                 // Neve na base.
                 o.BeveledBox(new Vector3(x + side * 0.1f, 0.06f, -0.15f), new Vector3(0.9f, 0.14f, 0.8f), 0.06f, EnvPalette.Snow, rng, 0.05f);
             }
 
-            // Arco: aduelas em semicírculo achatado entre os capitéis.
+            // Arco: aduelas claras em semicírculo achatado, friso na cor da categoria por dentro e neve por cima.
             const int Stones = 9;
             float span = half;
             float rise = ArchTop - Height;
@@ -58,37 +92,98 @@ namespace LegionRush.Environments
                 float len = Vector2.Distance(new Vector2(Mathf.Cos(a0) * span, Mathf.Sin(a0) * rise), new Vector2(Mathf.Cos(a1) * span, Mathf.Sin(a1) * rise));
                 float tilt = Mathf.Atan2(Mathf.Cos(am) * rise, Mathf.Sin(am) * span) * Mathf.Rad2Deg;
                 Matrix4x4 saved = o.Matrix;
-                Matrix4x4 local = Matrix4x4.TRS(c, Quaternion.Euler(0f, 0f, tilt), Vector3.one);
-                o.Matrix = local;
-                o.BeveledBox(Vector3.zero, new Vector3(len + 0.06f, 0.42f, 0.42f), 0.07f, i % 2 == 0 ? frame : frameDark);
-                o.BeveledBox(new Vector3(0f, -0.2f, -0.2f), new Vector3(len + 0.04f, 0.08f, 0.06f), 0.02f, EnvPalette.Gold);
+                o.Matrix = Matrix4x4.TRS(c, Quaternion.Euler(0f, 0f, tilt), Vector3.one);
+                o.BeveledBox(Vector3.zero, new Vector3(len + 0.06f, 0.42f, 0.42f), 0.07f, i % 2 == 0 ? pale : paleShade);
+                o.BeveledBox(new Vector3(0f, -0.19f, -0.16f), new Vector3(len + 0.04f, 0.1f, 0.12f), 0.02f, trim);
+                o.BeveledBox(new Vector3(0f, 0.2f, -0.22f), new Vector3(len + 0.02f, 0.05f, 0.03f), 0.01f, EnvPalette.Gold);
                 o.BeveledBox(new Vector3(0f, 0.25f, 0f), new Vector3(len + 0.12f, 0.12f, 0.5f), 0.05f, EnvPalette.Snow, rng, 0.02f);
                 o.Matrix = saved;
             }
-            // Pedra-chave dourada.
-            o.BeveledBox(new Vector3(0f, ArchTop, -0.12f), new Vector3(0.42f, 0.56f, 0.28f), 0.08f, EnvPalette.Gold);
-            g.BeveledBox(new Vector3(0f, ArchTop, -0.27f), new Vector3(0.22f, 0.3f, 0.05f), 0.04f, Color.Lerp(color, Color.white, 0.4f));
+            // Pedra-chave dourada com gema na cor da categoria.
+            o.BeveledBox(new Vector3(0f, ArchTop, -0.12f), new Vector3(0.46f, 0.6f, 0.28f), 0.08f, EnvPalette.Gold);
+            g.BeveledBox(new Vector3(0f, ArchTop, -0.27f), new Vector3(0.24f, 0.32f, 0.05f), 0.04f, Color.Lerp(color, Color.white, 0.35f) * 0.8f);
 
-            // Cortina de energia: degradê da cor para quase branco nas bordas e embaixo.
-            float innerHalf = half - 0.2f;
-            Color core = color * 0.3f;
-            Color rim = Color.Lerp(color, Color.white, 0.4f) * 0.62f;
-            g.Sheet(new Vector3(-innerHalf, 0.05f, 0.02f), Vector3.right * innerHalf * 2f, Vector3.up * (Height - 0.05f), 8, 6,
-                (u, v) =>
-                {
-                    float edge = Mathf.Max(Mathf.Pow(Mathf.Abs(u - 0.5f) * 2f, 4f), Mathf.Pow(1f - v, 3f) * 0.8f);
-                    Color c = Color.Lerp(core, rim, Mathf.Clamp01(edge));
-                    c.a = 0f;
-                    return c;
-                });
             // Faixa luminosa no chão (marca a faixa da escolha).
-            g.BeveledBox(new Vector3(0f, 0.025f, -0.2f), new Vector3(innerHalf * 2f, 0.05f, 1.2f), 0.02f, color * 0.6f);
+            float innerHalf = half - 0.22f;
+            g.BeveledBox(new Vector3(0f, 0.025f, -0.2f), new Vector3(innerHalf * 2f, 0.05f, 1.2f), 0.02f, color * 0.45f);
 
             var root = new GameObject("Portal").transform;
             root.SetParent(gate, false);
             chunk.Build(root, "Portal", EnvShadowMode.Large);
+
+            BuildCurtain(root, innerHalf, color);
+            if (sparkles > 0.01f) BuildSparkles(root, innerHalf, color, sparkles);
+
             var owner = root.gameObject.AddComponent<EnvOwnedMeshes>();
             owner.Collect();
+        }
+
+        // Interior translúcido: mais opaco e claro nas bordas e embaixo, quase transparente no meio (vê-se a pista).
+        private static void BuildCurtain(Transform root, float innerHalf, Color color)
+        {
+            Material material = CurtainMaterial;
+            if (material == null) return;
+            var b = new EnvMeshBuilder();
+            Color rim = Color.Lerp(color, Color.white, 0.45f);
+            b.Sheet(new Vector3(-innerHalf, 0.04f, 0.02f), Vector3.right * innerHalf * 2f, Vector3.up * (Height - 0.06f), 10, 8,
+                (u, v) =>
+                {
+                    float edge = Mathf.Max(Mathf.Pow(Mathf.Abs(u - 0.5f) * 2f, 3f), Mathf.Pow(1f - v, 2.5f) * 0.9f);
+                    Color c = Color.Lerp(color, rim, edge);
+                    // Na cor do vértice a Unity espera sRGB e o construtor converte; alfa vai como está.
+                    c.a = Mathf.Lerp(0.32f, 0.9f, edge);
+                    return c;
+                });
+            var go = new GameObject("Curtain");
+            go.transform.SetParent(root, false);
+            go.AddComponent<MeshFilter>().sharedMesh = b.ToMesh("Portal_Curtain");
+            var r = go.AddComponent<MeshRenderer>();
+            r.sharedMaterial = material;
+            r.shadowCastingMode = ShadowCastingMode.Off;
+            r.receiveShadows = false;
+            r.lightProbeUsage = LightProbeUsage.Off;
+            r.reflectionProbeUsage = ReflectionProbeUsage.Off;
+        }
+
+        // Faíscas subindo pela abertura (partículas leves, compatíveis com Android/WebGL).
+        private static void BuildSparkles(Transform root, float innerHalf, Color color, float amount)
+        {
+            Material material = SparkMaterial;
+            if (material == null) return;
+            var go = new GameObject("Sparkles");
+            go.SetActive(false);
+            go.transform.SetParent(root, false);
+            go.transform.localPosition = new Vector3(0f, 0.2f, -0.05f);
+            var ps = go.AddComponent<ParticleSystem>();
+            ParticleSystem.MainModule main = ps.main;
+            main.loop = true;
+            main.prewarm = true;
+            main.startLifetime = new ParticleSystem.MinMaxCurve(1.2f, 2f);
+            main.startSpeed = new ParticleSystem.MinMaxCurve(0.6f, 1.3f);
+            main.startSize = new ParticleSystem.MinMaxCurve(0.08f, 0.18f);
+            main.startColor = Color.Lerp(color, Color.white, 0.5f);
+            main.simulationSpace = ParticleSystemSimulationSpace.Local;
+            main.maxParticles = 20;
+            ParticleSystem.EmissionModule emission = ps.emission;
+            emission.rateOverTime = 9f * Mathf.Clamp01(amount);
+            ParticleSystem.ShapeModule shape = ps.shape;
+            shape.enabled = true;
+            shape.shapeType = ParticleSystemShapeType.Box;
+            shape.scale = new Vector3(innerHalf * 2f, 0.1f, 0.2f);
+            shape.rotation = new Vector3(-90f, 0f, 0f);
+            var gradient = new Gradient();
+            gradient.SetKeys(
+                new[] { new GradientColorKey(Color.white, 0f), new GradientColorKey(Color.white, 1f) },
+                new[] { new GradientAlphaKey(0f, 0f), new GradientAlphaKey(1f, 0.2f), new GradientAlphaKey(0.8f, 0.7f), new GradientAlphaKey(0f, 1f) });
+            ParticleSystem.ColorOverLifetimeModule col = ps.colorOverLifetime;
+            col.enabled = true;
+            col.color = new ParticleSystem.MinMaxGradient(gradient);
+            var r = go.GetComponent<ParticleSystemRenderer>();
+            r.sharedMaterial = material;
+            r.renderMode = ParticleSystemRenderMode.Billboard;
+            r.shadowCastingMode = ShadowCastingMode.Off;
+            r.receiveShadows = false;
+            go.SetActive(true);
         }
     }
 
