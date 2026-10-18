@@ -16,8 +16,8 @@ namespace LegionRush
         public int Count => soldiers.Count;
         public float FormationRadius { get; private set; }
         public FormationStance Stance { get; private set; } = FormationStance.Balanced;
-        public float DamageMultiplier { get; set; } = 1f;
-        public float AttackIntervalMultiplier { get; set; } = 1f;
+        public float DamageMultiplier => permanentDamage * (1f + timedDamage);
+        public float AttackIntervalMultiplier => 1f / ((1f + permanentAttackSpeed) * (1f + timedAttackSpeed));
         public float HealthMultiplier { get; set; } = 1f;
         public float HealMultiplier { get; set; } = 1f;
         public float ArmorMultiplier => Stance == FormationStance.Defensive ? 1.35f : Stance == FormationStance.Aggressive ? 0.9f : 1f;
@@ -42,6 +42,18 @@ namespace LegionRush
         private bool ownsArrowTrail;
         private float halfWidth;
         private bool formationDirty;
+        private float permanentDamage = 1f;
+        private float permanentAttackSpeed;
+        private float timedDamage;
+        private float timedAttackSpeed;
+        private readonly List<Buff> buffs = new List<Buff>(8);
+
+        private struct Buff
+        {
+            public bool Damage;
+            public float Amount;
+            public float Remaining;
+        }
 
         public void Initialize(ArmyConfig config, Transform commanderTransform, float trackHalfWidth, int compositionIndex)
         {
@@ -112,11 +124,79 @@ namespace LegionRush
             if (previous != soldiers.Count) CountChanged?.Invoke(previous, soldiers.Count);
         }
 
-        // Adiciona tropas de uma classe específica (portais e invocações). Retorna quantas entraram.
+        public int ClassCap(UnitClass unitClass) => Config.classCaps[(int)unitClass];
+
+        // Multiplicador com teto de ganho por portal e respeitando o limite total.
+        public int MultiplyTroops(float factor, int maxGain)
+        {
+            int current = soldiers.Count;
+            int target = Mathf.Min(Mathf.FloorToInt(current * Mathf.Max(1f, factor)), current + Mathf.Max(0, maxGain));
+            SetCount(target);
+            return soldiers.Count - current;
+        }
+
+        public void AddDamageBonus(float bonus, float duration)
+        {
+            if (duration <= 0f) permanentDamage *= 1f + bonus;
+            else buffs.Add(new Buff { Damage = true, Amount = bonus, Remaining = duration });
+            RecomputeBuffs();
+        }
+
+        public void AddAttackSpeedBonus(float bonus, float duration)
+        {
+            if (duration <= 0f) permanentAttackSpeed += bonus;
+            else buffs.Add(new Buff { Damage = false, Amount = bonus, Remaining = duration });
+            RecomputeBuffs();
+        }
+
+        // Sobe o nível de uma classe (ou de todas). Tropas existentes ganham vida proporcional; dano usa o nível atual.
+        public void LevelUp(bool allClasses, UnitClass unitClass, int levels)
+        {
+            for (int c = 0; c < ArmyConfig.ClassCount; c++)
+            {
+                if (!allClasses && c != (int)unitClass) continue;
+                float before = LevelMultiplier((UnitClass)c);
+                SetClassLevel((UnitClass)c, classLevels[c] + levels);
+                float ratio = LevelMultiplier((UnitClass)c) / before;
+                foreach (Soldier soldier in byClass[c]) soldier.ScaleMaxHealth(ratio);
+            }
+        }
+
+        private void RecomputeBuffs()
+        {
+            timedDamage = 0f;
+            timedAttackSpeed = 0f;
+            foreach (Buff buff in buffs)
+            {
+                if (buff.Damage) timedDamage += buff.Amount;
+                else timedAttackSpeed += buff.Amount;
+            }
+        }
+
+        private void TickBuffs(float dt)
+        {
+            if (buffs.Count == 0) return;
+            bool changed = false;
+            for (int i = buffs.Count - 1; i >= 0; i--)
+            {
+                Buff buff = buffs[i];
+                buff.Remaining -= dt;
+                if (buff.Remaining <= 0f)
+                {
+                    buffs.RemoveAt(i);
+                    changed = true;
+                    continue;
+                }
+                buffs[i] = buff;
+            }
+            if (changed) RecomputeBuffs();
+        }
+
+        // Adiciona tropas de uma classe específica (portais e invocações). Respeita limite total e por classe.
         public int AddTroops(UnitClass unitClass, int amount)
         {
             int previous = soldiers.Count;
-            int room = Mathf.Max(0, Config.maxSoldiers - soldiers.Count);
+            int room = Mathf.Max(0, Mathf.Min(Config.maxSoldiers - soldiers.Count, ClassCap(unitClass) - CountOf(unitClass)));
             int added = Mathf.Min(room, Mathf.Max(0, amount));
             for (int i = 0; i < added; i++) SpawnSoldier(unitClass);
             if (added > 0)
@@ -316,6 +396,7 @@ namespace LegionRush
             if (commander == null) return;
             float dt = Time.deltaTime;
             corpses.Tick(dt);
+            TickBuffs(dt);
             if (formationDirty) RebuildFormation();
 
             Vector3 anchor = commander.position;
@@ -399,7 +480,7 @@ namespace LegionRush
             float bestDeficit = float.MinValue;
             for (int i = 0; i < ArmyConfig.ClassCount; i++)
             {
-                if (weights[i] <= 0f) continue;
+                if (weights[i] <= 0f || byClass[i].Count >= Config.classCaps[i]) continue;
                 float deficit = weights[i] * next - byClass[i].Count;
                 if (deficit > bestDeficit)
                 {

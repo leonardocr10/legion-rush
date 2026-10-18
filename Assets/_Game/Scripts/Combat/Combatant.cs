@@ -130,6 +130,14 @@ namespace LegionRush
             }
         }
 
+        // Ajusta a vida máxima mantendo a proporção atual (subida de nível durante a fase).
+        public void ScaleMaxHealth(float factor)
+        {
+            if (factor <= 0f || !IsAlive) return;
+            MaxHealth *= factor;
+            Health = Mathf.Min(MaxHealth, Health * factor);
+        }
+
         public void Heal(float amount)
         {
             if (amount <= 0f || !IsAlive) return;

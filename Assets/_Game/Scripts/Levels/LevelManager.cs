@@ -21,7 +21,7 @@ namespace LegionRush
         public float Progress => commander == null ? 0f : Mathf.Clamp01(commander.transform.position.z / config.trackLength);
         public event System.Action<State> StateChanged;
         public event System.Action<bool> PauseChanged;
-        public event System.Action<GateDef, int, int> GateApplied;
+        public event System.Action<GateOption, int, int> GateApplied;
         public event System.Action<Vector3, int> EnemyKilled;
         public event System.Action<BossController> BossAwakened;
         public event System.Action<BossController> BossDefeated;
@@ -175,7 +175,7 @@ namespace LegionRush
 
             for (int i = 0; i < gates.Count; i++)
             {
-                if (gates[i].TryResolve(commanderPosition, out GateDef gate)) ApplyGate(gate);
+                if (gates[i].TryResolve(commanderPosition, out GateOption option)) ApplyGate(option);
             }
 
             if (army.Count == 0)
@@ -187,14 +187,115 @@ namespace LegionRush
             if (commanderPosition.z >= config.trackLength && !engaged && bossDown) SetState(State.Victory);
         }
 
-        private void ApplyGate(GateDef gate)
+        // Aplica todos os efeitos do portal escolhido. Cada efeito altera o estado real (tropas, bônus, inimigos, recursos, rota).
+        private void ApplyGate(GateOption option)
         {
             int before = army.Count;
-            int after = gate.Apply(before, army.Config.maxSoldiers);
-            army.SetCount(after);
-            cameraController.Shake(gate.IsPositive ? 0.15f : 0.5f);
-            GameLog.Info($"Gate {gate.Label}: {before} -> {after}");
-            GateApplied?.Invoke(gate, before, after);
+            foreach (GateEffect effect in option.effects)
+            {
+                if (effect == null) continue;
+                int amount = Mathf.Max(0, Mathf.RoundToInt(effect.value));
+                switch (effect.type)
+                {
+                    case GateEffectType.AddTroops:
+                        if (effect.anyClass) army.SetCount(army.Count + amount);
+                        else army.AddTroops(effect.unitClass, amount);
+                        break;
+                    case GateEffectType.MultiplyTroops:
+                        army.MultiplyTroops(effect.value, army.Config.maxMultiplyGain);
+                        break;
+                    case GateEffectType.RemoveTroops:
+                        army.SetCount(army.Count - amount);
+                        break;
+                    case GateEffectType.RemovePercent:
+                        army.SetCount(Mathf.FloorToInt(army.Count * (1f - Mathf.Clamp01(effect.value))));
+                        break;
+                    case GateEffectType.DamageBoost:
+                        army.AddDamageBonus(effect.value, effect.duration);
+                        break;
+                    case GateEffectType.AttackSpeedBoost:
+                        army.AddAttackSpeedBonus(effect.value, effect.duration);
+                        break;
+                    case GateEffectType.Shield:
+                        army.ShieldAll(effect.value, Mathf.Max(1f, effect.duration));
+                        Vfx.Bubble(commander.transform, army.FormationRadius + 1.8f, new Color(0.35f, 0.75f, 1f, 0.28f), Mathf.Max(1f, effect.duration));
+                        break;
+                    case GateEffectType.HealAll:
+                        army.HealAllPercent(Mathf.Clamp01(effect.value));
+                        GameAudio.Play(SoundId.HealingSpell);
+                        break;
+                    case GateEffectType.LevelUp:
+                        army.LevelUp(effect.anyClass, effect.unitClass, Mathf.Max(1, amount));
+                        break;
+                    case GateEffectType.GrantGold:
+                        Gold += amount;
+                        GameAudio.Play(SoundId.CoinPickup);
+                        break;
+                    case GateEffectType.GrantGems:
+                        Gems += amount;
+                        GameAudio.Play(SoundId.GemPickup);
+                        break;
+                    case GateEffectType.SpawnEnemies:
+                        SpawnAmbush(amount);
+                        break;
+                    case GateEffectType.ReduceEnemies:
+                        ReduceEnemiesAhead(Mathf.Clamp01(effect.value));
+                        break;
+                    case GateEffectType.SkipAhead:
+                        SkipAhead(effect.value);
+                        break;
+                }
+            }
+            int after = army.Count;
+            cameraController.Shake(option.IsPositive ? 0.15f : 0.5f);
+            GameLog.Info($"Portal {option.title} {option.subtitle}: {before} -> {after}");
+            GateApplied?.Invoke(option, before, after);
+        }
+
+        private void SpawnAmbush(int count)
+        {
+            if (count <= 0) return;
+            float z = commander.transform.position.z + 22f;
+            int columns = Mathf.Clamp(Mathf.CeilToInt(Mathf.Sqrt(count * 1.6f)), 1, Mathf.FloorToInt(config.trackHalfWidth * 2f / 0.9f));
+            for (int i = 0; i < count; i++)
+            {
+                float x = (i % columns - (columns - 1) * 0.5f) * 0.9f;
+                SpawnEnemy(new Vector3(x, 0f, z + (i / columns) * 0.9f), 1f, config.enemy.color);
+            }
+        }
+
+        private void ReduceEnemiesAhead(float fraction)
+        {
+            float minZ = commander.transform.position.z + 5f;
+            List<Enemy> enemies = CombatRegistry.Enemies;
+            int removed = 0;
+            for (int i = enemies.Count - 1; i >= 0; i--)
+            {
+                Enemy enemy = enemies[i];
+                if (enemy.IsAggro || !enemy.IsAlive || enemy.transform.position.z < minZ) continue;
+                if (Random.value > fraction) continue;
+                Vfx.Burst(enemy.transform.position + Vector3.up * 0.6f, new Color(0.65f, 0.35f, 1f, 0.7f), 0.7f, 0.4f);
+                CombatRegistry.Unregister(enemy);
+                enemy.gameObject.SetActive(false);
+                removed++;
+            }
+            GameLog.Info($"Portal removeu {removed} inimigos à frente.");
+        }
+
+        // Atalho: o exército avança instantaneamente; portais do trecho pulado somem sem efeito.
+        private void SkipAhead(float meters)
+        {
+            Vector3 position = commander.transform.position;
+            float target = Mathf.Min(position.z + Mathf.Max(0f, meters), config.trackLength - 15f);
+            float delta = target - position.z;
+            if (delta <= 0f) return;
+            commander.transform.position = new Vector3(position.x, position.y, target);
+            army.ApplyToAll(soldier => soldier.transform.position += new Vector3(0f, 0f, delta));
+            foreach (GateRowController gate in gates)
+            {
+                if (!gate.Consumed && gate.Z <= target) gate.Skip();
+            }
+            Vfx.Ring(commander.transform.position, new Color(0.2f, 0.8f, 0.7f, 0.8f), 6f, 0.6f);
         }
 
         private void HandleArmyCountChanged(int previous, int current) => commander.SetCountLabel(current);
@@ -365,7 +466,7 @@ namespace LegionRush
 
         private void BuildGates()
         {
-            foreach (GateRow row in config.gateRows)
+            foreach (GateChoiceRow row in config.choiceRows)
             {
                 var go = new GameObject($"GateRow_{row.z:0}");
                 go.transform.SetParent(transform, false);

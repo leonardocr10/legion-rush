@@ -99,7 +99,10 @@ namespace LegionRush
         [Min(0)] public int victoryGold = 50;
         public EnemyStats enemy = new EnemyStats();
         public BossEncounter boss = new BossEncounter();
+        [Tooltip("Formato antigo (2 portais numéricos). Convertido automaticamente em portais de escolha.")]
         public List<GateRow> gateRows = new List<GateRow>();
+        [Tooltip("Portais de escolha estratégica (2 ou 3 opções por fileira).")]
+        public List<GateChoiceRow> choiceRows = new List<GateChoiceRow>();
         public List<EnemyWave> waves = new List<EnemyWave>();
 
         public void Sanitize()
@@ -107,6 +110,7 @@ namespace LegionRush
             trackLength = Mathf.Max(50f, trackLength);
             trackHalfWidth = Mathf.Max(3f, trackHalfWidth);
             gateRows ??= new List<GateRow>();
+            choiceRows ??= new List<GateChoiceRow>();
             waves ??= new List<EnemyWave>();
             enemy ??= new EnemyStats();
             boss ??= new BossEncounter();
@@ -116,14 +120,22 @@ namespace LegionRush
             if (removedRows + removedWaves > 0)
                 GameLog.Warn($"Level {levelNumber}: removed {removedRows} invalid gate rows and {removedWaves} invalid waves.");
 
-            foreach (GateRow row in gateRows) row.z = Mathf.Clamp(row.z, 5f, trackLength - 5f);
+            foreach (GateRow row in gateRows)
+                choiceRows.Add(GateLibrary.Row(row.z, GateLibrary.FromLegacy(row.left), GateLibrary.FromLegacy(row.right)));
+            gateRows.Clear();
+            choiceRows.RemoveAll(r => r == null || r.options == null || r.options.Count == 0);
+            foreach (GateChoiceRow row in choiceRows)
+            {
+                row.z = Mathf.Clamp(row.z, 5f, trackLength - 5f);
+                if (row.options.Count > 3) row.options.RemoveRange(3, row.options.Count - 3);
+            }
+            choiceRows.Sort((a, b) => a.z.CompareTo(b.z));
             foreach (EnemyWave wave in waves)
             {
                 wave.z = Mathf.Clamp(wave.z, 10f, trackLength - 5f);
                 wave.healthMultiplier = Mathf.Max(0.1f, wave.healthMultiplier);
                 wave.spacing = Mathf.Max(0.6f, wave.spacing);
             }
-            gateRows.Sort((a, b) => a.z.CompareTo(b.z));
             waves.Sort((a, b) => a.z.CompareTo(b.z));
         }
 
@@ -132,12 +144,13 @@ namespace LegionRush
             var config = CreateInstance<LevelConfig>();
             config.name = "Level_01_Default";
             config.boss = new BossEncounter { enabled = true, useWorldDefault = true, distanceFromEnd = 10f, healthMultiplier = 0.6f };
-            config.gateRows = new List<GateRow>
+            config.choiceRows = new List<GateChoiceRow>
             {
-                new GateRow { z = 28f, left = new GateDef(GateOp.Add, 10), right = new GateDef(GateOp.Multiply, 2) },
-                new GateRow { z = 78f, left = new GateDef(GateOp.Multiply, 2), right = new GateDef(GateOp.Subtract, 10) },
-                new GateRow { z = 128f, left = new GateDef(GateOp.HalveDown, 0), right = new GateDef(GateOp.Add, 25) },
-                new GateRow { z = 172f, left = new GateDef(GateOp.Add, 50), right = new GateDef(GateOp.Multiply, 3) }
+                GateLibrary.Row(28f, GateLibrary.Troops(UnitClass.Warrior, 10), GateLibrary.Multiply(2)),
+                GateLibrary.Row(75f, GateLibrary.Troops(UnitClass.Archer, 15), GateLibrary.Damage(0.5f)),
+                GateLibrary.Row(122f, GateLibrary.HealAndShield(8f), GateLibrary.Troops(UnitClass.Knight, 3), GateLibrary.ReduceEnemies(0.5f)),
+                GateLibrary.Row(162f, GateLibrary.Troops(UnitClass.Mage, 8), GateLibrary.LevelUp(1)),
+                GateLibrary.Row(180f, GateLibrary.ShortRoute(18f, 12), GateLibrary.LongRoute(150, UnitClass.Archer, 10))
             };
             config.waves = new List<EnemyWave>
             {

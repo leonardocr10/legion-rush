@@ -158,7 +158,7 @@ namespace LegionRush
 
         private void BeginAttack()
         {
-            float amount = stats.damage * army.DamageMultiplier * levelMultiplier;
+            float amount = stats.damage * army.DamageMultiplier * army.LevelMultiplier(stats.unitClass);
             bool critical = Random.value < stats.critChance;
             if (critical) amount *= stats.critMultiplier;
             if (chargeReady && stats.chargeMultiplier > 1f)
@@ -184,7 +184,7 @@ namespace LegionRush
         {
             cooldown = stats.attackInterval * army.AttackIntervalMultiplier;
             PlayAttackAnimation(1f);
-            float amount = stats.damage * levelMultiplier * army.HealMultiplier;
+            float amount = stats.damage * army.LevelMultiplier(stats.unitClass) * army.HealMultiplier;
             healTarget.Heal(amount);
             Vfx.Burst(healTarget.transform.position + Vector3.up * 0.7f, HealColor, 0.7f, 0.5f);
             GameAudio.PlayAt(SoundId.HealingSpell, healTarget.transform.position);

@@ -70,9 +70,9 @@ namespace LegionRush
             }
         }
 
-        private void HandleGateApplied(GateDef gate, int before, int after)
+        private void HandleGateApplied(GateOption option, int before, int after)
         {
-            GameAudio.Play(gate.IsPositive ? SoundId.PortalPositive : SoundId.PortalNegative);
+            GameAudio.Play(option.IsPositive ? SoundId.PortalPositive : SoundId.PortalNegative);
         }
 
         private void HandleEnemyKilled(Vector3 position, int gold)

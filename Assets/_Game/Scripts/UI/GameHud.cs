@@ -29,6 +29,7 @@ namespace LegionRush
         private GUIStyle centerStyle;
         private GUIStyle smallStyle;
         private GUIStyle hugeStyle;
+        private GUIStyle toastStyle;
         private GUIStyle buttonStyle;
         private GUIStyle smallButtonStyle;
         private GUIStyle skillStyle;
@@ -67,6 +68,7 @@ namespace LegionRush
             level.BossAwakened += HandleBossAwakened;
             level.BossDefeated += HandleBossDefeated;
             skills.SkillFailed += HandleSkillFailed;
+            level.GateApplied += HandleGateApplied;
             if (level.Boss != null) level.Boss.PhaseChanged += HandleBossPhase;
         }
 
@@ -77,6 +79,7 @@ namespace LegionRush
                 level.StateChanged -= HandleStateChanged;
                 level.BossAwakened -= HandleBossAwakened;
                 level.BossDefeated -= HandleBossDefeated;
+                level.GateApplied -= HandleGateApplied;
                 if (level.Boss != null) level.Boss.PhaseChanged -= HandleBossPhase;
             }
             if (skills != null) skills.SkillFailed -= HandleSkillFailed;
@@ -94,6 +97,7 @@ namespace LegionRush
         private void HandleBossDefeated(BossController boss) => Toast($"{boss.Definition.displayName.ToUpperInvariant()} DERROTADO!");
         private void HandleBossPhase(BossController boss, int phase) => Toast($"FASE {phase} DO CHEFÃO!");
         private void HandleSkillFailed(SkillDefinition skill) => Toast("Sem alvo no alcance");
+        private void HandleGateApplied(GateOption option, int before, int after) => Toast($"{option.title} {option.subtitle}");
 
         private void Toast(string text)
         {
@@ -171,7 +175,7 @@ namespace LegionRush
             if (toastTimer > 0f)
             {
                 if (Event.current.type == EventType.Repaint) toastTimer -= Time.unscaledDeltaTime;
-                Shadowed(new Rect(safe.x, safe.y + safe.height * 0.3f, safe.width, 90f * scale), toastText, hugeStyle, scale);
+                Shadowed(new Rect(safe.x + pad, safe.y + safe.height * 0.3f, safe.width - pad * 2f, 140f * scale), toastText, toastStyle, scale);
             }
         }
 
@@ -491,6 +495,7 @@ namespace LegionRush
             smallStyle = new GUIStyle(leftStyle) { fontSize = Mathf.RoundToInt(28f * scale) };
             centerStyle = new GUIStyle(leftStyle) { alignment = TextAnchor.MiddleCenter, wordWrap = true, fontSize = Mathf.RoundToInt(38f * scale) };
             hugeStyle = new GUIStyle(centerStyle) { fontSize = Mathf.RoundToInt(72f * scale), wordWrap = false };
+            toastStyle = new GUIStyle(centerStyle) { fontSize = Mathf.RoundToInt(54f * scale), wordWrap = true };
             buttonStyle = new GUIStyle(GUI.skin.button) { fontSize = Mathf.RoundToInt(44f * scale), fontStyle = FontStyle.Bold };
             smallButtonStyle = new GUIStyle(GUI.skin.button) { fontSize = Mathf.RoundToInt(28f * scale), fontStyle = FontStyle.Bold, wordWrap = true };
             skillStyle = new GUIStyle(GUI.skin.button) { fontSize = Mathf.RoundToInt(26f * scale), fontStyle = FontStyle.Bold, wordWrap = true };

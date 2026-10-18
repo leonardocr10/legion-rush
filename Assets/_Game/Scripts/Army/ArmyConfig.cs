@@ -61,6 +61,10 @@ namespace LegionRush
         [Min(8)] public int projectilePoolSize = 64;
         [Range(0f, 0.5f), Tooltip("Ganho de vida e dano por nível de tropa.")] public float levelScaling = 0.12f;
         [Min(1)] public int maxTroopLevel = 10;
+        [Tooltip("Limite por classe, na ordem de UnitClass (Arqueiro, Guerreiro, Lanceiro, Mago, Curandeira, Cavaleiro).")]
+        public int[] classCaps = { 90, 90, 50, 40, 30, 12 };
+        [Min(1), Tooltip("Ganho máximo de tropas por portal multiplicador (controle de balanceamento).")]
+        public int maxMultiplyGain = 60;
 
         private UnitStats[] lookup;
 
@@ -115,6 +119,9 @@ namespace LegionRush
             startingSoldiers = Mathf.Clamp(startingSoldiers, 1, maxSoldiers);
             projectilePoolSize = Mathf.Max(8, projectilePoolSize);
             maxTroopLevel = Mathf.Max(1, maxTroopLevel);
+            maxMultiplyGain = Mathf.Max(1, maxMultiplyGain);
+            if (classCaps == null || classCaps.Length != ClassCount) classCaps = new[] { 90, 90, 50, 40, 30, 12 };
+            for (int i = 0; i < ClassCount; i++) classCaps[i] = Mathf.Max(0, classCaps[i]);
             lookup = null;
         }
 
