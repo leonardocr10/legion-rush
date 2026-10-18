@@ -258,7 +258,7 @@ namespace LegionRush
                 {
                     bool defeat = Game != null && Game.CurrentLevel != null && Game.CurrentLevel.Current == LevelManager.State.Defeat;
                     if (defeat) Replace<DefeatScreen>();
-                    else Replace<ResultScreen>();
+                    else Replace<VictoryScreen>();
                 }
             }
             if (animating != null)

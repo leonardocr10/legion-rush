@@ -9,19 +9,30 @@ using UnityEngine.UI;
 
 namespace LegionRush.EditorTools
 {
-    // Prévia da tela de derrota em PNG, sem entrar no Play: monta a DefeatScreen num canvas e renderiza.
-    // Lote: Unity.exe -batchmode -projectPath . -executeMethod LegionRush.EditorTools.DefeatPreviewCapture.CaptureBatch -captureDir <pasta>
-    public static class DefeatPreviewCapture
+    // Prévias em PNG das telas de vitória, derrota e pausa, sem entrar no Play: monta cada tela num canvas e renderiza.
+    // Os textos dinâmicos recebem valores de exemplo (sem save nem partida carregados).
+    // Lote: Unity.exe -batchmode -projectPath . -executeMethod LegionRush.EditorTools.ScreenPreviewCapture.CaptureBatch -captureDir <pasta>
+    public static class ScreenPreviewCapture
     {
         private static readonly (string name, int w, int h)[] Sizes =
         {
             ("ref_1080x1920", 1080, 1920), ("phone_1080x2400", 1080, 2400)
         };
 
-        [MenuItem("Legion Rush/UI/Derrota/Capturar prévias (PNG)")]
+        private static readonly (string name, Func<UIScreen> create, (string field, string text)[] samples, bool gameBehind)[] Screens =
+        {
+            ("victory", () => new VictoryScreen(),
+                new[] { ("goldValue", "+1.250"), ("gemsValue", "+50"), ("scoreValue", "1.674"), ("scoreLabel", "Novo recorde!") }, false),
+            ("defeat", () => new DefeatScreen(),
+                new[] { ("goldValue", "+250"), ("scoreValue", "1.674"), ("scoreLabel", "Novo recorde!") }, false),
+            ("pause", () => new PauseScreen(),
+                new[] { ("missionTitle", "Vença 5 batalhas"), ("missionCount", "3/5") }, true)
+        };
+
+        [MenuItem("Legion Rush/UI/Capturar prévias de telas (PNG)")]
         public static void CaptureMenu()
         {
-            string dir = Path.GetFullPath("Builds/DefeatPreview");
+            string dir = Path.GetFullPath("Builds/ScreenPreview");
             Capture(dir);
             EditorUtility.RevealInFinder(dir);
         }
@@ -32,11 +43,11 @@ namespace LegionRush.EditorTools
             try
             {
                 AssetDatabase.Refresh();
-                Capture(Argument("-captureDir") ?? Path.GetFullPath("Builds/DefeatPreview"));
+                Capture(Argument("-captureDir") ?? Path.GetFullPath("Builds/ScreenPreview"));
             }
             catch (Exception exception)
             {
-                Debug.LogError("[Defeat] Captura falhou: " + exception);
+                Debug.LogError("[ScreenPreview] Captura falhou: " + exception);
                 code = 1;
             }
             EditorApplication.Exit(code);
@@ -47,6 +58,7 @@ namespace LegionRush.EditorTools
             Directory.CreateDirectory(dir);
             MethodInfo create = typeof(UIScreen).GetMethod("Create", BindingFlags.Instance | BindingFlags.NonPublic);
             foreach (var size in Sizes)
+            foreach (var entry in Screens)
             {
                 EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
                 Camera cam = new GameObject("Camera").AddComponent<Camera>();
@@ -67,13 +79,23 @@ namespace LegionRush.EditorTools
                 scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
                 scaler.matchWidthOrHeight = 0f;
 
-                var screen = new DefeatScreen();
+                // Telas sobrepostas à partida (pausa) ganham um cenário de exemplo por trás.
+                if (entry.gameBehind)
+                {
+                    Image behind = LegionArt.Image(canvasGo.transform, "Backgrounds/bg_frozen_a", false, "GameStandIn");
+                    behind.preserveAspect = false;
+                    UI.Stretch(behind.rectTransform);
+                }
+
+                UIScreen screen = entry.create();
                 create.Invoke(screen, new object[] { null, canvasGo.transform });
-                Fill(screen, "goldValue", "+250");
-                Fill(screen, "scoreValue", "1674");
-                Fill(screen, "scoreLabel", "Novo recorde!");
+                foreach (var (field, text) in entry.samples) Fill(screen, field, text);
                 foreach (UISlideIn slide in canvasGo.GetComponentsInChildren<UISlideIn>(true)) UnityEngine.Object.DestroyImmediate(slide);
                 foreach (CanvasGroup group in canvasGo.GetComponentsInChildren<CanvasGroup>(true)) group.alpha = 1f;
+                foreach (Image fill in canvasGo.GetComponentsInChildren<Image>(true))
+                {
+                    if (fill.name == "Fill" && fill.transform.parent.name == "Progress") LegionUI.SetProgress(fill, 0.6f);
+                }
 
                 for (int i = 0; i < 3; i++) Canvas.ForceUpdateCanvases();
                 cam.Render();
@@ -82,17 +104,17 @@ namespace LegionRush.EditorTools
                 texture.ReadPixels(new Rect(0, 0, size.w, size.h), 0, 0);
                 texture.Apply();
                 RenderTexture.active = null;
-                File.WriteAllBytes(Path.Combine(dir, $"defeat_{size.name}.png"), texture.EncodeToPNG());
+                File.WriteAllBytes(Path.Combine(dir, $"{entry.name}_{size.name}.png"), texture.EncodeToPNG());
                 UnityEngine.Object.DestroyImmediate(texture);
                 cam.targetTexture = null;
                 target.Release();
-                Debug.Log($"[Defeat] Captura {size.name} salva em {dir}");
+                Debug.Log($"[ScreenPreview] Captura {entry.name} {size.name} salva em {dir}");
             }
         }
 
-        private static void Fill(DefeatScreen screen, string field, string text)
+        private static void Fill(UIScreen screen, string field, string text)
         {
-            FieldInfo info = typeof(DefeatScreen).GetField(field, BindingFlags.Instance | BindingFlags.NonPublic);
+            FieldInfo info = screen.GetType().GetField(field, BindingFlags.Instance | BindingFlags.NonPublic);
             if (info?.GetValue(screen) is TMP_Text label) label.text = text;
         }
 

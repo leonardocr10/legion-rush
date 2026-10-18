@@ -2,10 +2,10 @@ using UnityEditor;
 
 namespace LegionRush.EditorTools
 {
-    // Arte da tela de derrota (Resources/DefeatArt): importa como Sprite único, sem mipmaps e sem esticar para potência de 2.
-    public class DefeatArtImporter : AssetPostprocessor
+    // Arte das telas de vitória e derrota (Resources/OutcomeArt): importa como Sprite único, sem mipmaps e sem esticar para potência de 2.
+    public class OutcomeArtImporter : AssetPostprocessor
     {
-        private const string Folder = "Assets/LegionRush/UI/Defeat/Resources/DefeatArt/";
+        private const string Folder = "Assets/LegionRush/UI/Outcome/Resources/OutcomeArt/";
 
         private void OnPreprocessTexture()
         {
