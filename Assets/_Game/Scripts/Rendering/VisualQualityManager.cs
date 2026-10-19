@@ -5,8 +5,8 @@ using UnityEngine.Rendering.Universal;
 
 namespace LegionRush
 {
-    public enum QualityTier { Low = 0, Medium = 1, High = 2 }
-    public enum FrameRateMode { Auto = 0, Fps30 = 30, Fps60 = 60 }
+    public enum QualityTier { Low = 0, Medium = 1, High = 2, Ultra = 3 }
+    public enum FrameRateMode { Auto = 0, Fps30 = 30, Fps60 = 60, Fps120 = 120 }
 
     public struct QualityTierSettings
     {
@@ -35,6 +35,10 @@ namespace LegionRush
     {
         private const string TierKey = "LR_QualityTier_v2";
         private const string FpsKey = "LR_FrameRate_v1";
+        private const string ShadowsKey = "LR_Shadows_v1";
+        private const string EffectsKey = "LR_Effects_v1";
+        private const string PerformanceKey = "LR_Performance_v1";
+        private const string BatteryKey = "LR_BatterySaver_v1";
 
         private static readonly QualityTierSettings[] Tiers =
         {
@@ -44,7 +48,9 @@ namespace LegionRush
             // MÉDIO: sombras suaves (cenário incluído), MSAA 2x, bloom moderado, fogo com poucas partículas.
             new QualityTierSettings { RenderScale = 0.9f, Msaa = 2, ShadowDistance = 32f, ShadowCascades = 1, SoftShadows = true, Hdr = false, PostProcessing = true, BloomScale = 0.6f, Vignette = true, AmbientOcclusion = false, AmbienceScale = 0.7f, GodRayDensity = 0.5f, TorchPools = true, DefaultFps = 60, EnvironmentDensity = 0.8f, EnvironmentShadows = 1, FireParticles = 0.6f },
             // ALTO: HDR, MSAA 4x, 2 cascatas, SSAO em aparelhos compatíveis, ambiência e cenário completos.
-            new QualityTierSettings { RenderScale = 1f, Msaa = 4, ShadowDistance = 45f, ShadowCascades = 2, SoftShadows = true, Hdr = true, PostProcessing = true, BloomScale = 1f, Vignette = true, AmbientOcclusion = true, AmbienceScale = 1f, GodRayDensity = 1f, TorchPools = true, DefaultFps = 60, EnvironmentDensity = 1f, EnvironmentShadows = 2, FireParticles = 1f }
+            new QualityTierSettings { RenderScale = 1f, Msaa = 4, ShadowDistance = 45f, ShadowCascades = 2, SoftShadows = true, Hdr = true, PostProcessing = true, BloomScale = 1f, Vignette = true, AmbientOcclusion = true, AmbienceScale = 1f, GodRayDensity = 1f, TorchPools = true, DefaultFps = 60, EnvironmentDensity = 1f, EnvironmentShadows = 2, FireParticles = 1f },
+            // ULTRA: como o ALTO, com sombras mais longas em 4 cascatas e resolução acima da tela (só por escolha manual).
+            new QualityTierSettings { RenderScale = 1.15f, Msaa = 4, ShadowDistance = 60f, ShadowCascades = 4, SoftShadows = true, Hdr = true, PostProcessing = true, BloomScale = 1.1f, Vignette = true, AmbientOcclusion = true, AmbienceScale = 1f, GodRayDensity = 1f, TorchPools = true, DefaultFps = 60, EnvironmentDensity = 1f, EnvironmentShadows = 2, FireParticles = 1f }
         };
 
         [SerializeField] private bool adaptiveDowngrade = true;
@@ -53,11 +59,59 @@ namespace LegionRush
         [SerializeField] private float adaptiveCooldown = 8f;
 
         public QualityTier Current { get; private set; }
-        public QualityTierSettings Settings => Tiers[(int)Current];
+        public QualityTierSettings Settings => Effective(Current);
         public FrameRateMode FrameRate { get; private set; }
         public bool IsManual { get; private set; }
         public bool AmbientOcclusionSupported { get; private set; }
-        public int TargetFps => FrameRate == FrameRateMode.Auto ? Settings.DefaultFps : (int)FrameRate;
+
+        // Preferências do jogador por cima do nível escolhido (tela de configurações).
+        public bool Shadows { get; private set; } = true;
+        public bool Effects { get; private set; } = true;
+        public bool PerformanceMode { get; private set; }
+        public bool BatterySaver { get; private set; }
+
+        public int TargetFps => BatterySaver ? 30 : FrameRate == FrameRateMode.Auto ? Settings.DefaultFps : (int)FrameRate;
+
+        public void SetShadows(bool on) => SetFlag(ShadowsKey, on, v => Shadows = v);
+        public void SetEffects(bool on) => SetFlag(EffectsKey, on, v => Effects = v);
+        public void SetPerformanceMode(bool on) => SetFlag(PerformanceKey, on, v => PerformanceMode = v);
+        public void SetBatterySaver(bool on) => SetFlag(BatteryKey, on, v => BatterySaver = v);
+
+        private void SetFlag(string key, bool on, Action<bool> assign)
+        {
+            assign(on);
+            PlayerPrefs.SetInt(key, on ? 1 : 0);
+            PlayerPrefs.Save();
+            ApplyTier(Current);
+        }
+
+        private QualityTierSettings Effective(QualityTier tier)
+        {
+            QualityTierSettings s = Tiers[Mathf.Clamp((int)tier, 0, Tiers.Length - 1)];
+            if (!Shadows)
+            {
+                s.ShadowDistance = 0f;
+                s.EnvironmentShadows = 0;
+            }
+            if (!Effects)
+            {
+                s.FireParticles = 0f;
+                s.GodRayDensity = 0f;
+                s.AmbienceScale *= 0.35f;
+                s.TorchPools = false;
+            }
+            if (PerformanceMode)
+            {
+                s.RenderScale = Mathf.Min(s.RenderScale, 0.75f);
+                s.Msaa = 1;
+                s.Hdr = false;
+                s.SoftShadows = false;
+                s.AmbientOcclusion = false;
+                s.BloomScale = Mathf.Min(s.BloomScale, 0.5f);
+                s.EnvironmentDensity = Mathf.Min(s.EnvironmentDensity, 0.6f);
+            }
+            return s;
+        }
         public event Action<QualityTier> TierChanged;
 
         private UniversalRenderPipelineAsset urpAsset;
@@ -98,7 +152,11 @@ namespace LegionRush
             AmbientOcclusionSupported = DetectAmbientOcclusionSupport();
 
             int savedFps = PlayerPrefs.GetInt(FpsKey, 0);
-            FrameRate = savedFps == 30 ? FrameRateMode.Fps30 : savedFps == 60 ? FrameRateMode.Fps60 : FrameRateMode.Auto;
+            FrameRate = savedFps == 30 ? FrameRateMode.Fps30 : savedFps == 60 ? FrameRateMode.Fps60 : savedFps == 120 ? FrameRateMode.Fps120 : FrameRateMode.Auto;
+            Shadows = PlayerPrefs.GetInt(ShadowsKey, 1) == 1;
+            Effects = PlayerPrefs.GetInt(EffectsKey, 1) == 1;
+            PerformanceMode = PlayerPrefs.GetInt(PerformanceKey, 0) == 1;
+            BatterySaver = PlayerPrefs.GetInt(BatteryKey, 0) == 1;
 
             QualityTier tier;
             if (PlayerPrefs.HasKey(TierKey))
@@ -147,7 +205,7 @@ namespace LegionRush
         private void ApplyTier(QualityTier tier)
         {
             Current = tier;
-            QualityTierSettings s = Tiers[(int)tier];
+            QualityTierSettings s = Effective(tier);
 
             if (urpAsset != null)
             {
@@ -162,7 +220,7 @@ namespace LegionRush
                 UniversalAdditionalCameraData data = targetCamera.GetUniversalAdditionalCameraData();
                 data.renderPostProcessing = s.PostProcessing;
                 data.antialiasing = AntialiasingMode.None;
-                data.renderShadows = true;
+                data.renderShadows = Shadows;
                 targetCamera.allowMSAA = s.Msaa > 1;
                 targetCamera.allowHDR = s.Hdr;
             }
