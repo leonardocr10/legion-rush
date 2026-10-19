@@ -176,7 +176,7 @@ namespace LegionRush
                 case MainMenuDestination.Season: ComingSoon("TEMPORADA", "As temporadas ranqueadas chegam em uma próxima atualização."); break;
                 case MainMenuDestination.Friends: ComingSoon("AMIGOS", "Jogar com amigos chega em uma próxima atualização."); break;
                 case MainMenuDestination.Messages: ComingSoon("MENSAGENS", "Sua caixa de mensagens está vazia."); break;
-                case MainMenuDestination.BattlePass: ComingSoon("PASSE", "O passe de batalha chega em uma próxima atualização."); break;
+                case MainMenuDestination.BattlePass: ui.Push<BattlePassScreen>(); break;
                 case MainMenuDestination.Home:
                 case MainMenuDestination.More:
                     break;

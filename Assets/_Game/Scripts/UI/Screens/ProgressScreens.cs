@@ -48,51 +48,6 @@ namespace LegionRush
         }
     }
 
-    // 12. Recompensas diárias (ciclo de 7 dias)
-    public class DailyRewardScreen : MenuScreen
-    {
-        private RectTransform grid;
-        private Button claimButton;
-        protected override string Title => "RECOMPENSA DIÁRIA";
-
-        protected override void BuildBody(RectTransform body)
-        {
-            grid = UI.Rect(body, "Days");
-            UI.Place(grid, 0f, 0.2f, 1f, 1f);
-            claimButton = UI.Button(body, "COLETAR", UIStyle.Gold, Claim, 60);
-            UI.Place((RectTransform)claimButton.transform, 0.15f, 0.04f, 0.85f, 0.15f);
-        }
-
-        protected override void RefreshBody()
-        {
-            UI.Clear(grid);
-            bool available = MetaService.CanClaimDaily(out int dayIndex);
-            for (int i = 0; i < MetaCatalog.Daily.Length; i++)
-            {
-                int column = i % 3;
-                int row = i / 3;
-                bool current = i == dayIndex;
-                bool past = i < dayIndex || (!available && i == dayIndex);
-                Color color = current && available ? UIStyle.Gold : past ? UIStyle.Gray : UIStyle.Panel;
-                bool last = i == MetaCatalog.Daily.Length - 1;
-                Image tile = UI.Panel(grid, color, "Day" + (i + 1), true);
-                if (last) UI.Place(tile.rectTransform, 0.02f, 0.02f, 0.98f, 0.3f);
-                else UI.Place(tile.rectTransform, 0.02f + column * 0.327f, 0.68f - row * 0.33f, 0.02f + column * 0.327f + 0.31f, 0.98f - row * 0.33f);
-                TMP_Text label = UI.Label(tile.transform, $"DIA {i + 1}\n{MetaCatalog.Daily[i].Describe()}{(past ? "\nOK" : string.Empty)}", 38, Color.white);
-                UI.Stretch(label.rectTransform, 10f, 10f, 10f, 10f);
-            }
-            claimButton.interactable = available;
-            UI.SetLabel(claimButton, available ? "COLETAR" : "VOLTE AMANHÃ");
-        }
-
-        private void Claim()
-        {
-            RewardBundle reward = MetaService.ClaimDaily();
-            if (reward == null) return;
-            Ui.Push<RewardScreen>().Show("RECOMPENSA DIÁRIA", reward);
-        }
-    }
-
     // 13. Conquistas
     public class AchievementsScreen : MenuScreen
     {

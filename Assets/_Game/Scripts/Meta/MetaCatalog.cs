@@ -214,6 +214,9 @@ namespace LegionRush
             new DailyRewardDef { Potion = "pocao_ataque" },
             new DailyRewardDef { Gold = 600 },
             new DailyRewardDef { Gems = 25 },
+            new DailyRewardDef { Chest = "raro" },
+            new DailyRewardDef { Gems = 40 },
+            new DailyRewardDef { Gold = 1000 },
             new DailyRewardDef { Chest = "epico" }
         };
 
