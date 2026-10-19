@@ -11,14 +11,15 @@ namespace LegionRush
     // grade de cartas das classes, painel da tropa escolhida (atributos, nível, MELHORAR, traços) e a barra de navegação.
     public class TroopScreen : UIScreen
     {
-        private static readonly Vector4 GridBox = new Vector4(14, 350, 928, 995);
+        private static readonly Vector4 GridBox = new Vector4(14, 326, 928, 995);
         private static readonly Vector4 PanelBox = new Vector4(14, 1008, 928, 1478);
         private static readonly Vector4 ShowBox = new Vector4(18, 1013, 378, 1474);
 
+        // Grade de 3 colunas: as 6 tropas em 2 linhas cheias (carta 295×320, espaço de 14).
         private static readonly Vector4[] Slots =
         {
-            new Vector4(16, 357, 234, 662), new Vector4(249, 357, 461, 662), new Vector4(482, 357, 694, 662), new Vector4(715, 357, 927, 662),
-            new Vector4(18, 684, 229, 987), new Vector4(249, 684, 461, 987), new Vector4(482, 684, 694, 987), new Vector4(715, 684, 927, 987)
+            new Vector4(14, 334, 309, 654), new Vector4(323, 334, 618, 654), new Vector4(632, 334, 927, 654),
+            new Vector4(14, 668, 309, 988), new Vector4(323, 668, 618, 988), new Vector4(632, 668, 927, 988)
         };
 
         // Ordem das cartas e visual de cada classe (cor do fundo da arte no mockup).
@@ -41,7 +42,7 @@ namespace LegionRush
 
         private MainMenuProfilePanel profile;
         private MainMenuCurrencyBar gold, gems;
-        private readonly List<(Image image, TMP_Text label)> tabs = new List<(Image, TMP_Text)>();
+        private LegionTabs tabs;
         private TroopRarity? filter;
         private UnitClass viewing = UnitClass.Warrior;
         private RectTransform grid, panel;
@@ -72,23 +73,13 @@ namespace LegionRush
             // Faixa com o título desenhado na arte, na caixa padrão (abaixo da carteira).
             LegionUI.Place(title.rectTransform, LegionUI.Edge.Top, LegionHeader.TitleX0, LegionHeader.TitleY0, LegionHeader.TitleX1, LegionHeader.TitleY1);
 
-            float[] x0 = { 22, 207, 387, 568, 750 };
-            float[] x1 = { 193, 372, 555, 737, 918 };
-            for (int i = 0; i < TabDefs.Length; i++)
+            RectTransform tabArea = LegionUI.Place(UI.Rect(root, "Tabs"), LegionUI.Edge.Top, 18, 246, 923, 312);
+            tabs = LegionTabs.Create(tabArea, Array.ConvertAll(TabDefs, t => t.label), i =>
             {
-                TroopRarity? rarity = TabDefs[i].rarity;
-                RectTransform rect = LegionUI.Place(UI.Rect(root, "Tab_" + i), LegionUI.Edge.Top, x0[i], 268, x1[i], 334);
-                Image image = rect.gameObject.AddComponent<Image>();
-                image.type = Image.Type.Sliced;
-                TMP_Text label = MainMenuButtons.Label(rect, TabDefs[i].label, 24f, LegionTextStyle.PrimaryButton, Color.white);
-                UI.Stretch(label.rectTransform, 8f, 8f, 4f, 8f);
-                MainMenuButtons.Make(rect, image, () =>
-                {
-                    filter = rarity;
-                    Refresh();
-                });
-                tabs.Add((image, label));
-            }
+                filter = TabDefs[i].rarity;
+                Refresh();
+            }, 22f, 8f);
+            tabs.Select(0);
 
             // A grade fica centrada no espaço entre as abas e o painel (em telas altas sobra espaço dos dois lados).
             RectTransform area = UI.Rect(root, "GridArea");
@@ -160,7 +151,6 @@ namespace LegionRush
             gold.Set(Economy.Gold);
             gems.Set(Economy.Gems);
 
-            for (int i = 0; i < tabs.Count; i++) StyleTab(tabs[i].image, TabDefs[i].rarity == filter);
 
             var list = new List<int>();
             for (int i = 0; i < Classes.Length; i++)
@@ -171,15 +161,6 @@ namespace LegionRush
 
             BuildCards(list, save);
             BuildPanel(save);
-        }
-
-        private static void StyleTab(Image image, bool on)
-        {
-            image.sprite = on ? LegionArt.Get("Buttons/btn_blue") : UIStyle.Rounded;
-            image.color = on ? Color.white : new Color32(14, 34, 78, 240);
-            Outline outline = image.GetComponent<Outline>() ?? image.gameObject.AddComponent<Outline>();
-            outline.effectColor = on ? new Color(0.5f, 0.85f, 1f, 0.8f) : new Color32(50, 90, 160, 200);
-            outline.effectDistance = new Vector2(2f, -2f);
         }
 
         private static UnitStats Stats(UnitClass unitClass) => Defaults.Get(unitClass);
@@ -210,57 +191,47 @@ namespace LegionRush
                 Vector4 box = Slots[n];
                 RectTransform card = LegionUI.Inside(UI.Rect(grid, "Card_" + entry.art), GridBox, box.x, box.y, box.z, box.w);
 
-                Image frame = Box(card, unlocked ? entry.frame : new Color32(46, 48, 58, 255), unlocked ? entry.edge : new Color32(130, 134, 150, 255), 3f);
+                // Moldura igual para todas; a bloqueada fica escurecida. Raridade = faixa colorida na base.
+                Image frame = LegionPanel.Create(card, "Frame", 0.6f);
+                UI.Stretch(frame.rectTransform);
                 frame.raycastTarget = true;
+                if (!unlocked) frame.color = new Color(0.6f, 0.62f, 0.68f);
 
                 Image portrait = TroopsArt.Image(card, "Portrait_" + entry.art, "Portrait");
-                portrait.preserveAspect = false;
-                LegionUI.Inside(portrait.rectTransform, box, box.x + 7, box.y + 7, box.z - 7, box.y + 190);
+                portrait.preserveAspect = true;
+                LegionUI.Inside(portrait.rectTransform, box, box.x + 10, box.y + 10, box.z - 10, box.y + 196);
                 if (!unlocked) portrait.color = new Color(0.4f, 0.42f, 0.48f);
 
-                Image fade = MainMenuArt.Image(card, "Shade_Vertical", "Fade");
-                fade.preserveAspect = false;
-                fade.color = unlocked ? entry.frame : new Color32(46, 48, 58, 255);
-                LegionUI.Inside(fade.rectTransform, box, box.x + 7, box.y + 130, box.z - 7, box.y + 192);
-
-                Image star = TroopsArt.Image(card, StarSprite(Stats(unitClass).rarity), "Rarity");
-                LegionUI.Inside(star.rectTransform, box, box.z - 56, box.y + 10, box.z - 12, box.y + 54);
-
                 TMP_Text name = MainMenuButtons.Label(card, ArmyConfig.ClassName(unitClass), 27f, LegionTextStyle.PrimaryButton, Color.white);
-                LegionUI.Inside(name.rectTransform, box, box.x + 6, box.y + 188, box.z - 6, box.y + 226);
+                LegionUI.Inside(name.rectTransform, box, box.x + 6, box.y + 198, box.z - 6, box.y + 234);
 
                 if (unlocked)
                 {
-                    TMP_Text lvl = MainMenuButtons.Label(card, "Nível " + level, 22f, LegionTextStyle.Hud, new Color(0.78f, 0.88f, 1f));
-                    LegionUI.Inside(lvl.rectTransform, box, box.x + 6, box.y + 224, box.z - 6, box.y + 254);
+                    TMP_Text lvl = MainMenuButtons.Label(card, $"Nível {level} de {MaxLevel}", 22f, LegionTextStyle.Hud, new Color(0.78f, 0.88f, 1f));
+                    LegionUI.Inside(lvl.rectTransform, box, box.x + 6, box.y + 236, box.z - 6, box.y + 270);
                     bool max = level >= MaxLevel;
-                    int cost = MetaCatalog.TroopLevelCost(level);
-                    Image fill = LegionUI.ProgressBar(card, box, box.x + 16, box.y + 260, box.z - 50, box.y + 292, new Color(0.15f, 0.62f, 1f));
-                    LegionUI.SetProgress(fill, max ? 1f : Mathf.Clamp01(Economy.Gold / (float)cost));
-                    string count = max ? "MÁX." : $"{MainMenuCurrencyBar.Short(Mathf.Min(Economy.Gold, cost))}/{MainMenuCurrencyBar.Short(cost)}";
-                    TMP_Text text = MainMenuButtons.Label(card, count, 20f, LegionTextStyle.Hud, Color.white);
-                    LegionUI.Inside(text.rectTransform, box, box.x + 16, box.y + 260, box.z - 50, box.y + 292);
-                    if (!max && Economy.Gold >= cost)
+                    if (!max && Economy.Gold >= MetaCatalog.TroopLevelCost(level))
                     {
                         Image arrow = HeroesArt.Image(card, "Icon_UpgradeArrow", "Upgrade");
-                        LegionUI.Inside(arrow.rectTransform, box, box.z - 50, box.y + 252, box.z - 10, box.y + 298);
+                        LegionUI.Inside(arrow.rectTransform, box, box.z - 52, box.y + 10, box.z - 10, box.y + 56);
                         arrow.gameObject.AddComponent<UIBreath>().amount = 0.05f;
                     }
                 }
                 else
                 {
                     Image lockIcon = HeroesArt.Image(card, "Icon_Lock", "Lock");
-                    float cx = (box.x + box.z) * 0.5f;
-                    LegionUI.Inside(lockIcon.rectTransform, box, cx - 34, box.y + 70, cx + 34, box.y + 150);
-                    TMP_Text lvl = MainMenuButtons.Label(card, "Bloqueado", 22f, LegionTextStyle.Hud, new Color(0.75f, 0.77f, 0.84f));
-                    LegionUI.Inside(lvl.rectTransform, box, box.x + 6, box.y + 224, box.z - 6, box.y + 254);
-                    Image pill = UI.Panel(card, new Color(0.04f, 0.05f, 0.1f, 0.9f), "Price");
-                    LegionUI.Inside(pill.rectTransform, box, box.x + 18, box.y + 260, box.z - 18, box.y + 294);
-                    Outline outline = pill.gameObject.AddComponent<Outline>();
-                    outline.effectColor = new Color(0.75f, 0.77f, 0.84f, 0.8f);
-                    TMP_Text price = MainMenuButtons.Label(pill.transform, UnlockPrice(c), 20f, LegionTextStyle.Hud, Color.white);
-                    UI.Stretch(price.rectTransform);
+                    LegionUI.Inside(lockIcon.rectTransform, box, box.z - 54, box.y + 10, box.z - 12, box.y + 58);
+                    TMP_Text price = MainMenuButtons.Label(card, UnlockPrice(c), 22f, LegionTextStyle.Hud, Color.white);
+                    LegionUI.Inside(price.rectTransform, box, box.x + 6, box.y + 236, box.z - 6, box.y + 270);
                 }
+
+                TroopRarity rarity = Stats(unitClass).rarity;
+                Image band = UI.Panel(card, RarityChip(rarity), "RarityBand");
+                LegionUI.Inside(band.rectTransform, box, box.x + 8, box.y + 276, box.z - 8, box.y + 312);
+                band.raycastTarget = false;
+                TMP_Text rarityLabel = MainMenuButtons.Label(band.transform, MetaCatalog.RarityName(rarity).ToUpperInvariant(), 22f,
+                    LegionTextStyle.PrimaryButton, Color.white);
+                UI.Stretch(rarityLabel.rectTransform);
 
                 if (unitClass == viewing)
                 {
@@ -296,6 +267,9 @@ namespace LegionRush
             _ => new Color(0.12f, 0.45f, 0.95f)
         };
 
+        private static LegionCurrency UnlockCurrency(int c) =>
+            MetaCatalog.ClassUnlockGems[c] > 0 ? LegionCurrency.Gems : MetaCatalog.ClassUnlockGold[c] > 0 ? LegionCurrency.Gold : LegionCurrency.None;
+
         private static string UnlockPrice(int c)
         {
             int goldCost = MetaCatalog.ClassUnlockGold[c];
@@ -329,7 +303,8 @@ namespace LegionRush
             int level = save.troops.levels[c];
             bool max = level >= MaxLevel;
 
-            Box(panel, new Color32(10, 28, 66, 238), new Color32(60, 110, 190, 200), 3f);
+            Image panelFrame = LegionPanel.Create(panel, "Frame");
+            UI.Stretch(panelFrame.rectTransform);
 
             // Vitrine: arte grande do guerreiro; as outras classes usam o retrato da carta sobre o fundo da cor da classe.
             RectTransform show = LegionUI.Inside(UI.Rect(panel, "Showcase"), PanelBox, ShowBox.x, ShowBox.y, ShowBox.z, ShowBox.w);
@@ -358,22 +333,20 @@ namespace LegionRush
                 LegionTextStyle.PrimaryButton, Color.white);
             UI.Stretch(chipLabel.rectTransform, 4f, 4f, 2f, 4f);
 
-            TMP_Text about = Text(Description(viewing), 403, 1068, 912, 1120, 20f, LegionTextStyle.Body, new Color(0.88f, 0.92f, 1f), TextAnchor.UpperLeft);
+            TMP_Text about = Text(Description(viewing), 403, 1066, 912, 1120, 22f, LegionTextStyle.Body, new Color(0.88f, 0.92f, 1f), TextAnchor.UpperLeft);
             about.textWrappingMode = TextWrappingModes.Normal;
 
             float scale = LevelScale(level);
             float next = LevelScale(level + 1);
             bool heal = stats.attackKind == AttackKind.Heal;
-            Stat("Icon_Health", "Vida", stats.maxHealth * scale, max ? 0f : stats.maxHealth * (next - scale), 394, 563);
-            Stat("Icon_Damage", heal ? "Cura" : "Dano", stats.damage * scale, max ? 0f : stats.damage * (next - scale), 568, 738);
-            Stat("Icon_Defense", "Defesa", stats.armor, 0f, 744, 915);
+            // Atributos no bloco de Heróis: ícone · nome · valor · +ganho (a Defesa também mostra o ganho).
+            Stat("Icon_Health", "Vida", stats.maxHealth * scale, max ? 0f : stats.maxHealth * (next - scale), 0);
+            Stat("Icon_Damage", heal ? "Cura" : "Dano", stats.damage * scale, max ? 0f : stats.damage * (next - scale), 1);
+            Stat("Icon_Defense", "Defesa", stats.armor, 0f, 2);
 
-            Image levelBox = Box(UI.Rect(panel, "LevelBox"), new Color32(8, 22, 54, 230), new Color32(50, 90, 160, 160), 2f);
-            LegionUI.Inside(levelBox.rectTransform, PanelBox, 394, 1205, 650, 1292);
-            Text(unlocked ? "Nível " + level : "Bloqueado", 408, 1210, 640, 1246, 28f, LegionTextStyle.PrimaryButton, Color.white, TextAnchor.MiddleLeft);
-            Image fill = LegionUI.ProgressBar(panel, PanelBox, 408, 1250, 636, 1282, new Color(0.15f, 0.62f, 1f));
-            LegionUI.SetProgress(fill, unlocked ? level / (float)MaxLevel : 0f);
-            Text($"{(unlocked ? level : 0)}/{MaxLevel}", 408, 1250, 636, 1282, 22f, LegionTextStyle.Hud, Color.white, TextAnchor.MiddleCenter);
+            // "Nível 1 de 10" escrito, sem a barra ambígua.
+            Text(unlocked ? $"Nível {level} de {MaxLevel}" : "Bloqueado", 403, 1256, 656, 1306, 28f, LegionTextStyle.PrimaryButton, Color.white,
+                TextAnchor.MiddleLeft);
 
             UpgradeButton(unlocked, level, max, c);
             Traits(stats);
@@ -381,10 +354,10 @@ namespace LegionRush
 
         private void Arrow(RectTransform show, int step, Vector4 box)
         {
-            Image frame = MainMenuArt.Image(show, "Button_SideFrame", step < 0 ? "Prev" : "Next", true);
+            // Seta redonda da própria arte (o voltar), espelhada para a direita.
+            Image frame = HeroesArt.Image(show, "Button_Back", step < 0 ? "Prev" : "Next");
             LegionUI.Inside(frame.rectTransform, ShowBox, box.x, box.y, box.z, box.w);
-            TMP_Text glyph = MainMenuButtons.Label(frame.transform, step < 0 ? "<" : ">", 40f, LegionTextStyle.PrimaryButton, Color.white);
-            UI.Stretch(glyph.rectTransform);
+            if (step > 0) frame.rectTransform.localScale = new Vector3(-1f, 1f, 1f);
             MainMenuButtons.Make(frame.rectTransform, frame, () =>
             {
                 var list = new List<UnitClass>();
@@ -399,48 +372,35 @@ namespace LegionRush
             });
         }
 
-        private void Stat(string icon, string name, float value, float gain, float x0, float x1)
+        private void Stat(string icon, string name, float value, float gain, int row)
         {
-            Image back = Box(UI.Rect(panel, "Stat_" + name), new Color32(8, 22, 54, 230), new Color32(50, 90, 160, 120), 2f);
-            LegionUI.Inside(back.rectTransform, PanelBox, x0, 1128, x1, 1196);
+            float y0 = 1124 + row * 44;
+            Image line = UI.Panel(panel, new Color(1f, 1f, 1f, 0.06f), "Row_" + name);
+            LegionUI.Inside(line.rectTransform, PanelBox, 396, y0, 912, y0 + 40);
             Image art = HeroesArt.Image(panel, icon, "Icon_" + name);
-            LegionUI.Inside(art.rectTransform, PanelBox, x0 + 10, 1136, x0 + 62, 1188);
-            Text(name, x0 + 70, 1132, x1 - 4, 1162, 20f, LegionTextStyle.Menu, new Color(0.82f, 0.88f, 1f), TextAnchor.MiddleLeft);
-            string text = Mathf.RoundToInt(value).ToString(CultureInfo.InvariantCulture);
-            int plus = Mathf.RoundToInt(gain);
-            if (plus > 0) text += $" <color=#5CFF5C>+{plus}</color>";
-            TMP_Text label = Text(text, x0 + 70, 1160, x1 - 4, 1192, 22f, LegionTextStyle.Hud, Color.white, TextAnchor.MiddleLeft);
-            label.richText = true;
+            LegionUI.Inside(art.rectTransform, PanelBox, 404, y0 + 3, 438, y0 + 37);
+            Text(name, 448, y0, 640, y0 + 40, 24f, LegionTextStyle.Menu, new Color(0.82f, 0.88f, 1f), TextAnchor.MiddleLeft);
+            Text(MenuChrome.Format(Mathf.RoundToInt(value)), 640, y0, 790, y0 + 40, 26f, LegionTextStyle.Hud, Color.white, TextAnchor.MiddleRight);
+            Text("+" + Mathf.RoundToInt(gain), 802, y0, 906, y0 + 40, 24f, LegionTextStyle.Positive, new Color(0.45f, 1f, 0.4f), TextAnchor.MiddleLeft);
         }
 
         private void UpgradeButton(bool unlocked, int level, bool max, int c)
         {
             UnitClass unitClass = viewing;
             int cost = MetaCatalog.TroopLevelCost(level);
-            Color color = max ? UIStyle.Gray : unlocked ? UIStyle.Green : UIStyle.Gold;
-            Button button = UI.Button(panel, max ? "NÍVEL MÁX." : unlocked ? "MELHORAR" : "DESBLOQUEAR", color, () =>
-            {
-                string name = ArmyConfig.ClassName(unitClass);
-                if (!unlocked)
-                    Buy("Classe " + name, MetaCatalog.ClassUnlockGold[c], MetaCatalog.ClassUnlockGems[c], () => MetaService.UnlockClass(unitClass), name + " liberado!");
-                else if (!max)
-                    Buy($"{name} nível {level + 1}", cost, 0, () => MetaService.UpgradeTroop(unitClass, MaxLevel), null);
-            }, 34, "Upgrade");
-            LegionUI.Inside((RectTransform)button.transform, PanelBox, 667, 1208, 912, 1292);
-            button.interactable = !max;
-
-            TMP_Text head = button.GetComponentInChildren<TMP_Text>();
-            UI.Place(head.rectTransform, 0.06f, 0.48f, 0.74f, 0.94f);
-            if (max) return;
-            string price = unlocked ? MainMenuCurrencyBar.Short(cost) : UnlockPrice(c);
-            bool gemsPrice = !unlocked && MetaCatalog.ClassUnlockGems[c] > 0;
-            Image coin = HeroesArt.Image(button.transform, "Icon_Coin", "Coin");
-            if (gemsPrice) coin.sprite = LegionArt.Get("Icons/gem");
-            UI.Place(coin.rectTransform, 0.12f, 0.1f, 0.26f, 0.48f);
-            TMP_Text sub = MainMenuButtons.Label(button.transform, unlocked ? price : price.Split(' ')[0], 26f, LegionTextStyle.Hud, Color.white);
-            UI.Place(sub.rectTransform, 0.27f, 0.08f, 0.72f, 0.5f);
-            Image arrow = HeroesArt.Image(button.transform, "Icon_UpgradeArrow", "Arrow");
-            UI.Place(arrow.rectTransform, 0.74f, 0.14f, 0.96f, 0.86f);
+            LegionBuyButton button = LegionBuyButton.Create(panel, unlocked ? LegionBuyButton.Variant.Green : LegionBuyButton.Variant.Gold,
+                max ? LegionCurrency.None : unlocked ? LegionCurrency.Gold : UnlockCurrency(c),
+                max ? 0 : unlocked ? cost : Mathf.Max(MetaCatalog.ClassUnlockGold[c], MetaCatalog.ClassUnlockGems[c]),
+                unlocked ? "MELHORAR" : "DESBLOQUEAR", () =>
+                {
+                    string name = ArmyConfig.ClassName(unitClass);
+                    if (!unlocked)
+                        Buy("Classe " + name, MetaCatalog.ClassUnlockGold[c], MetaCatalog.ClassUnlockGems[c], () => MetaService.UnlockClass(unitClass), name + " liberado!");
+                    else if (!max)
+                        Buy($"{name} nível {level + 1}", cost, 0, () => MetaService.UpgradeTroop(unitClass, MaxLevel), null);
+                }, "Upgrade");
+            LegionUI.Inside((RectTransform)button.transform, PanelBox, 667, 1254, 912, 1306);
+            if (max) button.SetBought(true, "NÍVEL MÁX.");
         }
 
         // Traços da tropa nos ícones do mockup: ritmo de ataque, função, crítico e alcance.
@@ -457,9 +417,9 @@ namespace LegionRush
             for (int i = 0; i < traits.Length; i++)
             {
                 Image icon = TroopsArt.Image(panel, "Trait_" + i, "Trait" + i);
-                LegionUI.Inside(icon.rectTransform, PanelBox, x0[i], 1308, x0[i] + 106, 1412);
-                Text(traits[i].name, x0[i] - 12, 1416, x0[i] + 118, 1446, 20f, LegionTextStyle.Menu, Color.white, TextAnchor.MiddleCenter);
-                Text(traits[i].value, x0[i] - 12, 1444, x0[i] + 118, 1472, 19f, LegionTextStyle.Hud, new Color(0.55f, 0.85f, 1f), TextAnchor.MiddleCenter);
+                LegionUI.Inside(icon.rectTransform, PanelBox, x0[i] + 10, 1314, x0[i] + 96, 1396);
+                Text(traits[i].name, x0[i] - 12, 1398, x0[i] + 118, 1428, 22f, LegionTextStyle.Menu, Color.white, TextAnchor.MiddleCenter);
+                Text(traits[i].value, x0[i] - 12, 1428, x0[i] + 118, 1460, 22f, LegionTextStyle.Hud, new Color(0.55f, 0.85f, 1f), TextAnchor.MiddleCenter);
             }
         }
 
