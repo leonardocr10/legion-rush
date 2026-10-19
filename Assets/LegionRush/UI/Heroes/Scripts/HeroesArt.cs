@@ -30,6 +30,10 @@ namespace LegionRush
             return sprite;
         }
 
+        // Existe a arte? (sem aviso; para trocar pela versão nova quando ela chegar)
+        public static bool Has(string name) =>
+            !string.IsNullOrEmpty(name) && (Resources.Load<Sprite>("HeroesArt/" + name) != null || Resources.Load<Texture2D>("HeroesArt/" + name) != null);
+
         // Imagem sem toque, mantendo a proporção da arte.
         public static Image Image(Transform parent, string sprite, string name = null)
         {

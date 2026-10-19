@@ -48,8 +48,11 @@ namespace LegionRush
         public void Refresh(UIRoot ui)
         {
             if (!SaveManager.IsLoaded) return;
-            MainMenuModel model = new GameMainMenuData(ui.Game).Snapshot();
-            Profile.Set(model.PlayerName, model.PlayerLevel, model.Xp, model.XpMax);
+            if (ui != null && ui.Game != null)
+            {
+                MainMenuModel model = new GameMainMenuData(ui.Game).Snapshot();
+                Profile.Set(model.PlayerName, model.PlayerLevel, model.Xp, model.XpMax);
+            }
             Gold.Set(Economy.Gold);
             Gems.Set(Economy.Gems);
         }
