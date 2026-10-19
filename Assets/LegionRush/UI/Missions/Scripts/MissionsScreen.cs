@@ -14,14 +14,13 @@ namespace LegionRush
     {
         private static readonly Vector4 Box = new Vector4(0, 0, LegionUI.RefWidth, LegionUI.RefHeight);
         private static readonly string[] TabNames = { "DIÁRIAS", "SEMANAIS", "CONQUISTAS" };
-        private const float ListTop = 546f;
+        private const float ListTop = 498f;
         private const float ListBottom = 1342f;
         private const float RowStep = 134f;
 
         private MenuChrome chrome;
         private RectTransform body;
-        private readonly List<Image> tabs = new List<Image>();
-        private readonly List<GameObject> alerts = new List<GameObject>();
+        private LegionTabs tabs;
         private int tab;
 
         protected virtual int StartTab => 0;
@@ -38,31 +37,13 @@ namespace LegionRush
         {
             tab = StartTab;
             chrome = MenuChrome.Build(root, Ui, TitleText, OnBack, 560f);
-            RectTransform top = LegionUI.Place(UI.Rect(root, "Tabs"), LegionUI.Edge.Top, 0, 0, LegionUI.RefWidth, LegionUI.RefHeight);
-            float[] x0 = { 28, 328, 626 };
-            float[] x1 = { 316, 614, 914 };
-            for (int i = 0; i < TabNames.Length; i++)
+            // Abas LegionTabs logo abaixo do cabeçalho, com selo "!" na aba que tem algo para resgatar.
+            RectTransform tabArea = LegionUI.Place(UI.Rect(root, "Tabs"), LegionUI.Edge.Top, 28, 246, 914, 312);
+            tabs = LegionTabs.Create(tabArea, TabNames, i =>
             {
-                int index = i;
-                Image button = UI.Panel(top, new Color(0.05f, 0.1f, 0.26f, 0.97f), "Tab" + i);
-                LegionUI.Inside(button.rectTransform, Box, x0[i], 290, x1[i], 356);
-                Outline ring = button.gameObject.AddComponent<Outline>();
-                ring.effectDistance = new Vector2(2f, -2f);
-                TMP_Text label = MainMenuButtons.Label(button.transform, TabNames[i], 28f, LegionTextStyle.PrimaryButton, Color.white);
-                UI.Stretch(label.rectTransform);
-                MainMenuButtons.Make(button.rectTransform, button, () =>
-                {
-                    tab = index;
-                    Refresh();
-                });
-                tabs.Add(button);
-                Image alert = LegionArt.Image(top, "Badges/orb_red", false, "Alert");
-                alert.preserveAspect = true;
-                LegionUI.Inside(alert.rectTransform, Box, x1[i] - 36, 276, x1[i] - 2, 312);
-                TMP_Text mark = MainMenuButtons.Label(alert.transform, "!", 22f, LegionTextStyle.PrimaryButton, Color.white);
-                UI.Stretch(mark.rectTransform);
-                alerts.Add(alert.gameObject);
-            }
+                tab = i;
+                Refresh();
+            }, 28f, 12f);
             body = UI.Rect(root, "Body");
             UI.Stretch(body);
             MenuChrome.Nav(root, Ui, MainMenuDestination.More);
@@ -74,13 +55,8 @@ namespace LegionRush
         {
             if (!SaveManager.IsLoaded) return;
             chrome.Refresh(Ui);
-            for (int i = 0; i < tabs.Count; i++)
-            {
-                bool on = i == tab;
-                tabs[i].color = on ? new Color(0.13f, 0.55f, 1f) : new Color(0.05f, 0.1f, 0.26f, 0.97f);
-                tabs[i].GetComponent<Outline>().effectColor = on ? new Color(0.55f, 0.9f, 1f) : new Color(0.25f, 0.4f, 0.75f, 0.7f);
-                alerts[i].SetActive(Rows(i).Exists(r => !r.Claimed && r.Value >= r.Target));
-            }
+            tabs.Select(tab);
+            for (int i = 0; i < TabNames.Length; i++) tabs.SetAlert(i, Rows(i).Exists(r => !r.Claimed && r.Value >= r.Target));
 
             UI.Clear(body);
             RectTransform area = LegionUI.Place(UI.Rect(body, "Area"), LegionUI.Edge.Top, 0, 0, LegionUI.RefWidth, LegionUI.RefHeight);
@@ -95,33 +71,42 @@ namespace LegionRush
 
         private void Header(RectTransform parent, List<Row> rows, int done)
         {
-            MenuChrome.Panel(parent, Box, 26, 368, 914, 530, "Progress");
+            MenuChrome.Panel(parent, Box, 26, 324, 914, 486, "Progress");
             string title = tab == 0 ? "Progresso Diário" : tab == 1 ? "Progresso Semanal" : "Conquistas";
-            string subtitle = tab == 2 ? "Conclua desafios e ganhe gemas!" : $"Complete missões {(tab == 0 ? "diárias" : "semanais")} e ganhe recompensas!";
-            MenuChrome.Text(parent, Box, 48, 380, 540, 428, title, 36f, LegionTextStyle.PrimaryButton, Color.white);
-            MenuChrome.Text(parent, Box, 48, 424, 560, 458, subtitle, 21f, LegionTextStyle.Body, Color.white);
-            Bar(parent, 50, 468, 520, 514, done, rows.Count, new Color(0.13f, 0.55f, 1f), 30f);
-            MenuChrome.Art(parent, Box, 536, 384, 696, 524, "Chests/chest_epic");
+            string subtitle = tab == 2 ? "Conclua desafios e ganhe gemas!" : "Complete as missões e ganhe a recompensa final!";
+            MenuChrome.Text(parent, Box, 48, 334, 540, 380, title, 34f, LegionTextStyle.PrimaryButton, Color.white);
+            MenuChrome.Text(parent, Box, 48, 380, 560, 414, subtitle, 22f, LegionTextStyle.Body, Color.white);
+            Bar(parent, 50, 424, 520, 470, done, rows.Count, new Color(0.13f, 0.55f, 1f), 28f);
+            MenuChrome.Art(parent, Box, 536, 340, 696, 480, "Chests/chest_epic");
 
+            // Recompensa final: o prêmio (moeda, gema e item), não o total já ganho.
             Image final = UI.Panel(parent, new Color(0.03f, 0.07f, 0.18f, 0.9f), "Final");
-            LegionUI.Inside(final.rectTransform, Box, 704, 380, 904, 520);
-            if (tab == 2)
+            LegionUI.Inside(final.rectTransform, Box, 704, 336, 904, 476);
+            MenuChrome.Text(parent, Box, 710, 340, 898, 376, "Recompensa Final", 22f, LegionTextStyle.PrimaryButton, Color.white, TextAnchor.MiddleCenter);
+            (int gold, int gems) box = tab == 2 ? (0, NextAchievementGems()) : BoxReward();
+            float x = 716;
+            if (box.gold > 0)
             {
-                int gems = 0;
-                foreach (AchievementDef def in MetaCatalog.Achievements) if (MetaService.IsAchievementClaimed(def)) gems += def.RewardGems;
-                MenuChrome.Text(parent, Box, 710, 386, 898, 422, "Gemas ganhas", 20f, LegionTextStyle.PrimaryButton, Color.white, TextAnchor.MiddleCenter);
-                MenuChrome.Art(parent, Box, 740, 428, 790, 478, "Icons/gem");
-                MenuChrome.Text(parent, Box, 794, 428, 900, 478, MenuChrome.Format(gems), 28f, LegionTextStyle.Hud, Color.white);
-                return;
+                MenuChrome.Art(parent, Box, x, 380, x + 52, 428, "Icons/coin");
+                MenuChrome.Text(parent, Box, x - 10, 428, x + 62, 466, MenuChrome.Format(box.gold), 22f, LegionTextStyle.Hud, Color.white, TextAnchor.MiddleCenter);
+                x += 64;
             }
-            (int gold, int gems) box = BoxReward();
-            MenuChrome.Text(parent, Box, 710, 386, 898, 422, "Recompensa Final", 20f, LegionTextStyle.PrimaryButton, Color.white, TextAnchor.MiddleCenter);
-            MenuChrome.Art(parent, Box, 722, 426, 770, 474, "Icons/coin");
-            MenuChrome.Text(parent, Box, 712, 474, 780, 508, MenuChrome.Format(box.gold), 20f, LegionTextStyle.Hud, Color.white, TextAnchor.MiddleCenter);
-            MenuChrome.Art(parent, Box, 802, 426, 850, 474, "Icons/gem");
-            MenuChrome.Text(parent, Box, 792, 474, 860, 508, MenuChrome.Format(box.gems), 20f, LegionTextStyle.Hud, Color.white, TextAnchor.MiddleCenter);
-            MenuChrome.Art(parent, Box, 856, 426, 900, 474, "Icons/potion_red");
-            MenuChrome.Text(parent, Box, 852, 474, 904, 508, "1", 20f, LegionTextStyle.Hud, Color.white, TextAnchor.MiddleCenter);
+            MenuChrome.Art(parent, Box, x, 380, x + 52, 428, "Icons/gem");
+            MenuChrome.Text(parent, Box, x - 10, 428, x + 62, 466, MenuChrome.Format(box.gems), 22f, LegionTextStyle.Hud, Color.white, TextAnchor.MiddleCenter);
+            x += 64;
+            if (tab < 2)
+            {
+                MenuChrome.Art(parent, Box, x, 380, x + 52, 428, "Icons/potion_red");
+                MenuChrome.Text(parent, Box, x - 10, 428, x + 62, 466, "1", 22f, LegionTextStyle.Hud, Color.white, TextAnchor.MiddleCenter);
+            }
+        }
+
+        // Conquistas: gemas da próxima conquista ainda não resgatada.
+        private static int NextAchievementGems()
+        {
+            foreach (AchievementDef def in MetaCatalog.Achievements)
+                if (!MetaService.IsAchievementClaimed(def)) return def.RewardGems;
+            return 0;
         }
 
         private void Bar(RectTransform parent, float x0, float y0, float x1, float y1, int value, int max, Color color, float size)
@@ -168,20 +153,20 @@ namespace LegionRush
             float y1 = y0 + 120;
             MenuChrome.Panel(parent, box, 26, y0, 914, y1, "Row");
             Icon(parent, box, row.Icon, 34, y0 + 10, 156, y1 - 10);
-            MenuChrome.Text(parent, box, 172, y0 + 8, 560, y0 + 46, row.Title, 27f, LegionTextStyle.PrimaryButton, Color.white);
-            MenuChrome.Text(parent, box, 172, y0 + 44, 570, y0 + 74, row.Description, 19f, LegionTextStyle.Body, new Color(0.75f, 0.88f, 1f));
+            MenuChrome.Text(parent, box, 172, y0 + 6, 560, y0 + 44, row.Title, 28f, LegionTextStyle.PrimaryButton, Color.white);
+            MenuChrome.Text(parent, box, 172, y0 + 44, 570, y0 + 76, row.Description, 22f, LegionTextStyle.Body, new Color(0.75f, 0.88f, 1f));
 
             bool complete = row.Value >= row.Target;
             Image track = UI.Panel(parent, new Color(0.03f, 0.07f, 0.18f, 0.95f), "Track");
-            LegionUI.Inside(track.rectTransform, box, 172, y0 + 80, 540, y0 + 108);
+            LegionUI.Inside(track.rectTransform, box, 172, y0 + 78, 540, y0 + 114);
             float ratio = row.Target > 0 ? Mathf.Clamp01(row.Value / (float)row.Target) : 0f;
             if (ratio > 0f)
             {
                 Image fill = UI.Panel(parent, complete ? MenuChrome.Green : new Color(0.13f, 0.55f, 1f), "Fill");
-                LegionUI.Inside(fill.rectTransform, box, 174, y0 + 82, Mathf.Lerp(186, 538, ratio), y0 + 106);
+                LegionUI.Inside(fill.rectTransform, box, 174, y0 + 80, Mathf.Lerp(186, 538, ratio), y0 + 112);
             }
-            MenuChrome.Text(parent, box, 172, y0 + 80, 540, y0 + 108, $"{MenuChrome.Format(Mathf.Min(row.Value, row.Target))}/{MenuChrome.Format(row.Target)}",
-                20f, LegionTextStyle.Hud, Color.white, TextAnchor.MiddleCenter);
+            MenuChrome.Text(parent, box, 172, y0 + 76, 540, y0 + 116, $"{MenuChrome.Format(Mathf.Min(row.Value, row.Target))}/{MenuChrome.Format(row.Target)}",
+                24f, LegionTextStyle.Hud, Color.white, TextAnchor.MiddleCenter);
 
             Image rewards = UI.Panel(parent, new Color(0.03f, 0.07f, 0.18f, 0.6f), "Rewards");
             LegionUI.Inside(rewards.rectTransform, box, 570, y0 + 8, 740, y1 - 8);
@@ -189,23 +174,25 @@ namespace LegionRush
             if (row.Gold > 0)
             {
                 MenuChrome.Art(parent, box, 598, ry, 642, ry + 44, "Icons/coin");
-                MenuChrome.Text(parent, box, 650, ry, 738, ry + 44, MenuChrome.Format(row.Gold), 22f, LegionTextStyle.Hud, Color.white);
+                MenuChrome.Text(parent, box, 650, ry, 738, ry + 44, MenuChrome.Format(row.Gold), 24f, LegionTextStyle.Hud, Color.white);
                 ry += 50;
             }
             if (row.Gems > 0)
             {
                 MenuChrome.Art(parent, box, 598, ry, 642, ry + 44, "Icons/gem");
-                MenuChrome.Text(parent, box, 650, ry, 738, ry + 44, MenuChrome.Format(row.Gems), 22f, LegionTextStyle.Hud, Color.white);
+                MenuChrome.Text(parent, box, 650, ry, 738, ry + 44, MenuChrome.Format(row.Gems), 24f, LegionTextStyle.Hud, Color.white);
             }
 
+            // RESGATAR (verde, completa) · IR (azul, abre a fase) · ✓ (selo escuro, já resgatada).
+            LegionBuyButton button;
             if (row.Claimed)
             {
-                MenuChrome.Button(parent, box, 750, y0 + 30, 894, y1 - 30, "FEITO", MenuChrome.Gray, null, 26f);
-                MenuChrome.Art(parent, box, 868, y0 + 14, 906, y0 + 52, "Badges/check");
+                button = LegionBuyButton.Create(parent, LegionBuyButton.Variant.Green, LegionCurrency.None, 0, string.Empty, null);
+                button.SetBought(true, "FEITO");
             }
             else if (complete)
             {
-                MenuChrome.Button(parent, box, 750, y0 + 30, 894, y1 - 30, "COLETAR", MenuChrome.Green, () =>
+                button = LegionBuyButton.Create(parent, LegionBuyButton.Variant.Green, LegionCurrency.None, 0, "RESGATAR", () =>
                 {
                     if (row.Claim())
                     {
@@ -213,16 +200,17 @@ namespace LegionRush
                         Ui.Toast(RewardText(row.Gold, row.Gems));
                     }
                     Ui.RefreshTop();
-                }, 24f);
+                });
             }
             else
             {
-                MenuChrome.Button(parent, box, 750, y0 + 30, 894, y1 - 30, "IR", new Color(0.13f, 0.55f, 1f), () =>
+                button = LegionBuyButton.Create(parent, LegionBuyButton.Variant.Blue, LegionCurrency.None, 0, "IR", () =>
                 {
                     Ui.Replace<MainMenuScreen>();
                     new UIRootMainMenuNavigator(Ui).Open(MainMenuDestination.Play);
-                }, 36f);
+                });
             }
+            LegionUI.Inside((RectTransform)button.transform, box, 750, y0 + 26, 900, y1 - 26);
         }
 
         private static void Icon(RectTransform parent, Vector4 box, string path, float x0, float y0, float x1, float y1)
@@ -246,7 +234,7 @@ namespace LegionRush
             frame.effectColor = new Color(1f, 0.85f, 0.4f);
             frame.effectDistance = new Vector2(3f, -3f);
             MenuChrome.Text(parent, Box, 48, 1360, 560, 1400, "Caixa de Missões", 32f, LegionTextStyle.PrimaryButton, Color.white);
-            MenuChrome.Text(parent, Box, 48, 1398, 600, 1428, $"Complete todas as missões {(tab == 0 ? "diárias" : "semanais")}", 21f,
+            MenuChrome.Text(parent, Box, 48, 1398, 600, 1428, $"Complete todas as missões {(tab == 0 ? "diárias" : "semanais")}", 22f,
                 LegionTextStyle.Menu, new Color(1f, 0.95f, 0.6f));
 
             // Marcos: um por missão, preenchidos conforme as coletadas.
@@ -268,23 +256,27 @@ namespace LegionRush
                 LegionUI.Inside(dot.rectTransform, Box, cx - 16, 1438, cx + 16, 1470);
                 if (i <= done) MenuChrome.Art(parent, Box, cx - 12, 1442, cx + 12, 1466, "Badges/check");
             }
-            MenuChrome.Text(parent, Box, 300, 1468, 460, 1498, $"{done}/{rows.Count}", 20f, LegionTextStyle.Hud, Color.white, TextAnchor.MiddleCenter);
+            MenuChrome.Text(parent, Box, 300, 1466, 460, 1500, $"{done}/{rows.Count}", 22f, LegionTextStyle.Hud, Color.white, TextAnchor.MiddleCenter);
 
             MenuChrome.Art(parent, Box, 600, 1356, 760, 1500, "Chests/chest_epic");
             Image rewards = UI.Panel(parent, new Color(0.03f, 0.07f, 0.18f, 0.7f), "Rewards");
             LegionUI.Inside(rewards.rectTransform, Box, 772, 1362, 904, 1494);
             (int gold, int gems) reward = BoxReward();
             MenuChrome.Art(parent, Box, 784, 1370, 818, 1404, "Icons/coin");
-            MenuChrome.Text(parent, Box, 824, 1370, 902, 1404, MenuChrome.Format(reward.gold), 20f, LegionTextStyle.Hud, Color.white);
+            MenuChrome.Text(parent, Box, 824, 1370, 902, 1404, MenuChrome.Format(reward.gold), 22f, LegionTextStyle.Hud, Color.white);
             MenuChrome.Art(parent, Box, 784, 1412, 818, 1446, "Icons/gem");
-            MenuChrome.Text(parent, Box, 824, 1412, 902, 1446, MenuChrome.Format(reward.gems), 20f, LegionTextStyle.Hud, Color.white);
+            MenuChrome.Text(parent, Box, 824, 1412, 902, 1446, MenuChrome.Format(reward.gems), 22f, LegionTextStyle.Hud, Color.white);
             MenuChrome.Art(parent, Box, 784, 1454, 818, 1488, "Icons/potion_red");
-            MenuChrome.Text(parent, Box, 824, 1454, 902, 1488, "1", 20f, LegionTextStyle.Hud, Color.white);
+            MenuChrome.Text(parent, Box, 824, 1454, 902, 1488, "1", 22f, LegionTextStyle.Hud, Color.white);
 
             bool claimed = PlayerPrefs.GetInt(BoxKey(), 0) == 1;
             bool ready = rows.Count > 0 && done >= rows.Count && !claimed;
-            if (claimed) MenuChrome.Button(parent, Box, 610, 1462, 750, 1500, "COLETADA", MenuChrome.Gray, null, 18f);
-            else if (ready) MenuChrome.Button(parent, Box, 610, 1462, 750, 1500, "ABRIR", MenuChrome.Green, OpenBox, 22f);
+            if (claimed || ready)
+            {
+                LegionBuyButton open = LegionBuyButton.Create(parent, LegionBuyButton.Variant.Green, LegionCurrency.None, 0, "ABRIR", OpenBox);
+                LegionUI.Inside((RectTransform)open.transform, Box, 606, 1456, 756, 1502);
+                if (claimed) open.SetBought(true, "ABERTA");
+            }
         }
 
         private void OpenBox()
@@ -350,19 +342,22 @@ namespace LegionRush
             return list;
         }
 
+        // Um ícone por tipo de missão (Atlas de Ícones): espadas (vencer), caveira (inimigos), coroa (chefões),
+        // moedas (ouro), habilidade, estrela e mapa (jogar).
         private static string MissionIcon(MissionMetric metric) => metric switch
         {
+            MissionMetric.WinLevels => "Icons/sword",
             MissionMetric.KillEnemies => "Hud/hud_skull",
-            MissionMetric.DefeatBosses => "Hud/hud_skull",
+            MissionMetric.DefeatBosses => "Icons/crown",
             MissionMetric.EarnGold => "Rewards/coin_pile",
             MissionMetric.UseSkills => "Hud/skill_storm",
             MissionMetric.EarnStars => "Icons/star_badge",
-            _ => "Settings:Icon_Swords"
+            _ => "Icons/map"
         };
 
         private static string AchievementIcon(AchievementMetric metric) => metric switch
         {
-            AchievementMetric.BossesDefeated => "Hud/hud_skull",
+            AchievementMetric.BossesDefeated => "Icons/crown",
             AchievementMetric.TotalKills => "Hud/hud_skull",
             AchievementMetric.BestArmy => "Hud/hud_people",
             AchievementMetric.TotalStars => "Icons/star_badge",
