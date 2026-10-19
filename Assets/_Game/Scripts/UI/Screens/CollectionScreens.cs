@@ -4,65 +4,6 @@ using UnityEngine.UI;
 
 namespace LegionRush
 {
-    // 6. Gerenciamento de tropas (desbloqueio, nível e composição)
-    public class TroopScreen : MenuScreen
-    {
-        private RectTransform list;
-        protected override string Title => "TROPAS";
-        protected override void BuildBody(RectTransform body) => list = UI.ScrollList(body);
-
-        protected override void RefreshBody()
-        {
-            UI.Clear(list);
-            Section(list, "COMPOSIÇÃO INICIAL");
-            RectTransform compositions = UI.Row(list, 130f);
-            int count = Game.CompositionCount;
-            for (int i = 0; i < count; i++)
-            {
-                int index = i;
-                bool selected = i == Game.CompositionIndex;
-                bool available = Game.IsCompositionAvailable(i);
-                Button button = UI.Button(compositions, Game.CompositionName(i).ToUpperInvariant(), selected ? UIStyle.Gold : UIStyle.Blue, () =>
-                {
-                    Game.SetComposition(index);
-                    Ui.RefreshTop();
-                }, 30);
-                UI.Place((RectTransform)button.transform, i / (float)count + 0.005f, 0.05f, (i + 1) / (float)count - 0.005f, 0.95f);
-                button.interactable = available;
-            }
-
-            Section(list, "CLASSES");
-            SaveData save = SaveManager.Current;
-            ArmyConfig config = ArmyConfig.CreateDefault();
-            for (int c = 0; c < ArmyConfig.ClassCount; c++)
-            {
-                var unitClass = (UnitClass)c;
-                UnitStats stats = config.Get(unitClass);
-                bool unlocked = save.troops.unlocked[c];
-                int level = save.troops.levels[c];
-                string role = stats.role == TroopRole.Front ? "Linha de frente" : "Retaguarda";
-                string subtitle = $"{role} · {MetaCatalog.RarityName(stats.rarity)} · Nível {level}/{Game.MaxTroopLevel}\n" +
-                                  $"Vida {stats.maxHealth:0} · {(stats.attackKind == AttackKind.Heal ? "Cura" : "Dano")} {stats.damage:0} · Alcance {stats.attackRange:0.#} · Armadura {stats.armor:0}";
-                if (!unlocked)
-                {
-                    int gold = MetaCatalog.ClassUnlockGold[c];
-                    int gems = MetaCatalog.ClassUnlockGems[c];
-                    ItemRow(list, ArmyConfig.ClassName(unitClass), subtitle, "LIBERAR\n" + Price(gold, gems), UIStyle.Gold,
-                        () => ConfirmPurchase("Classe " + ArmyConfig.ClassName(unitClass), gold, gems, () => MetaService.UnlockClass(unitClass)),
-                        stats.color, true, 210f);
-                    continue;
-                }
-                bool max = level >= Game.MaxTroopLevel;
-                int cost = MetaCatalog.TroopLevelCost(level);
-                ItemRow(list, ArmyConfig.ClassName(unitClass), subtitle, max ? "NÍVEL MÁX." : $"NÍVEL {level + 1}\n{cost} OURO",
-                    max ? UIStyle.Gray : UIStyle.Green,
-                    () => ConfirmPurchase($"{ArmyConfig.ClassName(unitClass)} nível {level + 1}", cost, 0, () => MetaService.UpgradeTroop(unitClass, Game.MaxTroopLevel)),
-                    stats.color, !max, 210f);
-            }
-            Object.Destroy(config);
-        }
-    }
-
     // 9. Melhorias permanentes
     public class UpgradeScreen : MenuScreen
     {

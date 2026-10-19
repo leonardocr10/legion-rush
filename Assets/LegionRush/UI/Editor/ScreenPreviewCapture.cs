@@ -9,8 +9,8 @@ using UnityEngine.UI;
 
 namespace LegionRush.EditorTools
 {
-    // Prévias em PNG das telas de vitória, derrota e pausa, sem entrar no Play: monta cada tela num canvas e renderiza.
-    // Os textos dinâmicos recebem valores de exemplo (sem save nem partida carregados).
+    // Prévias em PNG das telas de vitória, derrota, pausa e tropas, sem entrar no Play: monta cada tela num canvas e renderiza.
+    // Os textos dinâmicos recebem valores de exemplo; tropas usa um save de exemplo em memória (o save real não é lido nem gravado).
     // Lote: Unity.exe -batchmode -projectPath . -executeMethod LegionRush.EditorTools.ScreenPreviewCapture.CaptureBatch -captureDir <pasta>
     public static class ScreenPreviewCapture
     {
@@ -26,7 +26,8 @@ namespace LegionRush.EditorTools
             ("defeat", () => new DefeatScreen(),
                 new[] { ("goldValue", "+250"), ("scoreValue", "1.674"), ("scoreLabel", "Novo recorde!") }, false),
             ("pause", () => new PauseScreen(),
-                new[] { ("missionTitle", "Vença 5 batalhas"), ("missionCount", "3/5") }, true)
+                new[] { ("missionTitle", "Vença 5 batalhas"), ("missionCount", "3/5") }, true),
+            ("troops", () => new TroopScreen(), new (string, string)[0], false)
         };
 
         [MenuItem("Legion Rush/UI/Capturar prévias de telas (PNG)")]
@@ -90,6 +91,22 @@ namespace LegionRush.EditorTools
                 UIScreen screen = entry.create();
                 create.Invoke(screen, new object[] { null, canvasGo.transform });
                 foreach (var (field, text) in entry.samples) Fill(screen, field, text);
+                if (screen is TroopScreen)
+                {
+                    PropertyInfo data = typeof(SaveManager).GetProperty("Data", BindingFlags.Static | BindingFlags.Public);
+                    SaveData sample = SaveData.CreateNew();
+                    sample.wallet.gold = 1250;
+                    sample.wallet.gems = 40;
+                    int[] levels = { 6, 8, 5, 3, 2, 4 };
+                    for (int i = 0; i < ArmyConfig.ClassCount; i++)
+                    {
+                        sample.troops.levels[i] = levels[i];
+                        sample.troops.unlocked[i] = i != (int)UnitClass.Knight;
+                    }
+                    data.SetValue(null, sample);
+                    try { screen.Refresh(); }
+                    finally { data.SetValue(null, null); }
+                }
                 foreach (UISlideIn slide in canvasGo.GetComponentsInChildren<UISlideIn>(true)) UnityEngine.Object.DestroyImmediate(slide);
                 foreach (CanvasGroup group in canvasGo.GetComponentsInChildren<CanvasGroup>(true)) group.alpha = 1f;
                 foreach (Image fill in canvasGo.GetComponentsInChildren<Image>(true))
