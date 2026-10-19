@@ -19,10 +19,28 @@ namespace LegionRush
         public void OnPointerUp(PointerEventData eventData) => SetTarget(1f);
         public void OnPointerExit(PointerEventData eventData) => SetTarget(1f);
 
+        // Escurece a cor atual ao pressionar e devolve a mesma cor ao soltar (botões tingidos mantêm o tom).
+        private Color restore;
+        private Color darkened;
+        private bool darkenedActive;
+
         private void SetTarget(float value)
         {
             target = value;
-            if (graphic != null) graphic.color = value < 1f ? new Color(0.86f, 0.86f, 0.9f, graphic.color.a) : new Color(1f, 1f, 1f, graphic.color.a);
+            if (graphic == null) return;
+            if (value < 1f && !darkenedActive)
+            {
+                restore = graphic.color;
+                darkened = new Color(restore.r * 0.86f, restore.g * 0.86f, restore.b * 0.9f, restore.a);
+                graphic.color = darkened;
+                darkenedActive = true;
+            }
+            else if (value >= 1f && darkenedActive)
+            {
+                // Se a tela trocou a cor enquanto o dedo estava em cima, a cor nova vale.
+                if (graphic.color == darkened) graphic.color = restore;
+                darkenedActive = false;
+            }
         }
 
         private void OnDisable()
