@@ -16,16 +16,14 @@ namespace LegionRush
         public const string SectionChests = "MOEDAS";
         public const string SectionSkins = "GEMAS";
 
-        private const float ViewTop = 346f;
+        private const float ViewTop = 326f;
         private const float ViewBottom = 1496f;
         private static readonly string[] Tabs = { "OFERTAS", "GEMAS", "MOEDAS", "BAÚS", "PASSES" };
-        private static readonly Color PanelBlue = new Color(0.06f, 0.13f, 0.32f, 0.97f);
-        private static readonly Color BuyGreen = new Color(0.18f, 0.72f, 0.2f);
         private static readonly Color GoldText = new Color(1f, 0.82f, 0.3f);
 
         private MainMenuProfilePanel profile;
         private MainMenuCurrencyBar gold, gems;
-        private readonly List<Image> tabButtons = new List<Image>();
+        private LegionTabs tabs;
         private RectTransform view, content;
         private ScrollRect scroll;
         private Vector4 box;
@@ -58,18 +56,9 @@ namespace LegionRush
 
             LegionHeader.Build(root, "LOJA", OnBack);
 
-            float[] x0 = { 20, 204, 384, 564, 744 };
-            float[] x1 = { 198, 378, 558, 738, 920 };
-            for (int i = 0; i < Tabs.Length; i++)
-            {
-                int index = i;
-                Image button = UI.Panel(root, PanelBlue, "Tab_" + Tabs[i]);
-                LegionUI.Place(button.rectTransform, LegionUI.Edge.Top, x0[i], 268, x1[i], 334);
-                TMP_Text label = MainMenuButtons.Label(button.transform, Tabs[i], 24f, LegionTextStyle.PrimaryButton, Color.white);
-                UI.Stretch(label.rectTransform);
-                MainMenuButtons.Make(button.rectTransform, button, () => ShowTab(index));
-                tabButtons.Add(button);
-            }
+            // Abas no padrão LegionTabs (Tab_On / Tab_Off), logo abaixo do cabeçalho.
+            RectTransform tabArea = LegionUI.Place(UI.Rect(root, "Tabs"), LegionUI.Edge.Top, 18, 246, 923, 312);
+            tabs = LegionTabs.Create(tabArea, Tabs, ShowTab, 24f, 8f);
 
             // Área rolável entre as abas e a navegação; o conteúdo usa o grid do mockup.
             view = LegionUI.Place(UI.Rect(root, "View"), LegionUI.Edge.Top, 0, ViewTop, LegionUI.RefWidth, ViewBottom);
@@ -87,8 +76,11 @@ namespace LegionRush
         public override void Refresh()
         {
             if (!SaveManager.IsLoaded) return;
-            MainMenuModel model = new GameMainMenuData(Ui.Game).Snapshot();
-            profile.Set(model.PlayerName, model.PlayerLevel, model.Xp, model.XpMax);
+            if (Ui != null)
+            {
+                MainMenuModel model = new GameMainMenuData(Ui.Game).Snapshot();
+                profile.Set(model.PlayerName, model.PlayerLevel, model.Xp, model.XpMax);
+            }
             gold.Set(Economy.Gold);
             gems.Set(Economy.Gems);
             ShowTab(tab);
@@ -105,14 +97,7 @@ namespace LegionRush
         private void ShowTab(int index)
         {
             tab = index;
-            for (int i = 0; i < tabButtons.Count; i++)
-            {
-                bool on = i == tab;
-                tabButtons[i].color = on ? new Color(0.13f, 0.55f, 1f) : PanelBlue;
-                Outline glow = tabButtons[i].GetComponent<Outline>() ?? tabButtons[i].gameObject.AddComponent<Outline>();
-                glow.effectColor = on ? new Color(0.55f, 0.9f, 1f) : new Color(0.25f, 0.4f, 0.75f, 0.7f);
-                glow.effectDistance = new Vector2(2f, -2f);
-            }
+            tabs.Select(tab);
             if (content != null) UnityEngine.Object.Destroy(content.gameObject);
             switch (tab)
             {
@@ -242,7 +227,7 @@ namespace LegionRush
             {
                 b => Card(b, "Passe de Batalha", new[] { "Chests/chest_royal" }, Lines((null, "Recompensas extras por temporada")), Price.Real(24.90f), "EM BREVE")
             };
-            SkillSystem skills = Ui.Game != null ? Ui.Game.CurrentSkills : null;
+            SkillSystem skills = Ui != null && Ui.Game != null ? Ui.Game.CurrentSkills : null;
             for (int s = 0; s < SkillDefinition.Count && skills != null; s++)
             {
                 var id = (SkillId)s;
@@ -281,18 +266,17 @@ namespace LegionRush
             back.sprite = UIStyle.Rounded;
             back.type = Image.Type.Sliced;
             back.color = new Color(0.98f, 0.62f, 0.12f);
-            Image glow = UI.Panel(banner, new Color(1f, 0.85f, 0.35f, 0.55f), "Glow");
-            UI.Place(glow.rectTransform, 0.35f, 0.1f, 0.95f, 0.95f);
             Outline frame = banner.gameObject.AddComponent<Outline>();
             frame.effectColor = new Color(1f, 0.85f, 0.35f);
             frame.effectDistance = new Vector2(3f, -3f);
 
             Image ribbon = UI.Panel(content, new Color(0.85f, 0.12f, 0.15f), "Ribbon");
             LegionUI.Inside(ribbon.rectTransform, box, 12, 352, 285, 404);
-            TMP_Text tag = MainMenuButtons.Label(ribbon.transform, "OFERTA ESPECIAL", 23f, LegionTextStyle.PrimaryButton, Color.white);
+            TMP_Text tag = MainMenuButtons.Label(ribbon.transform, "OFERTA ESPECIAL", 24f, LegionTextStyle.PrimaryButton, Color.white);
             UI.Stretch(tag.rectTransform);
 
-            TMP_Text supreme = Label("PACOTE SUPREMO", 74, 400, 470, 458, 40f, LegionTextStyle.PrimaryButton, new Color(1f, 0.93f, 0.55f), TextAnchor.MiddleLeft);
+            // Título branco com contorno marrom, 44.
+            TMP_Text supreme = Label("PACOTE SUPREMO", 60, 398, 480, 460, 44f, LegionTextStyle.PrimaryButton, Color.white, TextAnchor.MiddleLeft);
             supreme.outlineWidth = 0.25f;
             supreme.outlineColor = new Color32(120, 40, 10, 255);
             (string icon, string text)[] lines = { ("Icons/coin", "10.000 Moedas"), ("Icons/gem", "500 Gemas"), ("Chests/chest_epic", "1 Baú Épico"), ("Icons/energy", "3 Poções") };
@@ -305,6 +289,11 @@ namespace LegionRush
                 Label(lines[i].text, 130, y, 440, y + 38, 25f, LegionTextStyle.PrimaryButton, Color.white, TextAnchor.MiddleLeft);
             }
 
+            // Brilho radial atrás do baú (no lugar do retângulo "Glow" de bordas duras).
+            Image shine = LegionArt.Image(content, "Effects/fx_sparkle", false, "Shine");
+            shine.preserveAspect = true;
+            shine.color = new Color(1f, 0.95f, 0.7f, 0.85f);
+            LegionUI.Inside(shine.rectTransform, box, 400, 352, 740, 632);
             Image coins = LegionArt.Image(content, "Rewards/coin_pile", false, "Coins");
             coins.preserveAspect = true;
             LegionUI.Inside(coins.rectTransform, box, 350, 500, 560, 620);
@@ -325,8 +314,8 @@ namespace LegionRush
             TMP_Text off = MainMenuButtons.Label(seal.transform, "-70%", 34f, LegionTextStyle.Title, Color.white);
             UI.Stretch(off.rectTransform);
 
-            BuyButton(new Vector4(706, 532, 902, 592), Price.Real(27.90f), null, null);
-            Label("<s>R$ 89,90</s>", 720, 596, 890, 626, 18f, LegionTextStyle.Menu, new Color(1f, 0.85f, 0.85f), TextAnchor.MiddleCenter);
+            BuyButton(new Vector4(706, 522, 902, 592), Price.Real(27.90f), null, null);
+            Label("<s>R$ 89,90</s>", 720, 594, 890, 628, 22f, LegionTextStyle.Menu, new Color(1f, 1f, 1f, 0.8f), TextAnchor.MiddleCenter);
         }
 
         private RectTransform CardFrame(Vector4 b, string title)
@@ -359,14 +348,14 @@ namespace LegionRush
                 }
                 else
                 {
-                    Label(lines[i].text, b.x + 12, b.w - 104, b.z - 12, b.w - 70, 17f, LegionTextStyle.Body, new Color(0.85f, 0.9f, 1f), TextAnchor.MiddleCenter);
+                    Label(lines[i].text, b.x + 12, b.w - 104, b.z - 12, b.w - 70, 22f, LegionTextStyle.Body, new Color(0.85f, 0.9f, 1f), TextAnchor.MiddleCenter);
                 }
             }
             if (badge != null)
             {
                 Image tag = UI.Panel(content, new Color(0.85f, 0.12f, 0.15f), "Badge");
-                LegionUI.Inside(tag.rectTransform, box, b.z - 156, b.y - 14, b.z + 8, b.y + 18);
-                TMP_Text t = MainMenuButtons.Label(tag.transform, badge, 17f, LegionTextStyle.PrimaryButton, Color.white);
+                LegionUI.Inside(tag.rectTransform, box, b.z - 176, b.y - 16, b.z + 8, b.y + 20);
+                TMP_Text t = MainMenuButtons.Label(tag.transform, badge, 22f, LegionTextStyle.PrimaryButton, Color.white);
                 UI.Stretch(t.rectTransform);
             }
             BuyButton(new Vector4(b.x + 30, b.w - 66, b.z - 30, b.w - 14), price, buy, null);
@@ -375,9 +364,12 @@ namespace LegionRush
         private void ChestCard(Vector4 b, ChestDef chest, string art)
         {
             if (chest == null) return;
-            string contents = $"{Format(chest.MinGold)}–{Format(chest.MaxGold)} ouro · {chest.Potions} poção(ões)\n" +
-                              (chest.EquipmentChance >= 1f ? "equipamento garantido" : $"{Mathf.RoundToInt(chest.EquipmentChance * 100f)}% de equipamento");
-            Card(b, "Baú " + chest.Name, new[] { art }, Lines((null, contents)), PriceOf(chest.Gold, chest.Gems), null, () => BuyChest(chest));
+            // Ícone + valor (moeda "400–800", poção "1", espada "50 %") no lugar da descrição em 17.
+            string equipment = chest.EquipmentChance >= 1f ? "100 %" : $"{Mathf.RoundToInt(chest.EquipmentChance * 100f)} %";
+            Card(b, "Baú " + chest.Name, new[] { art },
+                Lines(("Icons/coin", $"{Short(chest.MinGold)}–{Short(chest.MaxGold)}"), ("Icons/potion_red", chest.Potions.ToString()),
+                    ("Icons/sword", equipment)),
+                PriceOf(chest.Gold, chest.Gems), null, () => BuyChest(chest));
         }
 
         // Oferta limitada: baú comum pela metade do preço, uma vez por dia, com contagem até a virada.
@@ -388,22 +380,26 @@ namespace LegionRush
             const string key = "limited_chest";
             bool done = DailyUsed(key);
             CardFrame(b, string.Empty);
-            Label("Oferta Limitada", b.x + 14, b.y + 8, b.x + 190, b.y + 54, 22f, LegionTextStyle.PrimaryButton, Color.white, TextAnchor.MiddleLeft);
-            Image clock = UI.Panel(content, new Color(0.02f, 0.05f, 0.14f, 0.9f), "Timer");
-            LegionUI.Inside(clock.rectTransform, box, b.z - 108, b.y + 16, b.z - 10, b.y + 48);
-            TMP_Text timer = MainMenuButtons.Label(clock.transform, Countdown(), 17f, LegionTextStyle.Hud, Color.white);
+            Label("Oferta Limitada", b.x + 10, b.y + 8, b.z - 10, b.y + 54, 24f, LegionTextStyle.PrimaryButton, Color.white, TextAnchor.MiddleCenter);
+            // Relógio como selo no canto, por fora da carta (igual ao "MELHOR OFERTA").
+            Image clock = UI.Panel(content, new Color(0.02f, 0.05f, 0.14f, 0.96f), "Timer");
+            LegionUI.Inside(clock.rectTransform, box, b.z - 150, b.y - 16, b.z + 8, b.y + 20);
+            Outline clockRing = clock.gameObject.AddComponent<Outline>();
+            clockRing.effectColor = new Color(0.95f, 0.75f, 0.25f, 0.9f);
+            clockRing.effectDistance = new Vector2(2f, -2f);
+            TMP_Text timer = MainMenuButtons.Label(clock.transform, Countdown(), 22f, LegionTextStyle.Hud, Color.white);
             UI.Stretch(timer.rectTransform);
             Image picture = LegionArt.Image(content, "Chests/chest_steel", false, "Art");
             picture.preserveAspect = true;
             LegionUI.Inside(picture.rectTransform, box, b.x + 8, b.y + 58, b.x + 160, b.w - 72);
-            (string, string)[] lines = { ("Icons/coin", $"{Format(chest.MinGold)}+"), ("Icons/energy", $"{chest.Potions} poção"), ("Icons/key", "-50%") };
+            (string, string)[] lines = { ("Icons/coin", $"{Format(chest.MinGold)}+"), ("Icons/potion_red", chest.Potions.ToString()), ("Icons/key", "-50%") };
             for (int i = 0; i < lines.Length; i++)
             {
                 float y = b.y + 70 + i * 40;
                 Image icon = LegionArt.Image(content, lines[i].Item1, false, "Icon");
                 icon.preserveAspect = true;
                 LegionUI.Inside(icon.rectTransform, box, b.x + 168, y, b.x + 200, y + 32);
-                Label(lines[i].Item2, b.x + 206, y - 2, b.z - 8, y + 34, 21f, LegionTextStyle.Hud, Color.white, TextAnchor.MiddleLeft);
+                Label(lines[i].Item2, b.x + 206, y - 2, b.z - 8, y + 34, 24f, LegionTextStyle.Hud, Color.white, TextAnchor.MiddleLeft);
             }
             BuyButton(new Vector4(b.x + 30, b.w - 66, b.z - 30, b.w - 14), done ? Price.Done() : Price.Gold(price), done ? null : (Action)(() =>
             {
@@ -427,7 +423,7 @@ namespace LegionRush
             SectionTitle("OFERTAS DIÁRIAS", y0, y1, null);
             Image clock = UI.Panel(content, new Color(0.02f, 0.05f, 0.14f, 0.92f), "Refresh");
             LegionUI.Inside(clock.rectTransform, box, 676, y0 + 10, 914, y1 - 8);
-            TMP_Text text = MainMenuButtons.Label(clock.transform, "Atualiza em: " + Countdown(), 19f, LegionTextStyle.Hud, Color.white);
+            TMP_Text text = MainMenuButtons.Label(clock.transform, "Atualiza em: " + Countdown(), 22f, LegionTextStyle.Hud, Color.white);
             UI.Stretch(text.rectTransform);
         }
 
@@ -449,7 +445,7 @@ namespace LegionRush
             Image picture = LegionArt.Image(content, art, false, "Art");
             picture.preserveAspect = true;
             LegionUI.Inside(picture.rectTransform, box, x + 30, b.y + 50, b.z - 30, b.y + 130);
-            Label(amount, x + 8, b.y + 130, b.z - 8, b.y + 160, 23f, LegionTextStyle.Hud, Color.white, TextAnchor.MiddleCenter);
+            Label("×" + amount, x + 8, b.y + 128, b.z - 8, b.y + 160, 24f, LegionTextStyle.Hud, Color.white, TextAnchor.MiddleCenter);
             bool done = key != null && DailyUsed(key);
             Action onBuy = null;
             if (buy != null && !done)
@@ -481,7 +477,7 @@ namespace LegionRush
             swatch.type = Image.Type.Simple;
             swatch.preserveAspect = true;
             LegionUI.Inside(swatch.rectTransform, box, b.x + 90, b.y + 60, b.z - 90, b.w - 76);
-            Label("Cores das tropas", b.x + 10, b.w - 100, b.z - 10, b.w - 70, 17f, LegionTextStyle.Body, new Color(0.85f, 0.9f, 1f), TextAnchor.MiddleCenter);
+            Label("Cores das tropas", b.x + 10, b.w - 100, b.z - 10, b.w - 70, 22f, LegionTextStyle.Body, new Color(0.85f, 0.9f, 1f), TextAnchor.MiddleCenter);
             Vector4 button = new Vector4(b.x + 30, b.w - 66, b.z - 30, b.w - 14);
             if (owned)
             {
@@ -498,32 +494,34 @@ namespace LegionRush
             }
         }
 
-        // Botão verde de preço; preço em reais avisa que a loja de pagamento ainda não existe.
+        // LegionBuyButton (Tarefa 0.5): moeda + valor em cima, ação embaixo. COMPRADO vira selo escuro com ✓.
+        // Preço em reais: selo EM BREVE e botão desligado até existir loja de pagamento.
         private void BuyButton(Vector4 b, Price price, Action onBuy, Color? color)
         {
-            Image button = UI.Panel(content, color ?? (price.Kind == PriceKind.Done ? new Color(0.35f, 0.4f, 0.5f) : BuyGreen), "Buy");
-            LegionUI.Inside(button.rectTransform, box, b.x, b.y, b.z, b.w);
-            Outline ring = button.gameObject.AddComponent<Outline>();
-            ring.effectColor = new Color(0.75f, 1f, 0.6f, 0.9f);
-            ring.effectDistance = new Vector2(2f, -2f);
-            float height = (b.w - b.y);
-            if (price.Kind == PriceKind.Gems || price.Kind == PriceKind.Gold)
+            LegionBuyButton.Variant variant = color.HasValue && color.Value.b > color.Value.g ? LegionBuyButton.Variant.Blue : LegionBuyButton.Variant.Green;
+            LegionBuyButton button;
+            switch (price.Kind)
             {
-                Image icon = LegionArt.Image(button.transform, price.Kind == PriceKind.Gems ? "Icons/gem" : "Icons/coin", false, "Icon");
-                icon.preserveAspect = true;
-                UI.Place(icon.rectTransform, 0.14f, 0.12f, 0.36f, 0.88f);
-                TMP_Text value = MainMenuButtons.Label(button.transform, Format(price.Amount), Mathf.Min(30f, height * 0.55f), LegionTextStyle.PrimaryButton, Color.white);
-                UI.Place(value.rectTransform, 0.36f, 0f, 0.92f, 1f);
+                case PriceKind.Gold:
+                case PriceKind.Gems:
+                    button = LegionBuyButton.Create(content, variant, price.Kind == PriceKind.Gems ? LegionCurrency.Gems : LegionCurrency.Gold, price.Amount,
+                        "COMPRAR", onBuy);
+                    break;
+                case PriceKind.Real:
+                    button = LegionBuyButton.Create(content, variant, LegionCurrency.None, 0, "COMPRAR", null);
+                    button.SetPriceText(price.Describe());
+                    button.SetComingSoon(true);
+                    break;
+                case PriceKind.Done:
+                    button = LegionBuyButton.Create(content, variant, LegionCurrency.None, 0, string.Empty, null);
+                    button.SetBought(true);
+                    break;
+                default:
+                    button = LegionBuyButton.Create(content, variant, LegionCurrency.None, 0, price.Describe(), onBuy);
+                    if (onBuy == null) button.SetBought(true, price.Describe());
+                    break;
             }
-            else
-            {
-                TMP_Text value = MainMenuButtons.Label(button.transform, price.Describe(), Mathf.Min(32f, height * 0.58f), LegionTextStyle.PrimaryButton, Color.white);
-                UI.Stretch(value.rectTransform);
-            }
-            Action action = onBuy;
-            if (action == null && price.Kind == PriceKind.Real)
-                action = () => Ui.Info("EM BREVE", $"Compras com dinheiro real ({price.Describe()}) chegam quando a loja de pagamento for integrada.\n\nPor enquanto, ganhe ouro e gemas jogando as fases.");
-            if (action != null) MainMenuButtons.Make(button.rectTransform, button, action);
+            LegionUI.Inside((RectTransform)button.transform, box, b.x, b.y, b.z, b.w);
         }
 
         private TMP_Text Label(string text, float x0, float y0, float x1, float y1, float size, LegionTextStyle style, Color color, TextAnchor anchor)
@@ -593,7 +591,10 @@ namespace LegionRush
 
         private static string Format(int value) => value.ToString("N0", CultureInfo.GetCultureInfo("pt-BR"));
 
-        private static string ShortPotion(string name) => name.Replace("Poção de ", "Poção ");
+        // Nomes curtos nas diárias: "Poção de Velocidade" -> "Velocidade".
+        private static string ShortPotion(string name) => name.Replace("Poção de ", string.Empty).Replace("Poção ", string.Empty);
+
+        private static string Short(int value) => LegionFormat.Short(value);
 
         private static string EquipmentArt(EquipmentDef item) => item.Slot switch
         {

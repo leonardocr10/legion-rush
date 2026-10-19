@@ -350,12 +350,13 @@ namespace LegionRush
             action.fontSize = action.fontSizeMax = Mathf.RoundToInt((priceRow.gameObject.activeSelf ? 22f : 28f) * LegionUI.Px);
         }
 
-        // Texto livre na linha de cima (ex.: preço em R$) sem ícone.
+        // Uma linha só, sem ícone (ex.: preço em R$ "R$ 4,90").
         public void SetPriceText(string text)
         {
-            icon.gameObject.SetActive(false);
-            price.text = text;
-            priceRow.gameObject.SetActive(!string.IsNullOrEmpty(text));
+            priceRow.gameObject.SetActive(false);
+            action.text = text;
+            UI.Place(action.rectTransform, 0.04f, 0.1f, 0.96f, 0.9f);
+            action.fontSize = action.fontSizeMax = Mathf.RoundToInt(28f * LegionUI.Px);
         }
 
         public void SetVariant(Variant value)
@@ -406,15 +407,15 @@ namespace LegionRush
 
     public static class LegionBadge
     {
-        // Pílula "EM BREVE" no canto superior direito do pai.
+        // Pílula "EM BREVE" apoiada na borda de cima do pai, no canto direito (não tampa o conteúdo).
         public static RectTransform Soon(Transform parent, string text = "EM BREVE")
         {
             Image pill = UI.Panel(parent, new Color(0.95f, 0.55f, 0.1f), "Soon");
             RectTransform rect = pill.rectTransform;
             rect.anchorMin = rect.anchorMax = new Vector2(1f, 1f);
-            rect.pivot = new Vector2(1f, 0.5f);
-            rect.sizeDelta = new Vector2(132f, 36f);
-            rect.anchoredPosition = new Vector2(6f, 0f);
+            rect.pivot = new Vector2(1f, 0f);
+            rect.sizeDelta = new Vector2(132f, 34f);
+            rect.anchoredPosition = new Vector2(6f, -12f);
             Outline ring = pill.gameObject.AddComponent<Outline>();
             ring.effectColor = new Color(0.25f, 0.1f, 0f, 0.9f);
             ring.effectDistance = new Vector2(2f, -2f);
