@@ -181,7 +181,7 @@ namespace LegionRush
                 MainMenuSideButton.Kind.TimerOnly);
 
             ranking = Side(root, "Icon_Ranking", "RANKING", MainMenuDestination.Ranking, LegionUI.Edge.TopRight, 791, 150, 923, 294, right, 0.08f);
-            rewards = Side(root, "Icon_Rewards", "RECOMPENSAS", MainMenuDestination.Achievements, LegionUI.Edge.TopRight, 791, 306, 923, 478, right, 0.12f,
+            rewards = Side(root, "Icon_Rewards", "RECOMPENSAS", MainMenuDestination.DailyChest, LegionUI.Edge.TopRight, 791, 306, 923, 478, right, 0.12f,
                 MainMenuSideButton.Kind.LabeledWithTimer);
             season = Side(root, "Icon_Season", "TEMPORADA", MainMenuDestination.Season, LegionUI.Edge.TopRight, 791, 490, 923, 626, right, 0.16f);
             friends = Side(root, "Icon_Friends", "AMIGOS", MainMenuDestination.Friends, LegionUI.Edge.TopRight, 791, 638, 923, 774, right, 0.2f);
@@ -305,7 +305,7 @@ namespace LegionRush
             world.Set(data);
 
             missions.Badge.Set(data.ClaimableMissions > 0);
-            rewards.Badge.Set(data.ClaimableAchievements > 0);
+            rewards.Badge.Set(data.DailyReady);
             upgrades.Badge.Set(data.UpgradeAffordable);
             chest.Badge.Set(data.DailyReady);
             store.Badge.Set(false);
@@ -314,7 +314,6 @@ namespace LegionRush
             pass.Badge.Set(false);
             heroes.Badge.Set(false);
 
-            rewards.Countdown.SetMessage($"{data.AchievementsDone}/{data.AchievementsTotal}", Color.white);
             bossLock.gameObject.SetActive(!data.BossAvailable);
             bossArt.color = data.BossAvailable ? Color.white : new Color(0.62f, 0.62f, 0.66f);
             Tick();
@@ -323,8 +322,12 @@ namespace LegionRush
         // Uma vez por segundo: contagem regressiva do baú diário.
         public void Tick()
         {
-            if (model.DailyReady) chest.Countdown.SetMessage("ABRIR!", new Color(0.5f, 1f, 0.45f));
-            else chest.Countdown.Set(System.DateTime.UtcNow.Date.AddDays(1) - System.DateTime.UtcNow);
+            // Baú diário e RECOMPENSAS abrem a recompensa diária: "ABRIR!" quando pronta, senão a contagem até a virada.
+            foreach (MainMenuSideButton button in new[] { chest, rewards })
+            {
+                if (model.DailyReady) button.Countdown.SetMessage("ABRIR!", new Color(0.5f, 1f, 0.45f));
+                else button.Countdown.Set(System.DateTime.UtcNow.Date.AddDays(1) - System.DateTime.UtcNow);
+            }
         }
 
         public bool ModalOpen => moreModal != null && moreModal.gameObject.activeSelf;

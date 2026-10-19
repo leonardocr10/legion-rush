@@ -160,7 +160,7 @@ namespace LegionRush
                 case MainMenuDestination.Missions: ui.Push<MissionsScreen>(); break;
                 case MainMenuDestination.Upgrades: ui.Push<UpgradeScreen>(); break;
                 case MainMenuDestination.DailyChest: ui.Push<DailyRewardScreen>(); break;
-                case MainMenuDestination.Ranking: ui.Push<RecordsScreen>(); break;
+                case MainMenuDestination.Ranking: ui.Push<RankingScreen>(); break;
                 case MainMenuDestination.Achievements: ui.Push<AchievementsScreen>(); break;
                 case MainMenuDestination.Troops: ui.Push<TroopScreen>(); break;
                 case MainMenuDestination.Worlds: ui.Push<WorldSelectScreen>(); break;
