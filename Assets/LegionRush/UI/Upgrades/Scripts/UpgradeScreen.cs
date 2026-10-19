@@ -6,60 +6,76 @@ using UnityEngine.UI;
 
 namespace LegionRush
 {
-    // Melhorias no layout do mockup: abas BASE/TROPAS/HERÓIS/FEITIÇOS, melhoria em destaque (arte, nível atual → próximo,
-    // atributos e MELHORAR) e grade de cartas com barra de nível, atributo e custo.
-    // Usa as melhorias permanentes do jogo (MetaCatalog.Upgrades), o nível do herói em campo e as habilidades.
+    // Melhorias (entrega/referencias/melhorias_referencia.png e auditoria 1e): abas BASE/TROPAS/HERÓIS/FEITIÇOS com ícone,
+    // melhoria em destaque (a selecionada) e grade de 3 colunas com todas as melhorias da aba. Cada carta: ícone à esquerda,
+    // título + nível à direita, barra com número, bônus "atual → +próximo" e LegionBuyButton.
+    // Usa as 7 melhorias permanentes (MetaCatalog.Upgrades), o herói em campo e as habilidades.
     public class UpgradeScreen : UIScreen
     {
         private static readonly Vector4 Box = new Vector4(0, 0, LegionUI.RefWidth, LegionUI.RefHeight);
+        private const float GridTop = 712f, GridBottom = 1492f;
+        private const float CardW = 288f, CardH = 310f, RowStep = 322f;
+        private static readonly float[] ColumnX = { 22, 328, 634 };
+
         private static readonly (string label, string icon)[] TabDefs =
         {
-            ("BASE", "MainMenu:Icon_Home"), ("TROPAS", "Settings:Icon_Swords"), ("HERÓIS", "MainMenu:Icon_Heroes"), ("FEITIÇOS", "Icons/potion_blue")
+            ("BASE", "MainMenu:Icon_Home"), ("TROPAS", "Icons/sword"), ("HERÓIS", "MainMenu:Icon_Heroes"), ("FEITIÇOS", "Icons/potion_blue")
         };
+
+        // BASE: tropas iniciais, ouro, vida · TROPAS: velocidade de ataque, dano · HERÓIS: poder do herói · FEITIÇOS: habilidades.
         private static readonly string[][] TabUpgrades =
         {
-            new[] { "start_troops", "gold_gain", "atk_speed" },
-            new[] { "archer_dmg", "warrior_hp", "magic_dmg" },
+            new[] { "start_troops", "gold_gain", "warrior_hp" },
+            new[] { "atk_speed", "archer_dmg", "magic_dmg" },
             new[] { "hero_power" },
             new string[0]
         };
 
         private MenuChrome chrome;
         private RectTransform body;
-        private readonly List<Image> tabs = new List<Image>();
+        private LegionTabs tabs;
         private int tab;
+        private string selected;
 
         private class Entry
         {
-            public string Title, Description, Art, StatIcon, StatLabel, Now, Gain;
+            public string Key, Title, Description, Art, StatIcon, StatLabel, Now, Next;
             public int Level, Max, Gold, Gems;
             public bool Locked;
             public Func<PurchaseResult> Buy;
+            public bool IsMax => Level >= Max && !Locked;
         }
 
         protected override void Build(RectTransform root)
         {
             chrome = MenuChrome.Build(root, Ui, "MELHORIAS", OnBack);
             RectTransform top = LegionUI.Place(UI.Rect(root, "Top"), LegionUI.Edge.Top, 0, 0, LegionUI.RefWidth, LegionUI.RefHeight);
-            MenuChrome.Text(top, Box, 250, 258, 690, 298, "Deixe seu exército mais forte!", 24f, LegionTextStyle.PrimaryButton, Color.white,
+            MenuChrome.Text(top, Box, 180, 230, 760, 264, "Deixe seu exército mais forte!", 26f, LegionTextStyle.PrimaryButton, Color.white,
                 TextAnchor.MiddleCenter);
-            float[] x0 = { 18, 252, 474, 696 };
-            float[] x1 = { 246, 468, 690, 922 };
+
+            // Abas com ícone a 60 % da altura.
+            RectTransform tabArea = LegionUI.Inside(UI.Rect(top, "Tabs"), Box, 18, 272, 923, 372);
+            string[] labels = Array.ConvertAll(TabDefs, t => t.label);
+            tabs = LegionTabs.Create(tabArea, labels, i =>
+            {
+                tab = i;
+                selected = null;
+                Refresh();
+            }, 24f, 8f);
+            tabs.Select(0);
             for (int i = 0; i < TabDefs.Length; i++)
             {
-                int index = i;
-                Image button = MenuChrome.Panel(top, Box, x0[i], 304, x1[i], 410, "Tab" + i);
-                Image icon = TabIcon(button.transform, TabDefs[i].icon);
-                UI.Place(icon.rectTransform, 0.32f, 0.38f, 0.68f, 0.94f);
-                TMP_Text label = MainMenuButtons.Label(button.transform, TabDefs[i].label, 24f, LegionTextStyle.PrimaryButton, Color.white);
-                UI.Place(label.rectTransform, 0.04f, 0.04f, 0.96f, 0.38f);
-                MainMenuButtons.Make(button.rectTransform, button, () =>
-                {
-                    tab = index;
-                    Refresh();
-                });
-                tabs.Add(button);
+                Transform frame = tabArea.GetChild(i);
+                Transform inner = frame.Find("Inner");
+                // Ícone em cima e rótulo embaixo: troca o layout horizontal por vertical.
+                HorizontalLayoutGroup row = inner.GetComponent<HorizontalLayoutGroup>();
+                if (row != null) UnityEngine.Object.DestroyImmediate(row);
+                TMP_Text label = inner.GetComponentInChildren<TMP_Text>();
+                UI.Place(label.rectTransform, 0f, 0f, 1f, 0.36f);
+                Image icon = TabIcon(inner, TabDefs[i].icon);
+                UI.Place(icon.rectTransform, 0.2f, 0.36f, 0.8f, 1f);
             }
+
             body = UI.Rect(root, "Body");
             UI.Stretch(body);
             MenuChrome.Nav(root, Ui, MainMenuDestination.More);
@@ -78,65 +94,52 @@ namespace LegionRush
         {
             if (!SaveManager.IsLoaded) return;
             chrome.Refresh(Ui);
-            for (int i = 0; i < tabs.Count; i++)
-                tabs[i].sprite = MainMenuArt.Get(i == tab ? "Button_NavFrameSelected" : "Button_SideFrame");
 
             UI.Clear(body);
             RectTransform area = LegionUI.Place(UI.Rect(body, "Area"), LegionUI.Edge.Top, 0, 0, LegionUI.RefWidth, LegionUI.RefHeight);
             List<Entry> entries = Entries(tab);
             if (entries.Count == 0)
             {
-                MenuChrome.Panel(area, Box, 20, 420, 922, 790);
-                MenuChrome.Text(area, Box, 60, 560, 880, 650, "Todas as melhorias desta aba já foram feitas!", 30f, LegionTextStyle.PrimaryButton,
+                MenuChrome.Panel(area, Box, 20, 384, 922, 700);
+                MenuChrome.Text(area, Box, 60, 500, 880, 590, "Nada para melhorar nesta aba agora.", 30f, LegionTextStyle.PrimaryButton,
                     Color.white, TextAnchor.MiddleCenter);
                 return;
             }
-            Featured(area, entries[0]);
-            float[] cx = { 20, 328, 630 };
-            float[] cw = { 294, 288, 290 };
-            for (int i = 1; i < entries.Count && i <= 6; i++)
-            {
-                int k = i - 1;
-                float y0 = k < 3 ? 805f : 1122f;
-                Card(area, entries[i], cx[k % 3], y0, cx[k % 3] + cw[k % 3], y0 + (k < 3 ? 302 : 321));
-            }
+            Entry featured = entries.Find(e => e.Key == selected) ?? entries.Find(e => !e.IsMax) ?? entries[0];
+            selected = featured.Key;
+            Featured(area, featured);
+            Grid(body, entries);
         }
 
         // ---------------------------------------------------------------- destaque
 
         private void Featured(RectTransform parent, Entry e)
         {
-            MenuChrome.Panel(parent, Box, 20, 420, 922, 790, "Featured");
-            Image picture = tab == 0 && e.Art == "Icons/helmet"
-                ? MainMenuArt.Image(parent, "Background_FrozenKingdom", "Art")
-                : LegionArt.Image(parent, e.Art, false, "Art");
+            MenuChrome.Panel(parent, Box, 20, 384, 922, 700, "Featured");
+            Image picture = LegionArt.Image(parent, e.Art, false, "Art");
             picture.preserveAspect = true;
-            LegionUI.Inside(picture.rectTransform, Box, 28, 428, 452, 782);
+            LegionUI.Inside(picture.rectTransform, Box, 40, 400, 420, 684);
 
-            MenuChrome.Text(parent, Box, 468, 428, 910, 474, e.Title, 36f, LegionTextStyle.PrimaryButton, Color.white);
-            MenuChrome.Text(parent, Box, 468, 472, 910, 504, e.Description, 19f, LegionTextStyle.Body, new Color(0.85f, 0.9f, 1f));
+            MenuChrome.Text(parent, Box, 440, 396, 906, 442, e.Title, 36f, LegionTextStyle.PrimaryButton, Color.white);
+            MenuChrome.Text(parent, Box, 440, 442, 906, 474, e.Description, 22f, LegionTextStyle.Body, new Color(0.85f, 0.9f, 1f));
 
-            bool max = e.Level >= e.Max && !e.Locked;
-            Chip(parent, 538, 514, 662, 562, e.Locked ? "Bloqueada" : "Nível " + e.Level, false);
-            if (!max)
+            Chip(parent, 470, 482, 620, 528, e.Locked ? "Bloqueada" : "Nível " + e.Level, false);
+            if (!e.IsMax)
             {
-                MenuChrome.Text(parent, Box, 670, 514, 708, 562, "<color=#4FB4FF>></color>", 30f, LegionTextStyle.PrimaryButton, Color.white,
+                MenuChrome.Text(parent, Box, 626, 482, 670, 528, "<color=#4FB4FF>→</color>", 30f, LegionTextStyle.PrimaryButton, Color.white,
                     TextAnchor.MiddleCenter);
-                Chip(parent, 715, 514, 842, 562, e.Locked ? "Liberar" : "Nível " + (e.Level + 1), true);
+                Chip(parent, 676, 482, 830, 528, e.Locked ? "Liberar" : "Nível " + (e.Level + 1), true);
             }
 
             Image stats = UI.Panel(parent, new Color(0.03f, 0.07f, 0.18f, 0.85f), "Stats");
-            LegionUI.Inside(stats.rectTransform, Box, 470, 572, 906, 702);
-            StatRow(parent, 576, e.StatIcon, e.StatLabel, e.Now, max ? string.Empty : e.Gain);
-            StatRow(parent, 618, "Icons/star_badge", "Nível", $"{e.Level}/{e.Max}", max ? string.Empty : "+1");
-            StatRow(parent, 660, "Icons/coin", "Custo", max ? "—" : CostText(e), string.Empty);
+            LegionUI.Inside(stats.rectTransform, Box, 440, 538, 906, 612);
+            MenuChrome.Art(parent, Box, 452, 548, 496, 602, e.StatIcon);
+            MenuChrome.Text(parent, Box, 506, 538, 700, 575, e.StatLabel, 22f, LegionTextStyle.Menu, new Color(0.82f, 0.88f, 1f));
+            MenuChrome.Text(parent, Box, 506, 573, 900, 612, Bonus(e), 26f, LegionTextStyle.Hud, Color.white);
 
-            Image box = UI.Panel(parent, new Color(0.03f, 0.07f, 0.18f, 0.9f), "Progress");
-            LegionUI.Inside(box.rectTransform, Box, 470, 712, 634, 772);
-            MenuChrome.Art(parent, Box, 478, 718, 526, 766, "Icons/trophy");
-            MenuChrome.Text(parent, Box, 528, 712, 630, 772, max ? "MÁX." : $"{e.Level}/{e.Max}", 28f, LegionTextStyle.Hud, Color.white, TextAnchor.MiddleCenter);
-
-            BuyButton(parent, e, 646, 706, 906, 782, 30f);
+            BuyButton(parent, e, 600, 622, 906, 690);
+            if (!e.IsMax) MenuChrome.Text(parent, Box, 440, 622, 592, 690, $"{e.Level}/{e.Max}", 30f, LegionTextStyle.Hud, MenuChrome.GoldText,
+                TextAnchor.MiddleCenter);
         }
 
         private void Chip(RectTransform parent, float x0, float y0, float x1, float y1, string text, bool next)
@@ -152,58 +155,107 @@ namespace LegionRush
             MenuChrome.Text(parent, Box, x0, y0, x1, y1, text, 24f, LegionTextStyle.PrimaryButton, Color.white, TextAnchor.MiddleCenter);
         }
 
-        private void StatRow(RectTransform parent, float y, string icon, string label, string now, string gain)
+        // "0 → +2" (atual → próximo); no máximo só o valor atual. Nunca "—".
+        private static string Bonus(Entry e) => e.IsMax ? e.Now : $"{e.Now}  <color=#6CFF5A>→ {e.Next}</color>";
+
+        // ---------------------------------------------------------------- grade
+
+        private void Grid(RectTransform parent, List<Entry> entries)
         {
-            MenuChrome.Art(parent, Box, 484, y + 4, 520, y + 38, icon);
-            MenuChrome.Text(parent, Box, 532, y, 720, y + 42, label, 20f, LegionTextStyle.Menu, Color.white);
-            MenuChrome.Text(parent, Box, 700, y, 800, y + 42, now, 22f, LegionTextStyle.Hud, Color.white, TextAnchor.MiddleRight);
-            MenuChrome.Text(parent, Box, 812, y, 904, y + 42, gain, 22f, LegionTextStyle.Positive, new Color(0.45f, 1f, 0.4f));
+            RectTransform view = LegionUI.Place(UI.Rect(parent, "Grid"), LegionUI.Edge.Bottom, 0, GridTop, LegionUI.RefWidth, GridBottom);
+            view.gameObject.AddComponent<RectMask2D>();
+            Image hit = view.gameObject.AddComponent<Image>();
+            hit.color = Color.clear;
+            int rows = (entries.Count + 2) / 3;
+            float height = rows * RowStep - (RowStep - CardH);
+            RectTransform content = UI.Rect(view, "Content");
+            content.anchorMin = new Vector2(0f, 1f);
+            content.anchorMax = new Vector2(1f, 1f);
+            content.pivot = new Vector2(0.5f, 1f);
+            content.sizeDelta = new Vector2(0f, height * LegionUI.Px);
+            content.anchoredPosition = Vector2.zero;
+            ScrollRect scroll = view.gameObject.AddComponent<ScrollRect>();
+            scroll.content = content;
+            scroll.viewport = view;
+            scroll.horizontal = false;
+            scroll.vertical = height > GridBottom - GridTop;
+            scroll.movementType = ScrollRect.MovementType.Clamped;
+            scroll.scrollSensitivity = 40f;
+
+            Vector4 box = new Vector4(0, GridTop, LegionUI.RefWidth, GridTop + height);
+            for (int i = 0; i < entries.Count; i++)
+            {
+                float x0 = ColumnX[i % 3];
+                float y0 = GridTop + (i / 3) * RowStep;
+                Card(content, box, entries[i], x0, y0, x0 + CardW, y0 + CardH);
+            }
         }
 
-        // ---------------------------------------------------------------- cartas
-
-        private void Card(RectTransform parent, Entry e, float x0, float y0, float x1, float y1)
+        private void Card(RectTransform parent, Vector4 box, Entry e, float x0, float y0, float x1, float y1)
         {
-            MenuChrome.Panel(parent, Box, x0, y0, x1, y1, "Card");
-            MenuChrome.Art(parent, Box, x0 + 8, y0 + 8, x0 + 150, y0 + 118, e.Art);
-            MenuChrome.Text(parent, Box, x0 + 140, y0 + 10, x1 - 8, y0 + 46, e.Title, 21f, LegionTextStyle.PrimaryButton, Color.white, TextAnchor.MiddleRight);
-            MenuChrome.Text(parent, Box, x0 + 140, y0 + 46, x1 - 8, y0 + 80, e.Locked ? "Bloqueada" : "Nível " + e.Level, 21f, LegionTextStyle.Hud,
+            Image frame = MenuChrome.Panel(parent, box, x0, y0, x1, y1, "Card");
+            frame.raycastTarget = true;
+            string key = e.Key;
+            MainMenuButtons.Make(frame.rectTransform, frame, () =>
+            {
+                selected = key;
+                Refresh();
+            });
+            if (e.Key == selected)
+            {
+                Image glow = LegionArt.Image(parent, "Frames/frame_gold", false, "Selected");
+                glow.type = Image.Type.Sliced;
+                glow.fillCenter = false;
+                glow.pixelsPerUnitMultiplier = 2.2f;
+                LegionUI.Inside(glow.rectTransform, box, x0 - 4, y0 - 4, x1 + 4, y1 + 4);
+            }
+
+            // Ícone à esquerda; título e nível à direita.
+            MenuChrome.Art(parent, box, x0 + 10, y0 + 12, x0 + 120, y0 + 116, e.Art);
+            TMP_Text title = MenuChrome.Text(parent, box, x0 + 124, y0 + 12, x1 - 10, y0 + 70, e.Title, 22f, LegionTextStyle.PrimaryButton, Color.white,
+                TextAnchor.MiddleRight);
+            title.textWrappingMode = TextWrappingModes.Normal;
+            MenuChrome.Text(parent, box, x0 + 124, y0 + 70, x1 - 10, y0 + 108, e.Locked ? "Bloqueada" : "Nível " + e.Level, 24f, LegionTextStyle.Hud,
                 MenuChrome.GoldText, TextAnchor.MiddleRight);
 
-            // Barra de nível.
+            // Barra de nível com o número por cima.
             Image track = UI.Panel(parent, new Color(0.03f, 0.07f, 0.18f, 0.95f), "Track");
-            LegionUI.Inside(track.rectTransform, Box, x0 + 16, y0 + 124, x1 - 16, y0 + 152);
+            LegionUI.Inside(track.rectTransform, box, x0 + 14, y0 + 120, x1 - 14, y0 + 152);
             float ratio = e.Max > 0 ? Mathf.Clamp01(e.Level / (float)e.Max) : 0f;
             if (ratio > 0f)
             {
                 Image fill = UI.Panel(parent, MenuChrome.Green, "Fill");
-                LegionUI.Inside(fill.rectTransform, Box, x0 + 18, y0 + 126, Mathf.Lerp(x0 + 30, x1 - 18, ratio), y0 + 150);
+                LegionUI.Inside(fill.rectTransform, box, x0 + 16, y0 + 122, Mathf.Lerp(x0 + 30, x1 - 16, ratio), y0 + 150);
             }
-            MenuChrome.Text(parent, Box, x0 + 16, y0 + 124, x1 - 16, y0 + 152, $"{e.Level}/{e.Max}", 18f, LegionTextStyle.Hud, Color.white,
+            MenuChrome.Text(parent, box, x0 + 14, y0 + 120, x1 - 14, y0 + 152, $"{e.Level}/{e.Max}", 22f, LegionTextStyle.Hud, Color.white,
                 TextAnchor.MiddleCenter);
 
+            // Bônus: nome do efeito em cima, "atual → +próximo" embaixo.
             Image stat = UI.Panel(parent, new Color(0.03f, 0.07f, 0.18f, 0.85f), "Stat");
-            LegionUI.Inside(stat.rectTransform, Box, x0 + 12, y0 + 162, x1 - 12, y1 - 76);
-            MenuChrome.Art(parent, Box, x0 + 18, y0 + 168, x0 + 62, y1 - 82, e.StatIcon);
-            MenuChrome.Text(parent, Box, x0 + 70, y0 + 162, x1 - 14, y0 + 190, e.StatLabel, 17f, LegionTextStyle.Menu, Color.white);
-            bool max = e.Level >= e.Max && !e.Locked;
-            MenuChrome.Text(parent, Box, x0 + 70, y0 + 188, x1 - 14, y1 - 78,
-                e.Now + (max ? string.Empty : $"   <color=#6CFF5A>{e.Gain}</color>"), 20f, LegionTextStyle.Hud, Color.white);
+            LegionUI.Inside(stat.rectTransform, box, x0 + 10, y0 + 160, x1 - 10, y0 + 234);
+            MenuChrome.Art(parent, box, x0 + 16, y0 + 172, x0 + 58, y0 + 222, e.StatIcon);
+            MenuChrome.Text(parent, box, x0 + 64, y0 + 160, x1 - 12, y0 + 194, e.StatLabel, 22f, LegionTextStyle.Menu, new Color(0.82f, 0.88f, 1f));
+            MenuChrome.Text(parent, box, x0 + 64, y0 + 194, x1 - 12, y0 + 232, Bonus(e), 24f, LegionTextStyle.Hud, Color.white);
 
-            BuyButton(parent, e, x0 + 16, y1 - 70, x1 - 16, y1 - 10, 22f);
+            BuyButton(parent, e, x0 + 14, y0 + 242, x1 - 14, y1 - 10, box);
         }
 
-        private void BuyButton(RectTransform parent, Entry e, float x0, float y0, float x1, float y1, float size)
+        private void BuyButton(RectTransform parent, Entry e, float x0, float y0, float x1, float y1) => BuyButton(parent, e, x0, y0, x1, y1, Box);
+
+        // LegionBuyButton: moeda + valor / MELHORAR (ou LIBERAR); no máximo, selo ✓ MÁXIMO.
+        private void BuyButton(RectTransform parent, Entry e, float x0, float y0, float x1, float y1, Vector4 box)
         {
-            bool max = e.Level >= e.Max && !e.Locked;
-            string price = max ? "MÁXIMO" : $"{CostText(e)}\nMELHORAR";
-            if (e.Locked && !max) price = $"{CostText(e)}\nLIBERAR";
-            MenuChrome.Button(parent, Box, x0, y0, x1, y1, price, max ? MenuChrome.Gray : MenuChrome.Green, max ? null : (Action)(() => Buy(e)), size);
+            LegionCurrency currency = e.Gems > 0 ? LegionCurrency.Gems : LegionCurrency.Gold;
+            LegionBuyButton button = LegionBuyButton.Create(parent, e.Locked ? LegionBuyButton.Variant.Gold : LegionBuyButton.Variant.Green,
+                e.IsMax ? LegionCurrency.None : currency, e.IsMax ? 0 : e.Gems > 0 ? e.Gems : e.Gold, e.Locked ? "LIBERAR" : "MELHORAR",
+                () => { if (!e.IsMax) Buy(e); });
+            LegionUI.Inside((RectTransform)button.transform, box, x0, y0, x1, y1);
+            if (e.IsMax) button.SetBought(true, "MÁXIMO");
         }
 
         private static string CostText(Entry e) => e.Gems > 0
             ? $"{MenuChrome.Format(e.Gems)} gemas"
-            : $"{MenuChrome.Format(e.Gold)} ouro";
+            : $"{MenuChrome.Format(e.Gold)} de ouro";
 
         private void Buy(Entry e)
         {
@@ -235,24 +287,34 @@ namespace LegionRush
             }
             if (index == 2) AddHero(list);
             if (index == 3) AddSkills(list);
-            // Melhorias no máximo vão para o fim (o destaque mostra a próxima a fazer).
-            list.Sort((a, b) => (a.Level >= a.Max && !a.Locked).CompareTo(b.Level >= b.Max && !b.Locked));
             return list;
+        }
+
+        // Separa "+16% dano de Arqueiro" em valor ("+16%") e efeito ("Dano de Arqueiro").
+        private static (string value, string effect) Split(string described)
+        {
+            int space = described.IndexOf(' ');
+            if (space < 0) return (described, string.Empty);
+            string effect = described.Substring(space + 1);
+            return (described.Substring(0, space), char.ToUpperInvariant(effect[0]) + effect.Substring(1));
         }
 
         private static Entry FromUpgrade(UpgradeDef def)
         {
             int level = MetaService.UpgradeLevel(def.Id);
             bool hero = def.Id == "hero_power";
+            var next = Split(def.PerLevel.Describe(level + 1));
+            var now = Split(def.PerLevel.Describe(Mathf.Max(1, level)));
             return new Entry
             {
+                Key = def.Id,
                 Title = def.Name,
                 Description = Description(def.Id),
                 Art = ArtOf(def.Id),
                 StatIcon = StatIconOf(def.Id),
-                StatLabel = hero ? "Passiva do herói" : "Bônus",
-                Now = hero ? $"+{level * 10}%" : level == 0 ? "—" : def.PerLevel.Describe(level),
-                Gain = hero ? "+10%" : "→ " + def.PerLevel.Describe(level + 1),
+                StatLabel = hero ? "Passiva do herói" : next.effect,
+                Now = hero ? $"+{level * 10}%" : level == 0 ? "0" : now.value,
+                Next = hero ? $"+{(level + 1) * 10}%" : next.value,
                 Level = level,
                 Max = def.MaxLevel,
                 Gold = def.CostFor(level),
@@ -265,15 +327,18 @@ namespace LegionRush
             HeroDef hero = MetaCatalog.Hero(SaveManager.Current.heroes.selected);
             HeroRecord record = hero != null ? SaveManager.Current.heroes.Get(hero.Id) : null;
             if (hero == null || record == null) return;
+            var now = Split(hero.Passive.Describe(1f + hero.PerLevel * (record.level - 1)));
+            var next = Split(hero.Passive.Describe(1f + hero.PerLevel * record.level));
             list.Add(new Entry
             {
+                Key = "hero_" + hero.Id,
                 Title = hero.Name,
                 Description = hero.Title + " · herói em campo",
                 Art = "Hud/portrait_king",
                 StatIcon = "Icons/crown",
-                StatLabel = "Passiva",
-                Now = hero.Passive.Describe(1f + hero.PerLevel * (record.level - 1)),
-                Gain = "+" + Mathf.RoundToInt(hero.PerLevel * 100f) + "%",
+                StatLabel = now.effect,
+                Now = now.value,
+                Next = next.value,
                 Level = record.level,
                 Max = 10,
                 Gold = hero.LevelCost(record.level),
@@ -283,22 +348,24 @@ namespace LegionRush
 
         private void AddSkills(List<Entry> list)
         {
-            SkillSystem skills = Ui.Game != null ? Ui.Game.CurrentSkills : null;
+            SkillSystem skills = Ui != null && Ui.Game != null ? Ui.Game.CurrentSkills : null;
             if (skills == null) return;
             for (int s = 0; s < SkillDefinition.Count; s++)
             {
                 var id = (SkillId)s;
                 SkillDefinition def = skills.Definition(id);
                 bool unlocked = MetaService.IsSkillUnlocked(id);
+                string cooldown = Mathf.RoundToInt(def.cooldown) + "s";
                 list.Add(new Entry
                 {
+                    Key = "skill_" + s,
                     Title = def.displayName,
                     Description = def.description,
                     Art = SkillArt(id),
                     StatIcon = "Icons/energy",
                     StatLabel = "Recarga",
-                    Now = Mathf.RoundToInt(def.cooldown) + "s",
-                    Gain = unlocked ? string.Empty : "nova",
+                    Now = unlocked ? cooldown : "0",
+                    Next = cooldown,
                     Level = unlocked ? 1 : 0,
                     Max = 1,
                     Locked = !unlocked,
