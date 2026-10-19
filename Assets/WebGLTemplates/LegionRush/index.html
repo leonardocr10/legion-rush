@@ -38,6 +38,8 @@
         symbolsUrl: buildUrl + "/{{{ SYMBOLS_FILENAME }}}",
 #endif
         streamingAssetsUrl: "StreamingAssets",
+        // Grava o save (Application.persistentDataPath) no IndexedDB a cada escrita; sem isso o progresso some ao recarregar.
+        autoSyncPersistentDataPath: true,
         companyName: {{{ JSON.stringify(COMPANY_NAME) }}},
         productName: {{{ JSON.stringify(PRODUCT_NAME) }}},
         productVersion: {{{ JSON.stringify(PRODUCT_VERSION) }}},
