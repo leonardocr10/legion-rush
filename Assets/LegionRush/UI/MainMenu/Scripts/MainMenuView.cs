@@ -38,6 +38,9 @@ namespace LegionRush
 
         private void Go(MainMenuDestination destination) => nav.Open(destination);
 
+        // Versão 2048 do Prompt 2 (ex.: Background_FrozenKingdom_2048), quando já estiver no catálogo.
+        private static string HiRes(string sprite) => MainMenuArt.Has(sprite + "_2048") ? sprite + "_2048" : sprite;
+
         // ---------------------------------------------------------------- cenário em camadas
 
         private static void BuildScenery(RectTransform root)
@@ -53,43 +56,87 @@ namespace LegionRush
             Image mountains = Layer(scenery, "Background_Mountains", new Vector2(0.5f, 1f - 150f / 1920f), 1.02f, 0f, 0.4f);
             mountains.color = new Color(0.92f, 0.95f, 1f);
 
-            Image castle = Layer(scenery, "Background_FrozenKingdom", new Vector2(0.5f, 1f - 380f / 1920f), 1.45f, 0f, 0.7f);
+            Image castle = Layer(scenery, HiRes("Background_FrozenKingdom"), new Vector2(0.5f, 1f - 380f / 1920f), 1.45f, 0f, 0.7f);
             RectTransform castleRect = castle.rectTransform;
 
-            // Chão de neve escurecendo até a base, fundindo com o pé do castelo.
-            Image ground = MainMenuArt.Image(scenery, "Background_Ground", "Ground");
-            ground.preserveAspect = false;
+            // Chão: degradê azul (transparente -> #1C3E96 -> #081A4D) a partir de 44 % da altura, sem a faixa de névoa clara.
+            Image ground = UI.Rect(scenery, "Ground").gameObject.AddComponent<Image>();
+            ground.sprite = GroundGradient();
+            ground.raycastTarget = false;
             RectTransform g = ground.rectTransform;
             g.anchorMin = new Vector2(0f, 0f);
-            g.anchorMax = new Vector2(1f, 0f);
-            g.pivot = new Vector2(0.5f, 0f);
-            g.sizeDelta = new Vector2(0f, 760f);
+            g.anchorMax = new Vector2(1f, 0.44f);
+            g.offsetMin = g.offsetMax = Vector2.zero;
 
-            // Pinheiros, rochas, bandeiras e tochas nas laterais, presos ao castelo (acompanham sua escala).
-            Deco(castleRect, "Deco_Pine_2", -0.06f, -0.38f, 0.17f, 0.32f, false, 0f, 0.9f);
-            Deco(castleRect, "Deco_Pine_2", 0.83f, -0.38f, 1.06f, 0.32f, true, 0f, 0.9f);
-            Deco(castleRect, "Deco_SnowRock_3", -0.04f, -0.36f, 0.2f, -0.08f, false, 0f, 1f);
-            Deco(castleRect, "Deco_SnowRock_2", 0.8f, -0.36f, 1.04f, -0.1f, true, 0f, 1f);
+            // Só as tochas presas ao castelo; bandeiras, pinheiros e rochas saíram (ficavam atrás dos botões e da multidão).
             Deco(castleRect, "Deco_Torch_1", 0.27f, -0.2f, 0.36f, 0.16f, false, 0f, 1.1f);
             Deco(castleRect, "Deco_Torch_2", 0.64f, -0.2f, 0.73f, 0.16f, false, 0f, 1.1f);
-            Deco(castleRect, "Deco_Banner_1", 0.1f, -0.28f, 0.26f, 0.3f, false, 2.5f, 1.2f);
-            Deco(castleRect, "Deco_Banner_1", 0.74f, -0.28f, 0.9f, 0.3f, false, 2.5f, 1.2f);
 
-            // Rei de costas erguendo a espada e o exército avançando (primeiro plano).
-            Image army = MainMenuArt.Image(scenery, "Character_KingArmy", "KingArmy");
+            // Exército atrás do rei, em 2 camadas (fundo e frente), com a arte Character_ArmyCrowd do Prompt 2.
+            Crowd(scenery, 610f, 0.78f, 1.2f, 300f, 330f);
+            Crowd(scenery, 660f, 0.92f, 1.4f, 340f, 230f);
+
+            // Rei de costas erguendo a espada: a espada fica logo abaixo do logo e o pé atrás do painel do mundo.
+            Image army = MainMenuArt.Image(scenery, MainMenuArt.Has("Character_King_2048") ? "Character_King_2048" : "Character_KingArmy", "KingArmy");
             RectTransform a = army.rectTransform;
             a.anchorMin = a.anchorMax = new Vector2(0.5f, 0f);
             a.pivot = new Vector2(0.5f, 0f);
-            float width = 1000f;
-            a.sizeDelta = new Vector2(width, width * 463f / 420f);
-            a.anchoredPosition = new Vector2(10f, 150f);
+            float width = 800f;
+            float aspect = army.sprite != null ? army.sprite.rect.height / army.sprite.rect.width : 463f / 420f;
+            a.sizeDelta = new Vector2(width, width * aspect);
+            a.anchoredPosition = new Vector2(0f, 243f);
             army.gameObject.AddComponent<UIParallaxLayer>().depth = 1.6f;
 
             UISnow.Attach(scenery);
 
             // Sombras para leitura: topo (perfil e carteira) e base (painel, JOGAR, navegação).
             Shade(scenery, true, 300f, 0.55f);
-            Shade(scenery, false, 760f, 1f);
+            Image bottom = Shade(scenery, false, 420f, 0.85f);
+            bottom.color = new Color(0.02f, 0.07f, 0.23f, 0.85f);
+        }
+
+        // Duas metades espelhadas da multidão (esquerda e direita), com o centro vazio para o rei.
+        private static void Crowd(RectTransform parent, float width, float tint, float depth, float offsetX, float y)
+        {
+            // Sem a arte própria não monta nada: o recorte do sprite do rei mostrava só a capa, não soldados.
+            if (!MainMenuArt.Has("Character_ArmyCrowd")) return;
+            for (int side = -1; side <= 1; side += 2)
+            {
+                RectTransform holder = UI.Rect(parent, side < 0 ? "CrowdL" : "CrowdR");
+                holder.anchorMin = holder.anchorMax = new Vector2(0.5f, 0f);
+                holder.pivot = new Vector2(0.5f, 0f);
+                holder.anchoredPosition = new Vector2(side * offsetX, y);
+                holder.gameObject.AddComponent<UIParallaxLayer>().depth = depth;
+                holder.gameObject.AddComponent<RectMask2D>();
+                // Faixa larga, mais densa nas laterais; cada lado mostra a sua metade.
+                holder.sizeDelta = new Vector2(width, width * 0.75f);
+                Image crowd = MainMenuArt.Image(holder, "Character_ArmyCrowd", "Crowd");
+                RectTransform r = crowd.rectTransform;
+                r.anchorMin = new Vector2(side < 0 ? 0f : -1f, 0f);
+                r.anchorMax = new Vector2(side < 0 ? 2f : 1f, 1f);
+                r.offsetMin = r.offsetMax = Vector2.zero;
+                crowd.color = new Color(tint, tint, tint);
+            }
+        }
+
+        private static Sprite groundGradient;
+
+        private static Sprite GroundGradient()
+        {
+            if (groundGradient != null) return groundGradient;
+            const int h = 64;
+            var texture = new Texture2D(1, h, TextureFormat.RGBA32, false) { wrapMode = TextureWrapMode.Clamp, name = "LR_MenuGround" };
+            Color clear = new Color(0.11f, 0.24f, 0.59f, 0f);
+            Color mid = new Color(0x1C / 255f, 0x3E / 255f, 0x96 / 255f, 1f);
+            Color deep = new Color(0x08 / 255f, 0x1A / 255f, 0x4D / 255f, 1f);
+            for (int y = 0; y < h; y++)
+            {
+                float t = y / (h - 1f); // 0 = base, 1 = topo
+                texture.SetPixel(0, y, t > 0.5f ? Color.Lerp(mid, clear, (t - 0.5f) * 2f) : Color.Lerp(deep, mid, t * 2f));
+            }
+            texture.Apply(false, true);
+            groundGradient = Sprite.Create(texture, new Rect(0, 0, 1, h), new Vector2(0.5f, 0.5f), 100f);
+            return groundGradient;
         }
 
         // Camada larga presa ao topo: largura relativa ao canvas, altura pela proporção do sprite.
@@ -121,7 +168,7 @@ namespace LegionRush
             if (sway != 0f) image.rectTransform.pivot = new Vector2(0.5f, 0.95f);
         }
 
-        private static void Shade(RectTransform parent, bool top, float height, float alpha)
+        private static Image Shade(RectTransform parent, bool top, float height, float alpha)
         {
             Image shade = MainMenuArt.Image(parent, "Shade_Vertical", top ? "ShadeTop" : "ShadeBottom");
             shade.preserveAspect = false;
@@ -132,13 +179,14 @@ namespace LegionRush
             rect.pivot = new Vector2(0.5f, top ? 1f : 0f);
             rect.sizeDelta = new Vector2(0f, height);
             if (top) rect.localScale = new Vector3(1f, -1f, 1f);
+            return shade;
         }
 
         // ---------------------------------------------------------------- topo
 
         private void BuildTop(RectTransform root)
         {
-            Image logo = MainMenuArt.Image(root, "Logo_LegionRush", "Logo");
+            Image logo = MainMenuArt.Image(root, HiRes("Logo_LegionRush"), "Logo");
             LegionUI.Place(logo.rectTransform, LegionUI.Edge.Top, 170, 104, 770, 506);
             logo.gameObject.AddComponent<UILogoIntro>();
             UIShineSweep.Attach(logo.rectTransform);

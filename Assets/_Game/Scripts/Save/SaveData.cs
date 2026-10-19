@@ -12,6 +12,8 @@ namespace LegionRush
         public int version = CurrentVersion;
         public long createdUtcTicks;
         public long updatedUtcTicks;
+        public string playerName = string.Empty;   // vazio = "Comandante"
+        public bool playerNameAsked;               // perguntado no primeiro acesso
         public WalletData wallet = new WalletData();
         public ProgressData progress = new ProgressData();
         public TroopData troops = new TroopData();

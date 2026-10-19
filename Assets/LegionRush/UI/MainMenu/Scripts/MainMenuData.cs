@@ -83,7 +83,7 @@ namespace LegionRush
             int boss = HighestBossLevel();
             var model = new MainMenuModel
             {
-                PlayerName = "Comandante",
+                PlayerName = PlayerNamePrompt.NameOf(save),
                 PlayerLevel = save.progress.highestUnlocked,
                 Xp = save.progress.TotalStars(),
                 XpMax = LevelCatalog.TotalLevels * 3,

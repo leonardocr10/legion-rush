@@ -42,7 +42,8 @@ namespace LegionRush
             playerName.text = name;
             level.text = "Nível " + playerLevel;
             xp.text = $"{MainMenuCurrencyBar.Short(xpNow)} / {MainMenuCurrencyBar.Short(xpMax)}";
-            bar.Set(xpMax > 0 ? xpNow / (float)xpMax : 0f);
+            // Preenchimento mínimo de 6 %: a barra vazia parecia quebrada.
+            bar.Set(Mathf.Max(0.06f, xpMax > 0 ? xpNow / (float)xpMax : 0f));
         }
     }
 }

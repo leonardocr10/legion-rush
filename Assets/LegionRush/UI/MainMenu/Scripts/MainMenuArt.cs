@@ -20,6 +20,13 @@ namespace LegionRush
             return null;
         }
 
+        // Existe no catálogo? (sem aviso; usado para trocar pela arte nova quando ela chegar)
+        public static bool Has(string name)
+        {
+            if (map == null) Load();
+            return map.TryGetValue(name, out Sprite sprite) && sprite != null;
+        }
+
         private static void Load()
         {
             map = new Dictionary<string, Sprite>();

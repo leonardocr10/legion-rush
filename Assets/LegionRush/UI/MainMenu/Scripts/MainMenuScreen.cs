@@ -11,6 +11,7 @@ namespace LegionRush
 
         private MainMenuView view;
         private IMainMenuData data;
+        private bool asking;
 
         public MainMenuView View => view;
 
@@ -28,6 +29,15 @@ namespace LegionRush
             if (!SaveManager.IsLoaded) return;
             view.Bind(data.Snapshot());
             GameAudio.PlayMusic(MusicTrack.Menu);
+            if (PlayerNamePrompt.NeedsAsking && !asking)
+            {
+                asking = true;
+                PlayerNamePrompt.Show(Root, () =>
+                {
+                    asking = false;
+                    Refresh();
+                });
+            }
         }
 
         public override void OnBack()
