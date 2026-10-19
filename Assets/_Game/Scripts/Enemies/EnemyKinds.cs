@@ -13,6 +13,9 @@ namespace LegionRush
     {
         public const int Count = 6;
 
+        // Teste (build de desenvolvimento): força este patamar em todas as ondas. 0 = desligado.
+        public static int DevMixLevel { get; set; }
+
         public struct Profile
         {
             public float Health, Damage, Range, Interval, Speed, ArmorBonus;
@@ -21,17 +24,17 @@ namespace LegionRush
             public float BlockChance;  // chance de bloquear com o escudo (reduz 70% do dano)
             public bool Rage;          // abaixo de 50% de vida: ataques mais rápidos e mais velocidade
             public float Weight;       // peso no sorteio da composição das ondas
-            public int UnlockLevel;    // primeira fase em que aparece na composição automática
+            public int UnlockTier;     // patamar a partir do qual entra na composição automática (ver Tier)
         }
 
         private static readonly Profile[] Profiles =
         {
-            new Profile { Health = 1f, Damage = 1f, Range = 0f, Interval = 1f, Speed = 1f, Weight = 5f, UnlockLevel = 1 },
-            new Profile { Health = 0.7f, Damage = 0.75f, Range = 7f, Interval = 1.35f, Speed = 0.95f, Ranged = true, Weight = 2f, UnlockLevel = 2 },
-            new Profile { Health = 1.05f, Damage = 1.1f, Range = 0.9f, Interval = 1.1f, Speed = 0.95f, Weight = 2f, UnlockLevel = 3 },
-            new Profile { Health = 1.25f, Damage = 1.45f, Range = 0f, Interval = 1.1f, Speed = 1.2f, Rage = true, Weight = 1.5f, UnlockLevel = 4 },
-            new Profile { Health = 2.2f, Damage = 1.15f, Range = 0f, Interval = 1.25f, Speed = 0.72f, ArmorBonus = 25f, BlockChance = 0.3f, Weight = 1f, UnlockLevel = 5 },
-            new Profile { Health = 0.8f, Damage = 1.3f, Range = 6.5f, Interval = 1.8f, Speed = 0.9f, Ranged = true, AreaRadius = 1.4f, Weight = 1f, UnlockLevel = 6 },
+            new Profile { Health = 1f, Damage = 1f, Range = 0f, Interval = 1f, Speed = 1f, Weight = 5f, UnlockTier = 1 },
+            new Profile { Health = 0.7f, Damage = 0.75f, Range = 7f, Interval = 1.35f, Speed = 0.95f, Ranged = true, Weight = 2f, UnlockTier = 2 },
+            new Profile { Health = 1.05f, Damage = 1.1f, Range = 0.9f, Interval = 1.1f, Speed = 0.95f, Weight = 2f, UnlockTier = 2 },
+            new Profile { Health = 1.25f, Damage = 1.45f, Range = 0f, Interval = 1.1f, Speed = 1.2f, Rage = true, Weight = 1.5f, UnlockTier = 3 },
+            new Profile { Health = 2.2f, Damage = 1.15f, Range = 0f, Interval = 1.25f, Speed = 0.72f, ArmorBonus = 25f, BlockChance = 0.3f, Weight = 1f, UnlockTier = 4 },
+            new Profile { Health = 0.8f, Damage = 1.3f, Range = 6.5f, Interval = 1.8f, Speed = 0.9f, Ranged = true, AreaRadius = 1.4f, Weight = 1f, UnlockTier = 4 },
         };
 
         public static Profile Get(EnemyKind kind) => Profiles[Mathf.Clamp((int)kind, 0, Count - 1)];
@@ -63,11 +66,16 @@ namespace LegionRush
             };
         }
 
-        // Composição de uma onda: tipos liberados pela fase, sorteio determinístico, à distância nas fileiras de trás.
-        public static void FillWave(List<EnemyKind> output, int count, int levelNumber, int seed, IReadOnlyList<EnemyKind> fixedMix)
+        // Patamar de uma onda: cresce a cada onda e a cada fase. Na fase 1: onda 1 só Soldados; onda 2 + Arqueiros e
+        // Piqueiros; onda 3 + Berserkers; onda 4 + Guerreiros Pesados e Magos Sombrios. Da fase 4 em diante, todos desde a 1ª onda.
+        public static int Tier(int levelNumber, int waveIndex) => Mathf.Max(1, levelNumber) + Mathf.Max(0, waveIndex);
+
+        // Composição de uma onda: tipos liberados pelo patamar, sorteio determinístico, à distância nas fileiras de trás.
+        public static void FillWave(List<EnemyKind> output, int count, int tier, int seed, IReadOnlyList<EnemyKind> fixedMix)
         {
             output.Clear();
             var rng = new System.Random(seed);
+            if (DevMixLevel > 0) tier = DevMixLevel;
             if (fixedMix != null && fixedMix.Count > 0)
             {
                 for (int i = 0; i < count; i++) output.Add(fixedMix[i % fixedMix.Count]);
@@ -76,14 +84,14 @@ namespace LegionRush
             {
                 float total = 0f;
                 for (int k = 0; k < Count; k++)
-                    if (levelNumber >= Profiles[k].UnlockLevel) total += Profiles[k].Weight;
+                    if (tier >= Profiles[k].UnlockTier) total += Profiles[k].Weight;
                 for (int i = 0; i < count; i++)
                 {
                     double roll = rng.NextDouble() * total;
                     EnemyKind pick = EnemyKind.Soldier;
                     for (int k = 0; k < Count; k++)
                     {
-                        if (levelNumber < Profiles[k].UnlockLevel) continue;
+                        if (tier < Profiles[k].UnlockTier) continue;
                         roll -= Profiles[k].Weight;
                         if (roll <= 0) { pick = (EnemyKind)k; break; }
                     }

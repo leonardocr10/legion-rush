@@ -142,7 +142,66 @@ namespace LegionRush
             }
             else if (showSplash) ui.Replace<SplashScreen>();
             else ui.Replace<MainMenuScreen>();
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            DevAutoStart();
+#endif
         }
+
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        // Só em builds de desenvolvimento: "?lrlevel=6" na URL (WebGL) ou "-lrlevel 6" na linha de comando abre a fase
+        // direto na corrida, sem salvar o desbloqueio. "lrspeed=2" acelera o tempo; "lrmix=4" força o patamar de inimigos.
+        private void DevAutoStart()
+        {
+            int mix = DevArgument("lrmix");
+            if (mix > 0)
+            {
+                EnemyKinds.DevMixLevel = mix;
+                GameLog.Info($"[DevAutoStart] Composição de inimigos do patamar {mix} em todas as ondas.");
+                Restart();
+            }
+            int level = DevArgument("lrlevel");
+            if (level <= 0 || !catalog.Has(level)) return;
+            if (SplashScreenController.IsShowing)
+            {
+                // a tela de abertura reabre o menu ao terminar; a corrida começa logo depois disso
+                void AfterSplash()
+                {
+                    SplashScreenController.Finished -= AfterSplash;
+                    StartDevRun(level);
+                }
+                SplashScreenController.Finished += AfterSplash;
+                return;
+            }
+            StartDevRun(level);
+        }
+
+        private void StartDevRun(int level)
+        {
+            int speed = DevArgument("lrspeed");
+            SaveManager.Current.progress.highestUnlocked = Mathf.Max(SaveManager.Current.progress.highestUnlocked, level);
+            SelectLevel(level);
+            Restart();
+            StartRun();
+            if (speed > 1) Time.timeScale = speed;
+            GameLog.Info($"[DevAutoStart] Fase {level} iniciada (tempo x{Mathf.Max(1, speed)}).");
+        }
+
+        private static int DevArgument(string key)
+        {
+            string url = Application.absoluteURL ?? string.Empty;
+            int at = url.IndexOf(key + "=", System.StringComparison.OrdinalIgnoreCase);
+            if (at >= 0)
+            {
+                int start = at + key.Length + 1, end = start;
+                while (end < url.Length && char.IsDigit(url[end])) end++;
+                if (int.TryParse(url.Substring(start, end - start), out int fromUrl)) return fromUrl;
+            }
+            string[] args = System.Environment.GetCommandLineArgs();
+            for (int i = 0; i < args.Length - 1; i++)
+                if (args[i] == "-" + key && int.TryParse(args[i + 1], out int fromArgs)) return fromArgs;
+            return 0;
+        }
+#endif
 
         // ---------- Fluxo ----------
 

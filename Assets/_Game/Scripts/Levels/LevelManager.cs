@@ -548,8 +548,9 @@ namespace LegionRush
             int waveIndex = 0;
             foreach (EnemyWave wave in config.waves)
             {
-                EnemyKinds.FillWave(waveKinds, wave.count, config.levelNumber, config.levelNumber * 7919 + waveIndex++ * 131,
-                    wave.kinds);
+                EnemyKinds.FillWave(waveKinds, wave.count, EnemyKinds.Tier(config.levelNumber, waveIndex),
+                    config.levelNumber * 7919 + waveIndex * 131, wave.kinds);
+                waveIndex++;
                 int maxColumns = Mathf.Max(1, Mathf.FloorToInt((config.trackHalfWidth * 2f - 1f) / wave.spacing) + 1);
                 int columns = Mathf.Clamp(Mathf.CeilToInt(Mathf.Sqrt(wave.count * 1.6f)), 1, maxColumns);
                 for (int i = 0; i < wave.count; i++)
@@ -560,6 +561,7 @@ namespace LegionRush
                     float z = wave.z + rowIndex * wave.spacing;
                     SpawnEnemy(new Vector3(x, 0f, z), wave.healthMultiplier, config.enemy.color, waveKinds[i]);
                 }
+                GameLog.Info($"Onda em z={wave.z:0}: {DescribeKinds(waveKinds)}.");
             }
         }
 
@@ -572,6 +574,16 @@ namespace LegionRush
             enemy.Initialize(KindStats(kind), healthMultiplier, this, army, kind);
             CombatRegistry.Register(enemy);
             return enemy;
+        }
+
+        private static string DescribeKinds(List<EnemyKind> kinds)
+        {
+            var counts = new int[EnemyKinds.Count];
+            foreach (EnemyKind k in kinds) counts[(int)k]++;
+            var parts = new List<string>();
+            for (int i = 0; i < counts.Length; i++)
+                if (counts[i] > 0) parts.Add($"{counts[i]} {(EnemyKind)i}");
+            return string.Join(", ", parts);
         }
 
         // Atributos do tipo derivados do EnemyStats da fase (um por tipo, criado sob demanda).

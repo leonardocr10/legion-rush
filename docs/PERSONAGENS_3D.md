@@ -121,9 +121,11 @@ aplicado pelo sistema de combate no tempo de impacto (`impactDelay` do prefab = 
 - Tropas, comandante e inimigos usam os prefabs pela `CharacterVisualLibrary` (sem prefab, volta ao boneco provisório).
 - Flechas e magias saem do encaixe `ProjectileSpawn`; flechas usam os modelos `Weapon_RoyalArrow`/`Weapon_EnemyArrow`.
 - Comandante: corrida pelo Animator, "Comando" ao usar habilidade, comemoração na vitória.
-- **Tipos de inimigo** (`EnemyKinds`), liberados por fase (1: Soldado; 2: +Arqueiro; 3: +Piqueiro; 4: +Berserker;
-  5: +Pesado; 6: +Mago Sombrio). Ondas sorteiam a composição (determinística por fase) com corpo a corpo na frente
-  e atiradores atrás; `EnemyWave.kinds` permite fixar a composição.
+- **Tipos de inimigo** (`EnemyKinds`), liberados por **patamar** = fase + índice da onda (`EnemyKinds.Tier`).
+  Na fase 1 (a única do catálogo hoje): onda 1 só Soldados; onda 2 + Arqueiros e Piqueiros; onda 3 + Berserkers;
+  onda 4 + Guerreiros Pesados e Magos Sombrios. Fases seguintes começam mais adiante (da fase 4 em diante, todos
+  desde a primeira onda). Sorteio determinístico, corpo a corpo na frente e atiradores atrás; `EnemyWave.kinds`
+  fixa a composição de uma onda.
   - Arqueiro: flecha à distância (7 m), menos vida. Mago Sombrio: orbe de fogo com dano em área no exército.
   - Piqueiro: alcance maior. Berserker: fúria abaixo de 50% de vida (ataques 40% mais rápidos, +25% velocidade, animação Rage).
   - Guerreiro Pesado: muita vida/armadura, lento, 30% de chance de bloquear (−70% de dano, animação de escudo).
@@ -136,8 +138,17 @@ aplicado pelo sistema de combate no tempo de impacto (`impactDelay` do prefab = 
   e `animations.png` (6 quadros por clip); cena de jogo em `Builds/CharacterUnity/gameplay*.png`
   (exército azul com as 6 classes + comandante, inimigos dos 6 tipos). Prévias do Blender em `Builds/CharacterPreview/`.
 
+- Build WebGL de desenvolvimento (`Legion Rush › Personagens › Build WebGL de teste`, saída `Builds/WebGL/CharTest`,
+  servidor `webgl-chartest` porta 8097) jogado no navegador: fase 1 normal e fase 1 com todos os tipos forçados
+  (`?lrlevel=1&lrmix=6`). Todos os tipos surgiram e lutaram (flechas/orbes inimigos, dano no exército, mortes),
+  sem exceções de script. Parâmetros de teste só existem em builds de desenvolvimento:
+  `lrlevel=N` (abre a fase direto), `lrmix=N` (força o patamar das ondas), `lrspeed=N` (acelera o tempo).
+- Erros vistos no console que não vêm dos personagens: `RenderTextureDesc width must be greater than zero`
+  (Render Graph, durante a tela de abertura) e `screen.orientation.lock()` indisponível no navegador de desktop.
+
 ### Pendente
 
-- Teste jogando (Play/WebGL/Android): combate com os novos tipos de inimigo, Console sem erros e FPS no aparelho.
+- FPS medido em aparelho Android; ajuste de dificuldade da fase 1 com os novos tipos (com tudo forçado e sem
+  conduzir o exército pelos portais, a partida termina em derrota).
 - VFX específicos por classe (fúria, cura em área, faíscas de bloqueio): hoje usam as partículas existentes (`Vfx.Burst`).
 - Refinamento artístico (escultura/textura pintada) para aproximar dos detalhes das folhas de referência.
