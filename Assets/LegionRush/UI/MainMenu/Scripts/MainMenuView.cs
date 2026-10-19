@@ -57,7 +57,8 @@ namespace LegionRush
             Image mountains = Layer(scenery, "Background_Mountains", new Vector2(0.5f, 1f - 150f / 1920f), 1.02f, 0f, 0.4f);
             mountains.color = new Color(0.92f, 0.95f, 1f);
 
-            Image castle = Layer(scenery, HiRes("Background_FrozenKingdom"), new Vector2(0.5f, 1f - 380f / 1920f), 1.45f, 0f, 0.7f);
+            // Castelo mais distante, como na referência: menor e com o topo logo abaixo do logo.
+            Image castle = Layer(scenery, HiRes("Background_FrozenKingdom"), new Vector2(0.5f, 1f - 470f / 1920f), 1.2f, 0f, 0.7f);
             RectTransform castleRect = castle.rectTransform;
 
             // Chão: degradê azul (transparente -> #1C3E96 -> #081A4D) a partir de 44 % da altura, sem a faixa de névoa clara.
@@ -73,20 +74,53 @@ namespace LegionRush
             Deco(castleRect, "Deco_Torch_1", 0.27f, -0.2f, 0.36f, 0.16f, false, 0f, 1.1f);
             Deco(castleRect, "Deco_Torch_2", 0.64f, -0.2f, 0.73f, 0.16f, false, 0f, 1.1f);
 
-            // Exército atrás do rei, em 2 camadas (fundo e frente), com a arte Character_ArmyCrowd do Prompt 2.
-            Crowd(scenery, 610f, 0.78f, 1.2f, 300f, 330f);
-            Crowd(scenery, 660f, 0.92f, 1.4f, 340f, 230f);
+            // Exército nas laterais, como na referência. Com Character_ArmyCrowd (Prompt 2) usa a arte nova; sem ela, monta a
+            // tropa com os soldados do próprio sprite do rei (recortes sem a capa), espelhados e em profundidades diferentes.
+            // Rei e tropa num grupo preso à base que sobe em telas mais altas que 16:9 (sem vão de neve sob o castelo).
+            RectTransform army = UI.Rect(scenery, "ArmyGroup");
+            army.gameObject.AddComponent<UITallScreenLift>().factor = 0.55f;
+            bool crowdArt = MainMenuArt.Has("Character_ArmyCrowd");
+            if (crowdArt)
+            {
+                Crowd(army, 610f, 0.78f, 1.2f, 300f, 330f);
+                Crowd(army, 660f, 0.92f, 1.4f, 340f, 230f);
+            }
+            else
+            {
+                // Fundo: lanceiros menores e mais escuros, mais altos na tela (mais distantes).
+                SoldierCrop(army, SpearSoldiers, 1.25f, -360f, 640f, true, 0.66f, 1.15f);
+                SoldierCrop(army, SpearSoldiers, 1.25f, 360f, 640f, false, 0.66f, 1.15f);
+                SoldierCrop(army, ShieldSoldiers, 1.35f, -230f, 590f, false, 0.72f, 1.2f);
+                SoldierCrop(army, ShieldSoldiers, 1.35f, 230f, 590f, true, 0.72f, 1.2f);
+                SoldierCrop(army, SpearSoldiers, 1.1f, -140f, 690f, false, 0.6f, 1.1f);
+                SoldierCrop(army, SpearSoldiers, 1.1f, 140f, 690f, true, 0.6f, 1.1f);
+                // Meio.
+                SoldierCrop(army, ShieldSoldiers, 1.6f, -300f, 520f, true, 0.8f, 1.25f);
+                SoldierCrop(army, ShieldSoldiers, 1.6f, 300f, 520f, false, 0.8f, 1.25f);
+                SoldierCrop(army, ShieldSoldiers, 1.8f, -450f, 450f, false, 0.86f, 1.3f);
+                SoldierCrop(army, ShieldSoldiers, 1.8f, 450f, 450f, true, 0.86f, 1.3f);
+            }
 
             // Rei de costas erguendo a espada: a espada fica logo abaixo do logo e o pé atrás do painel do mundo.
-            Image army = MainMenuArt.Image(scenery, MainMenuArt.Has("Character_King_2048") ? "Character_King_2048" : "Character_KingArmy", "KingArmy");
-            RectTransform a = army.rectTransform;
+            Image king = MainMenuArt.Image(army, MainMenuArt.Has("Character_King_2048") ? "Character_King_2048" : "Character_KingArmy", "KingArmy");
+            RectTransform a = king.rectTransform;
             a.anchorMin = a.anchorMax = new Vector2(0.5f, 0f);
             a.pivot = new Vector2(0.5f, 0f);
-            float width = 800f;
-            float aspect = army.sprite != null ? army.sprite.rect.height / army.sprite.rect.width : 463f / 420f;
+            // Mesma escala da referência (rei ~64 % da largura do grid, espada logo abaixo do logo, capa atrás do painel).
+            float width = 602f;
+            float aspect = king.sprite != null ? king.sprite.rect.height / king.sprite.rect.width : 463f / 420f;
             a.sizeDelta = new Vector2(width, width * aspect);
-            a.anchoredPosition = new Vector2(0f, 243f);
-            army.gameObject.AddComponent<UIParallaxLayer>().depth = 1.6f;
+            a.anchoredPosition = new Vector2(0f, 414f);
+            king.gameObject.AddComponent<UIParallaxLayer>().depth = 1.6f;
+
+            // Frente: soldados maiores nas bordas, por cima das laterais do rei.
+            if (!crowdArt)
+            {
+                SoldierCrop(army, SpearSoldiers, 2.2f, -430f, 300f, true, 0.95f, 1.5f);
+                SoldierCrop(army, SpearSoldiers, 2.2f, 430f, 300f, false, 0.95f, 1.5f);
+                SoldierCrop(army, ShieldSoldiers, 2.4f, -470f, 150f, false, 0.9f, 1.6f);
+                SoldierCrop(army, ShieldSoldiers, 2.4f, 470f, 150f, true, 0.9f, 1.6f);
+            }
 
             UISnow.Attach(scenery);
 
@@ -118,6 +152,33 @@ namespace LegionRush
                 r.offsetMin = r.offsetMax = Vector2.zero;
                 crowd.color = new Color(tint, tint, tint);
             }
+        }
+
+        // Recortes (em pixels do sprite Character_KingArmy, origem no canto inferior esquerdo) com os soldados sem a capa.
+        private static readonly Rect ShieldSoldiers = new Rect(0f, 0f, 150f, 160f);   // capacetes e escudos, à esquerda
+        private static readonly Rect SpearSoldiers = new Rect(300f, 0f, 115f, 225f);  // lanceiros, à direita
+
+        // Mostra só o retângulo `crop` do sprite do rei, na escala `scale` (unidades por pixel), com o pé em (x, y).
+        private static void SoldierCrop(RectTransform parent, Rect crop, float scale, float x, float y, bool mirror, float tint, float depth)
+        {
+            Sprite king = MainMenuArt.Get("Character_KingArmy");
+            if (king == null) return;
+            RectTransform holder = UI.Rect(parent, "Soldiers");
+            holder.anchorMin = holder.anchorMax = new Vector2(0.5f, 0f);
+            holder.pivot = new Vector2(0.5f, 0f);
+            holder.sizeDelta = new Vector2(crop.width * scale, crop.height * scale);
+            holder.anchoredPosition = new Vector2(x, y);
+            holder.gameObject.AddComponent<RectMask2D>();
+            holder.gameObject.AddComponent<UIParallaxLayer>().depth = depth;
+            if (mirror) holder.localScale = new Vector3(-1f, 1f, 1f);
+
+            Image image = MainMenuArt.Image(holder, "Character_KingArmy", "Crop");
+            image.preserveAspect = false;
+            RectTransform r = image.rectTransform;
+            r.anchorMin = r.anchorMax = r.pivot = Vector2.zero;
+            r.sizeDelta = new Vector2(king.rect.width * scale, king.rect.height * scale);
+            r.anchoredPosition = new Vector2(-crop.x * scale, -crop.y * scale);
+            image.color = new Color(tint, tint, tint * 1.04f);
         }
 
         private static Sprite groundGradient;
