@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,7 +21,7 @@ namespace LegionRush
         private Image bossArt;
         private Image bossLock;
         private MainMenuNavButton home, heroes, troops, pass, more;
-        private MainMenuModal moreModal;
+        private LegionModal moreModal;
         private MainMenuModel model;
 
         public RectTransform Root { get; }
@@ -307,30 +308,38 @@ namespace LegionRush
             Enter(button.transform, new Vector2(0f, -220f), delay);
         }
 
-        // MAIS: as demais telas do jogo, com os mesmos botões das colunas.
+        // MAIS (LegionModal): fundo #040C24 a 75 %, moldura 9-slice e X dentro. Ícone com 60 % da altura e rótulo em 26.
+        // RECORDES e DIÁRIA repetiam o RANKING e o baú da tela inicial: no lugar, MELHORIAS e CONFIGURAÇÕES.
         private void BuildMoreMenu(RectTransform root)
         {
-            moreModal = MainMenuModal.Create(root, "MAIS");
+            moreModal = LegionModal.Create(root, "MAIS", 0.26f, 0.74f);
             (string icon, string label, MainMenuDestination destination)[] items =
             {
                 ("Icon_Home", "MUNDOS", MainMenuDestination.Worlds),
                 ("Icon_Store", "INVENTÁRIO", MainMenuDestination.Inventory),
                 ("Icon_Upgrades", "EQUIPAR", MainMenuDestination.Equipment),
                 ("Icon_Rewards", "CONQUISTAS", MainMenuDestination.Achievements),
-                ("Icon_Season", "RECORDES", MainMenuDestination.Ranking),
-                ("Icon_TimedChest", "DIÁRIA", MainMenuDestination.DailyChest),
+                ("Icon_Upgrades", "MELHORIAS", MainMenuDestination.Upgrades),
+                ("Settings", "AJUSTES", MainMenuDestination.Settings),
             };
             for (int i = 0; i < items.Length; i++)
             {
                 var item = items[i];
-                MainMenuSideButton button = MainMenuSideButton.Create(moreModal.Content, item.icon, item.label, () =>
+                Image tile = MainMenuArt.Image(moreModal.Content, "Button_SideFrame", "Item_" + item.label, true);
+                int column = i % 3;
+                int row = i / 3;
+                UI.Place(tile.rectTransform, 0.02f + column * 0.33f, 0.52f - row * 0.52f, 0.31f + column * 0.33f, 1f - row * 0.52f);
+                Image icon = item.icon == "Settings"
+                    ? MainMenuArt.Image(tile.transform, "Button_Settings", "Icon")
+                    : MainMenuArt.Image(tile.transform, item.icon, "Icon");
+                UI.Place(icon.rectTransform, 0.14f, 0.36f, 0.86f, 0.96f);
+                TMP_Text label = MainMenuButtons.Label(tile.transform, item.label, 26f, LegionTextStyle.PrimaryButton, Color.white);
+                UI.Place(label.rectTransform, 0.03f, 0.04f, 0.97f, 0.34f);
+                MainMenuButtons.Make(tile.rectTransform, tile, () =>
                 {
                     moreModal.gameObject.SetActive(false);
                     Go(item.destination);
                 });
-                int column = i % 3;
-                int row = i / 3;
-                UI.Place((RectTransform)button.transform, 0.03f + column * 0.33f, 0.52f - row * 0.5f, 0.3f + column * 0.33f, 0.98f - row * 0.5f);
             }
         }
 
