@@ -16,7 +16,7 @@ namespace LegionRush.EditorTools
     {
         private static readonly (string name, int w, int h)[] Sizes =
         {
-            ("ref_1080x1920", 1080, 1920), ("phone_1080x2400", 1080, 2400)
+            ("ref_1080x1920", 1080, 1920), ("phone_1080x2400", 1080, 2400), ("fold_1768x2208", 1768, 2208)
         };
 
         private static readonly (string name, Func<UIScreen> create, (string field, string text)[] samples, bool gameBehind)[] Screens =
@@ -27,8 +27,22 @@ namespace LegionRush.EditorTools
                 new[] { ("goldValue", "+250"), ("scoreValue", "1.674"), ("scoreLabel", "Novo recorde!") }, false),
             ("pause", () => new PauseScreen(),
                 new[] { ("missionTitle", "Vença 5 batalhas"), ("missionCount", "3/5") }, true),
-            ("troops", () => new TroopScreen(), new (string, string)[0], false)
+            ("troops", () => new TroopScreen(), new (string, string)[0], false),
+            ("heroes", () => new HeroScreen(), new (string, string)[0], false),
+            ("shop", () => new ShopScreen(), new (string, string)[0], false),
+            ("settings", () => new SettingsScreen(), new (string, string)[0], false),
+            ("upgrades", () => new UpgradeScreen(), new (string, string)[0], false),
+            ("missions", () => new MissionsScreen(), new (string, string)[0], false),
+            ("daily", () => new DailyRewardScreen(), new (string, string)[0], false),
+            ("ranking", () => new RankingScreen(), new (string, string)[0], false)
         };
+
+        // -only shop,heroes captura só essas telas.
+        private static bool Wanted(string name)
+        {
+            string only = Argument("-only");
+            return string.IsNullOrEmpty(only) || Array.IndexOf(only.Split(','), name) >= 0;
+        }
 
         [MenuItem("Legion Rush/UI/Capturar prévias de telas (PNG)")]
         public static void CaptureMenu()
@@ -61,6 +75,7 @@ namespace LegionRush.EditorTools
             foreach (var size in Sizes)
             foreach (var entry in Screens)
             {
+                if (!Wanted(entry.name)) continue;
                 EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
                 Camera cam = new GameObject("Camera").AddComponent<Camera>();
                 cam.clearFlags = CameraClearFlags.SolidColor;
@@ -78,7 +93,7 @@ namespace LegionRush.EditorTools
                 scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
                 scaler.referenceResolution = new Vector2(1080f, 1920f);
                 scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
-                scaler.matchWidthOrHeight = 0f;
+                scaler.matchWidthOrHeight = size.w / (float)size.h > 0.7f ? 1f : 0f; // mesma regra do UIRoot
 
                 // Telas sobrepostas à partida (pausa) ganham um cenário de exemplo por trás.
                 if (entry.gameBehind)
@@ -88,25 +103,27 @@ namespace LegionRush.EditorTools
                     UI.Stretch(behind.rectTransform);
                 }
 
-                UIScreen screen = entry.create();
-                create.Invoke(screen, new object[] { null, canvasGo.transform });
-                foreach (var (field, text) in entry.samples) Fill(screen, field, text);
-                if (screen is TroopScreen)
+                // Save de exemplo em memória para todas as telas (o save real não é lido nem gravado).
+                PropertyInfo data = typeof(SaveManager).GetProperty("Data", BindingFlags.Static | BindingFlags.Public);
+                SaveData sample = SaveData.CreateNew();
+                sample.wallet.gold = 1250;
+                sample.wallet.gems = 40;
+                int[] levels = { 6, 8, 5, 3, 2, 4 };
+                for (int i = 0; i < ArmyConfig.ClassCount; i++)
                 {
-                    PropertyInfo data = typeof(SaveManager).GetProperty("Data", BindingFlags.Static | BindingFlags.Public);
-                    SaveData sample = SaveData.CreateNew();
-                    sample.wallet.gold = 1250;
-                    sample.wallet.gems = 40;
-                    int[] levels = { 6, 8, 5, 3, 2, 4 };
-                    for (int i = 0; i < ArmyConfig.ClassCount; i++)
-                    {
-                        sample.troops.levels[i] = levels[i];
-                        sample.troops.unlocked[i] = i != (int)UnitClass.Knight;
-                    }
-                    data.SetValue(null, sample);
-                    try { screen.Refresh(); }
-                    finally { data.SetValue(null, null); }
+                    sample.troops.levels[i] = levels[i];
+                    sample.troops.unlocked[i] = i != (int)UnitClass.Knight;
                 }
+                data.SetValue(null, sample);
+                UIScreen screen = entry.create();
+                try
+                {
+                    create.Invoke(screen, new object[] { null, canvasGo.transform });
+                    foreach (var (field, text) in entry.samples) Fill(screen, field, text);
+                    try { screen.Refresh(); }
+                    catch (Exception exception) { Debug.LogWarning($"[ScreenPreview] {entry.name}: Refresh sem UIRoot ({exception.GetType().Name})"); }
+                }
+                finally { data.SetValue(null, null); }
                 foreach (UISlideIn slide in canvasGo.GetComponentsInChildren<UISlideIn>(true)) UnityEngine.Object.DestroyImmediate(slide);
                 foreach (CanvasGroup group in canvasGo.GetComponentsInChildren<CanvasGroup>(true)) group.alpha = 1f;
                 foreach (Image fill in canvasGo.GetComponentsInChildren<Image>(true))

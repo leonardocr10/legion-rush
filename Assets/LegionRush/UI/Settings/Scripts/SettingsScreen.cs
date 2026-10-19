@@ -61,15 +61,7 @@ namespace LegionRush
             Image gear = MainMenuArt.Image(root, "Button_Settings", "Settings");
             LegionUI.Place(gear.rectTransform, LegionUI.Edge.TopRight, 860, 22, 928, 92);
 
-            Image back = HeroesArt.Image(root, "Button_Back", "Back");
-            LegionUI.Place(back.rectTransform, LegionUI.Edge.TopLeft, 20, 150, 106, 236);
-            MainMenuButtons.Make(back.rectTransform, back, OnBack);
-
-            Image header = LegionArt.Image(root, "Popups/popup_header", false, "Header");
-            LegionUI.Place(header.rectTransform, LegionUI.Edge.Top, 150, 96, 790, 282);
-            TMP_Text title = UI.Label(header.transform, "CONFIGURAÇÕES", 60, Color.white, TextAnchor.MiddleCenter, true, "Title", LegionTextStyle.Title);
-            UI.Place(title.rectTransform, 0.2f, 0.14f, 0.8f, 0.6f);
-            title.textWrappingMode = TextWrappingModes.NoWrap;
+            LegionHeader.Build(root, "CONFIGURAÇÕES", OnBack);
 
             for (int i = 0; i < TabDefs.Length; i++) Tab(root, i);
 

@@ -13,7 +13,9 @@ namespace LegionRush
         public MainMenuProfilePanel Profile { get; private set; }
         public MainMenuCurrencyBar Gold { get; private set; }
         public MainMenuCurrencyBar Gems { get; private set; }
+        public TMP_Text Title { get; private set; }
 
+        // titleWidth ficou só por compatibilidade: a faixa de título tem tamanho fixo no padrão novo.
         public static MenuChrome Build(RectTransform root, UIRoot ui, string title, Action onBack, float titleWidth = 560f)
         {
             var chrome = new MenuChrome();
@@ -38,16 +40,8 @@ namespace LegionRush
             LegionUI.Place(settings.rectTransform, LegionUI.Edge.TopRight, 860, 22, 928, 92);
             MainMenuButtons.Make(settings.rectTransform, settings, () => ui.Push<SettingsScreen>());
 
-            Image back = HeroesArt.Image(root, "Button_Back", "Back");
-            LegionUI.Place(back.rectTransform, LegionUI.Edge.TopLeft, 20, 150, 106, 236);
-            MainMenuButtons.Make(back.rectTransform, back, onBack);
-
-            float half = titleWidth * 0.5f;
-            Image header = LegionArt.Image(root, "Popups/popup_header", false, "Header");
-            LegionUI.Place(header.rectTransform, LegionUI.Edge.Top, 470 - half, 96, 470 + half, 270);
-            TMP_Text label = UI.Label(header.transform, title, 60, Color.white, TextAnchor.MiddleCenter, true, "Title", LegionTextStyle.Title);
-            UI.Place(label.rectTransform, 0.18f, 0.12f, 0.82f, 0.62f);
-            label.textWrappingMode = TextWrappingModes.NoWrap;
+            // Cabeçalho padrão (Tarefa 0.1): voltar 18,134,102,216 e título 223,130,718,226; o conteúdo começa em y 240.
+            chrome.Title = LegionHeader.Build(root, title, onBack);
             return chrome;
         }
 
@@ -87,11 +81,11 @@ namespace LegionRush
 
         // ---------- peças comuns ----------
 
+        // LegionPanel (Tarefa 0.6): 9-slice com borda azul e friso dourado; nunca o Button_SideFrame esticado.
         public static Image Panel(Transform parent, Vector4 box, float x0, float y0, float x1, float y1, string name = "Panel")
         {
-            Image panel = MainMenuArt.Image(parent, "Button_SideFrame", name, true);
-            LegionUI.Inside(panel.rectTransform, box, x0, y0, x1, y1);
-            return panel;
+            float edge = Mathf.Clamp((Mathf.Min(x1 - x0, y1 - y0)) / 220f, 0.55f, 1f);
+            return LegionPanel.Create(parent, box, x0, y0, x1, y1, name, edge);
         }
 
         public static TMP_Text Text(Transform parent, Vector4 box, float x0, float y0, float x1, float y1, string text, float size,

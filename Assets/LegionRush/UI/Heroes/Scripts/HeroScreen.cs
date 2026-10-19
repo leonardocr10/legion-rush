@@ -52,11 +52,12 @@ namespace LegionRush
             MainMenuButtons.Make(settings.rectTransform, settings, () => Ui.Push<SettingsScreen>());
 
             Image back = HeroesArt.Image(root, "Button_Back", "Back");
-            LegionUI.Place(back.rectTransform, LegionUI.Edge.TopLeft, 20, 150, 106, 236);
+            LegionUI.Place(back.rectTransform, LegionUI.Edge.TopLeft, LegionHeader.BackX0, LegionHeader.BackY0, LegionHeader.BackX1, LegionHeader.BackY1);
             MainMenuButtons.Make(back.rectTransform, back, OnBack);
 
             Image title = HeroesArt.Image(root, "Title_Heroes", "Title");
-            LegionUI.Place(title.rectTransform, LegionUI.Edge.Top, 160, 104, 780, 258);
+            // Faixa com o título desenhado na arte, na caixa padrão (abaixo da carteira).
+            LegionUI.Place(title.rectTransform, LegionUI.Edge.Top, LegionHeader.TitleX0, LegionHeader.TitleY0, LegionHeader.TitleX1, LegionHeader.TitleY1);
 
             float[] x0 = { 30, 254, 478, 702 };
             for (int i = 0; i < TabDefs.Length; i++)

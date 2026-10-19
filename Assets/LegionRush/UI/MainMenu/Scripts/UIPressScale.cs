@@ -19,34 +19,28 @@ namespace LegionRush
         public void OnPointerUp(PointerEventData eventData) => SetTarget(1f);
         public void OnPointerExit(PointerEventData eventData) => SetTarget(1f);
 
-        // Escurece a cor atual ao pressionar e devolve a mesma cor ao soltar (botões tingidos mantêm o tom).
-        private Color restore;
-        private Color darkened;
-        private bool darkenedActive;
+        // Escurece ao pressionar pelo multiplicador do CanvasRenderer (o mesmo do ColorTint do Unity), sem tocar em
+        // Graphic.color. Assim a cor/sprite de estado que a tela define (aba ligada, chave, botão tingido) nunca é
+        // sobrescrita: antes, devolver a cor "guardada" ao soltar pintava de branco o estado ligado.
+        private static readonly Color Pressed = new Color(0.86f, 0.86f, 0.9f, 1f);
 
         private void SetTarget(float value)
         {
             target = value;
-            if (graphic == null) return;
-            if (value < 1f && !darkenedActive)
-            {
-                restore = graphic.color;
-                darkened = new Color(restore.r * 0.86f, restore.g * 0.86f, restore.b * 0.9f, restore.a);
-                graphic.color = darkened;
-                darkenedActive = true;
-            }
-            else if (value >= 1f && darkenedActive)
-            {
-                // Se a tela trocou a cor enquanto o dedo estava em cima, a cor nova vale.
-                if (graphic.color == darkened) graphic.color = restore;
-                darkenedActive = false;
-            }
+            if (graphic != null) Tint(value < 1f ? Pressed : Color.white);
+        }
+
+        private void Tint(Color color)
+        {
+            color.a = graphic.canvasRenderer.GetAlpha();
+            graphic.canvasRenderer.SetColor(color);
         }
 
         private void OnDisable()
         {
             target = 1f;
             transform.localScale = Vector3.one;
+            if (graphic != null) Tint(Color.white);
         }
 
         private void Update()

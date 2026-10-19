@@ -32,6 +32,17 @@ namespace LegionRush
             return sprite;
         }
 
+        // Primeira arte existente da lista, sem aviso: a arte nova (Prompt 2) entra quando o PNG for salvo com o nome
+        // pedido; até lá vale a reserva do pacote atual.
+        public static string Pick(params string[] paths)
+        {
+            foreach (string path in paths)
+            {
+                if (cache.TryGetValue(path, out Sprite cached) ? cached != null : Resources.Load<Texture2D>(path) != null) return path;
+            }
+            return paths[paths.Length - 1];
+        }
+
         public static Vector4 Border(string path)
         {
             if (borders == null)

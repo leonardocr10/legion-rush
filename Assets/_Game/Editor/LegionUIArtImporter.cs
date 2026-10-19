@@ -24,7 +24,7 @@ namespace LegionRush.EditorTools
             importer.wrapMode = TextureWrapMode.Clamp;
             importer.filterMode = FilterMode.Bilinear;
             importer.spritePixelsPerUnit = 100f;
-            importer.maxTextureSize = 1024;
+            importer.maxTextureSize = 2048;
             importer.textureCompression = TextureImporterCompression.Compressed;
 
             var settings = new TextureImporterSettings();
@@ -36,7 +36,7 @@ namespace LegionRush.EditorTools
             var android = importer.GetPlatformTextureSettings("Android");
             android.overridden = true;
             android.format = TextureImporterFormat.ASTC_6x6;
-            android.maxTextureSize = 1024;
+            android.maxTextureSize = 2048;
             importer.SetPlatformTextureSettings(android);
         }
 

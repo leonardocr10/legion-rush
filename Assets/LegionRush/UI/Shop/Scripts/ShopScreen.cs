@@ -56,14 +56,7 @@ namespace LegionRush
             LegionUI.Place(settings.rectTransform, LegionUI.Edge.TopRight, 860, 22, 928, 92);
             MainMenuButtons.Make(settings.rectTransform, settings, () => Ui.Push<SettingsScreen>());
 
-            Image back = HeroesArt.Image(root, "Button_Back", "Back");
-            LegionUI.Place(back.rectTransform, LegionUI.Edge.TopLeft, 20, 150, 106, 236);
-            MainMenuButtons.Make(back.rectTransform, back, OnBack);
-
-            Image header = LegionArt.Image(root, "Popups/popup_header", false, "Header");
-            LegionUI.Place(header.rectTransform, LegionUI.Edge.Top, 190, 96, 750, 268);
-            TMP_Text title = UI.Label(header.transform, "LOJA", 72, Color.white, TextAnchor.MiddleCenter, true, "Title", LegionTextStyle.Title);
-            UI.Place(title.rectTransform, 0.25f, 0.12f, 0.75f, 0.62f);
+            LegionHeader.Build(root, "LOJA", OnBack);
 
             float[] x0 = { 20, 204, 384, 564, 744 };
             float[] x1 = { 198, 378, 558, 738, 920 };
