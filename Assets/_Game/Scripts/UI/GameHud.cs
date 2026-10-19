@@ -4,17 +4,20 @@ using UnityEngine.UI;
 
 namespace LegionRush
 {
-    // HUD da partida em UGUI com a arte da prancha de batalha (Resources/Hud): moedas, nível com progresso,
-    // gemas, pausa, barra do chefão, retratos laterais com a contagem por classe e botões de habilidade.
+    // HUD da partida (proposta 1b de entrega/telas/HUD Batalha - Propostas.html) com a arte Hud/ recortada da referência:
+    // moedas e gemas abreviadas, nível com 3 nós, ajustes, barra do chefão, retratos laterais (o rei mostra o total do
+    // exército) e 4 habilidades compactas. A postura saiu do HUD (fica na Preparação e na Pausa) e o cartão de fase também.
     // Menus, preparação, pausa e resultados são telas do UIRoot.
     public class GameHud : MonoBehaviour
     {
-        private static readonly string[] StanceLabels = { "EQUILIBRADA", "OFENSIVA", "DEFENSIVA" };
         private static readonly string[] ClassPortraits =
         {
             "BattleArt:Portrait_Archer", "BattleArt:Portrait_Warrior", "TroopCards/troop_lancer", "Hud/portrait_mage",
             "Hud/portrait_healer", "BattleArt:Portrait_Knight"
         };
+
+        // Coluna da direita: rei + até 4 classes (cabem 5 retratos).
+        private const int MaxPortraits = 5;
 
         private LevelManager level;
         private ArmyManager army;
@@ -28,14 +31,11 @@ namespace LegionRush
         private TMP_Text gemsText;
         private TMP_Text levelLabel;
         private Image progressFill;
-        private RectTransform progressMarker;
+        private readonly Image[] progressNodes = new Image[3];
         private GameObject bossPanel;
         private Image bossFill;
         private TMP_Text bossValue;
         private TMP_Text bossName;
-        private TMP_Text stanceLabel;
-        private TMP_Text phaseLabel;
-        private TMP_Text worldLabel;
         private TMP_Text kingCount;
         private readonly GameObject[] classSlots = new GameObject[ArmyConfig.ClassCount];
         private readonly TMP_Text[] classCounts = new TMP_Text[ArmyConfig.ClassCount];
@@ -46,6 +46,7 @@ namespace LegionRush
         private readonly bool[] skillReady = new bool[SkillSystem.SlotCount];
         private readonly GameObject[] skillReadyIcon = new GameObject[SkillSystem.SlotCount];
         private int shownGold = int.MinValue;
+        private int shownGems = int.MinValue;
         private int shownSoldiers = -1;
         private float classRefresh;
 
@@ -91,9 +92,9 @@ namespace LegionRush
         private void HandleBossPhase(BossController boss, int phase) => Toast($"FASE {phase} DO CHEFÃO!");
         private void HandleSkillFailed(SkillDefinition skill) => Toast("Sem alvo no alcance");
 
+        // O ganho ou a perda aparece como número flutuante sobre o exército (CommanderController); aqui só vibra.
         private void HandleGateApplied(GateOption option, int before, int after)
         {
-            Toast($"{option.title} {option.subtitle}");
             if (!option.IsPositive) Haptics.Impact();
         }
 
@@ -123,88 +124,86 @@ namespace LegionRush
             BuildSkills();
         }
 
-        // Topo no grid do mockup (941×1672): moedas, nível com trilho, gemas, ajustes; postura e cartão da fase abaixo.
+        // Topo no grid do mockup (941×1672): moedas, nível com trilho e 3 nós, gemas e ajustes.
         private void BuildTop()
         {
-            goldText = Wallet("Bar_Coin", LegionUI.Edge.TopLeft, 16, 16, 270, 76, 0.37f, 0.74f);
-            gemsText = Wallet("Bar_Gem", LegionUI.Edge.TopRight, 662, 16, 860, 76, 0.33f, 0.72f);
+            goldText = Wallet("Hud/hud_gold", LegionUI.Edge.TopLeft, 16, 16, 211, 86, 0.38f, 0.94f);
+            gemsText = Wallet("Hud/hud_gems", LegionUI.Edge.TopRight, 676, 16, 852, 86, 0.4f, 0.94f);
 
-            Image settings = BattleArt.Image(safeRoot, "Button_Settings", "Settings");
-            LegionUI.Place(settings.rectTransform, LegionUI.Edge.TopRight, 868, 12, 932, 76);
+            Image settings = LegionArt.Image(safeRoot, "Hud/hud_settings", false, "Settings");
+            LegionUI.Place(settings.rectTransform, LegionUI.Edge.TopRight, 864, 16, 930, 86);
             MainMenuButtons.Make(settings.rectTransform, settings, Pause);
 
             // Nível: aba com o título e trilho preenchido pelo avanço na pista, coroa no fim.
             Image levelArt = BattleArt.Image(safeRoot, "Level_Bar", "Level");
-            RectTransform levelBox = LegionUI.Place(levelArt.rectTransform, LegionUI.Edge.Top, 300, 18, 648, 94);
-            levelLabel = UI.Label(levelBox, "NÍVEL 1", Mathf.RoundToInt(24 * LegionUI.Px), Color.white, TextAnchor.MiddleCenter, true, "Title", LegionTextStyle.Hud);
-            UI.Place(levelLabel.rectTransform, 0.25f, 0.55f, 0.75f, 0.98f);
+            levelArt.preserveAspect = false;
+            RectTransform levelBox = LegionUI.Place(levelArt.rectTransform, LegionUI.Edge.Top, 271, 10, 671, 97);
+            levelLabel = UI.Label(levelBox, "NÍVEL 1", Mathf.RoundToInt(30 * LegionUI.Px), Color.white, TextAnchor.MiddleCenter, true, "Title",
+                LegionTextStyle.Hud);
+            UI.Place(levelLabel.rectTransform, 0.22f, 0.5f, 0.78f, 1f);
             levelLabel.textWrappingMode = TextWrappingModes.NoWrap;
             RectTransform track = UI.Rect(levelBox, "Track");
             UI.Place(track, 0.085f, 0.18f, 0.855f, 0.46f);
             progressFill = LegionArt.Image(track, "ProgressBars/bar_fill_orange", true, "Fill");
             progressFill.color = new Color(1f, 0.86f, 0.25f);
             UI.Stretch(progressFill.rectTransform, 2f, 2f, 2f, 2f);
-            // Divisões do trilho em quatro trechos, como na arte.
-            for (int i = 1; i <= 3; i++)
+            // 3 nós redondos nos quartos do trilho; ficam dourados quando o exército passa por eles.
+            for (int i = 0; i < progressNodes.Length; i++)
             {
-                Image tick = UI.Panel(track, new Color(0.05f, 0.1f, 0.25f, 0.9f), "Tick");
-                tick.raycastTarget = false;
-                UI.Place(tick.rectTransform, i / 4f - 0.006f, 0f, i / 4f + 0.006f, 1f);
+                RectTransform node = UI.Rect(track, "Node" + i);
+                float x = (i + 1) / 4f;
+                node.anchorMin = node.anchorMax = new Vector2(x, 0.5f);
+                node.sizeDelta = new Vector2(30f, 30f);
+                Image ring = node.gameObject.AddComponent<Image>();
+                ring.sprite = UIStyle.Circle;
+                ring.color = new Color(0.03f, 0.07f, 0.2f);
+                ring.raycastTarget = false;
+                Image dot = UI.Panel(node, Color.white, "Dot");
+                dot.sprite = UIStyle.Circle;
+                dot.type = Image.Type.Simple;
+                UI.Stretch(dot.rectTransform, 5f, 5f, 5f, 5f);
+                progressNodes[i] = dot;
             }
-            progressMarker = UI.Rect(track, "Marker");
-
-            // Postura do exército: o toque alterna entre equilibrada, ofensiva e defensiva.
-            Image posture = BattleArt.Image(safeRoot, "Posture", "Stance");
-            LegionUI.Place(posture.rectTransform, LegionUI.Edge.TopLeft, 14, 90, 290, 164);
-            MainMenuButtons.Make(posture.rectTransform, posture, CycleStance);
-            TMP_Text caption = UI.Label(posture.transform, "POSTURA:", Mathf.RoundToInt(15 * LegionUI.Px), new Color(1f, 0.82f, 0.3f), TextAnchor.MiddleLeft,
-                true, "Caption", LegionTextStyle.Menu);
-            UI.Place(caption.rectTransform, 0.28f, 0.52f, 0.8f, 0.9f);
-            stanceLabel = UI.Label(posture.transform, "EQUILIBRADA", Mathf.RoundToInt(24 * LegionUI.Px), Color.white, TextAnchor.MiddleLeft, true,
-                "Value", LegionTextStyle.PrimaryButton);
-            UI.Place(stanceLabel.rectTransform, 0.28f, 0.1f, 0.8f, 0.56f);
-            stanceLabel.textWrappingMode = TextWrappingModes.NoWrap;
-
-            // Fase e mundo atuais.
-            Image phase = BattleArt.Image(safeRoot, "Phase_Card", "Phase");
-            LegionUI.Place(phase.rectTransform, LegionUI.Edge.TopRight, 672, 90, 932, 166);
-            phaseLabel = UI.Label(phase.transform, "FASE 1", Mathf.RoundToInt(17 * LegionUI.Px), new Color(1f, 0.82f, 0.3f), TextAnchor.MiddleLeft,
-                true, "Phase", LegionTextStyle.Menu);
-            UI.Place(phaseLabel.rectTransform, 0.38f, 0.5f, 0.97f, 0.9f);
-            worldLabel = UI.Label(phase.transform, string.Empty, Mathf.RoundToInt(20 * LegionUI.Px), Color.white, TextAnchor.MiddleLeft, true,
-                "World", LegionTextStyle.PrimaryButton);
-            UI.Place(worldLabel.rectTransform, 0.38f, 0.1f, 0.97f, 0.54f);
-            worldLabel.textWrappingMode = TextWrappingModes.NoWrap;
         }
 
         private TMP_Text Wallet(string sprite, LegionUI.Edge edge, float x0, float y0, float x1, float y1, float textMin, float textMax)
         {
-            Image chip = BattleArt.Image(safeRoot, sprite, "Chip");
+            Image chip = LegionArt.Image(safeRoot, sprite, false, "Chip");
+            chip.preserveAspect = false;
             LegionUI.Place(chip.rectTransform, edge, x0, y0, x1, y1);
-            TMP_Text value = UI.Label(chip.transform, "0", Mathf.RoundToInt(28 * LegionUI.Px), Color.white, TextAnchor.MiddleCenter, true, "Value",
+            TMP_Text value = UI.Label(chip.transform, "0", Mathf.RoundToInt(34 * LegionUI.Px), Color.white, TextAnchor.MiddleCenter, true, "Value",
                 LegionTextStyle.Hud);
-            UI.Place(value.rectTransform, textMin, 0.12f, textMax, 0.88f);
+            UI.Place(value.rectTransform, textMin, 0.1f, textMax, 0.9f);
             value.textWrappingMode = TextWrappingModes.NoWrap;
             return value;
         }
 
+        // Barra do chefão no topo (285,110,670,176), caveira sobreposta à esquerda e valor dentro da barra. Aparece quando o
+        // chefão entra na tela; nome e estado (22) só durante a luta.
         private void BuildBoss()
         {
-            RectTransform panel = UI.Rect(safeRoot, "Boss");
-            UI.Place(panel, 0.24f, 0.86f, 0.8f, 0.935f);
+            RectTransform panel = LegionUI.Place(UI.Rect(safeRoot, "Boss"), LegionUI.Edge.Top, 285, 110, 670, 176);
             bossPanel = panel.gameObject;
             RectTransform bar = UI.Rect(panel, "Bar");
-            UI.Place(bar, 0.12f, 0.38f, 1f, 0.92f);
+            UI.Place(bar, 0.08f, 0.12f, 1f, 0.88f);
             Image track = LegionArt.Image(bar, "Hud/hud_boss_track", true, "Track");
             UI.Stretch(track.rectTransform);
             bossFill = LegionArt.Image(bar, "Hud/hud_boss_fill", true, "Fill");
             UI.Stretch(bossFill.rectTransform, 3f, 3f, 3f, 3f);
-            bossValue = UI.Label(bar, "0", 36, Color.white, TextAnchor.MiddleCenter, true, "Value", LegionTextStyle.Hud);
-            UI.Stretch(bossValue.rectTransform);
+            bossValue = UI.Label(bar, "0", Mathf.RoundToInt(28 * LegionUI.Px), Color.white, TextAnchor.MiddleCenter, true, "Value", LegionTextStyle.Hud);
+            UI.Stretch(bossValue.rectTransform, 40f, 10f, 0f, 0f);
             Image skull = LegionArt.Image(panel, "Hud/hud_skull", false, "Skull");
-            UI.Place(skull.rectTransform, 0f, 0.2f, 0.17f, 1.05f);
-            bossName = UI.Label(panel, string.Empty, 26, Color.white, TextAnchor.MiddleCenter, true, "Name", LegionTextStyle.Menu);
-            UI.Place(bossName.rectTransform, 0.12f, 0f, 1f, 0.36f);
+            skull.rectTransform.anchorMin = skull.rectTransform.anchorMax = new Vector2(0f, 0.5f);
+            skull.rectTransform.sizeDelta = new Vector2(96f, 100f);
+            skull.rectTransform.anchoredPosition = new Vector2(12f, 0f);
+            bossName = UI.Label(panel, string.Empty, Mathf.RoundToInt(22 * LegionUI.Px), Color.white, TextAnchor.MiddleCenter, true, "Name",
+                LegionTextStyle.Menu);
+            bossName.rectTransform.anchorMin = new Vector2(0f, 0f);
+            bossName.rectTransform.anchorMax = new Vector2(1f, 0f);
+            bossName.rectTransform.pivot = new Vector2(0.5f, 1f);
+            bossName.rectTransform.sizeDelta = new Vector2(0f, 34f);
+            bossName.rectTransform.anchoredPosition = new Vector2(0f, -4f);
+            bossName.textWrappingMode = TextWrappingModes.NoWrap;
             bossPanel.SetActive(false);
         }
 
@@ -216,24 +215,24 @@ namespace LegionRush
                 classCounts[i] = Portrait(ClassPortraits[i], i + 1, out classSlots[i]);
         }
 
-        // Coluna da direita no grid do mockup: um retrato a cada 120 px, começando em y = 516.
+        // Coluna da direita no grid do mockup: um retrato a cada 94 px a partir de y = 560.
         private static void PlacePortrait(RectTransform rect, int slot)
         {
-            float y0 = 516f + slot * 120f;
-            LegionUI.Place(rect, LegionUI.Edge.TopRight, 830, y0, 932, y0 + 104);
+            float y0 = 560f + slot * 94f;
+            LegionUI.Place(rect, LegionUI.Edge.TopRight, 850, y0, 930, y0 + 86);
         }
 
         private TMP_Text Portrait(string sprite, int index, out GameObject slot)
         {
             RectTransform rect = UI.Rect(safeRoot, "Portrait");
-            PlacePortrait(rect, index);
+            PlacePortrait(rect, Mathf.Min(index, MaxPortraits - 1));
             Image art = sprite.StartsWith("BattleArt:")
                 ? BattleArt.Image(rect, sprite.Substring(10), "Art")
                 : LegionArt.Image(rect, sprite, false, "Art");
             UI.Stretch(art.rectTransform);
             // Selo redondo da contagem (cobre o número desenhado na arte).
             RectTransform badge = UI.Rect(rect, "Count");
-            UI.Place(badge, 0.6f, -0.06f, 1.06f, 0.4f);
+            UI.Place(badge, 0.56f, -0.08f, 1.08f, 0.42f);
             Image box = badge.gameObject.AddComponent<Image>();
             box.sprite = UIStyle.Circle;
             box.color = new Color(0.05f, 0.11f, 0.24f, 1f);
@@ -242,63 +241,54 @@ namespace LegionRush
             Outline ring = badge.gameObject.AddComponent<Outline>();
             ring.effectColor = new Color(0.35f, 0.7f, 1f);
             ring.effectDistance = new Vector2(2f, -2f);
-            TMP_Text count = UI.Label(badge, "0", Mathf.RoundToInt(24 * LegionUI.Px), Color.white, TextAnchor.MiddleCenter, true, "Value", LegionTextStyle.Hud);
+            TMP_Text count = UI.Label(badge, "0", Mathf.RoundToInt(22 * LegionUI.Px), Color.white, TextAnchor.MiddleCenter, true, "Value",
+                LegionTextStyle.Hud);
             UI.Stretch(count.rectTransform, 2f, 2f, 0f, 2f);
-            // O rei é um só: no selo dele vai uma coroa (o total do exército já aparece no contador sobre as tropas).
+            count.textWrappingMode = TextWrappingModes.NoWrap;
+            // O selo do rei mostra o total do exército (o contador sobre as tropas saiu); a coroa fica em cima do retrato.
             if (index == 0)
             {
-                count.gameObject.SetActive(false);
-                Image crown = LegionArt.Image(badge, "Hud/hud_crown", false, "Crown");
-                UI.Stretch(crown.rectTransform, 6f, 6f, 6f, 6f);
+                Image crown = LegionArt.Image(rect, "Hud/hud_crown", false, "Crown");
+                UI.Place(crown.rectTransform, 0.22f, 0.86f, 0.78f, 1.22f);
                 crown.preserveAspect = true;
             }
             slot = rect.gameObject;
             return count;
         }
 
+        // 4 habilidades compactas de 121×163, x0 {200,340,480,620}, y 1455–1618. Só arte Hud/skill_* sem texto; Escudo e Cura
+        // usam Hud/skill_shield e Hud/skill_heal quando existirem (Prompt 2) e, até lá, a moldura dourada com ícone.
         private void BuildSkills()
         {
-            float[] x0 = { 52, 270, 488, 706 };
+            float[] x0 = { 200, 340, 480, 620 };
             for (int i = 0; i < SkillSystem.SlotCount; i++)
             {
                 SkillDefinition skill = skills.Slot(i);
                 if (skill == null) continue;
                 int index = i;
-                // Cartas da prancha de batalha; habilidades sem carta própria usam a moldura dourada com ícone.
-                Button button;
-                string icon = null;
-                if (BattleArt.Get("Skill_" + skill.shortLabel) != null)
-                {
-                    Image card = BattleArt.Image(safeRoot, "Skill_" + skill.shortLabel, "Skill" + i);
-                    button = MainMenuButtons.Make(card.rectTransform, card, () => UseSkill(index));
-                }
-                else
-                {
-                    button = LegionUI.SpriteButton(safeRoot, SkillArt(skill.id, out icon), () => UseSkill(index), "Skill" + i);
-                    ((Image)button.targetGraphic).preserveAspect = true;
-                }
+                Button button = LegionUI.SpriteButton(safeRoot, SkillArt(skill.id, out string icon), () => UseSkill(index), "Skill" + i);
+                ((Image)button.targetGraphic).preserveAspect = true;
                 RectTransform rect = (RectTransform)button.transform;
-                LegionUI.Place(rect, LegionUI.Edge.Bottom, x0[i % x0.Length], 1390, x0[i % x0.Length] + 184, 1600);
+                LegionUI.Place(rect, LegionUI.Edge.Bottom, x0[i % x0.Length], 1455, x0[i % x0.Length] + 121, 1618);
                 if (icon != null)
                 {
                     Image symbol = LegionArt.Image(rect, icon, false, "Icon");
-                    UI.Place(symbol.rectTransform, 0.18f, 0.25f, 0.82f, 0.85f);
-                    TMP_Text name = UI.Label(rect, skill.shortLabel, 26, Color.white, TextAnchor.MiddleCenter, true, "Name", LegionTextStyle.Menu);
-                    UI.Place(name.rectTransform, 0.08f, 0.06f, 0.92f, 0.26f);
+                    UI.Place(symbol.rectTransform, 0.16f, 0.3f, 0.84f, 0.84f);
                 }
                 Image cooldown = UI.Panel(rect, new Color(0f, 0.02f, 0.08f, 0.62f), "Cooldown");
                 cooldown.sprite = null;
                 cooldown.type = Image.Type.Filled;
                 cooldown.fillMethod = Image.FillMethod.Vertical;
                 cooldown.fillOrigin = (int)Image.OriginVertical.Top;
-                UI.Place(cooldown.rectTransform, 0.1f, 0.08f, 0.9f, 0.92f);
-                // Selo da própria arte (canto inferior direito): segundos de recarga ou "pronto".
+                UI.Place(cooldown.rectTransform, 0.08f, 0.05f, 0.92f, 0.95f);
+                // Círculo da própria arte (canto inferior direito): segundos de recarga ou "pronto".
                 RectTransform badge = UI.Rect(rect, "Badge");
-                UI.Place(badge, 0.62f, 0.2f, 0.98f, 0.42f);
-                TMP_Text timer = UI.Label(badge, "0", 40, Color.white, TextAnchor.MiddleCenter, true, "Value", LegionTextStyle.Hud);
+                UI.Place(badge, 0.6f, 0.02f, 0.98f, 0.27f);
+                TMP_Text timer = UI.Label(badge, "0", Mathf.RoundToInt(28 * LegionUI.Px), Color.white, TextAnchor.MiddleCenter, true, "Value",
+                    LegionTextStyle.Hud);
                 UI.Stretch(timer.rectTransform);
                 Image ready = LegionArt.Image(rect, "Badges/check", false, "Ready");
-                UI.Place(ready.rectTransform, 0.64f, 0.22f, 0.96f, 0.42f);
+                UI.Place(ready.rectTransform, 0.64f, 0.04f, 0.94f, 0.25f);
                 skillReadyIcon[i] = ready.gameObject;
                 skillButtons[i] = button;
                 skillCooldown[i] = cooldown;
@@ -308,7 +298,6 @@ namespace LegionRush
             }
         }
 
-        // Arte da habilidade: as três da prancha; as demais usam a moldura dourada com um ícone do pacote.
         private static string SkillArt(SkillId id, out string icon)
         {
             icon = null;
@@ -319,18 +308,17 @@ namespace LegionRush
                 case SkillId.CavalryCharge: return "Hud/skill_charge";
                 case SkillId.ArcaneExplosion:
                 case SkillId.Freeze: return "Hud/skill_storm";
-                case SkillId.CollectiveShield: icon = "Icons/shield"; break;
-                case SkillId.AreaHeal: icon = "Icons/potion_green"; break;
+                case SkillId.CollectiveShield:
+                    if (LegionArt.Pick("Hud/skill_shield", "Hud/skill_frame") == "Hud/skill_shield") return "Hud/skill_shield";
+                    icon = "Icons/shield";
+                    break;
+                case SkillId.AreaHeal:
+                    if (LegionArt.Pick("Hud/skill_heal", "Hud/skill_frame") == "Hud/skill_heal") return "Hud/skill_heal";
+                    icon = "Icons/potion_green";
+                    break;
                 default: icon = "Icons/star_badge"; break;
             }
             return "Hud/skill_frame";
-        }
-
-        private static Button IconButton(Transform parent, string sprite, System.Action onClick)
-        {
-            Button button = LegionUI.SpriteButton(parent, sprite, onClick);
-            ((Image)button.targetGraphic).preserveAspect = true;
-            return button;
         }
 
         // ---------- Ações ----------
@@ -341,8 +329,6 @@ namespace LegionRush
             level.SetPaused(true);
             if (UIRoot.Instance != null) UIRoot.Instance.Push<PauseScreen>();
         }
-
-        private void CycleStance() => army.SetStance((FormationStance)(((int)army.Stance + 1) % 3));
 
         private void UseSkill(int index)
         {
@@ -370,18 +356,18 @@ namespace LegionRush
             {
                 if (shownGold != int.MinValue && level.Gold > shownGold) LegionTextFx.Play(goldText, LegionTextAnimation.Pop);
                 shownGold = level.Gold;
-                goldText.SetText("{0}", shownGold);
+                goldText.text = LegionFormat.Short(shownGold);
             }
-            gemsText.SetText("{0}", Economy.Gems);
+            if (Economy.Gems != shownGems)
+            {
+                shownGems = Economy.Gems;
+                gemsText.text = LegionFormat.Short(shownGems);
+            }
             levelLabel.SetText("NÍVEL {0}", level.Config.levelNumber);
             float progress = level.Progress;
             LegionUI.SetProgress(progressFill, progress);
-            progressMarker.anchorMin = new Vector2(progress - 0.05f, 0.05f);
-            progressMarker.anchorMax = new Vector2(progress + 0.05f, 0.95f);
-            progressMarker.offsetMin = progressMarker.offsetMax = Vector2.zero;
-            stanceLabel.text = StanceLabels[(int)army.Stance];
-            phaseLabel.SetText("FASE {0}", level.Config.levelNumber);
-            if (bootstrap != null) worldLabel.text = bootstrap.CurrentWorldName;
+            for (int i = 0; i < progressNodes.Length; i++)
+                progressNodes[i].color = progress >= (i + 1) / 4f ? new Color(1f, 0.8f, 0.2f) : new Color(0.35f, 0.45f, 0.65f);
 
             UpdateArmy();
             UpdateBoss();
@@ -396,17 +382,15 @@ namespace LegionRush
             shownSoldiers = army.Count;
             classRefresh = 0.5f;
             kingCount.SetText("{0}", shownSoldiers);
-            for (int i = 0; i < ArmyConfig.ClassCount; i++)
-            {
-                int n = army.CountOf((UnitClass)i);
-                classSlots[i].SetActive(n > 0);
-                if (n > 0) classCounts[i].SetText("{0}", n);
-            }
-            // Empilha só os retratos visíveis, sem buracos.
+            // Empilha só os retratos visíveis, sem buracos; cabem 5 (rei + 4 classes).
             int slot = 1;
             for (int i = 0; i < ArmyConfig.ClassCount; i++)
             {
-                if (!classSlots[i].activeSelf) continue;
+                int n = army.CountOf((UnitClass)i);
+                bool show = n > 0 && slot < MaxPortraits;
+                classSlots[i].SetActive(show);
+                if (!show) continue;
+                classCounts[i].SetText("{0}", n);
                 PlacePortrait((RectTransform)classSlots[i].transform, slot);
                 slot++;
             }
@@ -415,14 +399,24 @@ namespace LegionRush
         private void UpdateBoss()
         {
             BossController boss = level.Boss;
-            bool show = boss != null && boss.IsEngaged;
+            bool engaged = boss != null && boss.IsEngaged;
+            bool show = boss != null && boss.IsAlive && (engaged || OnScreen(boss.transform.position));
             if (bossPanel.activeSelf != show) bossPanel.SetActive(show);
             if (!show) return;
+            bossName.gameObject.SetActive(engaged);
             LegionUI.SetProgress(bossFill, boss.HealthRatio);
             bossValue.text = Short(boss.Health);
             string status = boss.IsVulnerable ? "VULNERÁVEL!" : boss.IsAirborne ? "EM VOO" : $"FASE {boss.Phase}";
             bossName.text = $"{boss.Definition.displayName.ToUpperInvariant()}  ·  {status}";
             bossFill.color = boss.IsVulnerable ? new Color(1f, 0.9f, 0.4f) : Color.white;
+        }
+
+        private static bool OnScreen(Vector3 world)
+        {
+            Camera cam = Camera.main;
+            if (cam == null) return false;
+            Vector3 v = cam.WorldToViewportPoint(world);
+            return v.z > 0f && v.x > -0.05f && v.x < 1.05f && v.y > -0.05f && v.y < 1.05f;
         }
 
         private void UpdateSkills()

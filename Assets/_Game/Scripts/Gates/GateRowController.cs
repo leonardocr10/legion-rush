@@ -105,16 +105,19 @@ namespace LegionRush
             sign.SetParent(gate, false);
             sign.localPosition = new Vector3(0f, ornate ? 5.75f : 3.75f, ornate ? 0.1f : 0f);
             sign.localRotation = Quaternion.Euler(30f, 0f, 0f);
-            // Placa da prancha de batalha na cor da categoria (ícone à esquerda); o texto vem dos dados do portal.
-            Material plate = PlateMaterial(option.category);
+            // Placa na largura do portal, na cor do efeito (azul soma, verde multiplica, laranja melhora, vermelho perde),
+            // só com o valor em fonte grande e o ícone da arte. Sem subtítulo nem placas ATALHO / CAMINHO LONGO.
+            Material plate = PlateMaterial(PlateColor(option));
             float textX = 0f;
             float textWidth = width - 0.5f;
+            float textHeight = 1.3f;
             if (plate != null)
             {
                 float plateWidth = width - 0.1f;
                 PrimitiveFactory.Part(PrimitiveType.Quad, sign, new Vector3(0f, 0f, -0.02f), new Vector3(plateWidth, plateWidth / 2.75f, 1f), plate, default, false);
-                textX = plateWidth * 0.14f;
-                textWidth = plateWidth * 0.62f;
+                textX = plateWidth * 0.12f;
+                textWidth = plateWidth * 0.68f;
+                textHeight = plateWidth / 2.75f * 0.8f;
             }
             else if (ornate)
             {
@@ -124,14 +127,10 @@ namespace LegionRush
                 PrimitiveFactory.Part(PrimitiveType.Cube, sign, Vector3.zero, new Vector3(width - 0.3f, 1.58f, 0.18f), plaque);
             }
             else PrimitiveFactory.Part(PrimitiveType.Cube, sign, Vector3.zero, new Vector3(width - 0.15f, 1.7f, 0.18f), glow);
-            float titleSize = Mathf.Clamp(0.32f / Mathf.Max(3, option.title.Length) * width, 0.035f, 0.075f);
-            float subtitleSize = Mathf.Clamp(0.5f / Mathf.Max(6, option.subtitle.Length) * width, 0.02f, 0.035f);
-            title = PrimitiveFactory.Label(sign, new Vector3(textX, 0.2f, -0.12f), option.title, 128, titleSize, Color.white);
-            TMP_Text subtitle = PrimitiveFactory.Label(sign, new Vector3(textX, -0.32f, -0.12f), option.subtitle, 96, subtitleSize, new Color(1f, 1f, 1f, 0.95f),
-                LegionTextStyle.Menu);
-            // Títulos longos ("CAMINHO LONGO") encolhem para caber na placa em vez de invadir o portal vizinho.
-            FitWidth(title, textWidth, 0.7f);
-            FitWidth(subtitle, textWidth, 0.4f);
+            string value = PlateText(option);
+            float titleSize = Mathf.Clamp(0.64f / Mathf.Max(3, value.Length) * width, 0.07f, 0.15f);
+            title = PrimitiveFactory.Label(sign, new Vector3(textX, 0f, -0.12f), value, 128, titleSize, Color.white);
+            FitWidth(title, textWidth, textHeight);
             return gate;
         }
 
@@ -140,15 +139,46 @@ namespace LegionRush
         private static readonly System.Collections.Generic.Dictionary<string, Material> plates =
             new System.Collections.Generic.Dictionary<string, Material>();
 
-        private static Material PlateMaterial(GateCategory category)
+        private enum Plate { Blue, Green, Orange, Red }
+
+        // A cor diz o que o portal faz: soma (azul), multiplica (verde), melhora (laranja), perde (vermelho).
+        // Rotas: o atalho traz emboscada (vermelho); o caminho longo dá ouro e tropas (azul).
+        private static Plate PlateColor(GateOption option)
         {
-            string name = category switch
+            switch (option.category)
             {
-                GateCategory.Multiply => "Gate_Green",
-                GateCategory.Upgrade => "Gate_Orange",
-                GateCategory.Resource => "Gate_Orange",
-                GateCategory.Negative => "Gate_Red",
-                GateCategory.Route => "Gate_Red",
+                case GateCategory.Multiply: return Plate.Green;
+                case GateCategory.Upgrade:
+                case GateCategory.Resource: return Plate.Orange;
+                case GateCategory.Negative: return Plate.Red;
+                case GateCategory.Route: return HasEffect(option, GateEffectType.SkipAhead) ? Plate.Red : Plate.Blue;
+                default: return Plate.Blue;
+            }
+        }
+
+        // Só o valor: rotas viram "-40m" (atalho) ou "+120" (ouro do caminho longo); os demais já têm o valor no título.
+        private static string PlateText(GateOption option)
+        {
+            if (option.category != GateCategory.Route || option.effects == null || option.effects.Count == 0) return option.title;
+            GateEffect first = option.effects[0];
+            return first.type == GateEffectType.SkipAhead ? $"-{first.value:0}m" : $"+{first.value:0}";
+        }
+
+        private static bool HasEffect(GateOption option, GateEffectType type)
+        {
+            if (option.effects == null) return false;
+            foreach (GateEffect effect in option.effects)
+                if (effect.type == type) return true;
+            return false;
+        }
+
+        private static Material PlateMaterial(Plate color)
+        {
+            string name = color switch
+            {
+                Plate.Green => "Gate_Green",
+                Plate.Orange => "Gate_Orange",
+                Plate.Red => "Gate_Red",
                 _ => "Gate_Blue"
             };
             if (plates.TryGetValue(name, out Material material)) return material;

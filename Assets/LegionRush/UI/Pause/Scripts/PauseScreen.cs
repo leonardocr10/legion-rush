@@ -51,7 +51,22 @@ namespace LegionRush
             Row(panel, 1068, 1197, "Sair da Batalha", OutcomeArt.Get("Icon_Exit"), false,
                 () => Ui.Confirm("SAIR DA FASE", "Voltar ao menu? O progresso desta partida será perdido.", "SAIR", Game.ReturnToMenu));
 
+            BuildStance(body);
             BuildMission(body);
+        }
+
+        // Postura do exército (saiu do HUD da partida): equilibrada, ofensiva ou defensiva.
+        private void BuildStance(RectTransform body)
+        {
+            ArmyManager army = Game != null && Game.CurrentLevel != null ? Game.CurrentLevel.Army : null;
+            if (army == null) return;
+            TMP_Text caption = UI.Label(body, "POSTURA DO EXÉRCITO", Mathf.RoundToInt(24 * LegionUI.Px), new Color(1f, 0.82f, 0.3f),
+                TextAnchor.MiddleCenter, true, "StanceCaption", LegionTextStyle.PrimaryButton);
+            LegionUI.Place(caption.rectTransform, LegionUI.Edge.Top, 127, 1240, 814, 1280);
+            RectTransform area = LegionUI.Place(UI.Rect(body, "Stance"), LegionUI.Edge.Top, 127, 1288, 814, 1372);
+            LegionTabs tabs = LegionTabs.Create(area, new[] { "EQUILIBRADA", "OFENSIVA", "DEFENSIVA" },
+                i => army.SetStance((FormationStance)i), 22f);
+            tabs.Select((int)army.Stance);
         }
 
         // Linha do painel: Continuar usa o botão azul do pacote; as demais, azul-marinho com contorno claro.

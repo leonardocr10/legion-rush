@@ -49,6 +49,8 @@ namespace LegionRush
             impactPending = false;
             impactTarget = null;
             enraged = false;
+            if (EnemyHealthBar.Wants(kind)) EnemyHealthBar.Attach(this, kind == EnemyKind.HeavyWarrior ? 2.3f : 2.1f);
+            else EnemyHealthBar.Detach(this);
         }
 
         public void ForceAggro() => IsAggro = true;

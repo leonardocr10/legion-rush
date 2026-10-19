@@ -38,11 +38,15 @@ namespace LegionRush
             animDriver = visual != null ? visual.GetComponentInChildren<CharacterAnimatorDriver>(true) : null;
             if (animDriver != null) animDriver.ResetState();
 
-            countLabel = PrimitiveFactory.Label(transform, new Vector3(0f, 3.1f, 0f), "0", 110, 0.06f, Color.white);
+            // Sem contador fixo: o total fica no retrato do rei no HUD. Ganho ou perda aparece como número flutuante.
+            countLabel = PrimitiveFactory.Label(transform, new Vector3(0f, LabelHeight, 0f), string.Empty, 110, 0.06f, Color.white);
             countLabel.transform.localRotation = Quaternion.Euler(30f, 0f, 0f);
-            PrimitiveFactory.Part(PrimitiveType.Cube, countLabel.transform, new Vector3(0f, 0f, 0.06f),
-                new Vector3(1.6f, 0.9f, 0.04f), MaterialLibrary.Get(new Color(0.1f, 0.2f, 0.45f), 0f, 0f, false), default, false);
+            countLabel.gameObject.SetActive(false);
         }
+
+        private const float LabelHeight = 3.1f;
+        private const float FloatSeconds = 0.8f;
+        private float floatTimer;
 
         public void SetEngaged(bool engaged) => desiredFactor = engaged ? 0f : 1f;
 
@@ -60,14 +64,30 @@ namespace LegionRush
         public void SetCountLabel(int count)
         {
             if (countLabel == null || count == shownCount) return;
-            if (shownCount >= 0 && count > shownCount) LegionTextFx.Play(countLabel, LegionTextAnimation.Punch);
+            int delta = shownCount < 0 ? 0 : count - shownCount;
             shownCount = count;
-            countLabel.SetText("{0}", count);
+            if (delta == 0) return;
+            countLabel.text = delta > 0 ? "+" + delta : "-" + (-delta);
+            countLabel.color = delta > 0 ? new Color(0.55f, 1f, 0.45f) : new Color(1f, 0.38f, 0.32f);
+            countLabel.gameObject.SetActive(true);
+            floatTimer = FloatSeconds;
+            LegionTextFx.Play(countLabel, LegionTextAnimation.Punch);
+        }
+
+        private void UpdateFloatingCount(float dt)
+        {
+            if (floatTimer <= 0f || countLabel == null) return;
+            floatTimer -= dt;
+            float t = 1f - Mathf.Clamp01(floatTimer / FloatSeconds);
+            countLabel.transform.localPosition = new Vector3(0f, LabelHeight + t * 0.9f, 0f);
+            countLabel.alpha = t < 0.6f ? 1f : 1f - (t - 0.6f) / 0.4f;
+            if (floatTimer <= 0f) countLabel.gameObject.SetActive(false);
         }
 
         private void Update()
         {
             float dt = Time.deltaTime;
+            UpdateFloatingCount(dt);
             if (ControlEnabled && PointerInput.IsPressed(out Vector2 pointer))
             {
                 if (!dragging)
