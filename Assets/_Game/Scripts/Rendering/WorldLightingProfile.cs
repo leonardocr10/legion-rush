@@ -48,7 +48,7 @@ namespace LegionRush
 
         [Header("Bloom e vinheta")]
         [Range(0f, 3f)] public float bloomIntensity = 0.6f;
-        [Range(0f, 2f)] public float bloomThreshold = 0.95f;
+        [Range(0f, 2f)] public float bloomThreshold = 1.1f;
         [Range(0f, 1f)] public float bloomScatter = 0.65f;
         public Color bloomTint = Color.white;
         [Range(0f, 1f)] public float vignetteIntensity = 0.2f;
@@ -108,7 +108,8 @@ namespace LegionRush
             return p;
         }
 
-        // Dia frio e ensolarado: sol branco-azulado, sombras azuis, tochas laranja de contraste.
+        // Dia frio e ensolarado (Guia de Iluminação: luz fria e alto contraste): sol branco-azulado, sombras azuis,
+        // tochas laranja de contraste e contorno forte nos personagens. Bloom 1,1/0,6 e vinheta 0,2 em todos os mundos.
         private void SetupFrozen()
         {
             sunColor = new Color(1f, 0.97f, 0.94f); sunIntensity = 1.25f; sunPitch = 50f; sunYaw = -30f; shadowStrength = 0.65f;
@@ -117,11 +118,11 @@ namespace LegionRush
             // Neblina azul-clara mais longa: deixa ver o cânion e o castelo do fim (guia de iluminação: "luz fria e brilhante").
             fogColor = new Color(0.64f, 0.79f, 0.98f); fogStart = 55f; fogEnd = 150f;
             // Neve branca na luz e azul só na sombra (referência): balanço quase neutro, split toning suave.
-            postExposure = -0.12f; contrast = 28f; saturation = 24f; temperature = -2f; tint = 0f; colorFilter = Color.white;
+            postExposure = -0.12f; contrast = 32f; saturation = 24f; temperature = -6f; tint = 0f; colorFilter = Color.white;
             splitShadows = new Color(0.47f, 0.5f, 0.57f); splitHighlights = new Color(0.55f, 0.53f, 0.5f); splitBalance = -10f;
-            bloomIntensity = 0.8f; bloomThreshold = 0.9f; bloomScatter = 0.65f; bloomTint = new Color(1f, 0.93f, 0.85f);
-            vignetteIntensity = 0.18f; vignetteColor = new Color(0.1f, 0.15f, 0.3f);
-            characterRimBoost = 0.9f; emissionBoost = 0.35f;
+            bloomIntensity = 0.6f; bloomThreshold = 1.1f; bloomScatter = 0.65f; bloomTint = new Color(1f, 0.93f, 0.85f);
+            vignetteIntensity = 0.2f; vignetteColor = new Color(0.1f, 0.15f, 0.3f);
+            characterRimBoost = 1.1f; emissionBoost = 0.35f;
             torchColor = new Color(1f, 0.55f, 0.2f); torchSpacing = 36f; lavaChannels = false; godRays = false;
             particles = AmbientParticleType.Snow; particleColor = new Color(1f, 1f, 1f, 0.9f); particleRate = 70;
             propStyle = PropStyle.SnowPine; groundColor = new Color(0.92f, 0.95f, 1f); roadColor = new Color(0.66f, 0.74f, 0.86f);
@@ -138,8 +139,8 @@ namespace LegionRush
             fogColor = new Color(0.96f, 0.84f, 0.64f); fogStart = 40f; fogEnd = 105f;
             postExposure = 0.12f; contrast = 16f; saturation = 22f; temperature = 12f; tint = 2f; colorFilter = Color.white;
             splitShadows = new Color(0.56f, 0.47f, 0.42f); splitHighlights = new Color(0.58f, 0.53f, 0.45f); splitBalance = 15f;
-            bloomIntensity = 0.45f; bloomThreshold = 1f; bloomScatter = 0.6f; bloomTint = new Color(1f, 0.88f, 0.7f);
-            vignetteIntensity = 0.22f; vignetteColor = new Color(0.3f, 0.15f, 0.05f);
+            bloomIntensity = 0.6f; bloomThreshold = 1.1f; bloomScatter = 0.6f; bloomTint = new Color(1f, 0.88f, 0.7f);
+            vignetteIntensity = 0.2f; vignetteColor = new Color(0.3f, 0.15f, 0.05f);
             characterRimBoost = 0.3f; emissionBoost = 0.1f;
             torchColor = new Color(1f, 0.6f, 0.25f); torchSpacing = 42f; lavaChannels = false; godRays = false;
             particles = AmbientParticleType.Dust; particleColor = new Color(1f, 0.88f, 0.65f, 0.35f); particleRate = 30;
@@ -157,8 +158,8 @@ namespace LegionRush
             fogColor = new Color(0.62f, 0.8f, 0.78f); fogStart = 40f; fogEnd = 100f;
             postExposure = 0.1f; contrast = 12f; saturation = 25f; temperature = -3f; tint = -4f; colorFilter = Color.white;
             splitShadows = new Color(0.44f, 0.52f, 0.53f); splitHighlights = new Color(0.55f, 0.54f, 0.46f); splitBalance = 0f;
-            bloomIntensity = 0.6f; bloomThreshold = 0.95f; bloomScatter = 0.7f; bloomTint = new Color(0.85f, 1f, 0.9f);
-            vignetteIntensity = 0.24f; vignetteColor = new Color(0.05f, 0.15f, 0.1f);
+            bloomIntensity = 0.6f; bloomThreshold = 1.1f; bloomScatter = 0.7f; bloomTint = new Color(0.85f, 1f, 0.9f);
+            vignetteIntensity = 0.2f; vignetteColor = new Color(0.05f, 0.15f, 0.1f);
             characterRimBoost = 0.5f; emissionBoost = 0.3f;
             torchColor = new Color(1f, 0.62f, 0.25f); torchSpacing = 40f; lavaChannels = false;
             godRays = true; godRayColor = new Color(1f, 0.95f, 0.7f, 0.22f);
@@ -177,8 +178,8 @@ namespace LegionRush
             fogColor = new Color(0.28f, 0.1f, 0.12f); fogStart = 35f; fogEnd = 95f;
             postExposure = 0.08f; contrast = 20f; saturation = 15f; temperature = 8f; tint = 6f; colorFilter = new Color(1f, 0.95f, 0.92f);
             splitShadows = new Color(0.52f, 0.42f, 0.56f); splitHighlights = new Color(0.6f, 0.5f, 0.42f); splitBalance = -10f;
-            bloomIntensity = 0.85f; bloomThreshold = 0.9f; bloomScatter = 0.7f; bloomTint = new Color(1f, 0.6f, 0.4f);
-            vignetteIntensity = 0.32f; vignetteColor = new Color(0.15f, 0f, 0.02f);
+            bloomIntensity = 0.6f; bloomThreshold = 1.1f; bloomScatter = 0.7f; bloomTint = new Color(1f, 0.6f, 0.4f);
+            vignetteIntensity = 0.2f; vignetteColor = new Color(0.15f, 0f, 0.02f);
             characterRimBoost = 1f; emissionBoost = 0.4f;
             torchColor = new Color(1f, 0.45f, 0.15f); torchSpacing = 32f;
             lavaChannels = true; lavaColor = new Color(1f, 0.42f, 0.08f); godRays = false;

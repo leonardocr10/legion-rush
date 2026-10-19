@@ -219,7 +219,8 @@ namespace LegionRush
             {
                 UniversalAdditionalCameraData data = targetCamera.GetUniversalAdditionalCameraData();
                 data.renderPostProcessing = s.PostProcessing;
-                data.antialiasing = AntialiasingMode.None;
+                // FXAA (barato) onde o MSAA é baixo ou desligado; com MSAA 4x ele só borraria.
+                data.antialiasing = s.Msaa < 4 ? AntialiasingMode.FastApproximateAntialiasing : AntialiasingMode.None;
                 data.renderShadows = Shadows;
                 targetCamera.allowMSAA = s.Msaa > 1;
                 targetCamera.allowHDR = s.Hdr;

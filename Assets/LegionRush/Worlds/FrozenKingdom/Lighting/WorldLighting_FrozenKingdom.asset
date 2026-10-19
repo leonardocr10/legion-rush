@@ -28,21 +28,21 @@ MonoBehaviour:
   fogStart: 55
   fogEnd: 150
   postExposure: -0.12
-  contrast: 28
+  contrast: 32
   saturation: 24
-  temperature: -2
+  temperature: -6
   tint: 0
   colorFilter: {r: 1, g: 1, b: 1, a: 1}
   splitShadows: {r: 0.47, g: 0.5, b: 0.57, a: 1}
   splitHighlights: {r: 0.55, g: 0.53, b: 0.5, a: 1}
   splitBalance: -10
-  bloomIntensity: 0.55
-  bloomThreshold: 1
+  bloomIntensity: 0.6
+  bloomThreshold: 1.1
   bloomScatter: 0.6
   bloomTint: {r: 0.85, g: 0.93, b: 1, a: 1}
-  vignetteIntensity: 0.18
+  vignetteIntensity: 0.2
   vignetteColor: {r: 0.1, g: 0.15, b: 0.3, a: 1}
-  characterRimBoost: 0.4
+  characterRimBoost: 1.1
   emissionBoost: 0.2
   torchColor: {r: 1, g: 0.55, b: 0.2, a: 1}
   torchSpacing: 36
